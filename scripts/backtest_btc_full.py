@@ -5,6 +5,15 @@ from src.bot087.datafeed.cache_loader import load_full_parquet
 from src.bot087.strategy.param_store import load_active_params
 from src.bot087.backtest.engine import run_backtest_long_only
 
+import os, sys
+from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+os.environ["BOT087_PROJECT_ROOT"] = str(PROJECT_ROOT)
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+
 
 def trades_to_df(trades):
     if not trades:
