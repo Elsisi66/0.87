@@ -64,6 +64,96 @@ class GAConfig:
 # =========================
 # Paths / saving
 # =========================
+def _ensure_indicators(df: pd.DataFrame, p: Dict[str, Any]) -> pd.DataFrame:
+    """
+    If processed CSVs are missing indicators, compute them here so signals are not killed by 0-defaults.
+    Computes: EMA_{ema_span}, EMA_{ema_trend_long}, EMA_200, EMA_200_SLOPE, RSI, ATR, WILLR, PLUS_DI, MINUS_DI, ADX
+    """
+    df = df.copy()
+
+    # enforce numeric OHLC
+    for col in ["Open", "High", "Low", "Close"]:
+        df[col] = pd.to_numeric(df[col], errors="coerce")
+    df = df.dropna(subset=["Open", "High", "Low", "Close"]).reset_index(drop=True)
+
+    close = df["Close"].astype(float)
+    high = df["High"].astype(float)
+    low  = df["Low"].astype(float)
+
+    # --- EMAs
+    def _ema(s: pd.Series, span: int) -> pd.Series:
+        return s.ewm(span=span, adjust=False).mean()
+
+    ema_span = int(p.get("ema_span", 35))
+    ema_long = int(p.get("ema_trend_long", 120))
+    for n in {ema_span, ema_long, 200}:
+        col = f"EMA_{n}"
+        if col not in df.columns:
+            df[col] = _ema(close, n)
+
+    # --- EMA slope
+    if "EMA_200_SLOPE" not in df.columns:
+        df["EMA_200_SLOPE"] = df["EMA_200"].diff().fillna(0.0)
+
+    # --- RSI (Wilder-style via EMA)
+    if "RSI" not in df.columns:
+        period = 14
+        delta = close.diff()
+        gain = delta.clip(lower=0.0)
+        loss = (-delta).clip(lower=0.0)
+        avg_gain = gain.ewm(alpha=1/period, adjust=False).mean()
+        avg_loss = loss.ewm(alpha=1/period, adjust=False).mean()
+        rs = avg_gain / avg_loss.replace(0.0, np.nan)
+        rsi = 100.0 - (100.0 / (1.0 + rs))
+        df["RSI"] = rsi.fillna(50.0).clip(0.0, 100.0)
+
+    # --- True Range (needed for ATR + ADX)
+    prev_close = close.shift(1)
+    tr = pd.concat([
+        (high - low),
+        (high - prev_close).abs(),
+        (low  - prev_close).abs(),
+    ], axis=1).max(axis=1)
+
+    # --- ATR
+    if "ATR" not in df.columns:
+        period = 14
+        df["ATR"] = tr.ewm(alpha=1/period, adjust=False).mean().fillna(0.0)
+
+    # --- Williams %R
+    if "WILLR" not in df.columns:
+        period = 14
+        hh = high.rolling(period).max()
+        ll = low.rolling(period).min()
+        denom = (hh - ll).replace(0.0, np.nan)
+        willr = -100.0 * (hh - close) / denom
+        df["WILLR"] = willr.fillna(-50.0).clip(-100.0, 0.0)
+
+    # --- ADX / DI
+    need_adx = ("ADX" not in df.columns) or ("PLUS_DI" not in df.columns) or ("MINUS_DI" not in df.columns)
+    if need_adx:
+        period = 14
+        up_move = high.diff()
+        down_move = -low.diff()
+
+        plus_dm = np.where((up_move > down_move) & (up_move > 0.0), up_move, 0.0)
+        minus_dm = np.where((down_move > up_move) & (down_move > 0.0), down_move, 0.0)
+
+        tr_sm = tr.ewm(alpha=1/period, adjust=False).mean()
+        plus_sm = pd.Series(plus_dm, index=df.index).ewm(alpha=1/period, adjust=False).mean()
+        minus_sm = pd.Series(minus_dm, index=df.index).ewm(alpha=1/period, adjust=False).mean()
+
+        plus_di = 100.0 * (plus_sm / tr_sm.replace(0.0, np.nan))
+        minus_di = 100.0 * (minus_sm / tr_sm.replace(0.0, np.nan))
+
+        dx = 100.0 * ((plus_di - minus_di).abs() / (plus_di + minus_di).replace(0.0, np.nan))
+        adx = dx.ewm(alpha=1/period, adjust=False).mean()
+
+        df["PLUS_DI"] = plus_di.fillna(0.0)
+        df["MINUS_DI"] = minus_di.fillna(0.0)
+        df["ADX"] = adx.fillna(0.0)
+
+    return df
 
 def _project_root() -> Path:
     env = os.getenv("BOT087_PROJECT_ROOT")
@@ -126,22 +216,23 @@ def _norm_params(seed: Dict[str, Any]) -> Dict[str, Any]:
     def _list_from_cycles(prefix: str, fallback: Optional[List[float]] = None) -> List[float]:
         if prefix in p and isinstance(p[prefix], list) and len(p[prefix]) == 5:
             return [float(x) for x in p[prefix]]
+
+        base = prefix.replace("_by_cycle", "")  # FIX
         out = []
         ok = True
         for i in range(5):
-            k = f"{prefix[:-9]}cycle{i}" if prefix.endswith("_by_cycle") else f"{prefix}_cycle{i}"
-            # handle both willr_cycle0 and tp_mult_cycle0 naming
+            k = f"{base}_cycle{i}"  # FIX
             if k in p and p[k] is not None:
                 out.append(float(p[k]))
             else:
                 ok = False
                 break
+
         if ok and len(out) == 5:
             return out
         if fallback is not None:
             return list(map(float, fallback))
-        # safe default
-        return [0.0, 0.0, 0.0, 0.0, 0.0]
+        return [0.0] * 5
 
     # Required lists
     p["willr_by_cycle"] = _list_from_cycles("willr_by_cycle", fallback=p.get("willr_by_cycle"))
