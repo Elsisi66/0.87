@@ -8,6 +8,8 @@ from dataclasses import dataclass, asdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Tuple, Optional
+import tempfile
+
 
 import numpy as np
 import pandas as pd
@@ -80,9 +82,27 @@ def _ensure_dir(p: Path) -> None:
 
 
 def _json_dump(path: Path, payload: Any) -> None:
+    """
+    Atomic JSON write so a crash doesn't corrupt checkpoint/snapshots.
+    """
     _ensure_dir(path.parent)
-    with open(path, "w") as f:
-        json.dump(payload, f, indent=2)
+
+    tmp = None
+    try:
+        fd, tmp_name = tempfile.mkstemp(prefix=path.name + ".", suffix=".tmp", dir=str(path.parent))
+        tmp = Path(tmp_name)
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=2)
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(str(tmp), str(path))
+    finally:
+        if tmp is not None and tmp.exists():
+            try:
+                tmp.unlink()
+            except Exception:
+                pass
+
 
 
 def _json_load(path: Path) -> Any:
@@ -825,6 +845,42 @@ def _append_history(hist_path: Path, row: Dict[str, Any]) -> None:
     else:
         with open(hist_path, "a") as f:
             f.write(line + "\n")
+# =========================
+# RNG state packing (JSON-safe)
+# =========================
+
+def _pack_py_random_state(state) -> Dict[str, Any]:
+    version, internal, gauss_next = state
+    return {"version": int(version), "internal": list(internal), "gauss_next": gauss_next}
+
+
+def _unpack_py_random_state(packed: Dict[str, Any]):
+    version = int(packed["version"])
+    internal = packed["internal"]
+    if isinstance(internal, list):
+        internal = tuple(tuple(x) if isinstance(x, list) else x for x in internal)
+    gauss_next = packed.get("gauss_next", None)
+    return (version, internal, gauss_next)
+
+
+def _pack_np_random_state(state) -> Dict[str, Any]:
+    bitgen, keys, pos, has_gauss, cached = state
+    return {
+        "bitgen": str(bitgen),
+        "keys": keys.tolist() if hasattr(keys, "tolist") else list(keys),
+        "pos": int(pos),
+        "has_gauss": int(has_gauss),
+        "cached_gaussian": float(cached),
+    }
+
+
+def _unpack_np_random_state(packed: Dict[str, Any]):
+    bitgen = packed["bitgen"]
+    keys = np.array(packed["keys"], dtype=np.uint32)
+    pos = int(packed["pos"])
+    has_gauss = int(packed["has_gauss"])
+    cached = float(packed["cached_gaussian"])
+    return (bitgen, keys, pos, has_gauss, cached)
 
 
 # =========================
@@ -874,9 +930,17 @@ def run_ga_montecarlo(
             start_gen = int(ck.get("gen", 0)) + 1
             population = ck.get("population", [])
             best_overall = ck.get("best_overall", None)
-            random.setstate(tuple(ck["py_random_state"])) if "py_random_state" in ck else None
-            np.random.set_state(tuple(ck["np_random_state"])) if "np_random_state" in ck else None
-            print(f"[GA] Resuming: gen={start_gen} pop={len(population)}", flush=True)
+
+            # continue same run_id so files stay together
+            if "run_id" in ck:
+                run_id = str(ck["run_id"])
+
+            if "py_random_state" in ck:
+                random.setstate(_unpack_py_random_state(ck["py_random_state"]))
+            if "np_random_state" in ck:
+                np.random.set_state(_unpack_np_random_state(ck["np_random_state"]))
+
+            print(f"[GA] Resuming: gen={start_gen} pop={len(population)} run_id={run_id}", flush=True)
         else:
             print("[GA] Checkpoint exists but config mismatch -> starting fresh", flush=True)
 
@@ -905,6 +969,17 @@ def run_ga_montecarlo(
 
             best = scored[0]
             avg = best["avg"]
+            top_k = min(8, len(scored))
+            gen_payload = {
+                "utc": datetime.now(timezone.utc).isoformat(),
+                "symbol": symbol,
+                "run_id": run_id,
+                "gen": gen,
+                "splits": splits,
+                "best": best,
+                "top": scored[:top_k],
+            }
+            _json_dump(run_dir / f"gen_{gen:03d}.json", gen_payload)
 
             # Print progress
             print(
@@ -960,13 +1035,15 @@ def run_ga_montecarlo(
             # Checkpoint every generation
             ck_payload = {
                 "symbol": symbol,
+                "run_id": run_id,
                 "gen": gen,
                 "cfg_fingerprint": _cfg_fingerprint(cfg),
                 "population": population,
                 "best_overall": best_overall,
-                "py_random_state": list(random.getstate()),
-                "np_random_state": list(np.random.get_state()),
+                "py_random_state": _pack_py_random_state(random.getstate()),
+                "np_random_state": _pack_np_random_state(np.random.get_state()),
             }
+
             _save_checkpoint(out_root, symbol, ck_payload)
 
             # Breed next population
