@@ -10,7 +10,6 @@ from pathlib import Path
 from typing import Any, Dict, List, Tuple, Optional
 import tempfile
 
-
 import numpy as np
 import pandas as pd
 from multiprocessing import Pool
@@ -73,6 +72,8 @@ def _ensure_indicators(df: pd.DataFrame, p: Dict[str, Any]) -> pd.DataFrame:
 
     # enforce numeric OHLC
     for col in ["Open", "High", "Low", "Close"]:
+        if col not in df.columns:
+            raise ValueError(f"Missing required OHLC column: {col}")
         df[col] = pd.to_numeric(df[col], errors="coerce")
     df = df.dropna(subset=["Open", "High", "Low", "Close"]).reset_index(drop=True)
 
@@ -155,6 +156,7 @@ def _ensure_indicators(df: pd.DataFrame, p: Dict[str, Any]) -> pd.DataFrame:
 
     return df
 
+
 def _project_root() -> Path:
     env = os.getenv("BOT087_PROJECT_ROOT")
     if env:
@@ -194,7 +196,6 @@ def _json_dump(path: Path, payload: Any) -> None:
                 pass
 
 
-
 def _json_load(path: Path) -> Any:
     with open(path, "r") as f:
         return json.load(f)
@@ -217,11 +218,11 @@ def _norm_params(seed: Dict[str, Any]) -> Dict[str, Any]:
         if prefix in p and isinstance(p[prefix], list) and len(p[prefix]) == 5:
             return [float(x) for x in p[prefix]]
 
-        base = prefix.replace("_by_cycle", "")  # FIX
+        base = prefix.replace("_by_cycle", "")
         out = []
         ok = True
         for i in range(5):
-            k = f"{base}_cycle{i}"  # FIX
+            k = f"{base}_cycle{i}"
             if k in p and p[k] is not None:
                 out.append(float(p[k]))
             else:
@@ -766,6 +767,7 @@ def run_backtest_long_only(
 def make_mc_splits(df: pd.DataFrame, cfg: GAConfig, gen: int) -> List[Tuple[int, int, int, int, int, int]]:
     """
     Returns list of splits as (tr0,tr1, va0,va1, te0,te1) indices, contiguous.
+    Assumes 1H bars: days * 24.
     """
     n = len(df)
     bars_train = cfg.train_days * 24
@@ -825,9 +827,6 @@ def _eval_worker(args):
     train_scores = []
     val_scores = []
     test_scores = []
-    train_nets = []
-    val_nets = []
-    test_nets = []
 
     # aggregate metrics
     agg = {
@@ -852,10 +851,6 @@ def _eval_worker(args):
         train_scores.append(s_tr)
         val_scores.append(s_va)
         test_scores.append(s_te)
-
-        train_nets.append(m_tr["net_profit"])
-        val_nets.append(m_va["net_profit"])
-        test_nets.append(m_te["net_profit"])
 
         agg["train"]["net"] += m_tr["net_profit"]
         agg["train"]["trades"] += m_tr["trades"]
@@ -936,6 +931,8 @@ def _append_history(hist_path: Path, row: Dict[str, Any]) -> None:
     else:
         with open(hist_path, "a") as f:
             f.write(line + "\n")
+
+
 # =========================
 # RNG state packing (JSON-safe)
 # =========================
@@ -1010,6 +1007,18 @@ def run_ga_montecarlo(
     seed["two_candle_confirm"] = bool(cfg.two_candle_confirm)
     seed["require_trade_cycles"] = bool(cfg.require_trade_cycles)
 
+    # =========================
+    # CRITICAL FIX:
+    # Ensure indicator columns exist ONCE (otherwise defaults 0 -> trend_ok False -> zero trades)
+    # =========================
+    df = _ensure_indicators(df, seed)
+
+    # Fail fast if anything is still missing (no more silent “0 trades”)
+    required = ["RSI", "ATR", "WILLR", "ADX", "PLUS_DI", "MINUS_DI", "EMA_200", "EMA_200_SLOPE"]
+    missing = [c for c in required if c not in df.columns]
+    if missing:
+        raise ValueError(f"GA data missing indicators after _ensure_indicators(): {missing}")
+
     # Resume if possible
     start_gen = 0
     population: List[Dict[str, Any]] = []
@@ -1025,6 +1034,8 @@ def run_ga_montecarlo(
             # continue same run_id so files stay together
             if "run_id" in ck:
                 run_id = str(ck["run_id"])
+                run_dir = runs_root / run_id
+                _ensure_dir(run_dir)
 
             if "py_random_state" in ck:
                 random.setstate(_unpack_py_random_state(ck["py_random_state"]))
@@ -1134,7 +1145,6 @@ def run_ga_montecarlo(
                 "py_random_state": _pack_py_random_state(random.getstate()),
                 "np_random_state": _pack_np_random_state(np.random.get_state()),
             }
-
             _save_checkpoint(out_root, symbol, ck_payload)
 
             # Breed next population

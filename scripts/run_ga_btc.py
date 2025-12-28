@@ -75,38 +75,52 @@ def _load_df(symbol: str, tf: str) -> pd.DataFrame:
 
     if parquet_fp.exists():
         try:
-            df = pd.read_parquet(parquet_fp)
-            return df
+            return pd.read_parquet(parquet_fp)
         except Exception as e:
             print(f"[WARN] read_parquet failed ({e}). Falling back to yearly CSVs...", flush=True)
 
-    # fallback to yearly processed
     proc_dir = PROJECT_ROOT / "data" / "processed"
     files = sorted(proc_dir.glob(f"{symbol}_*_proc.csv"))
     if not files:
         raise FileNotFoundError(f"No parquet and no yearly processed CSVs found for {symbol} under {proc_dir}")
 
-    dfs: List[pd.DataFrame] = []
-    for fp in files:
-        d = pd.read_csv(fp)
-        dfs.append(d)
-    df = pd.concat(dfs, ignore_index=True)
-    return df
+    dfs: List[pd.DataFrame] = [pd.read_csv(fp) for fp in files]
+    return pd.concat(dfs, ignore_index=True)
 
 
 def main():
     symbol = "BTCUSDT"
     tf = "1h"
 
+    # Import AFTER sys.path/env are set
     from src.bot087.optim.ga import GAConfig, run_ga_montecarlo
+    # Optional smoke-test helpers (safe to import; they’re in the same module)
+    from src.bot087.optim.ga import _norm_params, _ensure_indicators, run_backtest_long_only
 
     df = _load_df(symbol, tf=tf)
+    if "Timestamp" not in df.columns:
+        raise ValueError("Loaded df has no 'Timestamp' column")
+
     df["Timestamp"] = pd.to_datetime(df["Timestamp"], utc=True, errors="coerce")
     df = df.dropna(subset=["Timestamp"]).sort_values("Timestamp").reset_index(drop=True)
 
     print(f"[DATA] rows={len(df)} first={df['Timestamp'].iloc[0]} last={df['Timestamp'].iloc[-1]}", flush=True)
 
     seed = _load_seed(symbol)
+
+    # ---- SMOKE TEST (fast) ----
+    # This proves the seed can generate trades on your dataset before GA starts.
+    seed_norm = _norm_params(seed)
+    df_smoke = _ensure_indicators(df.iloc[:20000].copy(), seed_norm)
+    trades_smoke, m_smoke = run_backtest_long_only(
+        df_smoke,
+        symbol=symbol,
+        p=seed_norm,
+        initial_equity=10_000.0,
+        fee_bps=7.0,
+        slippage_bps=2.0,
+    )
+    print(f"[SMOKE] trades={len(trades_smoke)} net={m_smoke['net_profit']:.2f}", flush=True)
 
     cfg = GAConfig(
         pop_size=40,
@@ -151,10 +165,7 @@ def main():
 
     print("\nBest params (top-level):", flush=True)
     for k in sorted(best_p.keys()):
-        if isinstance(best_p[k], list):
-            print(f"  {k}: {best_p[k]}", flush=True)
-        else:
-            print(f"  {k}: {best_p[k]}", flush=True)
+        print(f"  {k}: {best_p[k]}", flush=True)
 
 
 if __name__ == "__main__":
