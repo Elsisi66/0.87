@@ -143,7 +143,7 @@ def main():
         min_trades_train=40,
         min_trades_val=15,
 
-        two_candle_confirm=True,
+        two_candle_confirm=False,
         require_trade_cycles=True,
 
         # fitness knobs

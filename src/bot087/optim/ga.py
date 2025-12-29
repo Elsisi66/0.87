@@ -46,7 +46,7 @@ class GAConfig:
     min_trades_val: int = 15
 
     # Entry behavior
-    two_candle_confirm: bool = True  # require signal for 2 consecutive closed candles
+    two_candle_confirm: bool = False  # require signal for 2 consecutive closed candles
     require_trade_cycles: bool = True
 
     # Fitness weights
@@ -543,11 +543,6 @@ def build_entry_signal(df: pd.DataFrame, p: Dict[str, Any]) -> np.ndarray:
         sig |= sig_pullback
 
     # 2-candle confirmation (prev 2 bars must be true); entry happens at bar t
-    if bool(p.get("two_candle_confirm", True)):
-        sig = sig & np.roll(sig, 1) & np.roll(sig, 2)
-        sig[:2] = False
-
-    return sig
 
 
 # =========================
@@ -583,9 +578,8 @@ def run_backtest_long_only(
     df = df.dropna(subset=["Timestamp"]).sort_values("Timestamp").reset_index(drop=True)
 
     # entry signal uses t-1 features; enter at t open
-    p2 = dict(p)
-    p2["two_candle_confirm"] = bool(p.get("two_candle_confirm", True))
-    sig = build_entry_signal(df, p2)
+
+    sig = build_entry_signal(df, p)
 
     # Prepare arrays
     ts = df["Timestamp"].to_numpy()
@@ -821,7 +815,7 @@ def _eval_worker(args):
 
     # ensure required flags exist
     ind = _norm_params(ind)
-    ind["two_candle_confirm"] = bool(cfg.two_candle_confirm)
+    ind["two_candle_confirm"] = False
     ind["require_trade_cycles"] = bool(cfg.require_trade_cycles)
 
     train_scores = []
@@ -1004,7 +998,7 @@ def run_ga_montecarlo(
 
     # Normalize seed params
     seed = _norm_params(seed_params)
-    seed["two_candle_confirm"] = bool(cfg.two_candle_confirm)
+    seed["two_candle_confirm"] = False
     seed["require_trade_cycles"] = bool(cfg.require_trade_cycles)
 
     # =========================
