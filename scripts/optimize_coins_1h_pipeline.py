@@ -28,7 +28,7 @@ import sys
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional
+from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 import pandas as pd
 
@@ -42,6 +42,7 @@ from src.bot087.optim.ga import (  # noqa: E402
     _ensure_indicators,
     _norm_params,
     build_entry_signal,
+    make_mc_splits,
     run_ga_montecarlo,
     run_backtest_long_only,
 )
@@ -206,6 +207,26 @@ def enforce_nla_and_validate(df: pd.DataFrame, params: Dict[str, Any], symbol: s
     missing = [c for c in required if c not in dfi.columns]
     if missing:
         raise ValueError(f"{symbol}: missing required indicators: {missing}")
+
+    # Some datasets ship partially precomputed indicators with leading NaNs.
+    # Fill deterministically before enforcing the no-NaN check.
+    fill_defaults = {
+        "RSI": 50.0,
+        "ATR": 0.0,
+        "WILLR": -50.0,
+        "ADX": 0.0,
+        "PLUS_DI": 0.0,
+        "MINUS_DI": 0.0,
+        "EMA_200": None,
+        "EMA_200_SLOPE": 0.0,
+    }
+    for c in required:
+        if c not in dfi.columns:
+            continue
+        if c == "EMA_200":
+            dfi[c] = pd.to_numeric(dfi[c], errors="coerce").ffill().bfill()
+        else:
+            dfi[c] = pd.to_numeric(dfi[c], errors="coerce").fillna(fill_defaults[c])
 
     nan_cols = [c for c in required if dfi[c].isna().any()]
     if nan_cols:
@@ -458,6 +479,198 @@ def _run_phase_ga(
     )
 
 
+def _merge_cycle1_cycle3_seed(c1: Dict[str, Any], c3: Dict[str, Any], base: str = "cycle3") -> Dict[str, Any]:
+    if base not in {"cycle1", "cycle3"}:
+        raise ValueError(f"base must be cycle1|cycle3, got {base}")
+    out = _norm_params(dict(c3 if base == "cycle3" else c1))
+    c1n = _norm_params(dict(c1))
+    c3n = _norm_params(dict(c3))
+
+    for key in CYCLE_ARRAY_KEYS:
+        arr = list(out[key])
+        arr[1] = float(c1n[key][1])
+        arr[3] = float(c3n[key][3])
+        out[key] = arr
+
+    out["trade_cycles"] = [1, 3]
+    out["require_trade_cycles"] = True
+    out["two_candle_confirm"] = False
+    out["cycle_shift"] = 1
+    out["cycle_fill"] = int(out.get("cycle_fill", 2))
+    return _norm_params(out)
+
+
+def _segment_score(m: Dict[str, float], cfg: GAConfig, min_trades: int) -> float:
+    if float(m.get("trades", 0.0)) < float(min_trades):
+        return -1e9
+    score = float(m.get("net_profit", 0.0))
+    score -= float(cfg.dd_penalty) * float(m.get("max_dd", 0.0)) * float(cfg.initial_equity)
+    score -= float(cfg.trade_penalty) * float(m.get("trades", 0.0))
+    return float(score)
+
+
+def _avg_metrics(ms: List[Dict[str, float]]) -> Dict[str, float]:
+    if not ms:
+        return {"net": 0.0, "pf": 0.0, "dd": 0.0, "trades": 0.0, "win": 0.0}
+    k = float(len(ms))
+    return {
+        "net": float(sum(float(m.get("net_profit", 0.0)) for m in ms) / k),
+        "pf": float(sum(float(m.get("profit_factor", 0.0)) for m in ms) / k),
+        "dd": float(sum(float(m.get("max_dd", 0.0)) for m in ms) / k),
+        "trades": float(sum(float(m.get("trades", 0.0)) for m in ms) / k),
+        "win": float(sum(float(m.get("win_rate_pct", 0.0)) for m in ms) / k),
+    }
+
+
+def evaluate_mc(
+    df: pd.DataFrame,
+    symbol: str,
+    params: Dict[str, Any],
+    cfg: GAConfig,
+    split_gen: int = 0,
+) -> Dict[str, Any]:
+    p = _phase_seed(params, trade_cycles=list(params.get("trade_cycles", [1, 3])))
+    dfi = _ensure_indicators(df.copy(), p)
+    splits = make_mc_splits(dfi, cfg, gen=int(split_gen))
+
+    train_ms: List[Dict[str, float]] = []
+    val_ms: List[Dict[str, float]] = []
+    test_ms: List[Dict[str, float]] = []
+    val_nets: List[float] = []
+    split_rows: List[Dict[str, Any]] = []
+    train_scores: List[float] = []
+    val_scores: List[float] = []
+
+    for idx, (tr0, tr1, va0, va1, te0, te1) in enumerate(splits):
+        dtr = dfi.iloc[tr0:tr1].reset_index(drop=True)
+        dva = dfi.iloc[va0:va1].reset_index(drop=True)
+        dte = dfi.iloc[te0:te1].reset_index(drop=True)
+
+        _, mtr = run_backtest_long_only(
+            dtr,
+            symbol=symbol,
+            p=p,
+            initial_equity=cfg.initial_equity,
+            fee_bps=cfg.fee_bps,
+            slippage_bps=cfg.slippage_bps,
+            collect_trades=False,
+        )
+        _, mva = run_backtest_long_only(
+            dva,
+            symbol=symbol,
+            p=p,
+            initial_equity=cfg.initial_equity,
+            fee_bps=cfg.fee_bps,
+            slippage_bps=cfg.slippage_bps,
+            collect_trades=False,
+        )
+        _, mte = run_backtest_long_only(
+            dte,
+            symbol=symbol,
+            p=p,
+            initial_equity=cfg.initial_equity,
+            fee_bps=cfg.fee_bps,
+            slippage_bps=cfg.slippage_bps,
+            collect_trades=False,
+        )
+
+        train_ms.append(mtr)
+        val_ms.append(mva)
+        test_ms.append(mte)
+        val_nets.append(float(mva.get("net_profit", 0.0)))
+        train_scores.append(_segment_score(mtr, cfg, cfg.min_trades_train))
+        val_scores.append(_segment_score(mva, cfg, cfg.min_trades_val))
+
+        split_rows.append(
+            {
+                "split_idx": idx,
+                "tr0": int(tr0),
+                "tr1": int(tr1),
+                "va0": int(va0),
+                "va1": int(va1),
+                "te0": int(te0),
+                "te1": int(te1),
+                "val_net": float(mva.get("net_profit", 0.0)),
+                "val_pf": float(mva.get("profit_factor", 0.0)),
+                "val_dd": float(mva.get("max_dd", 0.0)),
+                "val_trades": float(mva.get("trades", 0.0)),
+                "test_net": float(mte.get("net_profit", 0.0)),
+            }
+        )
+
+    train_avg = _avg_metrics(train_ms)
+    val_avg = _avg_metrics(val_ms)
+    test_avg = _avg_metrics(test_ms)
+    stability = float(sum(1 for x in val_nets if x > 0.0) / max(1, len(val_nets)))
+
+    fitness = float(cfg.w_train * (sum(train_scores) / max(1, len(train_scores))) + cfg.w_val * (sum(val_scores) / max(1, len(val_scores))))
+    if val_avg["net"] < 0:
+        fitness -= float(cfg.bad_val_penalty)
+
+    return {
+        "train": train_avg,
+        "val": val_avg,
+        "test": test_avg,
+        "fitness": fitness,
+        "stability": stability,
+        "splits": split_rows,
+    }
+
+
+def pass_fail(eval_out: Dict[str, Any]) -> Tuple[bool, List[str]]:
+    val = eval_out.get("val", {})
+    reasons: List[str] = []
+    if float(val.get("net", 0.0)) <= 0.0:
+        reasons.append("val_net<=0")
+    if float(val.get("pf", 0.0)) < 1.20:
+        reasons.append("val_pf<1.20")
+    if float(val.get("dd", 1.0)) > 0.25:
+        reasons.append("val_dd>0.25")
+    if float(val.get("trades", 0.0)) < 15.0:
+        reasons.append("val_trades<15")
+    if float(eval_out.get("stability", 0.0)) < 0.70:
+        reasons.append("stability<0.70")
+    return len(reasons) == 0, reasons
+
+
+def _summary_row(symbol: str, phase: str, run_id: str, eval_out: Dict[str, Any], passed: Optional[bool]) -> Dict[str, Any]:
+    val = eval_out.get("val", {})
+    test = eval_out.get("test", {})
+    return {
+        "symbol": symbol,
+        "phase": phase,
+        "val_net": float(val.get("net", 0.0)),
+        "val_pf": float(val.get("pf", 0.0)),
+        "val_dd": float(val.get("dd", 0.0)),
+        "val_trades": float(val.get("trades", 0.0)),
+        "stability": float(eval_out.get("stability", 0.0)),
+        "test_net": float(test.get("net", 0.0)),
+        "fitness": float(eval_out.get("fitness", 0.0)),
+        "PASS/FAIL": ("PASS" if passed else "FAIL") if passed is not None else "",
+        "run_id": run_id,
+        "timestamp": _utc_now_iso(),
+    }
+
+
+def _write_non_btc_active_params(symbol: str, params: Dict[str, Any], run_id: str, phase: str, eval_out: Dict[str, Any]) -> Path:
+    if symbol.upper() == "BTCUSDT":
+        raise ValueError("BTC params are read-only and must not be written.")
+    out_path = PROJECT_ROOT / "data" / "metadata" / "params" / f"{symbol}_active_params.json"
+    payload = {
+        "symbol": symbol,
+        "params": _norm_params(dict(params)),
+        "meta": {
+            "saved_at_utc": _utc_now_iso(),
+            "run_id": run_id,
+            "source_phase": phase,
+            "eval": eval_out,
+            "note": "Generated by optimize_coins_1h_pipeline.py",
+        },
+    }
+    _write_json(out_path, payload)
+    return out_path
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--symbols", default="", help="Comma-separated symbol list. Default: auto-discover from data/processed/_full")
@@ -474,7 +687,9 @@ def main() -> None:
     ap.add_argument("--fee-bps", type=float, default=7.0)
     ap.add_argument("--slippage-bps", type=float, default=2.0)
     ap.add_argument("--early-stop-patience", type=int, default=40)
-    ap.add_argument("--cleanup-temp-ga", action="store_true", default=True)
+    ap.add_argument("--try-cycle123", action="store_true", help="Run optional merged [1,2,3] phase and keep it only if robustly better")
+    ap.add_argument("--cleanup-temp-ga", dest="cleanup_temp_ga", action="store_true", default=True)
+    ap.add_argument("--no-cleanup-temp-ga", dest="cleanup_temp_ga", action="store_false")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -531,42 +746,136 @@ def main() -> None:
         )
         _write_json(run_dir / f"{symbol}_cycle3.json", {"symbol": symbol, "params": c3.best_params, "source": c3.phase})
 
+        eval_cfg = _ga_cfg_from_args(args)
+        c1_eval = evaluate_mc(dfi, symbol, c1.best_params, eval_cfg, split_gen=7001)
+        c3_eval = evaluate_mc(dfi, symbol, c3.best_params, eval_cfg, split_gen=7003)
+        c1_pass, c1_reasons = pass_fail(c1_eval)
+        c3_pass, c3_reasons = pass_fail(c3_eval)
+
+        merged_seed = _merge_cycle1_cycle3_seed(
+            c1.best_params,
+            c3.best_params,
+            base=("cycle1" if c1_eval["fitness"] >= c3_eval["fitness"] else "cycle3"),
+        )
+        print(f"[{symbol}] merged cycle1+cycle3 optimization ...", flush=True)
+        merged = _run_phase_ga(
+            symbol=symbol,
+            phase="merged",
+            trade_cycles=[1, 3],
+            seed_params=merged_seed,
+            df=dfi,
+            args=args,
+            coin_run_dir=run_dir,
+            paths=paths,
+        )
+        merged_eval = evaluate_mc(dfi, symbol, merged.best_params, eval_cfg, split_gen=7013)
+        merged_pass, merged_reasons = pass_fail(merged_eval)
+
+        chosen_phase = "merged"
+        chosen_params = merged.best_params
+        chosen_eval = merged_eval
+        chosen_pass = merged_pass
+        chosen_reasons = merged_reasons
+
+        if args.try_cycle123:
+            print(f"[{symbol}] optional merged123 optimization ...", flush=True)
+            merged123_seed = _phase_seed(merged_seed, trade_cycles=[1, 2, 3])
+            merged123 = _run_phase_ga(
+                symbol=symbol,
+                phase="merged123",
+                trade_cycles=[1, 2, 3],
+                seed_params=merged123_seed,
+                df=dfi,
+                args=args,
+                coin_run_dir=run_dir,
+                paths=paths,
+            )
+            merged123_eval = evaluate_mc(dfi, symbol, merged123.best_params, eval_cfg, split_gen=7123)
+            merged123_pass, merged123_reasons = pass_fail(merged123_eval)
+            phase_summary_rows.append(_summary_row(symbol, "merged123", run_id, merged123_eval, merged123_pass))
+
+            robustly_better = (
+                merged123_pass
+                and merged123_eval["fitness"] > merged_eval["fitness"]
+                and merged123_eval["val"]["net"] >= merged_eval["val"]["net"]
+                and merged123_eval["test"]["net"] >= merged_eval["test"]["net"]
+                and merged123_eval["stability"] >= merged_eval["stability"]
+            )
+            if robustly_better:
+                chosen_phase = "merged123"
+                chosen_params = merged123.best_params
+                chosen_eval = merged123_eval
+                chosen_pass = merged123_pass
+                chosen_reasons = merged123_reasons
+
+        if args.dry_run:
+            active_path = run_dir / f"{symbol}_active_params.dryrun.json"
+            _write_json(active_path, {"symbol": symbol, "params": chosen_params, "note": "dry-run; no metadata params write"})
+        else:
+            active_path = _write_non_btc_active_params(
+                symbol=symbol,
+                params=chosen_params,
+                run_id=run_id,
+                phase=chosen_phase,
+                eval_out=chosen_eval,
+            )
+
+        final_payload = {
+            "timestamp_utc": _utc_now_iso(),
+            "symbol": symbol,
+            "run_id": run_id,
+            "phase_results": {
+                "cycle1": {"eval": c1_eval, "pass": c1_pass, "reasons": c1_reasons},
+                "cycle3": {"eval": c3_eval, "pass": c3_pass, "reasons": c3_reasons},
+                "merged": {"eval": merged_eval, "pass": merged_pass, "reasons": merged_reasons},
+            },
+            "selected_phase": chosen_phase,
+            "selected_pass": chosen_pass,
+            "selected_reasons": chosen_reasons,
+            "active_params_path": str(active_path),
+        }
+        _write_json(run_dir / "final_report.json", final_payload)
+
         phase_summary_rows.extend(
             [
-                {
-                    "symbol": symbol,
-                    "phase": "cycle1",
-                    "val_net": "",
-                    "val_pf": "",
-                    "val_dd": "",
-                    "val_trades": "",
-                    "stability": "",
-                    "test_net": "",
-                    "fitness": float(c1.report.get("best_overall", {}).get("fitness", 0.0)),
-                    "PASS/FAIL": "",
-                    "run_id": run_id,
-                    "timestamp": _utc_now_iso(),
-                },
-                {
-                    "symbol": symbol,
-                    "phase": "cycle3",
-                    "val_net": "",
-                    "val_pf": "",
-                    "val_dd": "",
-                    "val_trades": "",
-                    "stability": "",
-                    "test_net": "",
-                    "fitness": float(c3.report.get("best_overall", {}).get("fitness", 0.0)),
-                    "PASS/FAIL": "",
-                    "run_id": run_id,
-                    "timestamp": _utc_now_iso(),
-                },
+                _summary_row(symbol, "cycle1", run_id, c1_eval, c1_pass),
+                _summary_row(symbol, "cycle3", run_id, c3_eval, c3_pass),
+                _summary_row(symbol, "merged", run_id, merged_eval, merged_pass),
             ]
         )
-        print(f"[{symbol}] cycle1/cycle3 complete: {run_dir}", flush=True)
+
+        print(
+            f"[{symbol}] complete phase={chosen_phase} pass={chosen_pass} "
+            f"val_net={chosen_eval['val']['net']:.2f} val_pf={chosen_eval['val']['pf']:.2f} "
+            f"val_dd={chosen_eval['val']['dd']:.3f} stability={chosen_eval['stability']:.2f}",
+            flush=True,
+        )
+
+    if args.include_btc_read_only:
+        btc = "BTCUSDT"
+        btc_df = load_df_1h(btc)
+        btc_seed = load_seed_params(btc)
+        btc_dfi = enforce_nla_and_validate(btc_df, btc_seed, btc)
+        btc_run_dir = init_coin_run_dir(paths, btc, args, btc_dfi)
+        btc_eval = evaluate_mc(btc_dfi, btc, btc_seed, _ga_cfg_from_args(args), split_gen=7999)
+        btc_pass, btc_reasons = pass_fail(btc_eval)
+        _write_json(
+            btc_run_dir / "btc_read_only_report.json",
+            {
+                "timestamp_utc": _utc_now_iso(),
+                "symbol": btc,
+                "run_id": run_id,
+                "phase": "btc_read_only",
+                "pass": btc_pass,
+                "reasons": btc_reasons,
+                "eval": btc_eval,
+                "note": "BTC params were only read and evaluated; no writes were performed.",
+            },
+        )
+        phase_summary_rows.append(_summary_row(btc, "btc_read_only", run_id, btc_eval, btc_pass))
 
     _append_rows_csv(paths.all_report_csv, phase_summary_rows, ordered_columns=PHASE_SUMMARY_COLUMNS)
-    print(f"[pipeline] cycle1/cycle3 phase complete. Appended {len(phase_summary_rows)} rows to {paths.all_report_csv}")
+    print(f"[pipeline] done. Appended {len(phase_summary_rows)} rows to {paths.all_report_csv}")
 
 
 if __name__ == "__main__":

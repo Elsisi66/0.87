@@ -1,7 +1,6 @@
 # src/bot087/optim/ga.py
 import os
 import json
-import math
 import time
 import random
 from dataclasses import dataclass, asdict
@@ -15,9 +14,9 @@ import pandas as pd
 from multiprocessing import Pool
 
 
-# =========================
-# Config
-# =========================
+# ============================================================
+# GA Config
+# ============================================================
 
 @dataclass(frozen=True)
 class GAConfig:
@@ -46,122 +45,35 @@ class GAConfig:
     min_trades_val: int = 15
 
     # Entry behavior
-    two_candle_confirm: bool = False  # require signal for 2 consecutive closed candles
+    # (Keep support in code, but default OFF)
+    two_candle_confirm: bool = False
     require_trade_cycles: bool = True
+
+    # STRICT NO-LOOKAHEAD CONTROL
+    # Enter at bar t OPEN uses cycle from bar t-1 close => cycle_shift=1.
+    cycle_shift: int = 1
+    cycle_fill: int = 2
 
     # Fitness weights
     w_train: float = 0.7
     w_val: float = 0.3
-    dd_penalty: float = 0.45     # multiplied by max_dd * initial_equity
-    trade_penalty: float = 0.8   # multiplied by n_trades (fee/churn pressure)
+    dd_penalty: float = 0.45
+    trade_penalty: float = 0.8
     bad_val_penalty: float = 1200.0  # if val net is negative
 
     # Saving
     resume: bool = True
+    early_stop_patience: int = 0
 
 
-# =========================
+# ============================================================
 # Paths / saving
-# =========================
-def _ensure_indicators(df: pd.DataFrame, p: Dict[str, Any]) -> pd.DataFrame:
-    """
-    If processed CSVs are missing indicators, compute them here so signals are not killed by 0-defaults.
-    Computes: EMA_{ema_span}, EMA_{ema_trend_long}, EMA_200, EMA_200_SLOPE, RSI, ATR, WILLR, PLUS_DI, MINUS_DI, ADX
-    """
-    df = df.copy()
-
-    # enforce numeric OHLC
-    for col in ["Open", "High", "Low", "Close"]:
-        if col not in df.columns:
-            raise ValueError(f"Missing required OHLC column: {col}")
-        df[col] = pd.to_numeric(df[col], errors="coerce")
-    df = df.dropna(subset=["Open", "High", "Low", "Close"]).reset_index(drop=True)
-
-    close = df["Close"].astype(float)
-    high = df["High"].astype(float)
-    low  = df["Low"].astype(float)
-
-    # --- EMAs
-    def _ema(s: pd.Series, span: int) -> pd.Series:
-        return s.ewm(span=span, adjust=False).mean()
-
-    ema_span = int(p.get("ema_span", 35))
-    ema_long = int(p.get("ema_trend_long", 120))
-    for n in {ema_span, ema_long, 200}:
-        col = f"EMA_{n}"
-        if col not in df.columns:
-            df[col] = _ema(close, n)
-
-    # --- EMA slope
-    if "EMA_200_SLOPE" not in df.columns:
-        df["EMA_200_SLOPE"] = df["EMA_200"].diff().fillna(0.0)
-
-    # --- RSI (Wilder-style via EMA)
-    if "RSI" not in df.columns:
-        period = 14
-        delta = close.diff()
-        gain = delta.clip(lower=0.0)
-        loss = (-delta).clip(lower=0.0)
-        avg_gain = gain.ewm(alpha=1/period, adjust=False).mean()
-        avg_loss = loss.ewm(alpha=1/period, adjust=False).mean()
-        rs = avg_gain / avg_loss.replace(0.0, np.nan)
-        rsi = 100.0 - (100.0 / (1.0 + rs))
-        df["RSI"] = rsi.fillna(50.0).clip(0.0, 100.0)
-
-    # --- True Range (needed for ATR + ADX)
-    prev_close = close.shift(1)
-    tr = pd.concat([
-        (high - low),
-        (high - prev_close).abs(),
-        (low  - prev_close).abs(),
-    ], axis=1).max(axis=1)
-
-    # --- ATR
-    if "ATR" not in df.columns:
-        period = 14
-        df["ATR"] = tr.ewm(alpha=1/period, adjust=False).mean().fillna(0.0)
-
-    # --- Williams %R
-    if "WILLR" not in df.columns:
-        period = 14
-        hh = high.rolling(period).max()
-        ll = low.rolling(period).min()
-        denom = (hh - ll).replace(0.0, np.nan)
-        willr = -100.0 * (hh - close) / denom
-        df["WILLR"] = willr.fillna(-50.0).clip(-100.0, 0.0)
-
-    # --- ADX / DI
-    need_adx = ("ADX" not in df.columns) or ("PLUS_DI" not in df.columns) or ("MINUS_DI" not in df.columns)
-    if need_adx:
-        period = 14
-        up_move = high.diff()
-        down_move = -low.diff()
-
-        plus_dm = np.where((up_move > down_move) & (up_move > 0.0), up_move, 0.0)
-        minus_dm = np.where((down_move > up_move) & (down_move > 0.0), down_move, 0.0)
-
-        tr_sm = tr.ewm(alpha=1/period, adjust=False).mean()
-        plus_sm = pd.Series(plus_dm, index=df.index).ewm(alpha=1/period, adjust=False).mean()
-        minus_sm = pd.Series(minus_dm, index=df.index).ewm(alpha=1/period, adjust=False).mean()
-
-        plus_di = 100.0 * (plus_sm / tr_sm.replace(0.0, np.nan))
-        minus_di = 100.0 * (minus_sm / tr_sm.replace(0.0, np.nan))
-
-        dx = 100.0 * ((plus_di - minus_di).abs() / (plus_di + minus_di).replace(0.0, np.nan))
-        adx = dx.ewm(alpha=1/period, adjust=False).mean()
-
-        df["PLUS_DI"] = plus_di.fillna(0.0)
-        df["MINUS_DI"] = minus_di.fillna(0.0)
-        df["ADX"] = adx.fillna(0.0)
-
-    return df
-
+# ============================================================
 
 def _project_root() -> Path:
     env = os.getenv("BOT087_PROJECT_ROOT")
     if env:
         return Path(env).resolve()
-    # assume running from repo root
     return Path.cwd().resolve()
 
 
@@ -174,11 +86,8 @@ def _ensure_dir(p: Path) -> None:
 
 
 def _json_dump(path: Path, payload: Any) -> None:
-    """
-    Atomic JSON write so a crash doesn't corrupt checkpoint/snapshots.
-    """
+    """Atomic JSON write."""
     _ensure_dir(path.parent)
-
     tmp = None
     try:
         fd, tmp_name = tempfile.mkstemp(prefix=path.name + ".", suffix=".tmp", dir=str(path.parent))
@@ -201,16 +110,108 @@ def _json_load(path: Path) -> Any:
         return json.load(f)
 
 
-# =========================
-# Parameter handling (dict-based)
-# =========================
+# ============================================================
+# Indicators (computed if missing)
+# ============================================================
+
+def _ensure_indicators(df: pd.DataFrame, p: Dict[str, Any]) -> pd.DataFrame:
+    """
+    Computes if missing:
+      EMA_{ema_span}, EMA_{ema_trend_long}, EMA_200, EMA_200_SLOPE,
+      RSI, ATR, WILLR, PLUS_DI, MINUS_DI, ADX
+    """
+    df = df.copy()
+
+    for col in ["Open", "High", "Low", "Close"]:
+        if col not in df.columns:
+            raise ValueError(f"Missing required OHLC column: {col}")
+        df[col] = pd.to_numeric(df[col], errors="coerce")
+    df = df.dropna(subset=["Open", "High", "Low", "Close"]).reset_index(drop=True)
+
+    close = df["Close"].astype(float)
+    high = df["High"].astype(float)
+    low = df["Low"].astype(float)
+
+    def _ema(s: pd.Series, span: int) -> pd.Series:
+        return s.ewm(span=span, adjust=False).mean()
+
+    ema_span = int(p.get("ema_span", 35))
+    ema_long = int(p.get("ema_trend_long", 120))
+    for n in {ema_span, ema_long, 200}:
+        col = f"EMA_{n}"
+        if col not in df.columns:
+            df[col] = _ema(close, n)
+
+    if "EMA_200_SLOPE" not in df.columns:
+        df["EMA_200_SLOPE"] = df["EMA_200"].diff().fillna(0.0)
+
+    if "RSI" not in df.columns:
+        period = 14
+        delta = close.diff()
+        gain = delta.clip(lower=0.0)
+        loss = (-delta).clip(lower=0.0)
+        avg_gain = gain.ewm(alpha=1 / period, adjust=False).mean()
+        avg_loss = loss.ewm(alpha=1 / period, adjust=False).mean()
+        rs = avg_gain / avg_loss.replace(0.0, np.nan)
+        rsi = 100.0 - (100.0 / (1.0 + rs))
+        df["RSI"] = rsi.fillna(50.0).clip(0.0, 100.0)
+
+    prev_close = close.shift(1)
+    tr = pd.concat(
+        [
+            (high - low),
+            (high - prev_close).abs(),
+            (low - prev_close).abs(),
+        ],
+        axis=1,
+    ).max(axis=1)
+
+    if "ATR" not in df.columns:
+        period = 14
+        df["ATR"] = tr.ewm(alpha=1 / period, adjust=False).mean().fillna(0.0)
+
+    if "WILLR" not in df.columns:
+        period = 14
+        hh = high.rolling(period).max()
+        ll = low.rolling(period).min()
+        denom = (hh - ll).replace(0.0, np.nan)
+        willr = -100.0 * (hh - close) / denom
+        df["WILLR"] = willr.fillna(-50.0).clip(-100.0, 0.0)
+
+    need_adx = ("ADX" not in df.columns) or ("PLUS_DI" not in df.columns) or ("MINUS_DI" not in df.columns)
+    if need_adx:
+        period = 14
+        up_move = high.diff()
+        down_move = -low.diff()
+
+        plus_dm = np.where((up_move > down_move) & (up_move > 0.0), up_move, 0.0)
+        minus_dm = np.where((down_move > up_move) & (down_move > 0.0), down_move, 0.0)
+
+        tr_sm = tr.ewm(alpha=1 / period, adjust=False).mean()
+        plus_sm = pd.Series(plus_dm, index=df.index).ewm(alpha=1 / period, adjust=False).mean()
+        minus_sm = pd.Series(minus_dm, index=df.index).ewm(alpha=1 / period, adjust=False).mean()
+
+        plus_di = 100.0 * (plus_sm / tr_sm.replace(0.0, np.nan))
+        minus_di = 100.0 * (minus_sm / tr_sm.replace(0.0, np.nan))
+
+        dx = 100.0 * ((plus_di - minus_di).abs() / (plus_di + minus_di).replace(0.0, np.nan))
+        adx = dx.ewm(alpha=1 / period, adjust=False).mean()
+
+        df["PLUS_DI"] = plus_di.fillna(0.0)
+        df["MINUS_DI"] = minus_di.fillna(0.0)
+        df["ADX"] = adx.fillna(0.0)
+
+    return df
+
+
+# ============================================================
+# Parameter handling
+# ============================================================
 
 def _norm_params(seed: Dict[str, Any]) -> Dict[str, Any]:
     """
     Normalize params into the keys this GA/backtest expects.
-    Accepts either:
-      - list form (willr_by_cycle, tp_mult_by_cycle, sl_mult_by_cycle, exit_rsi_by_cycle)
-      - scalar-per-cycle form (willr_cycle0..4, tp_mult_cycle0..4, sl_mult_cycle0..4, exit_rsi_cycle0..4)
+    Accepts either list form (..._by_cycle) or scalar-per-cycle (..._cycle0..4).
     """
     p = dict(seed)
 
@@ -235,15 +236,12 @@ def _norm_params(seed: Dict[str, Any]) -> Dict[str, Any]:
             return list(map(float, fallback))
         return [0.0] * 5
 
-    # Required lists
     p["willr_by_cycle"] = _list_from_cycles("willr_by_cycle", fallback=p.get("willr_by_cycle"))
     p["tp_mult_by_cycle"] = _list_from_cycles("tp_mult_by_cycle", fallback=p.get("tp_mult_by_cycle"))
     p["sl_mult_by_cycle"] = _list_from_cycles("sl_mult_by_cycle", fallback=p.get("sl_mult_by_cycle"))
     p["exit_rsi_by_cycle"] = _list_from_cycles("exit_rsi_by_cycle", fallback=p.get("exit_rsi_by_cycle"))
 
-    # Required scalars with safe defaults
     p.setdefault("willr_floor", -100.0)
-    p.setdefault("willr_max", -30.0)
     p.setdefault("ema_span", 35)
     p.setdefault("ema_trend_long", 120)
     p.setdefault("ema_align", True)
@@ -251,31 +249,31 @@ def _norm_params(seed: Dict[str, Any]) -> Dict[str, Any]:
     p.setdefault("adx_min", 18.0)
     p.setdefault("require_plus_di", True)
 
+    # Extra chop filter for cycle 1 (GA optimizes these)
+    p.setdefault("cycle1_adx_boost", 8.0)   # require ADX >= adx_min + boost when cycle==1
+    p.setdefault("cycle1_ema_sep_atr", 0.35)  # require |EMA_span-EMA_long| >= this * ATR_prev when cycle==1
+
     p.setdefault("entry_rsi_min", 50.0)
     p.setdefault("entry_rsi_max", 65.0)
     p.setdefault("entry_rsi_buffer", 2.0)
 
-    p.setdefault("profit_target_mult", 1.06)
-    p.setdefault("stop_loss_mult", 0.98)
     p.setdefault("max_hold_hours", 48)
-
     p.setdefault("risk_per_trade", 0.02)
     p.setdefault("max_allocation", 0.7)
     p.setdefault("atr_k", 1.0)
 
-    p.setdefault("use_vol_filter", False)
-    p.setdefault("vol_tail_percentile", 0.55)
     p.setdefault("allow_hours", None)
-
-    # Cycles we trade (your default was 1 & 2)
     p.setdefault("trade_cycles", [1, 2])
 
-    # 3-signal toggles (at least one must be True)
-    p.setdefault("use_sig_baseline", True)
-    p.setdefault("use_sig_breakout", False)
-    p.setdefault("use_sig_pullback", False)
+    # Strict NLA defaults
+    p.setdefault("cycle_shift", 1)
+    p.setdefault("cycle_fill", 2)
 
-    # Breakout params
+    # Controlled by GAConfig during eval
+    p.setdefault("two_candle_confirm", False)
+    p.setdefault("require_trade_cycles", True)
+
+    # breakout placeholders
     p.setdefault("breakout_window", 20)
     p.setdefault("breakout_atr_mult", 1.5)
 
@@ -291,14 +289,10 @@ def _mut_gauss(x: float, sigma: float) -> float:
 
 
 def _mut_list_gauss(xs: List[float], sigma: float, lo: float, hi: float) -> List[float]:
-    out = []
-    for v in xs:
-        out.append(_clip(_mut_gauss(float(v), sigma), lo, hi))
-    return out
+    return [_clip(_mut_gauss(float(v), sigma), lo, hi) for v in xs]
 
 
 def _random_trade_cycles() -> List[int]:
-    # You *said* 1 & 2 are tradable. We'll allow GA to optionally include 3, but it must pay via fitness.
     base = [1, 2]
     if random.random() < 0.25:
         base = [1, 2, 3]
@@ -306,9 +300,6 @@ def _random_trade_cycles() -> List[int]:
 
 
 def mutate_params(p: Dict[str, Any], strength: float, rate: float) -> Dict[str, Any]:
-    """
-    Mutate in-place style (returns a new dict).
-    """
     q = dict(p)
     sigma_rsi = 2.5 * strength
     sigma_willr = 6.0 * strength
@@ -327,7 +318,6 @@ def mutate_params(p: Dict[str, Any], strength: float, rate: float) -> Dict[str, 
     if random.random() < rate:
         q["willr_by_cycle"] = _mut_list_gauss(list(q["willr_by_cycle"]), sigma_willr, -100.0, -1.0)
 
-    # TP/SL per cycle
     if random.random() < rate:
         q["tp_mult_by_cycle"] = _mut_list_gauss(list(q["tp_mult_by_cycle"]), 0.01 * strength, 1.005, 1.25)
     if random.random() < rate:
@@ -336,7 +326,6 @@ def mutate_params(p: Dict[str, Any], strength: float, rate: float) -> Dict[str, 
     if random.random() < rate:
         q["exit_rsi_by_cycle"] = _mut_list_gauss(list(q["exit_rsi_by_cycle"]), sigma_exit, 10.0, 95.0)
 
-    # Hold / risk knobs (bounded)
     if random.random() < rate:
         q["max_hold_hours"] = int(_clip(_mut_gauss(float(q["max_hold_hours"]), 8.0 * strength), 6.0, 120.0))
     if random.random() < rate:
@@ -346,18 +335,12 @@ def mutate_params(p: Dict[str, Any], strength: float, rate: float) -> Dict[str, 
     if random.random() < rate:
         q["atr_k"] = _clip(_mut_gauss(float(q["atr_k"]), 0.25 * strength), 0.3, 4.0)
 
-    # 3-signal toggles
-    if random.random() < 0.15:
-        q["use_sig_baseline"] = bool(random.getrandbits(1))
-    if random.random() < 0.15:
-        q["use_sig_breakout"] = bool(random.getrandbits(1))
-    if random.random() < 0.15:
-        q["use_sig_pullback"] = bool(random.getrandbits(1))
+    # cycle 1 chop filter knobs
+    if random.random() < rate:
+        q["cycle1_adx_boost"] = _clip(_mut_gauss(float(q.get("cycle1_adx_boost", 8.0)), 2.0 * strength), 0.0, 30.0)
+    if random.random() < rate:
+        q["cycle1_ema_sep_atr"] = _clip(_mut_gauss(float(q.get("cycle1_ema_sep_atr", 0.35)), 0.08 * strength), 0.0, 2.0)
 
-    if not (q["use_sig_baseline"] or q["use_sig_breakout"] or q["use_sig_pullback"]):
-        q["use_sig_baseline"] = True  # never allow zero-signal individuals
-
-    # trade cycles
     if random.random() < 0.12:
         q["trade_cycles"] = _random_trade_cycles()
 
@@ -365,9 +348,6 @@ def mutate_params(p: Dict[str, Any], strength: float, rate: float) -> Dict[str, 
 
 
 def crossover(a: Dict[str, Any], b: Dict[str, Any]) -> Dict[str, Any]:
-    """
-    Blend numerical fields and pick discrete bits.
-    """
     c = dict(a)
     alpha = random.random()
 
@@ -388,34 +368,43 @@ def crossover(a: Dict[str, Any], b: Dict[str, Any]) -> Dict[str, Any]:
     c["max_allocation"] = blend(a["max_allocation"], b["max_allocation"])
     c["atr_k"] = blend(a["atr_k"], b["atr_k"])
 
-    # discrete picks
-    c["use_sig_baseline"] = a["use_sig_baseline"] if random.random() < 0.5 else b["use_sig_baseline"]
-    c["use_sig_breakout"] = a["use_sig_breakout"] if random.random() < 0.5 else b["use_sig_breakout"]
-    c["use_sig_pullback"] = a["use_sig_pullback"] if random.random() < 0.5 else b["use_sig_pullback"]
-    if not (c["use_sig_baseline"] or c["use_sig_breakout"] or c["use_sig_pullback"]):
-        c["use_sig_baseline"] = True
+    # cycle 1 chop filter knobs
+    c["cycle1_adx_boost"] = blend(a.get("cycle1_adx_boost", 8.0), b.get("cycle1_adx_boost", 8.0))
+    c["cycle1_ema_sep_atr"] = blend(a.get("cycle1_ema_sep_atr", 0.35), b.get("cycle1_ema_sep_atr", 0.35))
 
     c["trade_cycles"] = a["trade_cycles"] if random.random() < 0.5 else b["trade_cycles"]
     return _norm_params(c)
 
 
-# =========================
-# Regime computation (no lookahead)
-# =========================
+# ============================================================
+# STRICT NLA: shift cycles so entry at t OPEN uses cycle from t-1 close
+# ============================================================
+
+def _shift_cycles(cycles: np.ndarray, shift: int, fill: int = 2) -> np.ndarray:
+    shift = int(shift)
+    if shift <= 0:
+        return cycles.astype(np.int8, copy=True)
+    out = np.roll(cycles, shift).astype(np.int8, copy=True)
+    out[:shift] = int(fill)
+    return out
+
+
+# ============================================================
+# Regime computation (raw per-bar)
+# ============================================================
 
 def compute_cycles(df: pd.DataFrame, p: Dict[str, Any]) -> np.ndarray:
     """
-    5 regimes:
-      0 downtrend
-      1 expansion
-      2 accumulation
-      3 breakout
-      4 distribution
-    Uses t-1 features (rolling highs shifted).
+    Raw regime label per bar using bar-close features.
+    For NO LOOKAHEAD at bar t OPEN, use shifted cycles (cycle_shift=1).
     """
     close = df["Close"].astype(float).to_numpy()
     ema_long_col = f"EMA_{int(p['ema_trend_long'])}"
-    ema_long = df[ema_long_col].astype(float).ffill().to_numpy() if ema_long_col in df.columns else df["EMA_200"].astype(float).ffill().to_numpy()
+    ema_long = (
+        df[ema_long_col].astype(float).ffill().to_numpy()
+        if ema_long_col in df.columns
+        else df["EMA_200"].astype(float).ffill().to_numpy()
+    )
 
     slope = df.get("EMA_200_SLOPE", pd.Series(np.zeros(len(df)), index=df.index)).astype(float).fillna(0.0).to_numpy()
     adx = df.get("ADX", pd.Series(np.zeros(len(df)), index=df.index)).astype(float).fillna(0.0).to_numpy()
@@ -431,7 +420,6 @@ def compute_cycles(df: pd.DataFrame, p: Dict[str, Any]) -> np.ndarray:
     rsi_high = rsi > float(p.get("entry_rsi_max", 65.0))
 
     w = int(p.get("breakout_window", 20))
-    # rolling max of *previous* closes (shifted)
     prev = pd.Series(close).shift(1)
     recent_high = prev.rolling(w, min_periods=w).max().to_numpy()
     gap = close - recent_high
@@ -451,9 +439,9 @@ def compute_cycles(df: pd.DataFrame, p: Dict[str, Any]) -> np.ndarray:
     return cycles
 
 
-# =========================
-# Signals (3 modules + 2-candle confirm) with no lookahead entries
-# =========================
+# ============================================================
+# Entry signal (STRICT NLA)
+# ============================================================
 
 def _hour_mask(ts: pd.Series, allow_hours: Optional[List[int]]) -> np.ndarray:
     if not allow_hours:
@@ -464,15 +452,22 @@ def _hour_mask(ts: pd.Series, allow_hours: Optional[List[int]]) -> np.ndarray:
 
 def build_entry_signal(df: pd.DataFrame, p: Dict[str, Any]) -> np.ndarray:
     """
-    Entry decision uses t-1 feature values and enters at bar t open.
+    STRICT NO LOOKAHEAD:
+      - decision uses t-1 feature values
+      - entry executed at bar t OPEN
+      - cycles shifted by p['cycle_shift'] (default 1) => cycle[t] == raw_cycle[t-1]
     """
     df = df.copy()
     df["Timestamp"] = pd.to_datetime(df["Timestamp"], utc=True, errors="coerce")
     df = df.dropna(subset=["Timestamp"]).sort_values("Timestamp").reset_index(drop=True)
 
-    cycles = compute_cycles(df, p)
+    cycles_raw = compute_cycles(df, p)
+    cycles = _shift_cycles(
+        cycles_raw,
+        shift=int(p.get("cycle_shift", 1)),
+        fill=int(p.get("cycle_fill", 2)),
+    )
 
-    # Use previous candle features for entry decision
     rsi_prev = df["RSI"].astype(float).shift(1).fillna(50.0).to_numpy()
     willr_prev = df["WILLR"].astype(float).shift(1).fillna(-50.0).to_numpy()
     atr_prev = df["ATR"].astype(float).shift(1).fillna(0.0).to_numpy()
@@ -480,15 +475,22 @@ def build_entry_signal(df: pd.DataFrame, p: Dict[str, Any]) -> np.ndarray:
 
     ema_long_col = f"EMA_{int(p['ema_trend_long'])}"
     ema_span_col = f"EMA_{int(p['ema_span'])}"
-    ema_long_prev = df[ema_long_col].astype(float).shift(1).ffill().to_numpy() if ema_long_col in df.columns else df["EMA_200"].astype(float).shift(1).ffill().to_numpy()
-    ema_span_prev = df[ema_span_col].astype(float).shift(1).ffill().to_numpy() if ema_span_col in df.columns else ema_long_prev
+    ema_long_prev = (
+        df[ema_long_col].astype(float).shift(1).ffill().to_numpy()
+        if ema_long_col in df.columns
+        else df["EMA_200"].astype(float).shift(1).ffill().to_numpy()
+    )
+    ema_span_prev = (
+        df[ema_span_col].astype(float).shift(1).ffill().to_numpy()
+        if ema_span_col in df.columns
+        else ema_long_prev
+    )
 
     slope_prev = df.get("EMA_200_SLOPE", pd.Series(0.0, index=df.index)).astype(float).shift(1).fillna(0.0).to_numpy()
     adx_prev = df.get("ADX", pd.Series(0.0, index=df.index)).astype(float).shift(1).fillna(0.0).to_numpy()
     plus_prev = df.get("PLUS_DI", pd.Series(0.0, index=df.index)).astype(float).shift(1).fillna(0.0).to_numpy()
     minus_prev = df.get("MINUS_DI", pd.Series(0.0, index=df.index)).astype(float).shift(1).fillna(0.0).to_numpy()
 
-    # Trend filter (prev candle)
     close_ok = close_prev > ema_long_prev
     ema_ok = (ema_span_prev > ema_long_prev) if bool(p.get("ema_align", True)) else True
     adx_ok = adx_prev >= float(p.get("adx_min", 18.0))
@@ -496,17 +498,14 @@ def build_entry_signal(df: pd.DataFrame, p: Dict[str, Any]) -> np.ndarray:
     slope_ok = (slope_prev > 0.0) if bool(p.get("require_ema200_slope", True)) else True
     trend_ok = close_ok & ema_ok & adx_ok & di_ok & slope_ok
 
-    # Cycle filter
     trade_cycles = set(int(x) for x in p.get("trade_cycles", [1, 2]))
     if bool(p.get("require_trade_cycles", True)):
         cyc_ok = np.array([int(c) in trade_cycles for c in cycles], dtype=bool)
     else:
         cyc_ok = np.ones(len(df), dtype=bool)
 
-    # Hours
     hour_ok = _hour_mask(df["Timestamp"], p.get("allow_hours"))
 
-    # --- Signal 0: baseline (RSI band + WILLR by cycle)
     rsi_min = float(p["entry_rsi_min"])
     rsi_max = float(p["entry_rsi_max"])
     rsi_band = (rsi_prev >= rsi_min) & (rsi_prev <= rsi_max)
@@ -515,39 +514,28 @@ def build_entry_signal(df: pd.DataFrame, p: Dict[str, Any]) -> np.ndarray:
     willr_thr = np.array([float(p["willr_by_cycle"][int(c)]) for c in cycles], dtype=float)
     willr_ok = (willr_prev >= willr_floor) & (willr_prev < willr_thr)
 
-    sig_baseline = rsi_band & willr_ok & trend_ok & cyc_ok & hour_ok
+    sig = (rsi_band & willr_ok & trend_ok & cyc_ok & hour_ok)
 
-    # --- Signal 1: breakout (cycle==3 + gap > ATR mult)
-    w = int(p.get("breakout_window", 20))
-    prev_close_ser = pd.Series(df["Close"].astype(float).to_numpy()).shift(1)
-    recent_high = prev_close_ser.rolling(w, min_periods=w).max().to_numpy()
-    gap = df["Close"].astype(float).to_numpy() - recent_high
-    sig_breakout = (cycles == 3) & (df["Close"].astype(float).to_numpy() > recent_high) & (gap > atr_prev * float(p.get("breakout_atr_mult", 1.5)))
-    sig_breakout = np.nan_to_num(sig_breakout, nan=False).astype(bool) & trend_ok & hour_ok
+    # Extra chop gate ONLY for cycle 1 (uses strictly t-1 values)
+    adx_min = float(p.get("adx_min", 18.0))
+    adx_boost = float(p.get("cycle1_adx_boost", 8.0))
+    ema_sep_k = float(p.get("cycle1_ema_sep_atr", 0.35))
+    ema_sep = np.abs(ema_span_prev - ema_long_prev)
+    cycle1_gate = (adx_prev >= (adx_min + adx_boost)) & (ema_sep >= (ema_sep_k * atr_prev))
+    sig = sig & ((cycles != 1) | cycle1_gate)
 
-    # --- Signal 2: pullback (in expansion/accum, RSI near min and WILLR oversold)
-    pull_cyc_ok = np.array([int(c) in {1, 2} for c in cycles], dtype=bool)
-    sig_pullback = pull_cyc_ok & trend_ok & hour_ok & (rsi_prev <= (rsi_min + 2.0)) & (willr_prev < np.minimum(-55.0, willr_thr))
+    # Keep optional 2-candle confirm, but default OFF
+    if bool(p.get("two_candle_confirm", False)):
+        prev_sig = np.roll(sig, 1)
+        prev_sig[0] = False
+        sig = sig & prev_sig
 
-    # Combine selected signals
-    use0 = bool(p.get("use_sig_baseline", True))
-    use1 = bool(p.get("use_sig_breakout", False))
-    use2 = bool(p.get("use_sig_pullback", False))
-
-    sig = np.zeros(len(df), dtype=bool)
-    if use0:
-        sig |= sig_baseline
-    if use1:
-        sig |= sig_breakout
-    if use2:
-        sig |= sig_pullback
-
-    # 2-candle confirmation (prev 2 bars must be true); entry happens at bar t
+    return sig.astype(bool)
 
 
-# =========================
-# Backtest (long-only, enter at OPEN, exit with intrabar TP/SL using HIGH/LOW)
-# =========================
+# ============================================================
+# Backtest (long-only)
+# ============================================================
 
 def _apply_cost(price: float, fee_bps: float, slip_bps: float, side: str) -> float:
     fee = fee_bps / 1e4
@@ -572,16 +560,19 @@ def run_backtest_long_only(
     initial_equity: float,
     fee_bps: float,
     slippage_bps: float,
+    collect_trades: bool = True,
 ) -> Tuple[List[Dict[str, Any]], Dict[str, float]]:
     df = df.copy()
     df["Timestamp"] = pd.to_datetime(df["Timestamp"], utc=True, errors="coerce")
     df = df.dropna(subset=["Timestamp"]).sort_values("Timestamp").reset_index(drop=True)
 
-    # entry signal uses t-1 features; enter at t open
-
     sig = build_entry_signal(df, p)
+    if sig is None:
+        raise RuntimeError("build_entry_signal() returned None (must return bool array).")
+    sig = np.asarray(sig, dtype=bool)
+    if sig.ndim != 1 or len(sig) != len(df):
+        raise RuntimeError(f"Bad sig shape/len: shape={sig.shape} len={len(sig)} df={len(df)}")
 
-    # Prepare arrays
     ts = df["Timestamp"].to_numpy()
     o = df["Open"].astype(float).to_numpy()
     h = df["High"].astype(float).to_numpy()
@@ -590,7 +581,12 @@ def run_backtest_long_only(
     atr_prev = df["ATR"].astype(float).shift(1).fillna(0.0).to_numpy()
     rsi_prev = df["RSI"].astype(float).shift(1).fillna(50.0).to_numpy()
 
-    cycles = compute_cycles(df, p)
+    cycles_raw = compute_cycles(df, p)
+    cycles = _shift_cycles(
+        cycles_raw,
+        shift=int(p.get("cycle_shift", 1)),
+        fill=int(p.get("cycle_fill", 2)),
+    )
 
     cash = float(initial_equity)
     units = 0.0
@@ -601,8 +597,9 @@ def run_backtest_long_only(
     tp_mult = 1.0
     sl_mult = 1.0
 
-    equity_curve = []
+    equity_curve: List[float] = []
     trades: List[Dict[str, Any]] = []
+    pnls_list: List[float] = []
 
     max_hold = int(p.get("max_hold_hours", 48))
     risk_per_trade = float(p.get("risk_per_trade", 0.02))
@@ -612,11 +609,10 @@ def run_backtest_long_only(
     for i in range(len(df)):
         mid = c[i]
         equity = cash + units * mid
-        equity_curve.append(equity)
+        equity_curve.append(float(equity))
 
-        # ENTRY
+        # ENTRY at bar i OPEN; sig[i] built using t-1 data
         if units == 0.0 and sig[i]:
-            # enter at OPEN[i]
             buy_px = _apply_cost(o[i], fee_bps, slippage_bps, "buy")
             atrv = float(atr_prev[i])
             size = _position_size(equity, buy_px, atrv, risk_per_trade, max_alloc, atr_k)
@@ -629,34 +625,30 @@ def run_backtest_long_only(
             if size <= 0.0:
                 continue
 
-            units = size
-            cash -= cost
-            entry_px = buy_px
+            units = float(size)
+            cash -= float(cost)
+            entry_px = float(buy_px)
             entry_ts = ts[i]
             entry_cycle = int(cycles[i])
             entry_i = i
 
-            # cycle TP/SL
-            tp_mult = float(p["tp_mult_by_cycle"][entry_cycle]) if entry_cycle is not None else float(p.get("profit_target_mult", 1.06))
-            sl_mult = float(p["sl_mult_by_cycle"][entry_cycle]) if entry_cycle is not None else float(p.get("stop_loss_mult", 0.98))
+            tp_mult = float(p["tp_mult_by_cycle"][entry_cycle])
+            sl_mult = float(p["sl_mult_by_cycle"][entry_cycle])
             continue
 
-        # EXIT
+        # EXIT logic
         if units > 0.0 and entry_ts is not None:
             hold = i - entry_i
-            # TP/SL levels (based on entry price with costs)
             tp_px = entry_px * tp_mult
             sl_px = entry_px * sl_mult
 
             exit_reason = None
             exit_exec_px = None
 
-            # intrabar TP/SL using high/low
             hit_sl = l[i] <= sl_px
             hit_tp = h[i] >= tp_px
 
             if hit_sl and hit_tp:
-                # conservative: assume worst case
                 exit_reason = "sl"
                 exit_exec_px = sl_px
             elif hit_sl:
@@ -667,9 +659,8 @@ def run_backtest_long_only(
                 exit_exec_px = tp_px
             elif hold >= max_hold:
                 exit_reason = "maxhold"
-                exit_exec_px = o[i]  # exit at open
+                exit_exec_px = o[i]
             else:
-                # early RSI profit-only exit based on entry cycle threshold (uses prev candle RSI)
                 ex = float(p["exit_rsi_by_cycle"][int(entry_cycle)]) if entry_cycle is not None else 50.0
                 pnl_ratio = c[i] / entry_px if entry_px > 0 else 1.0
                 if (rsi_prev[i] < ex) and (pnl_ratio > 1.0):
@@ -679,23 +670,26 @@ def run_backtest_long_only(
             if exit_reason is not None and exit_exec_px is not None:
                 sell_px = _apply_cost(float(exit_exec_px), fee_bps, slippage_bps, "sell")
                 proceeds = units * sell_px
-                cash += proceeds
+                cash += float(proceeds)
 
-                gross = (sell_px - entry_px) * units
-                hold_hours = float(hold)
+                net_pnl = (sell_px - entry_px) * units
+                pnls_list.append(float(net_pnl))
 
-                trades.append({
-                    "symbol": symbol,
-                    "cycle": int(entry_cycle) if entry_cycle is not None else None,
-                    "entry_ts": str(pd.to_datetime(entry_ts, utc=True)),
-                    "exit_ts": str(pd.to_datetime(ts[i], utc=True)),
-                    "entry_px": float(entry_px),
-                    "exit_px": float(sell_px),
-                    "units": float(units),
-                    "reason": exit_reason,
-                    "net_pnl": float(gross),
-                    "hold_hours": float(hold_hours),
-                })
+                if collect_trades:
+                    trades.append(
+                        {
+                            "symbol": symbol,
+                            "cycle": int(entry_cycle) if entry_cycle is not None else None,
+                            "entry_ts": str(pd.to_datetime(entry_ts, utc=True)),
+                            "exit_ts": str(pd.to_datetime(ts[i], utc=True)),
+                            "entry_px": float(entry_px),
+                            "exit_px": float(sell_px),
+                            "units": float(units),
+                            "reason": exit_reason,
+                            "net_pnl": float(net_pnl),
+                            "hold_hours": float(hold),
+                        }
+                    )
 
                 units = 0.0
                 entry_px = 0.0
@@ -707,62 +701,78 @@ def run_backtest_long_only(
     if units > 0.0:
         sell_px = _apply_cost(float(c[-1]), fee_bps, slippage_bps, "sell")
         cash += units * sell_px
-        gross = (sell_px - entry_px) * units
-        trades.append({
-            "symbol": symbol,
-            "cycle": int(entry_cycle) if entry_cycle is not None else None,
-            "entry_ts": str(pd.to_datetime(entry_ts, utc=True)) if entry_ts is not None else None,
-            "exit_ts": str(pd.to_datetime(ts[-1], utc=True)),
-            "entry_px": float(entry_px),
-            "exit_px": float(sell_px),
-            "units": float(units),
-            "reason": "eod",
-            "net_pnl": float(gross),
-            "hold_hours": float(max(0, len(df) - 1 - entry_i)),
-        })
+        net_pnl = (sell_px - entry_px) * units
+        pnls_list.append(float(net_pnl))
+        if collect_trades:
+            trades.append(
+                {
+                    "symbol": symbol,
+                    "cycle": int(entry_cycle) if entry_cycle is not None else None,
+                    "entry_ts": str(pd.to_datetime(entry_ts, utc=True)) if entry_ts is not None else None,
+                    "exit_ts": str(pd.to_datetime(ts[-1], utc=True)),
+                    "entry_px": float(entry_px),
+                    "exit_px": float(sell_px),
+                    "units": float(units),
+                    "reason": "eod",
+                    "net_pnl": float(net_pnl),
+                    "hold_hours": float(max(0, len(df) - 1 - entry_i)),
+                }
+            )
         units = 0.0
 
     final_equity = float(cash)
     net_profit = float(final_equity - initial_equity)
 
-    # max dd
     eq = np.array(equity_curve, dtype=float) if equity_curve else np.array([initial_equity], dtype=float)
     runmax = np.maximum.accumulate(eq)
     dd = (runmax - eq) / np.maximum(runmax, 1e-9)
     max_dd = float(dd.max()) if dd.size else 0.0
 
-    # win rate, profit factor, avg win/loss
-    pnls = np.array([t["net_pnl"] for t in trades], dtype=float) if trades else np.array([], dtype=float)
-    wins = pnls[pnls > 0.0]
-    losses = pnls[pnls < 0.0]
-    win_rate = float((pnls > 0.0).mean() * 100.0) if pnls.size else 0.0
-    pf = float(wins.sum() / abs(losses.sum())) if losses.size and abs(losses.sum()) > 1e-9 else (10.0 if wins.size else 0.0)
-    avg_win = float(wins.mean()) if wins.size else 0.0
-    avg_loss = float(losses.mean()) if losses.size else 0.0
+    pnls = np.array(pnls_list, dtype=float) if pnls_list else np.array([], dtype=float)
+    wins_arr = pnls[pnls > 0.0]
+    losses_arr = pnls[pnls < 0.0]
+
+    wins_n = int((pnls > 0.0).sum()) if pnls.size else 0
+    losses_n = int((pnls < 0.0).sum()) if pnls.size else 0
+    trades_n = int(pnls.size) if pnls.size else 0
+
+    gross_profit = float(wins_arr.sum()) if wins_arr.size else 0.0
+    gross_loss = float(losses_arr.sum()) if losses_arr.size else 0.0  # negative
+
+    win_rate = float((wins_n / max(1, (wins_n + losses_n))) * 100.0) if (wins_n + losses_n) else 0.0
+
+    if gross_loss < -1e-9:
+        pf = float(gross_profit / abs(gross_loss))
+    else:
+        pf = 10.0 if gross_profit > 0.0 else 0.0
+
+    avg_win = float(wins_arr.mean()) if wins_arr.size else 0.0
+    avg_loss = float(losses_arr.mean()) if losses_arr.size else 0.0
 
     metrics = {
         "initial_equity": float(initial_equity),
         "final_equity": float(final_equity),
         "net_profit": float(net_profit),
-        "trades": float(len(trades)),
+        "trades": float(trades_n),
+        "wins": float(wins_n),
+        "losses": float(losses_n),
         "win_rate_pct": float(win_rate),
+        "gross_profit": float(gross_profit),
+        "gross_loss": float(gross_loss),
         "max_dd": float(max_dd),
         "profit_factor": float(pf),
         "avg_win": float(avg_win),
         "avg_loss": float(avg_loss),
     }
-    return trades, metrics
+
+    return trades if collect_trades else [], metrics
 
 
-# =========================
+# ============================================================
 # Monte Carlo splits
-# =========================
+# ============================================================
 
 def make_mc_splits(df: pd.DataFrame, cfg: GAConfig, gen: int) -> List[Tuple[int, int, int, int, int, int]]:
-    """
-    Returns list of splits as (tr0,tr1, va0,va1, te0,te1) indices, contiguous.
-    Assumes 1H bars: days * 24.
-    """
     n = len(df)
     bars_train = cfg.train_days * 24
     bars_val = cfg.val_days * 24
@@ -786,16 +796,16 @@ def make_mc_splits(df: pd.DataFrame, cfg: GAConfig, gen: int) -> List[Tuple[int,
     return splits
 
 
-# =========================
+# ============================================================
 # Fitness
-# =========================
+# ============================================================
 
 def _segment_score(m: Dict[str, float], cfg: GAConfig, min_trades: int) -> float:
-    if m["trades"] < float(min_trades):
+    if float(m.get("trades", 0.0)) < float(min_trades):
         return -1e9
-    score = m["net_profit"]
-    score -= cfg.dd_penalty * m["max_dd"] * cfg.initial_equity
-    score -= cfg.trade_penalty * m["trades"]
+    score = float(m["net_profit"])
+    score -= cfg.dd_penalty * float(m["max_dd"]) * cfg.initial_equity
+    score -= cfg.trade_penalty * float(m["trades"])
     return float(score)
 
 
@@ -813,20 +823,24 @@ def _eval_worker(args):
     assert _GLOBAL_DF is not None
     df = _GLOBAL_DF
 
-    # ensure required flags exist
     ind = _norm_params(ind)
-    ind["two_candle_confirm"] = False
+
+    # enforce strict NLA from cfg
+    ind["two_candle_confirm"] = bool(cfg.two_candle_confirm)
     ind["require_trade_cycles"] = bool(cfg.require_trade_cycles)
+    ind["cycle_shift"] = int(cfg.cycle_shift)
+    ind["cycle_fill"] = int(cfg.cycle_fill)
 
     train_scores = []
     val_scores = []
     test_scores = []
 
-    # aggregate metrics
+    # IMPORTANT:
+    # Aggregate wins/losses and gp/gl so win-rate and PF are WEIGHTED, not mean-of-%.
     agg = {
-        "train": {"net": 0.0, "trades": 0.0, "win": 0.0, "dd": 0.0, "pf": 0.0},
-        "val":   {"net": 0.0, "trades": 0.0, "win": 0.0, "dd": 0.0, "pf": 0.0},
-        "test":  {"net": 0.0, "trades": 0.0, "win": 0.0, "dd": 0.0, "pf": 0.0},
+        "train": {"net": 0.0, "trades": 0.0, "wins": 0.0, "losses": 0.0, "dd": 0.0, "gp": 0.0, "gl": 0.0},
+        "val":   {"net": 0.0, "trades": 0.0, "wins": 0.0, "losses": 0.0, "dd": 0.0, "gp": 0.0, "gl": 0.0},
+        "test":  {"net": 0.0, "trades": 0.0, "wins": 0.0, "losses": 0.0, "dd": 0.0, "gp": 0.0, "gl": 0.0},
     }
 
     for (tr0, tr1, va0, va1, te0, te1) in splits:
@@ -834,9 +848,15 @@ def _eval_worker(args):
         df_va = df.iloc[va0:va1].reset_index(drop=True)
         df_te = df.iloc[te0:te1].reset_index(drop=True)
 
-        _, m_tr = run_backtest_long_only(df_tr, symbol, ind, cfg.initial_equity, cfg.fee_bps, cfg.slippage_bps)
-        _, m_va = run_backtest_long_only(df_va, symbol, ind, cfg.initial_equity, cfg.fee_bps, cfg.slippage_bps)
-        _, m_te = run_backtest_long_only(df_te, symbol, ind, cfg.initial_equity, cfg.fee_bps, cfg.slippage_bps)
+        _, m_tr = run_backtest_long_only(
+            df_tr, symbol, ind, cfg.initial_equity, cfg.fee_bps, cfg.slippage_bps, collect_trades=False
+        )
+        _, m_va = run_backtest_long_only(
+            df_va, symbol, ind, cfg.initial_equity, cfg.fee_bps, cfg.slippage_bps, collect_trades=False
+        )
+        _, m_te = run_backtest_long_only(
+            df_te, symbol, ind, cfg.initial_equity, cfg.fee_bps, cfg.slippage_bps, collect_trades=False
+        )
 
         s_tr = _segment_score(m_tr, cfg, cfg.min_trades_train)
         s_va = _segment_score(m_va, cfg, cfg.min_trades_val)
@@ -846,28 +866,55 @@ def _eval_worker(args):
         val_scores.append(s_va)
         test_scores.append(s_te)
 
+        # Train
         agg["train"]["net"] += m_tr["net_profit"]
         agg["train"]["trades"] += m_tr["trades"]
-        agg["train"]["win"] += m_tr["win_rate_pct"]
+        agg["train"]["wins"] += m_tr.get("wins", 0.0)
+        agg["train"]["losses"] += m_tr.get("losses", 0.0)
         agg["train"]["dd"] += m_tr["max_dd"]
-        agg["train"]["pf"] += m_tr["profit_factor"]
+        agg["train"]["gp"] += m_tr.get("gross_profit", 0.0)
+        agg["train"]["gl"] += m_tr.get("gross_loss", 0.0)
 
+        # Val
         agg["val"]["net"] += m_va["net_profit"]
         agg["val"]["trades"] += m_va["trades"]
-        agg["val"]["win"] += m_va["win_rate_pct"]
+        agg["val"]["wins"] += m_va.get("wins", 0.0)
+        agg["val"]["losses"] += m_va.get("losses", 0.0)
         agg["val"]["dd"] += m_va["max_dd"]
-        agg["val"]["pf"] += m_va["profit_factor"]
+        agg["val"]["gp"] += m_va.get("gross_profit", 0.0)
+        agg["val"]["gl"] += m_va.get("gross_loss", 0.0)
 
+        # Test
         agg["test"]["net"] += m_te["net_profit"]
         agg["test"]["trades"] += m_te["trades"]
-        agg["test"]["win"] += m_te["win_rate_pct"]
+        agg["test"]["wins"] += m_te.get("wins", 0.0)
+        agg["test"]["losses"] += m_te.get("losses", 0.0)
         agg["test"]["dd"] += m_te["max_dd"]
-        agg["test"]["pf"] += m_te["profit_factor"]
+        agg["test"]["gp"] += m_te.get("gross_profit", 0.0)
+        agg["test"]["gl"] += m_te.get("gross_loss", 0.0)
 
     k = float(len(splits))
     for seg in ["train", "val", "test"]:
-        for kk in agg[seg].keys():
-            agg[seg][kk] = float(agg[seg][kk] / k)
+        # avg per split (keeps your existing interpretation of "net" and "trades")
+        agg[seg]["net"] = float(agg[seg]["net"] / k)
+        agg[seg]["trades"] = float(agg[seg]["trades"] / k)
+        agg[seg]["dd"] = float(agg[seg]["dd"] / k)
+        agg[seg]["wins"] = float(agg[seg]["wins"] / k)
+        agg[seg]["losses"] = float(agg[seg]["losses"] / k)
+        agg[seg]["gp"] = float(agg[seg]["gp"] / k)
+        agg[seg]["gl"] = float(agg[seg]["gl"] / k)
+
+        w = agg[seg]["wins"]
+        lo = agg[seg]["losses"]
+        denom = (w + lo) if (w + lo) > 0 else 0.0
+        agg[seg]["win"] = float((w / denom) * 100.0) if denom > 0 else 0.0
+
+        gp = agg[seg]["gp"]
+        gl = agg[seg]["gl"]
+        if gl < -1e-9:
+            agg[seg]["pf"] = float(gp / abs(gl))
+        else:
+            agg[seg]["pf"] = 10.0 if gp > 0 else 0.0
 
     train_score = float(np.mean(train_scores))
     val_score = float(np.mean(val_scores))
@@ -887,14 +934,12 @@ def _eval_worker(args):
     }
 
 
-# =========================
+# ============================================================
 # Checkpointing
-# =========================
+# ============================================================
 
 def _cfg_fingerprint(cfg: GAConfig) -> Dict[str, Any]:
-    # stable subset for mismatch detection
-    keep = asdict(cfg)
-    return keep
+    return asdict(cfg)
 
 
 def _save_checkpoint(root: Path, symbol: str, payload: Dict[str, Any]) -> None:
@@ -927,9 +972,9 @@ def _append_history(hist_path: Path, row: Dict[str, Any]) -> None:
             f.write(line + "\n")
 
 
-# =========================
+# ============================================================
 # RNG state packing (JSON-safe)
-# =========================
+# ============================================================
 
 def _pack_py_random_state(state) -> Dict[str, Any]:
     version, internal, gauss_next = state
@@ -965,9 +1010,9 @@ def _unpack_np_random_state(packed: Dict[str, Any]):
     return (bitgen, keys, pos, has_gauss, cached)
 
 
-# =========================
+# ============================================================
 # Public API
-# =========================
+# ============================================================
 
 def run_ga_montecarlo(
     symbol: str,
@@ -975,11 +1020,6 @@ def run_ga_montecarlo(
     seed_params: Dict[str, Any],
     cfg: GAConfig,
 ) -> Tuple[Dict[str, Any], Dict[str, Any]]:
-    """
-    Main entrypoint.
-    Returns (best_params_dict, report_dict).
-    Also saves progress + best params on disk.
-    """
     root = _project_root()
     out_root = root / "artifacts" / "ga" / symbol
     runs_root = out_root / "runs"
@@ -989,34 +1029,28 @@ def run_ga_montecarlo(
     run_dir = runs_root / run_id
     _ensure_dir(run_dir)
 
-    # Normalize data
     df = df.copy()
     if "Timestamp" not in df.columns:
         raise ValueError("df must contain Timestamp column")
     df["Timestamp"] = pd.to_datetime(df["Timestamp"], utc=True, errors="coerce")
     df = df.dropna(subset=["Timestamp"]).sort_values("Timestamp").reset_index(drop=True)
 
-    # Normalize seed params
     seed = _norm_params(seed_params)
-    seed["two_candle_confirm"] = False
+    seed["two_candle_confirm"] = bool(cfg.two_candle_confirm)
     seed["require_trade_cycles"] = bool(cfg.require_trade_cycles)
+    seed["cycle_shift"] = int(cfg.cycle_shift)
+    seed["cycle_fill"] = int(cfg.cycle_fill)
 
-    # =========================
-    # CRITICAL FIX:
-    # Ensure indicator columns exist ONCE (otherwise defaults 0 -> trend_ok False -> zero trades)
-    # =========================
     df = _ensure_indicators(df, seed)
-
-    # Fail fast if anything is still missing (no more silent “0 trades”)
     required = ["RSI", "ATR", "WILLR", "ADX", "PLUS_DI", "MINUS_DI", "EMA_200", "EMA_200_SLOPE"]
     missing = [c for c in required if c not in df.columns]
     if missing:
         raise ValueError(f"GA data missing indicators after _ensure_indicators(): {missing}")
 
-    # Resume if possible
     start_gen = 0
     population: List[Dict[str, Any]] = []
     best_overall = None
+    stale_gens = 0
 
     ck = _load_checkpoint(out_root) if cfg.resume else None
     if ck is not None:
@@ -1025,11 +1059,12 @@ def run_ga_montecarlo(
             population = ck.get("population", [])
             best_overall = ck.get("best_overall", None)
 
-            # continue same run_id so files stay together
             if "run_id" in ck:
                 run_id = str(ck["run_id"])
                 run_dir = runs_root / run_id
                 _ensure_dir(run_dir)
+
+            stale_gens = int(ck.get("stale_gens", 0))
 
             if "py_random_state" in ck:
                 random.setstate(_unpack_py_random_state(ck["py_random_state"]))
@@ -1066,6 +1101,7 @@ def run_ga_montecarlo(
             best = scored[0]
             avg = best["avg"]
             top_k = min(8, len(scored))
+
             gen_payload = {
                 "utc": datetime.now(timezone.utc).isoformat(),
                 "symbol": symbol,
@@ -1077,7 +1113,6 @@ def run_ga_montecarlo(
             }
             _json_dump(run_dir / f"gen_{gen:03d}.json", gen_payload)
 
-            # Print progress
             print(
                 f"[gen {gen:02d}] best_score={best['fitness']:.2f} "
                 f"net={avg['val']['net']:.2f} trades={avg['val']['trades']:.1f} "
@@ -1086,14 +1121,13 @@ def run_ga_montecarlo(
                 flush=True
             )
 
-            # Track best overall (by fitness)
             improved = False
             if best_overall is None or best["fitness"] > best_overall["fitness"]:
                 best_overall = best
                 improved = True
+                stale_gens = 0
                 _json_dump(best_path, best_overall["ind"])
 
-                # also write active params
                 active_payload = {
                     "symbol": symbol,
                     "params": best_overall["ind"],
@@ -1107,11 +1141,10 @@ def run_ga_montecarlo(
                     },
                 }
                 _json_dump(active_path, active_payload)
-
-                # per-run snapshot
                 _json_dump(run_dir / f"best_gen_{gen:02d}.json", active_payload)
+            else:
+                stale_gens += 1
 
-            # History row
             row = {
                 "utc": datetime.now(timezone.utc).isoformat(),
                 "gen": gen,
@@ -1128,7 +1161,6 @@ def run_ga_montecarlo(
             }
             _append_history(hist_path, row)
 
-            # Checkpoint every generation
             ck_payload = {
                 "symbol": symbol,
                 "run_id": run_id,
@@ -1136,12 +1168,12 @@ def run_ga_montecarlo(
                 "cfg_fingerprint": _cfg_fingerprint(cfg),
                 "population": population,
                 "best_overall": best_overall,
+                "stale_gens": int(stale_gens),
                 "py_random_state": _pack_py_random_state(random.getstate()),
                 "np_random_state": _pack_np_random_state(np.random.get_state()),
             }
             _save_checkpoint(out_root, symbol, ck_payload)
 
-            # Breed next population
             elites = [x["ind"] for x in scored[: max(2, cfg.elite_k)]]
             new_pop = elites.copy()
             while len(new_pop) < cfg.pop_size:
@@ -1151,7 +1183,14 @@ def run_ga_montecarlo(
                 new_pop.append(child)
             population = new_pop
 
-    # Final report
+            if int(cfg.early_stop_patience) > 0 and stale_gens >= int(cfg.early_stop_patience):
+                print(
+                    f"[GA] Early stop triggered at gen={gen} "
+                    f"(no fitness improvement for {stale_gens} generations).",
+                    flush=True,
+                )
+                break
+
     report = {
         "symbol": symbol,
         "run_id": run_id,
@@ -1167,11 +1206,9 @@ def run_ga_montecarlo(
     }
     _json_dump(run_dir / "final_report.json", report)
 
-    # Return best
     best_params = best_overall["ind"] if best_overall else seed
     return best_params, report
 
 
-# Backward-compatible alias
 def run_ga(*args, **kwargs):
     return run_ga_montecarlo(*args, **kwargs)
