@@ -75,6 +75,18 @@ def main() -> None:
     ap.add_argument("--cache-cap-gb", type=float, default=20.0)
     ap.add_argument("--cache-root", default="data/processed/execution_1s")
     ap.add_argument("--fetch-workers", type=int, default=1)
+    ap.add_argument("--alignment-max-gap-sec", type=float, default=2.0)
+    ap.add_argument("--alignment-open-tol-pct", type=float, default=0.01)
+    ap.add_argument("--overlay-mode", choices=["none", "breakout", "pullback"], default="breakout")
+    ap.add_argument("--overlay-window-sec", type=int, default=30)
+    ap.add_argument("--overlay-breakout-lookback-sec", type=int, default=10)
+    ap.add_argument("--overlay-breakout-bps", type=float, default=3.0)
+    ap.add_argument("--overlay-pullback-dip-bps", type=float, default=8.0)
+    ap.add_argument("--overlay-pullback-atr-k", type=float, default=1.0)
+    ap.add_argument("--overlay-ema-span", type=int, default=5)
+    ap.add_argument("--overlay-partial-tp-bps", type=float, default=15.0)
+    ap.add_argument("--overlay-partial-tp-frac", type=float, default=0.0)
+    ap.add_argument("--overlay-partial-tp-window-sec", type=int, default=60)
     ap.add_argument("--fee-bps", type=float, default=7.0)
     ap.add_argument("--slip-bps", type=float, default=2.0)
     ap.add_argument("--initial-equity", type=float, default=10_000.0)
@@ -152,6 +164,18 @@ def main() -> None:
             cap_gb=float(args.cache_cap_gb),
             cache_root=str((PROJECT_ROOT / args.cache_root).resolve()),
             fetch_workers=max(1, int(args.fetch_workers)),
+            alignment_max_gap_sec=float(args.alignment_max_gap_sec),
+            alignment_open_tol_pct=float(args.alignment_open_tol_pct),
+            overlay_mode=str(args.overlay_mode).lower(),
+            overlay_window_sec=max(1, int(args.overlay_window_sec)),
+            overlay_breakout_lookback_sec=max(1, int(args.overlay_breakout_lookback_sec)),
+            overlay_breakout_bps=float(args.overlay_breakout_bps),
+            overlay_pullback_dip_bps=float(args.overlay_pullback_dip_bps),
+            overlay_pullback_atr_k=float(args.overlay_pullback_atr_k),
+            overlay_ema_span=max(2, int(args.overlay_ema_span)),
+            overlay_partial_tp_bps=float(args.overlay_partial_tp_bps),
+            overlay_partial_tp_frac=float(args.overlay_partial_tp_frac),
+            overlay_partial_tp_window_sec=max(1, int(args.overlay_partial_tp_window_sec)),
             fee_bps=float(args.fee_bps),
             slippage_bps=float(args.slip_bps),
             initial_equity=float(args.initial_equity),
@@ -177,19 +201,26 @@ def main() -> None:
             "exec_dd_after": float(s.get("dd_after", 0.0)),
             "exec_dd_delta": float(s.get("dd_delta", 0.0)),
             "exec_pass": bool(s.get("exec_pass", False)),
+            "exec_gate_ok": bool(s.get("exec_gate_ok", s.get("exec_pass", False))),
+            "overlay_ok": bool(s.get("overlay_ok", True)),
             "exec_fail_reasons": ";".join(s.get("fail_reasons", [])),
+            "fallback_rate": float(s.get("fallback_rate", 0.0)),
+            "alignment_fail_rate": float(s.get("alignment_fail_rate", 0.0)),
+            "overlay_skip_rate": float(s.get("overlay_skip_rate", 0.0)),
             "p95_entry_slip_bps": float(s.get("p95_entry_slip_bps", 0.0)),
             "p95_exit_slip_bps": float(s.get("p95_exit_slip_bps", 0.0)),
             "summary_json": str(sym_run_dir / "summary.json"),
             "trade_level_csv": str(sym_run_dir / "trade_level.csv"),
             "fetch_log_jsonl": str(sym_run_dir / "fetch_log.jsonl"),
+            "debug_summary_json": str(PROJECT_ROOT / "artifacts" / "execution_debug" / sym / exec_run_id / "debug_summary.json"),
             "params_used": str(ppath),
         }
         rows.append(row)
 
         print(
-            f"[{sym}] exec_pass={row['exec_pass']} edge_decay={row['exec_edge_decay']:.3f} "
-            f"pf_after={row['exec_pf_after']:.3f} dd_after={row['exec_dd_after']:.3f}",
+            f"[{sym}] exec_gate_ok={row['exec_gate_ok']} overlay_ok={row['overlay_ok']} "
+            f"edge_decay={row['exec_edge_decay']:.3f} pf_after={row['exec_pf_after']:.3f} "
+            f"dd_after={row['exec_dd_after']:.3f}",
             flush=True,
         )
 
@@ -213,13 +244,15 @@ def main() -> None:
             rep2.loc[mask, "exec_pf_after"] = float(r["exec_pf_after"])
             rep2.loc[mask, "exec_dd_after"] = float(r["exec_dd_after"])
             rep2.loc[mask, "exec_pass"] = bool(r["exec_pass"])
+            rep2.loc[mask, "exec_gate_ok"] = bool(r["exec_gate_ok"])
+            rep2.loc[mask, "overlay_ok"] = bool(r["overlay_ok"])
 
     rep2.to_csv(all_report_path, index=False)
 
     print("\n=== EXEC GATE COMPLETE ===")
     print(f"source_run_id={run_id}")
     print(f"exec_run_id={exec_run_id}")
-    print(out_df[["symbol", "exec_pass", "exec_edge_decay", "exec_pf_after", "exec_dd_after"]].to_string(index=False))
+    print(out_df[["symbol", "exec_gate_ok", "overlay_ok", "exec_edge_decay", "exec_pf_after", "exec_dd_after"]].to_string(index=False))
     print(f"updated_report={all_report_path}")
     print(f"summary_csv={exec_root / f'exec_gate_summary_{exec_run_id}.csv'}")
 
