@@ -42,10 +42,45 @@ from src.bot087.optim.ga import (  # noqa: E402
     _ensure_indicators,
     _norm_params,
     build_entry_signal,
+    run_ga_montecarlo,
     run_backtest_long_only,
 )
 
 CYCLE_ARRAY_KEYS = ["willr_by_cycle", "tp_mult_by_cycle", "sl_mult_by_cycle", "exit_rsi_by_cycle"]
+PHASE_SUMMARY_COLUMNS = [
+    "symbol",
+    "phase",
+    "val_net",
+    "val_pf",
+    "val_dd",
+    "val_trades",
+    "stability",
+    "test_net",
+    "fitness",
+    "PASS/FAIL",
+    "run_id",
+    "timestamp",
+]
+HISTORY_COLUMNS = [
+    "symbol",
+    "phase",
+    "run_id",
+    "timestamp",
+    "gen",
+    "fitness",
+    "train_net",
+    "train_pf",
+    "train_dd",
+    "train_trades",
+    "val_net",
+    "val_pf",
+    "val_dd",
+    "val_trades",
+    "test_net",
+    "test_pf",
+    "test_dd",
+    "test_trades",
+]
 
 
 def _utc_now_iso() -> str:
@@ -191,6 +226,16 @@ class Paths:
     all_report_csv: Path
 
 
+@dataclass
+class PhaseResult:
+    symbol: str
+    phase: str
+    trade_cycles: List[int]
+    best_params: Dict[str, Any]
+    report: Dict[str, Any]
+    phase_dir: Path
+
+
 def build_paths(run_id: str) -> Paths:
     ga_root = PROJECT_ROOT / "artifacts" / "ga"
     ga_root.mkdir(parents=True, exist_ok=True)
@@ -230,6 +275,189 @@ def init_coin_run_dir(paths: Paths, symbol: str, args: argparse.Namespace, df: p
     return run_dir
 
 
+def _phase_seed(base_params: Dict[str, Any], trade_cycles: List[int]) -> Dict[str, Any]:
+    p = _norm_params(dict(base_params))
+    p["trade_cycles"] = [int(x) for x in trade_cycles]
+    p["require_trade_cycles"] = True
+    p["two_candle_confirm"] = False
+    p["cycle_shift"] = 1
+    p["cycle_fill"] = int(p.get("cycle_fill", 2))
+    return _norm_params(p)
+
+
+def _ga_cfg_from_args(args: argparse.Namespace) -> GAConfig:
+    return GAConfig(
+        pop_size=int(args.pop_size),
+        generations=int(args.generations),
+        elite_k=6,
+        mutation_rate=0.35,
+        mutation_strength=1.0,
+        n_procs=int(args.n_procs),
+        mc_splits=int(args.mc_splits),
+        train_days=int(args.train_days),
+        val_days=int(args.val_days),
+        test_days=int(args.test_days),
+        seed=int(args.seed),
+        fee_bps=float(args.fee_bps),
+        slippage_bps=float(args.slippage_bps),
+        initial_equity=10_000.0,
+        min_trades_train=40,
+        min_trades_val=15,
+        two_candle_confirm=False,
+        require_trade_cycles=True,
+        cycle_shift=1,
+        cycle_fill=2,
+        w_train=0.7,
+        w_val=0.3,
+        dd_penalty=0.45,
+        trade_penalty=0.8,
+        bad_val_penalty=1200.0,
+        resume=False,
+        early_stop_patience=int(args.early_stop_patience),
+    )
+
+
+def _safe_alias_symbol(symbol: str, phase: str) -> str:
+    return f"{symbol}__{phase.upper()}"
+
+
+def _copy_if_exists(src: Path, dst: Path) -> None:
+    if src.exists():
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, dst)
+
+
+def _snapshot_phase_artifacts(report: Dict[str, Any], phase_dir: Path) -> None:
+    phase_dir.mkdir(parents=True, exist_ok=True)
+    run_dir = Path(str(report["saved"]["run_dir"]))
+    if run_dir.exists():
+        for fp in sorted(run_dir.glob("gen_*.json")):
+            shutil.copy2(fp, phase_dir / fp.name)
+        for fp in sorted(run_dir.glob("best_gen_*.json")):
+            shutil.copy2(fp, phase_dir / fp.name)
+        _copy_if_exists(run_dir / "final_report.json", phase_dir / "final_report.json")
+
+    saved = report.get("saved", {})
+    if "history_csv" in saved:
+        _copy_if_exists(Path(str(saved["history_csv"])), phase_dir / "ga_history.csv")
+    if "checkpoint_latest" in saved:
+        _copy_if_exists(Path(str(saved["checkpoint_latest"])), phase_dir / "checkpoint_latest.json")
+
+
+def _history_rows_from_phase(symbol: str, phase: str, run_id: str, phase_dir: Path) -> List[Dict[str, Any]]:
+    rows: List[Dict[str, Any]] = []
+    for fp in sorted(phase_dir.glob("gen_*.json")):
+        payload = _read_json(fp)
+        best = payload.get("best", {})
+        avg = best.get("avg", {})
+        tr = avg.get("train", {})
+        va = avg.get("val", {})
+        te = avg.get("test", {})
+        rows.append(
+            {
+                "symbol": symbol,
+                "phase": phase,
+                "run_id": run_id,
+                "timestamp": payload.get("utc", _utc_now_iso()),
+                "gen": int(payload.get("gen", -1)),
+                "fitness": float(best.get("fitness", 0.0)),
+                "train_net": float(tr.get("net", 0.0)),
+                "train_pf": float(tr.get("pf", 0.0)),
+                "train_dd": float(tr.get("dd", 0.0)),
+                "train_trades": float(tr.get("trades", 0.0)),
+                "val_net": float(va.get("net", 0.0)),
+                "val_pf": float(va.get("pf", 0.0)),
+                "val_dd": float(va.get("dd", 0.0)),
+                "val_trades": float(va.get("trades", 0.0)),
+                "test_net": float(te.get("net", 0.0)),
+                "test_pf": float(te.get("pf", 0.0)),
+                "test_dd": float(te.get("dd", 0.0)),
+                "test_trades": float(te.get("trades", 0.0)),
+            }
+        )
+    return rows
+
+
+def _run_phase_ga(
+    symbol: str,
+    phase: str,
+    trade_cycles: List[int],
+    seed_params: Dict[str, Any],
+    df: pd.DataFrame,
+    args: argparse.Namespace,
+    coin_run_dir: Path,
+    paths: Paths,
+) -> PhaseResult:
+    phase_seed = _phase_seed(seed_params, trade_cycles=trade_cycles)
+    phase_dir = coin_run_dir / phase
+    phase_dir.mkdir(parents=True, exist_ok=True)
+    cfg = _ga_cfg_from_args(args)
+    alias_symbol = _safe_alias_symbol(symbol, phase)
+
+    _write_json(
+        phase_dir / "phase_config.json",
+        {
+            "timestamp_utc": _utc_now_iso(),
+            "symbol": symbol,
+            "phase": phase,
+            "alias_symbol": alias_symbol,
+            "trade_cycles": trade_cycles,
+            "cfg": asdict(cfg),
+            "seed_params": phase_seed,
+        },
+    )
+
+    if args.dry_run:
+        empty_report = {"symbol": alias_symbol, "run_id": "dryrun", "saved": {}, "best_overall": {"ind": phase_seed}}
+        _write_json(phase_dir / "final_report.json", empty_report)
+        return PhaseResult(
+            symbol=symbol,
+            phase=phase,
+            trade_cycles=list(trade_cycles),
+            best_params=phase_seed,
+            report=empty_report,
+            phase_dir=phase_dir,
+        )
+
+    best_params, report = run_ga_montecarlo(
+        symbol=alias_symbol,
+        df=df,
+        seed_params=phase_seed,
+        cfg=cfg,
+    )
+    best_params = _phase_seed(best_params, trade_cycles=trade_cycles)
+    _snapshot_phase_artifacts(report, phase_dir)
+    _write_json(phase_dir / "best_params.json", {"symbol": symbol, "phase": phase, "params": best_params})
+
+    hist_rows = _history_rows_from_phase(symbol, phase, paths.run_id, phase_dir)
+    _append_rows_csv(paths.all_history_csv, hist_rows, ordered_columns=HISTORY_COLUMNS)
+
+    if args.cleanup_temp_ga:
+        saved = report.get("saved", {})
+        run_dir = Path(str(saved.get("run_dir", "")))
+        history_csv = Path(str(saved.get("history_csv", "")))
+        best_params_fp = Path(str(saved.get("best_params", "")))
+        ckpt_fp = Path(str(saved.get("checkpoint_latest", "")))
+        active_fp = Path(str(saved.get("active_params", "")))
+        if run_dir.exists():
+            shutil.rmtree(run_dir, ignore_errors=True)
+        for fp in [history_csv, best_params_fp, ckpt_fp, active_fp]:
+            if fp.exists():
+                try:
+                    fp.unlink()
+                except Exception:
+                    pass
+
+    return PhaseResult(
+        symbol=symbol,
+        phase=phase,
+        trade_cycles=list(trade_cycles),
+        best_params=best_params,
+        report=report,
+        phase_dir=phase_dir,
+    )
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--symbols", default="", help="Comma-separated symbol list. Default: auto-discover from data/processed/_full")
@@ -246,6 +474,7 @@ def main() -> None:
     ap.add_argument("--fee-bps", type=float, default=7.0)
     ap.add_argument("--slippage-bps", type=float, default=2.0)
     ap.add_argument("--early-stop-patience", type=int, default=40)
+    ap.add_argument("--cleanup-temp-ga", action="store_true", default=True)
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -270,14 +499,74 @@ def main() -> None:
     print(f"[pipeline] run_id={run_id}")
     print(f"[pipeline] symbols={symbols}")
 
+    phase_summary_rows: List[Dict[str, Any]] = []
     for symbol in symbols:
         df = load_df_1h(symbol)
         seed = load_seed_params(symbol)
         dfi = enforce_nla_and_validate(df, seed, symbol)
         run_dir = init_coin_run_dir(paths, symbol, args, dfi)
-        print(f"[{symbol}] prepared run folder: {run_dir}")
+        print(f"[{symbol}] cycle1 optimization ...", flush=True)
+        c1 = _run_phase_ga(
+            symbol=symbol,
+            phase="cycle1",
+            trade_cycles=[1],
+            seed_params=seed,
+            df=dfi,
+            args=args,
+            coin_run_dir=run_dir,
+            paths=paths,
+        )
+        _write_json(run_dir / f"{symbol}_cycle1.json", {"symbol": symbol, "params": c1.best_params, "source": c1.phase})
 
-    print("[pipeline] scaffolding complete. Next commit adds phase optimization flow.")
+        print(f"[{symbol}] cycle3 optimization ...", flush=True)
+        c3 = _run_phase_ga(
+            symbol=symbol,
+            phase="cycle3",
+            trade_cycles=[3],
+            seed_params=seed,
+            df=dfi,
+            args=args,
+            coin_run_dir=run_dir,
+            paths=paths,
+        )
+        _write_json(run_dir / f"{symbol}_cycle3.json", {"symbol": symbol, "params": c3.best_params, "source": c3.phase})
+
+        phase_summary_rows.extend(
+            [
+                {
+                    "symbol": symbol,
+                    "phase": "cycle1",
+                    "val_net": "",
+                    "val_pf": "",
+                    "val_dd": "",
+                    "val_trades": "",
+                    "stability": "",
+                    "test_net": "",
+                    "fitness": float(c1.report.get("best_overall", {}).get("fitness", 0.0)),
+                    "PASS/FAIL": "",
+                    "run_id": run_id,
+                    "timestamp": _utc_now_iso(),
+                },
+                {
+                    "symbol": symbol,
+                    "phase": "cycle3",
+                    "val_net": "",
+                    "val_pf": "",
+                    "val_dd": "",
+                    "val_trades": "",
+                    "stability": "",
+                    "test_net": "",
+                    "fitness": float(c3.report.get("best_overall", {}).get("fitness", 0.0)),
+                    "PASS/FAIL": "",
+                    "run_id": run_id,
+                    "timestamp": _utc_now_iso(),
+                },
+            ]
+        )
+        print(f"[{symbol}] cycle1/cycle3 complete: {run_dir}", flush=True)
+
+    _append_rows_csv(paths.all_report_csv, phase_summary_rows, ordered_columns=PHASE_SUMMARY_COLUMNS)
+    print(f"[pipeline] cycle1/cycle3 phase complete. Appended {len(phase_summary_rows)} rows to {paths.all_report_csv}")
 
 
 if __name__ == "__main__":
