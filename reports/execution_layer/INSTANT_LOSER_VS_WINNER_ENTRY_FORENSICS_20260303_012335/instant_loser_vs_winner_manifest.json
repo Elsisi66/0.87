@@ -1,0 +1,474 @@
+{
+  "bucket_definitions": {
+    "fast_loser": "valid trade with stop-loss exit and 60 < hold <= 240 minutes",
+    "instant_loser": "valid trade with stop-loss exit and hold <= 60 minutes",
+    "meaningful_winner": "valid trade with net pnl >= 0.0020",
+    "neutral_small_win": "all other valid trades"
+  },
+  "contract_assumptions": {
+    "one_h_exit_owner": 1,
+    "one_h_signal_owner": 1,
+    "repaired_contract_only": 1,
+    "same_parent_bar_exit_disabled": 1,
+    "three_m_entry_only": 1
+  },
+  "generated_utc": "2026-03-03T01:25:26.724096+00:00",
+  "outputs": {
+    "comparison_csv": "/root/analysis/0.87/reports/execution_layer/INSTANT_LOSER_VS_WINNER_ENTRY_FORENSICS_20260303_012335/instant_loser_vs_winner_comparison_by_coin.csv",
+    "feature_matrix_csv": "/root/analysis/0.87/reports/execution_layer/INSTANT_LOSER_VS_WINNER_ENTRY_FORENSICS_20260303_012335/instant_loser_vs_winner_feature_matrix.csv",
+    "manifest_json": "/root/analysis/0.87/reports/execution_layer/INSTANT_LOSER_VS_WINNER_ENTRY_FORENSICS_20260303_012335/instant_loser_vs_winner_manifest.json",
+    "recommendation_csv": "/root/analysis/0.87/reports/execution_layer/INSTANT_LOSER_VS_WINNER_ENTRY_FORENSICS_20260303_012335/entry_repair_recommendation_by_coin.csv",
+    "report_md": "/root/analysis/0.87/reports/execution_layer/INSTANT_LOSER_VS_WINNER_ENTRY_FORENSICS_20260303_012335/instant_loser_vs_winner_report.md",
+    "trade_buckets_csv": "/root/analysis/0.87/reports/execution_layer/INSTANT_LOSER_VS_WINNER_ENTRY_FORENSICS_20260303_012335/instant_loser_vs_winner_trade_buckets.csv"
+  },
+  "per_coin_meta": {
+    "DOGEUSDT": {
+      "classification_source_row": {
+        "best_candidate_id": "M2_ENTRY_ONLY_MORE_PASSIVE",
+        "best_cvar_improve_ratio": 0.0908724416737325,
+        "best_delta_expectancy_vs_repaired_1h": 0.0006817630796743,
+        "best_entries_valid": 415,
+        "best_entry_rate": 0.9952038369304556,
+        "best_maxdd_improve_ratio": 0.1699065052345888,
+        "best_median_fill_delay_min": 0.0,
+        "best_p95_fill_delay_min": 12.0,
+        "best_taker_share": 0.0265060240963855,
+        "best_valid_for_ranking": 1,
+        "bucket_1h": "failed_1h_long",
+        "classification": "MODEL_A_WEAK_GO_REPAIRED",
+        "classification_reason": "non_negative_delta_with_partial_route_support",
+        "foundation_integrity_status": "PARTIAL",
+        "foundation_missing_window_rate": 0.0,
+        "foundation_signals_covered": 1369,
+        "foundation_signals_uncovered": 0,
+        "symbol": "DOGEUSDT"
+      },
+      "decision_diagnostics": {
+        "fast_losers": 43,
+        "instant_losers": 290,
+        "loser_median_first2_mae_pct": -0.012477841790945021,
+        "meaningful_winners": 51,
+        "median_stop_distance_pct": 0.001,
+        "strong_entry_features": 2,
+        "top_abs_effect": 1.7065017307953856,
+        "total_trades": 415,
+        "winner_median_first2_mae_pct": 0.0034850173527123385,
+        "winner_median_first2_mfe_pct": 0.03393887461497602,
+        "winners_need_room": 1
+      },
+      "feature_separation_csv": "/root/analysis/0.87/reports/execution_layer/INSTANT_LOSER_VS_WINNER_ENTRY_FORENSICS_20260303_012335/_trade_sources/DOGEUSDT_M2_ENTRY_ONLY_MORE_PASSIVE_feature_separation.csv",
+      "rebuild_meta": {
+        "build_meta": {
+          "signals_missing_3m_data": 12,
+          "signals_partial_3m_data": 22,
+          "signals_total": 1391,
+          "signals_with_3m_data": 1379,
+          "window_count": 309,
+          "window_source_counts": {
+            "remote_refill": 1379
+          }
+        },
+        "metrics": {
+          "baseline_exec_expectancy_net": 0.004657026356367787,
+          "invalid_reason": "",
+          "min_split_delta": 0.00028552771748171016,
+          "missing_slice_rate": 0.004796163069544364,
+          "overall_cvar_improve_ratio": 0.09087244167373251,
+          "overall_delta_expectancy_exec_minus_baseline": 0.0006817630796743671,
+          "overall_entries_valid": 415,
+          "overall_entry_rate": 0.9952038369304557,
+          "overall_exec_expectancy_net": 0.005338789436042154,
+          "overall_exec_median_fill_delay_min": 0.0,
+          "overall_exec_p95_fill_delay_min": 12.0,
+          "overall_exec_taker_share": 0.02650602409638554,
+          "overall_maxdd_improve_ratio": 0.16990650523458886,
+          "overall_min_trades_required": 200,
+          "overall_signals_total": 417,
+          "valid_for_ranking": 1
+        }
+      },
+      "top_separators": [
+        {
+          "effect_size": 1.7065017307953856,
+          "feature": "first2_close_ret_pct",
+          "loser_median": -0.0034678333844376796,
+          "separation_call": "winners show better first-2-bar close return",
+          "winner_median": 0.02492823571379499
+        },
+        {
+          "effect_size": 1.589492487910796,
+          "feature": "first2_mae_pct",
+          "loser_median": -0.012477841790945021,
+          "separation_call": "shallower first-2-bar adverse excursion",
+          "winner_median": 0.0034850173527123385
+        },
+        {
+          "effect_size": 1.58107851656596,
+          "feature": "first1_close_ret_pct",
+          "loser_median": -0.0025497689684126357,
+          "separation_call": "winners show better first eligible-bar close return",
+          "winner_median": 0.019746656492257042
+        },
+        {
+          "effect_size": 1.4509167946102395,
+          "feature": "first1_mae_pct",
+          "loser_median": -0.008836559539853184,
+          "separation_call": "shallower first eligible-bar adverse excursion",
+          "winner_median": 0.005120438459688348
+        },
+        {
+          "effect_size": 1.420792710617352,
+          "feature": "first2_mfe_pct",
+          "loser_median": 0.005400598404748047,
+          "separation_call": "winners show stronger first-2-bar favorable excursion",
+          "winner_median": 0.03393887461497602
+        }
+      ],
+      "trade_source_csv": "/root/analysis/0.87/reports/execution_layer/INSTANT_LOSER_VS_WINNER_ENTRY_FORENSICS_20260303_012335/_trade_sources/DOGEUSDT_M2_ENTRY_ONLY_MORE_PASSIVE_trade_level.csv"
+    },
+    "LINKUSDT": {
+      "classification_source_row": {
+        "best_candidate_id": "M3_ENTRY_ONLY_FASTER",
+        "best_cvar_improve_ratio": 0.0212035697239025,
+        "best_delta_expectancy_vs_repaired_1h": 0.0002978493518855,
+        "best_entries_valid": 290,
+        "best_entry_rate": 1.0,
+        "best_maxdd_improve_ratio": 0.1574040507562564,
+        "best_median_fill_delay_min": 0.0,
+        "best_p95_fill_delay_min": 3.0,
+        "best_taker_share": 0.0586206896551724,
+        "best_valid_for_ranking": 1,
+        "bucket_1h": "failed_1h_long",
+        "classification": "MODEL_A_STRONG_GO_REPAIRED",
+        "classification_reason": "positive_delta_with_full_route_and_risk_improvement",
+        "foundation_integrity_status": "PARTIAL",
+        "foundation_missing_window_rate": 0.0,
+        "foundation_signals_covered": 947,
+        "foundation_signals_uncovered": 0,
+        "symbol": "LINKUSDT"
+      },
+      "decision_diagnostics": {
+        "fast_losers": 46,
+        "instant_losers": 194,
+        "loser_median_first2_mae_pct": -0.010217787905973608,
+        "meaningful_winners": 24,
+        "median_stop_distance_pct": 0.001,
+        "strong_entry_features": 2,
+        "top_abs_effect": 1.7761892940212847,
+        "total_trades": 290,
+        "winner_median_first2_mae_pct": 0.0031728666329110533,
+        "winner_median_first2_mfe_pct": 0.02343115746494906,
+        "winners_need_room": 1
+      },
+      "feature_separation_csv": "/root/analysis/0.87/reports/execution_layer/INSTANT_LOSER_VS_WINNER_ENTRY_FORENSICS_20260303_012335/_trade_sources/LINKUSDT_M3_ENTRY_ONLY_FASTER_feature_separation.csv",
+      "rebuild_meta": {
+        "build_meta": {
+          "signals_missing_3m_data": 0,
+          "signals_partial_3m_data": 21,
+          "signals_total": 968,
+          "signals_with_3m_data": 968,
+          "window_count": 332,
+          "window_source_counts": {
+            "remote_refill": 968
+          }
+        },
+        "metrics": {
+          "baseline_exec_expectancy_net": 0.0018587417834470695,
+          "invalid_reason": "",
+          "min_split_delta": 0.00022836634632675962,
+          "missing_slice_rate": 0.0,
+          "overall_cvar_improve_ratio": 0.02120356972390255,
+          "overall_delta_expectancy_exec_minus_baseline": 0.000297849351885576,
+          "overall_entries_valid": 290,
+          "overall_entry_rate": 1.0,
+          "overall_exec_expectancy_net": 0.0021565911353326455,
+          "overall_exec_median_fill_delay_min": 0.0,
+          "overall_exec_p95_fill_delay_min": 3.0,
+          "overall_exec_taker_share": 0.05862068965517241,
+          "overall_maxdd_improve_ratio": 0.15740405075625646,
+          "overall_min_trades_required": 200,
+          "overall_signals_total": 290,
+          "valid_for_ranking": 1
+        }
+      },
+      "top_separators": [
+        {
+          "effect_size": 1.7761892940212847,
+          "feature": "first2_close_ret_pct",
+          "loser_median": -0.0025385327915942724,
+          "separation_call": "winners show better first-2-bar close return",
+          "winner_median": 0.018969439003491795
+        },
+        {
+          "effect_size": 1.774208658747069,
+          "feature": "first2_mae_pct",
+          "loser_median": -0.010217787905973608,
+          "separation_call": "shallower first-2-bar adverse excursion",
+          "winner_median": 0.0031728666329110533
+        },
+        {
+          "effect_size": 1.5107670488910878,
+          "feature": "first1_close_ret_pct",
+          "loser_median": -0.0017796157975804583,
+          "separation_call": "winners show better first eligible-bar close return",
+          "winner_median": 0.012408138039945449
+        },
+        {
+          "effect_size": 1.4726887152319421,
+          "feature": "first1_mae_pct",
+          "loser_median": -0.007488633364799546,
+          "separation_call": "shallower first eligible-bar adverse excursion",
+          "winner_median": 0.0031728666329110533
+        },
+        {
+          "effect_size": 1.362225232645253,
+          "feature": "first2_mfe_pct",
+          "loser_median": 0.006273125499153598,
+          "separation_call": "winners show stronger first-2-bar favorable excursion",
+          "winner_median": 0.02343115746494906
+        }
+      ],
+      "trade_source_csv": "/root/analysis/0.87/reports/execution_layer/INSTANT_LOSER_VS_WINNER_ENTRY_FORENSICS_20260303_012335/_trade_sources/LINKUSDT_M3_ENTRY_ONLY_FASTER_trade_level.csv"
+    },
+    "LTCUSDT": {
+      "classification_source_row": {
+        "best_candidate_id": "M2_ENTRY_ONLY_MORE_PASSIVE",
+        "best_cvar_improve_ratio": 0.0742124940335594,
+        "best_delta_expectancy_vs_repaired_1h": 0.0004895665814257,
+        "best_entries_valid": 282,
+        "best_entry_rate": 1.0,
+        "best_maxdd_improve_ratio": 0.2304299686331892,
+        "best_median_fill_delay_min": 0.0,
+        "best_p95_fill_delay_min": 12.0,
+        "best_taker_share": 0.0283687943262411,
+        "best_valid_for_ranking": 1,
+        "bucket_1h": "failed_1h_long",
+        "classification": "MODEL_A_WEAK_GO_REPAIRED",
+        "classification_reason": "non_negative_delta_with_partial_route_support",
+        "foundation_integrity_status": "PARTIAL",
+        "foundation_missing_window_rate": 0.0,
+        "foundation_signals_covered": 921,
+        "foundation_signals_uncovered": 0,
+        "symbol": "LTCUSDT"
+      },
+      "decision_diagnostics": {
+        "fast_losers": 35,
+        "instant_losers": 210,
+        "loser_median_first2_mae_pct": -0.007865253282910212,
+        "meaningful_winners": 18,
+        "median_stop_distance_pct": 0.0009999999999998,
+        "strong_entry_features": 2,
+        "top_abs_effect": 1.3637391594183426,
+        "total_trades": 282,
+        "winner_median_first2_mae_pct": 0.004215827897378621,
+        "winner_median_first2_mfe_pct": 0.015668663331861787,
+        "winners_need_room": 1
+      },
+      "feature_separation_csv": "/root/analysis/0.87/reports/execution_layer/INSTANT_LOSER_VS_WINNER_ENTRY_FORENSICS_20260303_012335/_trade_sources/LTCUSDT_M2_ENTRY_ONLY_MORE_PASSIVE_feature_separation.csv",
+      "rebuild_meta": {
+        "build_meta": {
+          "signals_missing_3m_data": 3,
+          "signals_partial_3m_data": 19,
+          "signals_total": 940,
+          "signals_with_3m_data": 937,
+          "window_count": 348,
+          "window_source_counts": {
+            "remote_refill": 937
+          }
+        },
+        "metrics": {
+          "baseline_exec_expectancy_net": 9.890728547803609e-05,
+          "invalid_reason": "",
+          "min_split_delta": 0.0003364554463405247,
+          "missing_slice_rate": 0.0,
+          "overall_cvar_improve_ratio": 0.07421249403355944,
+          "overall_delta_expectancy_exec_minus_baseline": 0.0004895665814257967,
+          "overall_entries_valid": 282,
+          "overall_entry_rate": 1.0,
+          "overall_exec_expectancy_net": 0.0005884738669038327,
+          "overall_exec_median_fill_delay_min": 0.0,
+          "overall_exec_p95_fill_delay_min": 12.0,
+          "overall_exec_taker_share": 0.028368794326241134,
+          "overall_maxdd_improve_ratio": 0.2304299686331892,
+          "overall_min_trades_required": 200,
+          "overall_signals_total": 282,
+          "valid_for_ranking": 1
+        }
+      },
+      "top_separators": [
+        {
+          "effect_size": 1.3637391594183426,
+          "feature": "first2_mae_pct",
+          "loser_median": -0.007865253282910212,
+          "separation_call": "shallower first-2-bar adverse excursion",
+          "winner_median": 0.004215827897378621
+        },
+        {
+          "effect_size": 1.2283690479088287,
+          "feature": "first1_mae_pct",
+          "loser_median": -0.005837136610727156,
+          "separation_call": "shallower first eligible-bar adverse excursion",
+          "winner_median": 0.004327045615331593
+        },
+        {
+          "effect_size": 1.1105323802689442,
+          "feature": "first2_close_ret_pct",
+          "loser_median": -0.002508570950748412,
+          "separation_call": "winners show better first-2-bar close return",
+          "winner_median": 0.01047785008349289
+        },
+        {
+          "effect_size": 1.0731287834137333,
+          "feature": "first1_close_ret_pct",
+          "loser_median": -0.001065522006229891,
+          "separation_call": "winners show better first eligible-bar close return",
+          "winner_median": 0.00837855723284242
+        },
+        {
+          "effect_size": -0.9518051849393181,
+          "feature": "action_gap_pct",
+          "loser_median": 0.0009857072449483972,
+          "separation_call": "winners show smaller action-bar gap-up",
+          "winner_median": -0.005972668894805577
+        }
+      ],
+      "trade_source_csv": "/root/analysis/0.87/reports/execution_layer/INSTANT_LOSER_VS_WINNER_ENTRY_FORENSICS_20260303_012335/_trade_sources/LTCUSDT_M2_ENTRY_ONLY_MORE_PASSIVE_trade_level.csv"
+    },
+    "NEARUSDT": {
+      "classification_source_row": {
+        "best_candidate_id": "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+        "best_cvar_improve_ratio": 0.0454362208368923,
+        "best_delta_expectancy_vs_repaired_1h": 0.0003615505286422,
+        "best_entries_valid": 410,
+        "best_entry_rate": 0.9903381642512076,
+        "best_maxdd_improve_ratio": 0.1553284758841474,
+        "best_median_fill_delay_min": 0.0,
+        "best_p95_fill_delay_min": 6.0,
+        "best_taker_share": 0.0439024390243902,
+        "best_valid_for_ranking": 1,
+        "bucket_1h": "passed_1h_long",
+        "classification": "MODEL_A_WEAK_GO_REPAIRED",
+        "classification_reason": "non_negative_delta_with_partial_route_support",
+        "foundation_integrity_status": "PARTIAL",
+        "foundation_missing_window_rate": 0.0,
+        "foundation_signals_covered": 1367,
+        "foundation_signals_uncovered": 0,
+        "symbol": "NEARUSDT"
+      },
+      "decision_diagnostics": {
+        "fast_losers": 48,
+        "instant_losers": 297,
+        "loser_median_first2_mae_pct": -0.011420109381766741,
+        "meaningful_winners": 43,
+        "median_stop_distance_pct": 0.001,
+        "strong_entry_features": 1,
+        "top_abs_effect": 1.696850156910175,
+        "total_trades": 410,
+        "winner_median_first2_mae_pct": 0.002773535052365883,
+        "winner_median_first2_mfe_pct": 0.025362665968565734,
+        "winners_need_room": 1
+      },
+      "feature_separation_csv": "/root/analysis/0.87/reports/execution_layer/INSTANT_LOSER_VS_WINNER_ENTRY_FORENSICS_20260303_012335/_trade_sources/NEARUSDT_M1_ENTRY_ONLY_PASSIVE_BASELINE_feature_separation.csv",
+      "rebuild_meta": {
+        "build_meta": {
+          "signals_missing_3m_data": 32,
+          "signals_partial_3m_data": 13,
+          "signals_total": 1380,
+          "signals_with_3m_data": 1348,
+          "window_count": 288,
+          "window_source_counts": {
+            "legacy_exec_cache_cover": 1348
+          }
+        },
+        "metrics": {
+          "baseline_exec_expectancy_net": 0.0024168910562033536,
+          "invalid_reason": "",
+          "min_split_delta": 6.084504542904715e-05,
+          "missing_slice_rate": 0.00966183574879227,
+          "overall_cvar_improve_ratio": 0.04543622083689238,
+          "overall_delta_expectancy_exec_minus_baseline": 0.00036155052864222806,
+          "overall_entries_valid": 410,
+          "overall_entry_rate": 0.9903381642512077,
+          "overall_exec_expectancy_net": 0.0027784415848455817,
+          "overall_exec_median_fill_delay_min": 0.0,
+          "overall_exec_p95_fill_delay_min": 6.0,
+          "overall_exec_taker_share": 0.04390243902439024,
+          "overall_maxdd_improve_ratio": 0.1553284758841474,
+          "overall_min_trades_required": 200,
+          "overall_signals_total": 414,
+          "valid_for_ranking": 1
+        }
+      },
+      "top_separators": [
+        {
+          "effect_size": 1.696850156910175,
+          "feature": "first2_mae_pct",
+          "loser_median": -0.011420109381766741,
+          "separation_call": "shallower first-2-bar adverse excursion",
+          "winner_median": 0.002773535052365883
+        },
+        {
+          "effect_size": 1.5583598786720996,
+          "feature": "first1_mae_pct",
+          "loser_median": -0.008499515714607386,
+          "separation_call": "shallower first eligible-bar adverse excursion",
+          "winner_median": 0.004128367844242753
+        },
+        {
+          "effect_size": 1.339029533067604,
+          "feature": "first1_close_ret_pct",
+          "loser_median": -0.0022361614394107443,
+          "separation_call": "winners show better first eligible-bar close return",
+          "winner_median": 0.014432111940799075
+        },
+        {
+          "effect_size": 1.3367880251632605,
+          "feature": "first2_close_ret_pct",
+          "loser_median": -0.0031048831047064684,
+          "separation_call": "winners show better first-2-bar close return",
+          "winner_median": 0.01902820251444104
+        },
+        {
+          "effect_size": -1.1984545811449734,
+          "feature": "action_gap_pct",
+          "loser_median": 0.0016053706946876911,
+          "separation_call": "winners show smaller action-bar gap-up",
+          "winner_median": -0.008250257820556883
+        }
+      ],
+      "trade_source_csv": "/root/analysis/0.87/reports/execution_layer/INSTANT_LOSER_VS_WINNER_ENTRY_FORENSICS_20260303_012335/_trade_sources/NEARUSDT_M1_ENTRY_ONLY_PASSIVE_BASELINE_trade_level.csv"
+    }
+  },
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/INSTANT_LOSER_VS_WINNER_ENTRY_FORENSICS_20260303_012335",
+  "scope": {
+    "approved": [
+      "LINKUSDT"
+    ],
+    "disabled_appendix_included": 0,
+    "live_coins": [
+      "LINKUSDT",
+      "DOGEUSDT",
+      "NEARUSDT",
+      "LTCUSDT"
+    ],
+    "shadow": [
+      "DOGEUSDT",
+      "NEARUSDT",
+      "LTCUSDT"
+    ]
+  },
+  "sources": {
+    "foundation_dir": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929",
+    "foundation_download_manifest_csv": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_3m_download_manifest.csv",
+    "foundation_signal_timeline_csv": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_signal_timeline.csv",
+    "repaired_multicoin_classification_csv": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MULTICOIN_MODELA_AUDIT_20260302_234108/repaired_multicoin_modelA_coin_classification.csv",
+    "repaired_multicoin_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MULTICOIN_MODELA_AUDIT_20260302_234108",
+    "repaired_multicoin_manifest_json": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MULTICOIN_MODELA_AUDIT_20260302_234108/repaired_multicoin_modelA_run_manifest.json"
+  },
+  "thresholds": {
+    "meaningful_winner_pnl_threshold": 0.002,
+    "min_winners_for_decision": 8,
+    "minimum_top_effect_for_any_decision": 0.2,
+    "strong_entry_feature_abs_effect_size": 0.35
+  }
+}

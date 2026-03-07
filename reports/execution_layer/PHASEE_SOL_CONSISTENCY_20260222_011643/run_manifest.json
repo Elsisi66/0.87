@@ -1,0 +1,28 @@
+{
+  "alt_subsets": 10,
+  "best_by_symbol_csv": "/root/analysis/0.87/reports/params_scan/20260220_044949/best_by_symbol.csv",
+  "frozen_signals_total": 600,
+  "full_signal_csv": "/root/analysis/0.87/data/signals/SOLUSDT_signals_1h.csv",
+  "generated_utc": "2026-02-22T01:17:47.985422+00:00",
+  "internal_recon_dir": "/root/analysis/0.87/reports/execution_layer/PHASEE_SOL_CONSISTENCY_20260222_011643/_internal/SOL_RECON_20260222_011644",
+  "params_file": "/root/analysis/0.87/data/metadata/params/SOLUSDT_C13_active_params_long.json",
+  "pass_criteria": {
+    "contract_comparison_completed": 1,
+    "critical_contradiction_resolved": 1,
+    "intrabar_impact_quantified": 1,
+    "representativeness_assessed": 1,
+    "reproduction_completed": 1,
+    "universe_mismatch_quantified": 1
+  },
+  "phase_a_contract_dir": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310",
+  "phase_a_fee_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+  "phase_a_metrics_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+  "phase_c_cfg_hash": "a285b86c4c22a26976d4a762",
+  "phase_c_dir": "/root/analysis/0.87/reports/execution_layer/PHASEC_SOL_20260221_231430",
+  "phase_d_dir": "/root/analysis/0.87/reports/execution_layer/PHASED_SOL_20260222_000517",
+  "phase_status": "PASS",
+  "seed": 42,
+  "signal_subset_sha256": "5e719faf676dffba8d7da926314997182d429361495884b8a870c3393c079bbf",
+  "symbol": "SOLUSDT",
+  "wf_split_sha256": "388ba743b9c16c291385a9ecab6435eabf65eb16f1e1083eee76627193c42c01"
+}

@@ -1,0 +1,88 @@
+{
+  "generated_utc": "2026-02-20T04:50:37.710082+00:00",
+  "scan_dir": "/root/analysis/0.87/reports/params_scan/20260220_044949",
+  "best_csv": "/root/analysis/0.87/reports/params_scan/20260220_044949/best_by_symbol.csv",
+  "capital_eur": 250.0,
+  "allocation_per_coin": 62.5,
+  "years_requested": 7.0,
+  "years": 7.0,
+  "window_start": "2019-01-01 05:00:00+00:00",
+  "window_end": "2025-12-31 23:00:00+00:00",
+  "coins_used": 4,
+  "symbols_used": [
+    "ADAUSDT",
+    "LTCUSDT",
+    "TRXUSDT",
+    "XRPUSDT"
+  ],
+  "initial_equity": 250.0,
+  "final_equity": 2182.110622597182,
+  "net_profit": 1932.110622597182,
+  "return_pct": 772.8442490388728,
+  "cagr_pct": 36.27604983371977,
+  "max_dd": 0.09058105293078202,
+  "max_dd_pct": 9.058105293078201,
+  "fee_bps": 7.0,
+  "slip_bps": 2.0,
+  "dropped_symbols": {
+    "AVAXUSDT": "insufficient_history:first=2020-09-22T06:00:00+00:00 window_start=2019-01-01T05:00:00+00:00",
+    "AXSUSDT": "insufficient_history:first=2020-11-04T13:00:00+00:00 window_start=2019-01-01T05:00:00+00:00",
+    "BCHUSDT": "insufficient_history:first=2019-11-28T10:00:00+00:00 window_start=2019-01-01T05:00:00+00:00",
+    "CRVUSDT": "insufficient_history:first=2020-08-15T04:00:00+00:00 window_start=2019-01-01T05:00:00+00:00",
+    "DOGEUSDT": "insufficient_history:first=2019-07-05T12:00:00+00:00 window_start=2019-01-01T05:00:00+00:00",
+    "LINKUSDT": "insufficient_history:first=2019-01-16T10:00:00+00:00 window_start=2019-01-01T05:00:00+00:00",
+    "NEARUSDT": "insufficient_history:first=2020-10-14T05:00:00+00:00 window_start=2019-01-01T05:00:00+00:00",
+    "SOLUSDT": "insufficient_history:first=2020-08-11T06:00:00+00:00 window_start=2019-01-01T05:00:00+00:00",
+    "ZECUSDT": "insufficient_history:first=2019-03-21T04:00:00+00:00 window_start=2019-01-01T05:00:00+00:00"
+  },
+  "per_coin": [
+    {
+      "symbol": "ADAUSDT",
+      "params_file": "/root/analysis/0.87/data/metadata/params/ADAUSDT_C13_active_params_long.json",
+      "initial_equity": 62.5,
+      "final_equity": 1268.0366520323191,
+      "net_profit": 1205.5366520323191,
+      "return_pct": 1928.8586432517106,
+      "trades": 2025.0,
+      "profit_factor": 1.8562497957434119,
+      "max_dd": 0.16325596664163788,
+      "max_dd_pct": 16.32559666416379
+    },
+    {
+      "symbol": "LTCUSDT",
+      "params_file": "/root/analysis/0.87/data/metadata/params/LTCUSDT__UNIVERSE_LONG_C3_active_params.json",
+      "initial_equity": 62.5,
+      "final_equity": 207.08207383166737,
+      "net_profit": 144.58207383166737,
+      "return_pct": 231.3313181306678,
+      "trades": 674.0,
+      "profit_factor": 1.841381323763588,
+      "max_dd": 0.11295497481434458,
+      "max_dd_pct": 11.295497481434458
+    },
+    {
+      "symbol": "TRXUSDT",
+      "params_file": "/root/analysis/0.87/data/metadata/params/TRXUSDT__UNIVERSE_LONG_C1_active_params.json",
+      "initial_equity": 62.5,
+      "final_equity": 157.83296179663424,
+      "net_profit": 95.33296179663424,
+      "return_pct": 152.53273887461475,
+      "trades": 746.0,
+      "profit_factor": 1.5625827822666092,
+      "max_dd": 0.21316030210468434,
+      "max_dd_pct": 21.316030210468433
+    },
+    {
+      "symbol": "XRPUSDT",
+      "params_file": "/root/analysis/0.87/data/metadata/params/XRPUSDT__UNIVERSE_LONG_C3_active_params.json",
+      "initial_equity": 62.5,
+      "final_equity": 549.1589349365614,
+      "net_profit": 486.6589349365614,
+      "return_pct": 778.6542958984983,
+      "trades": 1299.0,
+      "profit_factor": 2.1117561340881577,
+      "max_dd": 0.2840783054670938,
+      "max_dd_pct": 28.407830546709377
+    }
+  ]
+}

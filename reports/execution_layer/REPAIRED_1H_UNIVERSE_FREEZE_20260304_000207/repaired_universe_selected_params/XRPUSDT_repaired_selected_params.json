@@ -1,0 +1,92 @@
+{
+  "candidate_id": "R_XRPUSDT_G00_I0004",
+  "param_hash": "bea4d377e576233f921bcad3cf07d32652f3e5bc0d8d25460a7997faf49e1664",
+  "params": {
+    "adx_min": 18.0,
+    "allow_hours": [
+      1,
+      6,
+      8,
+      9,
+      12,
+      15,
+      17,
+      20,
+      21
+    ],
+    "atr_k": 0.3,
+    "breakout_atr_mult": 1.5,
+    "breakout_window": 20,
+    "cycle1_adx_boost": 2.8969965131985003,
+    "cycle1_ema_sep_atr": 0.2619734109343147,
+    "cycle_fill": 2,
+    "cycle_shift": 1,
+    "ema_align": true,
+    "ema_span": 35,
+    "ema_trend_long": 120,
+    "entry_rsi_buffer": 0.0,
+    "entry_rsi_max": 85.51197567767461,
+    "entry_rsi_min": 51.01687153181824,
+    "exit_rsi_by_cycle": [
+      57.69714636415451,
+      48.005147446140285,
+      61.63813559569978,
+      77.44653193633079,
+      46.650952870479784
+    ],
+    "max_allocation": 0.95,
+    "max_hold_hours": 10,
+    "require_ema200_slope": true,
+    "require_plus_di": true,
+    "require_trade_cycles": true,
+    "risk_per_trade": 0.02534024632643896,
+    "sl_mult_by_cycle": [
+      0.9618984888725475,
+      0.999,
+      0.9745569127178523,
+      0.9635467816204704,
+      0.9769868008438165
+    ],
+    "tp_mult_by_cycle": [
+      1.1007265148293304,
+      1.1334754835027185,
+      1.0461414504945958,
+      1.005,
+      1.0277040150307852
+    ],
+    "trade_cycles": [
+      1,
+      2
+    ],
+    "two_candle_confirm": false,
+    "willr_by_cycle": [
+      -50.0004004327055,
+      -1.0,
+      -88.97839925475597,
+      -41.14180539015311,
+      -95.6551252698581
+    ],
+    "willr_floor": -100.0
+  },
+  "params_source": "data/metadata/params/XRPUSDT__UNIVERSE_LONG_C3_active_params.json",
+  "repaired_metrics": {
+    "cvar_5": -0.0021995200959809,
+    "expectancy_net": 0.0017956544970068,
+    "max_dd_pct": 29.02257027972287,
+    "pass": 1,
+    "profit_factor": 1.893402096320837,
+    "rank": 13,
+    "score": 3.445764158590233,
+    "trades": 2030,
+    "valid_for_ranking": 1
+  },
+  "selection_rule": {
+    "primary": "repaired_score desc",
+    "secondary": "repaired_expectancy_net desc",
+    "tertiary": "repaired_max_dd_pct asc",
+    "tie_break_1": "candidate_id asc",
+    "tie_break_2": "param_hash asc"
+  },
+  "side": "long",
+  "symbol": "XRPUSDT"
+}

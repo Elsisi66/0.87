@@ -1,0 +1,11 @@
+{
+  "classification": "NO_GO",
+  "decision": "NO_GO",
+  "duration_sec": 5.617019176483154,
+  "generated_utc": "2026-02-23T18:52:21.968034+00:00",
+  "pass_threshold": 0.6,
+  "passing_candidates": [],
+  "phase": "E3",
+  "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASEE_PAPER_CONFIRM_20260223_185139/phaseE3",
+  "reason": "no candidate met stress coverage rule"
+}

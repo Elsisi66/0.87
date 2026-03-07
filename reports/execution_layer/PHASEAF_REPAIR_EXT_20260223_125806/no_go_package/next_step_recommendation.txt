@@ -1,0 +1,1 @@
+NO_GO fallback: do not escalate compute to long-horizon/execution-cross/stress stack. Re-open upstream label quality and objective definitions for tail-risk prediction before any further sizing search.

@@ -1,0 +1,178 @@
+{
+  "active_symbols_requested": [
+    "SOLUSDT",
+    "LTCUSDT"
+  ],
+  "artifacts": {
+    "repaired_active_3m_params": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_ACTIVESET_OPCHECK_20260304_012119/repaired_active_3m_params",
+    "repaired_active_3m_subset": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_ACTIVESET_OPCHECK_20260304_012119/repaired_active_3m_subset.csv",
+    "repaired_activeset_opcheck_by_symbol": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_ACTIVESET_OPCHECK_20260304_012119/repaired_activeset_opcheck_by_symbol.csv",
+    "repaired_activeset_opcheck_report": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_ACTIVESET_OPCHECK_20260304_012119/repaired_activeset_opcheck_report.md",
+    "repaired_activeset_opcheck_summary": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_ACTIVESET_OPCHECK_20260304_012119/repaired_activeset_opcheck_summary.csv",
+    "repaired_shadow_3m_subset": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_ACTIVESET_OPCHECK_20260304_012119/repaired_shadow_3m_subset.csv"
+  },
+  "confirm_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_EXEC_SUBSET1_CONFIRM_20260304_010143",
+  "contract_validation": {
+    "allowed_variant_keys": [
+      "candidate_id",
+      "entry_mode",
+      "fallback_delay_min",
+      "fallback_to_market",
+      "label",
+      "limit_offset_bps",
+      "max_fill_delay_min"
+    ],
+    "forbidden_exit_knobs_blocked": [
+      "tp_mult",
+      "sl_mult",
+      "time_stop_min",
+      "break_even_enabled",
+      "break_even_trigger_r",
+      "break_even_offset_bps",
+      "trailing_enabled",
+      "trail_start_r",
+      "trail_step_bps",
+      "partial_take_enabled",
+      "partial_take_r",
+      "partial_take_pct"
+    ],
+    "freeze_lock": {
+      "allow_freeze_hash_mismatch": 0,
+      "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+      "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+      "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "copied_verbatim_fee": 1,
+      "copied_verbatim_metrics": 1,
+      "expected_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "expected_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "fee_hash_match_expected": 1,
+      "fee_value_diffs": {},
+      "fee_value_match_args": 1,
+      "freeze_lock_pass": 1,
+      "generated_utc": "2026-03-04T01:21:20.569030+00:00",
+      "metrics_hash_match_expected": 1,
+      "run_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "run_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+    },
+    "generated_utc": "2026-03-04T01:21:20.569351+00:00",
+    "hybrid_exit_mutation_enabled": 0,
+    "observed_variant_keys": [
+      "candidate_id",
+      "entry_mode",
+      "fallback_delay_min",
+      "fallback_to_market",
+      "label",
+      "limit_offset_bps",
+      "max_fill_delay_min"
+    ],
+    "variant_family_size": 4,
+    "variant_ids": [
+      "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+      "M2_ENTRY_ONLY_MORE_PASSIVE",
+      "M3_ENTRY_ONLY_FASTER",
+      "M4_ENTRY_ONLY_MARKET_CONTROL"
+    ],
+    "wrapper_uses_1h_exit_owner": 1,
+    "wrapper_uses_1h_signal_owner": 1,
+    "wrapper_uses_3m_entry_only": 1
+  },
+  "cost_stress": {
+    "fee_bps_maker_base": 2.0,
+    "fee_bps_maker_stress": 3.0,
+    "fee_bps_taker_base": 4.0,
+    "fee_bps_taker_stress": 6.0,
+    "slippage_bps_limit_base": 0.5,
+    "slippage_bps_limit_stress": 1.0,
+    "slippage_bps_market_base": 2.0,
+    "slippage_bps_market_stress": 3.0
+  },
+  "foundation_dir": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929",
+  "freeze_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207",
+  "generated_utc": "2026-03-04T01:24:28.117988+00:00",
+  "recommendation": "BLOCK_DEPLOYMENT_AND_REVIEW",
+  "shadow_symbol_reference": "NEARUSDT",
+  "subset_eval_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_EXEC_SUBSET1_20260304_003748",
+  "symbol_meta": {
+    "LTCUSDT": {
+      "base_route_meta": {
+        "coverage_frac": 0.6,
+        "min_contexts_for_overall_gate": 665,
+        "min_test_signals_for_overall_gate": 200,
+        "route_count": 3,
+        "route_family_supported": 1,
+        "window_n": 665
+      },
+      "build_meta": {
+        "signals_missing_3m_data": 0,
+        "signals_partial_3m_data": 940,
+        "signals_total": 940,
+        "signals_with_3m_data": 940,
+        "window_count": 1,
+        "window_source_counts": {
+          "foundation_merged_3m": 940
+        }
+      },
+      "params_source": "data/metadata/params/LTCUSDT__UNIVERSE_LONG_C3_active_params.json",
+      "source_mode": "foundation_cached_windows",
+      "stress_route_meta": {
+        "coverage_frac": 0.6,
+        "min_contexts_for_overall_gate": 665,
+        "min_test_signals_for_overall_gate": 200,
+        "route_count": 3,
+        "route_family_supported": 1,
+        "window_n": 665
+      },
+      "strict_confirm_candidate_id": "M2_ENTRY_ONLY_MORE_PASSIVE",
+      "variant": {
+        "candidate_id": "M2_ENTRY_ONLY_MORE_PASSIVE",
+        "entry_mode": "limit",
+        "fallback_delay_min": 12.0,
+        "fallback_to_market": 1,
+        "label": "M2 3m entry-only more passive",
+        "limit_offset_bps": 1.5,
+        "max_fill_delay_min": 45.0
+      }
+    },
+    "SOLUSDT": {
+      "base_route_meta": {
+        "coverage_frac": 0.6,
+        "min_contexts_for_overall_gate": 665,
+        "min_test_signals_for_overall_gate": 200,
+        "route_count": 3,
+        "route_family_supported": 1,
+        "window_n": 2864
+      },
+      "build_meta": {
+        "signals_missing_3m_data": 0,
+        "signals_partial_3m_data": 0,
+        "signals_total": 4773,
+        "signals_with_3m_data": 4773,
+        "window_count": 1,
+        "window_source_counts": {
+          "local_full_3m": 4773
+        }
+      },
+      "params_source": "data/metadata/params/SOLUSDT_C13_active_params_long.json",
+      "source_mode": "local_full_3m",
+      "stress_route_meta": {
+        "coverage_frac": 0.6,
+        "min_contexts_for_overall_gate": 665,
+        "min_test_signals_for_overall_gate": 200,
+        "route_count": 3,
+        "route_family_supported": 1,
+        "window_n": 2864
+      },
+      "strict_confirm_candidate_id": "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+      "variant": {
+        "candidate_id": "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+        "entry_mode": "limit",
+        "fallback_delay_min": 6.0,
+        "fallback_to_market": 1,
+        "label": "M1 3m entry-only passive baseline",
+        "limit_offset_bps": 0.75,
+        "max_fill_delay_min": 24.0
+      }
+    }
+  }
+}

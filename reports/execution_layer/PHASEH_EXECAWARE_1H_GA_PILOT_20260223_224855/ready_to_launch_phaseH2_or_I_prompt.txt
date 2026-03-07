@@ -1,0 +1,12 @@
+ROLE
+You are in Phase I execution-aware 1h GA expansion mode.
+
+MISSION
+Run a larger bounded execution-aware 1h GA using top Phase H survivors as seeds, with mandatory E1/E2 scoring and full route/split robustness checks.
+
+RULES
+1) Hard gates unchanged.
+2) Frozen contract lock enforced (allow_freeze_hash_mismatch=0).
+3) Increase compute moderately (e.g., 192x8), not marathon.
+4) Keep duplicate-adjusted significance, PSR/DSR proxies, and robustness matrix mandatory.
+5) Stop NO_GO if gains collapse under robustness.

@@ -1,0 +1,27 @@
+{
+  "generated_utc": "2026-02-23T18:52:15.792457+00:00",
+  "n_boot": 300,
+  "policies": {
+    "skip_risk_ge_0.70": {
+      "boot_n": 300,
+      "min_cvar_mean": 0.0,
+      "min_cvar_q05": 0.0,
+      "min_cvar_q50": 0.0,
+      "pass_rate": 0.7266666666666667
+    },
+    "skip_streak4_cool60m": {
+      "boot_n": 300,
+      "min_cvar_mean": 0.0,
+      "min_cvar_q05": 0.0,
+      "min_cvar_q50": 0.0,
+      "pass_rate": 0.7233333333333334
+    },
+    "skip_streak5_cool60m": {
+      "boot_n": 300,
+      "min_cvar_mean": 0.0,
+      "min_cvar_q05": 0.0,
+      "min_cvar_q50": 0.0,
+      "pass_rate": 0.97
+    }
+  }
+}

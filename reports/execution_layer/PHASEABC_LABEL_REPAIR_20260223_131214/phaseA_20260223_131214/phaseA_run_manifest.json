@@ -1,0 +1,8 @@
+{
+  "decision": "PASS",
+  "duration_sec": 0.03354048728942871,
+  "generated_utc": "2026-02-23T13:12:14.386496+00:00",
+  "phase": "A",
+  "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASEABC_LABEL_REPAIR_20260223_131214/phaseA_20260223_131214",
+  "reason": "all checks passed"
+}

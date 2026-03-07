@@ -1,0 +1,87 @@
+{
+  "acceptance_logic_source": "/root/analysis/0.87/scripts/live_coin_bounded_entry_repair_pilot.py",
+  "config_cluster_framework_note": "Correlation-adjusted config clustering exists in other branches for seeded candidate neighborhoods, but is not applicable to only two frozen threshold candidates without inventing synthetic neighbors.",
+  "decision": {
+    "best_row": {
+      "acceptance_status": 1,
+      "accepted": 1,
+      "candidate_trade_csv": "/root/analysis/0.87/reports/execution_layer/LINK_SOFT_REPAIR_CONFIRMATION_20260303_020324/_candidate_rows/PCTL_DROP_TOP10_POSGAP.csv",
+      "confirming_routes": 1,
+      "confirming_seeds": 0,
+      "confirming_splits": 4,
+      "confirming_time_slices": 3,
+      "corr_adjusted_config_clusters_reason": "only_two_frozen_threshold_variants_no_seeded_neighbor_family",
+      "corr_adjusted_config_clusters_supported": 0,
+      "cvar_5": -0.0021528824182665603,
+      "cvar_delta_vs_control": 0.0,
+      "expectancy_delta_vs_control": 8.929767304738422e-05,
+      "expectancy_net": 0.002245888808380049,
+      "fast_loser_count": 46,
+      "gap_metric_definition_match": 1,
+      "instant_loser_count": 180,
+      "invalid_reason": "",
+      "loss_cluster_avg_burden_improve_ratio": 0.05214963001410391,
+      "loss_cluster_confirm": 1,
+      "loss_cluster_worst_burden_improve_ratio": 0.010184429995907409,
+      "max_drawdown": -0.17977432135592444,
+      "maxdd_delta_vs_control": 0.001849737513124422,
+      "meaningful_winner_count": 24,
+      "min_split_delta_vs_control": 0.0,
+      "min_time_slice_delta_vs_control": 3.813891779637715e-05,
+      "parity_clean": 1,
+      "reconstruction_valid": 1,
+      "robust_rank": 1,
+      "robustness_label": "fragile",
+      "route_confirm_count": 1,
+      "route_total": 2,
+      "seed_confirm_count": 0,
+      "seed_reason": "single_seed_cycle_only",
+      "seed_supported": 0,
+      "seed_total": 1,
+      "split_confirm_count": 4,
+      "split_total": 5,
+      "symbol": "LINKUSDT",
+      "time_slice_confirm_count": 3,
+      "time_slice_total": 3,
+      "trade_count_retention_vs_control": 0.9517241379310345,
+      "valid_for_ranking": 1,
+      "variant_id": "PCTL_DROP_TOP10_POSGAP",
+      "variant_label": "Drop top 10% of positive-gap trades"
+    },
+    "posture": "NO_REPAIR_APPROVED",
+    "reason": "Neither candidate is robust enough beyond point-estimate improvement."
+  },
+  "discovered_inputs": {
+    "baseline_dir": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650",
+    "cliff_dir": "/root/analysis/0.87/reports/execution_layer/LINK_RETENTION_CLIFF_FORENSICS_20260303_014856",
+    "control_trade_csv": "/root/analysis/0.87/reports/execution_layer/LIVE_COIN_BOUNDED_ENTRY_REPAIR_PILOT_20260303_013409/_trade_sources/LINKUSDT_M3_ENTRY_ONLY_FASTER_control.csv",
+    "diag_dir": "/root/analysis/0.87/reports/execution_layer/INSTANT_LOSER_VS_WINNER_ENTRY_FORENSICS_20260303_012335",
+    "multicoin_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MULTICOIN_MODELA_AUDIT_20260302_234108",
+    "pilot_dir": "/root/analysis/0.87/reports/execution_layer/LIVE_COIN_BOUNDED_ENTRY_REPAIR_PILOT_20260303_013409"
+  },
+  "filter_reconstruction": {
+    "scan_meta": {
+      "action_gap_cap_hard_failed": 0.0,
+      "action_gap_cap_soft_2bps": 0.0002,
+      "action_gap_cap_soft_4bps": 0.0004,
+      "positive_gap_q75": 0.01170905318691575,
+      "positive_gap_q90": 0.016071867900614174
+    },
+    "source_path": "/root/analysis/0.87/scripts/link_retention_cliff_forensics.py"
+  },
+  "gap_metric_definition": {
+    "formula": "action_open_1h / signal_close_1h - 1.0",
+    "metric": "action_gap_pct",
+    "source_path": "/root/analysis/0.87/scripts/instant_loser_vs_winner_entry_forensics.py"
+  },
+  "generated_utc": "2026-03-03T02:03:48.619007+00:00",
+  "outputs": {
+    "detail_csv": "/root/analysis/0.87/reports/execution_layer/LINK_SOFT_REPAIR_CONFIRMATION_20260303_020324/link_soft_repair_confirmation_detail.csv",
+    "report_md": "/root/analysis/0.87/reports/execution_layer/LINK_SOFT_REPAIR_CONFIRMATION_20260303_020324/link_soft_repair_confirmation_report.md",
+    "summary_csv": "/root/analysis/0.87/reports/execution_layer/LINK_SOFT_REPAIR_CONFIRMATION_20260303_020324/link_soft_repair_confirmation_summary.csv"
+  },
+  "route_framework_source": "/root/analysis/0.87/scripts/phase_r_route_harness_redesign.py",
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/LINK_SOFT_REPAIR_CONFIRMATION_20260303_020324",
+  "seed_framework_note": "LINK signal timeline carries a single cycle only; no existing multi-seed confirmation can be applied cleanly.",
+  "symbol": "LINKUSDT"
+}

@@ -1,0 +1,226 @@
+{
+  "objective_families": [
+    {
+      "center_route_anti_collapse": "center route gets higher fill-risk pruning budget",
+      "family_id": "FILL_RESCUE",
+      "hard_exclusions": [
+        "none in spec; prototype uses bounded ranked pruning only"
+      ],
+      "penalties": [
+        "fill_delay_risk",
+        "spread",
+        "realized_vol",
+        "weak trend"
+      ],
+      "route_balance_requirement": "front/center/back removal budgets capped to preserve all repaired routes",
+      "support_minimums": {
+        "per_route_entries_min": 200
+      },
+      "tail_cvar_safeguard": "do not remove more than support headroom permits",
+      "target_metric": "positive delta expectancy vs E1/E2 with entry-rate repair",
+      "trade_density_safeguard": "session caps on removals"
+    },
+    {
+      "center_route_anti_collapse": "center budget retained but smaller than fill-rescue",
+      "family_id": "COST_DEFENSE",
+      "hard_exclusions": [
+        "none in spec; bounded ranked pruning"
+      ],
+      "penalties": [
+        "taker_risk",
+        "spread",
+        "ATR stress",
+        "adverse selection proxy"
+      ],
+      "route_balance_requirement": "front route gets largest taker-risk budget",
+      "support_minimums": {
+        "per_route_entries_min": 200
+      },
+      "tail_cvar_safeguard": "vol-bucket caps avoid concentrating removals in one regime",
+      "target_metric": "reduce cost-killed edge and taker failures",
+      "trade_density_safeguard": "session + vol caps"
+    },
+    {
+      "center_route_anti_collapse": "center route gets moderate extra budget",
+      "family_id": "TAIL_PENALIZED",
+      "hard_exclusions": [
+        "none in spec; bounded ranked pruning"
+      ],
+      "penalties": [
+        "ATR stress",
+        "large bodies",
+        "wick imbalance",
+        "impulse"
+      ],
+      "route_balance_requirement": "balanced removal budgets across all repaired routes",
+      "support_minimums": {
+        "per_route_entries_min": 200
+      },
+      "tail_cvar_safeguard": "tail-focused score only; no low-signal starvation allowed",
+      "target_metric": "reduce tail contribution without collapsing density",
+      "trade_density_safeguard": "session + vol caps"
+    },
+    {
+      "center_route_anti_collapse": "explicit design focus",
+      "family_id": "CENTER_GUARD",
+      "hard_exclusions": [
+        "none in spec; bounded ranked pruning"
+      ],
+      "penalties": [
+        "fill_delay_risk",
+        "taker_risk",
+        "spread",
+        "ATR stress"
+      ],
+      "route_balance_requirement": "all routes preserved, but center route gets largest budget",
+      "support_minimums": {
+        "per_route_entries_min": 200
+      },
+      "tail_cvar_safeguard": "back-route budget remains small to avoid overfit",
+      "target_metric": "eliminate center-route universal failure as primary bottleneck",
+      "trade_density_safeguard": "session caps"
+    }
+  ],
+  "phase": "S2",
+  "prototype_seeds": [
+    {
+      "description": "Keep full active signal set",
+      "family_id": "REFERENCE",
+      "method": "baseline",
+      "prototype_id": "baseline_active"
+    },
+    {
+      "description": "Legacy AE H1 volatility/trend guard",
+      "family_id": "REFERENCE",
+      "method": "hard_rule",
+      "prototype_id": "ref_ae_h1",
+      "rule_id": "AE_H1"
+    },
+    {
+      "description": "Legacy AE H2 spread/vol guard",
+      "family_id": "REFERENCE",
+      "method": "hard_rule",
+      "prototype_id": "ref_ae_h2",
+      "rule_id": "AE_H2"
+    },
+    {
+      "description": "Legacy AE H3 impulse/vol guard",
+      "family_id": "REFERENCE",
+      "method": "hard_rule",
+      "prototype_id": "ref_ae_h3",
+      "rule_id": "AE_H3"
+    },
+    {
+      "budgets": {
+        "route_back_60pct": 0,
+        "route_center_60pct": 4,
+        "route_front_60pct": 2
+      },
+      "family_id": "FILL_RESCUE",
+      "method": "route_prune",
+      "prototype_id": "fill_rescue_conservative",
+      "score_family": "FILL_RESCUE",
+      "session_cap": 2,
+      "vol_cap": null,
+      "weight_scale": 1.0
+    },
+    {
+      "budgets": {
+        "route_back_60pct": 1,
+        "route_center_60pct": 6,
+        "route_front_60pct": 3
+      },
+      "family_id": "FILL_RESCUE",
+      "method": "route_prune",
+      "prototype_id": "fill_rescue_moderate",
+      "score_family": "FILL_RESCUE",
+      "session_cap": 3,
+      "vol_cap": null,
+      "weight_scale": 1.0
+    },
+    {
+      "budgets": {
+        "route_back_60pct": 1,
+        "route_center_60pct": 2,
+        "route_front_60pct": 4
+      },
+      "family_id": "COST_DEFENSE",
+      "method": "route_prune",
+      "prototype_id": "cost_defense_conservative",
+      "score_family": "COST_DEFENSE",
+      "session_cap": 2,
+      "vol_cap": 2,
+      "weight_scale": 1.0
+    },
+    {
+      "budgets": {
+        "route_back_60pct": 2,
+        "route_center_60pct": 3,
+        "route_front_60pct": 6
+      },
+      "family_id": "COST_DEFENSE",
+      "method": "route_prune",
+      "prototype_id": "cost_defense_moderate",
+      "score_family": "COST_DEFENSE",
+      "session_cap": 3,
+      "vol_cap": 3,
+      "weight_scale": 1.0
+    },
+    {
+      "budgets": {
+        "route_back_60pct": 2,
+        "route_center_60pct": 4,
+        "route_front_60pct": 2
+      },
+      "family_id": "TAIL_PENALIZED",
+      "method": "route_prune",
+      "prototype_id": "tail_penalized_conservative",
+      "score_family": "TAIL_PENALIZED",
+      "session_cap": 2,
+      "vol_cap": 2,
+      "weight_scale": 1.0
+    },
+    {
+      "budgets": {
+        "route_back_60pct": 3,
+        "route_center_60pct": 6,
+        "route_front_60pct": 3
+      },
+      "family_id": "TAIL_PENALIZED",
+      "method": "route_prune",
+      "prototype_id": "tail_penalized_moderate",
+      "score_family": "TAIL_PENALIZED",
+      "session_cap": 3,
+      "vol_cap": 3,
+      "weight_scale": 1.0
+    },
+    {
+      "budgets": {
+        "route_back_60pct": 1,
+        "route_center_60pct": 6,
+        "route_front_60pct": 4
+      },
+      "family_id": "CENTER_GUARD",
+      "method": "route_prune",
+      "prototype_id": "center_guard_conservative",
+      "score_family": "CENTER_GUARD",
+      "session_cap": 2,
+      "vol_cap": null,
+      "weight_scale": 1.0
+    },
+    {
+      "budgets": {
+        "route_back_60pct": 2,
+        "route_center_60pct": 8,
+        "route_front_60pct": 6
+      },
+      "family_id": "CENTER_GUARD",
+      "method": "route_prune",
+      "prototype_id": "center_guard_moderate",
+      "score_family": "CENTER_GUARD",
+      "session_cap": 3,
+      "vol_cap": null,
+      "weight_scale": 1.0
+    }
+  ]
+}

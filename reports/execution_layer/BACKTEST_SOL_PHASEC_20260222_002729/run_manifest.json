@@ -1,0 +1,27 @@
+{
+  "exec_horizon_hours": 12.0,
+  "fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+  "fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+  "generated_utc": "2026-02-22T00:27:31.695468+00:00",
+  "initial_equity": 1.0,
+  "metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+  "metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+  "phase_a_dir": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310",
+  "phase_c_cfg_hash": "a285b86c4c22a26976d4a762",
+  "phase_c_dir": "/root/analysis/0.87/reports/execution_layer/PHASEC_SOL_20260221_231430",
+  "recommendation": "PROCEED_TO_PAPER_SOL",
+  "risk_per_trade": 0.01,
+  "signal_subset_hash": "5e719faf676dffba8d7da926314997182d429361495884b8a870c3393c079bbf",
+  "signal_subset_path": "/root/analysis/0.87/reports/execution_layer/PHASEC_SOL_20260221_231430/signal_subset.csv",
+  "signals_total_subset": 2000,
+  "signals_total_test": 600,
+  "symbol": "SOLUSDT",
+  "variants": [
+    "1H_REFERENCE_CONTROL",
+    "EXEC_3M_CONTROL",
+    "EXEC_3M_PHASEC_BEST"
+  ],
+  "wf_split_count": 5,
+  "wf_split_definition_path": "/root/analysis/0.87/reports/execution_layer/PHASEC_SOL_20260221_231430/wf_split_definition.json",
+  "wf_split_definition_sha256": "388ba743b9c16c291385a9ecab6435eabf65eb16f1e1083eee76627193c42c01"
+}

@@ -1,0 +1,69 @@
+{
+  "code_modified": "NO",
+  "command_log": [
+    {
+      "cwd": "/root/analysis/0.87",
+      "step": "autorun_start",
+      "utc": "2026-02-22T20:15:42.144741+00:00"
+    },
+    {
+      "source_run": "/root/analysis/0.87/reports/execution_layer/GA_EXEC_OPT_20260222_193057",
+      "step": "selected_source_run",
+      "utc": "2026-02-22T20:15:42.293806+00:00"
+    }
+  ],
+  "freeze_global": {
+    "canonical_fee_model": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+    "canonical_fee_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "canonical_metrics_definition": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+    "canonical_metrics_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "expected_fee_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "expected_metrics_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "fee_hash_match": 1,
+    "metrics_hash_match": 1,
+    "representative_subset_csv": "/root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv"
+  },
+  "generated_utc": "2026-02-22T20:22:21.160524+00:00",
+  "phaseQ_result": "Q_PASS_WEAK",
+  "phaseR_result": "R_PASS",
+  "phaseS_result": "S_PROMOTE_PAPER_CAUTION",
+  "selected_candidates": [
+    {
+      "baseline_cvar_improve": 0.19084808115760585,
+      "baseline_delta_expectancy": 0.0008943475888233892,
+      "baseline_exec_expectancy": 5.6491907107753134e-05,
+      "baseline_maxdd_improve": 0.5802892196534639,
+      "baseline_p95_delay": 15.900000000000034,
+      "baseline_taker_share": 0.08169014084507042,
+      "brittle_any": 1,
+      "dsr_proxy": 0.9999999999994689,
+      "fee_degradation_slope": 0.0003332039788477002,
+      "genome_hash": "862c940746de0da984862d95",
+      "participation_retention_ratio": 0.8888888888888888,
+      "psr_proxy": 1.0,
+      "risk_retention_ratio": 1.0,
+      "robust_pass": 1,
+      "role": "primary",
+      "sign_retention_delta": 1.0
+    },
+    {
+      "baseline_cvar_improve": 0.1820117437506406,
+      "baseline_delta_expectancy": 0.0008933758037383145,
+      "baseline_exec_expectancy": 5.552012202267841e-05,
+      "baseline_maxdd_improve": 0.5795036681548837,
+      "baseline_p95_delay": 15.0,
+      "baseline_taker_share": 0.08450704225352113,
+      "brittle_any": 1,
+      "dsr_proxy": 0.9999999999988121,
+      "fee_degradation_slope": 0.0003322324746840153,
+      "genome_hash": "992bd371689ba3936f3b4d09",
+      "participation_retention_ratio": 0.8888888888888888,
+      "psr_proxy": 0.9999999999999999,
+      "risk_retention_ratio": 1.0,
+      "robust_pass": 1,
+      "role": "backup",
+      "sign_retention_delta": 1.0
+    }
+  ],
+  "source_run_dir": "/root/analysis/0.87/reports/execution_layer/GA_EXEC_OPT_20260222_193057"
+}

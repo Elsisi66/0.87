@@ -1,0 +1,5 @@
+ROLE
+You are in Phase C Model A confirmation mode for SOLUSDT.
+
+MISSION
+Run a bounded confirmation on only the robust Phase B entry-only survivors under the same frozen 1h signal/exit wrapper, same repaired routes, unchanged hard gates, and no 3m exit controls. Stop on first route-center or stress regression.

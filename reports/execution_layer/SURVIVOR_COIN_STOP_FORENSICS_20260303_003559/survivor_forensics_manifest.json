@@ -1,0 +1,224 @@
+{
+  "analysis_set": [
+    "LINKUSDT",
+    "DOGEUSDT",
+    "NEARUSDT",
+    "LTCUSDT",
+    "SOLUSDT",
+    "AVAXUSDT"
+  ],
+  "approved_keep_as_is": [
+    "LINKUSDT"
+  ],
+  "contract_validation": {
+    "allowed_variant_keys": [
+      "candidate_id",
+      "entry_mode",
+      "fallback_delay_min",
+      "fallback_to_market",
+      "label",
+      "limit_offset_bps",
+      "max_fill_delay_min"
+    ],
+    "forbidden_exit_knobs_blocked": [
+      "tp_mult",
+      "sl_mult",
+      "time_stop_min",
+      "break_even_enabled",
+      "break_even_trigger_r",
+      "break_even_offset_bps",
+      "trailing_enabled",
+      "trail_start_r",
+      "trail_step_bps",
+      "partial_take_enabled",
+      "partial_take_r",
+      "partial_take_pct"
+    ],
+    "freeze_lock": {
+      "allow_freeze_hash_mismatch": 0,
+      "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+      "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+      "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "copied_verbatim_fee": 1,
+      "copied_verbatim_metrics": 1,
+      "expected_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "expected_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "fee_hash_match_expected": 1,
+      "fee_value_diffs": {},
+      "fee_value_match_args": 1,
+      "freeze_lock_pass": 1,
+      "generated_utc": "2026-03-03T00:35:59.708756+00:00",
+      "metrics_hash_match_expected": 1,
+      "run_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "run_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+    },
+    "generated_utc": "2026-03-03T00:35:59.709393+00:00",
+    "hybrid_exit_mutation_enabled": 0,
+    "observed_variant_keys": [
+      "candidate_id",
+      "entry_mode",
+      "fallback_delay_min",
+      "fallback_to_market",
+      "label",
+      "limit_offset_bps",
+      "max_fill_delay_min"
+    ],
+    "variant_family_size": 4,
+    "variant_ids": [
+      "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+      "M2_ENTRY_ONLY_MORE_PASSIVE",
+      "M3_ENTRY_ONLY_FASTER",
+      "M4_ENTRY_ONLY_MARKET_CONTROL"
+    ],
+    "wrapper_uses_1h_exit_owner": 1,
+    "wrapper_uses_1h_signal_owner": 1,
+    "wrapper_uses_3m_entry_only": 1
+  },
+  "disabled": [
+    "AVAXUSDT",
+    "SOLUSDT"
+  ],
+  "foundation_dir": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929",
+  "frozen_repaired_multicoin_classification_csv": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MULTICOIN_MODELA_AUDIT_20260302_234108/repaired_multicoin_modelA_coin_classification.csv",
+  "frozen_repaired_multicoin_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MULTICOIN_MODELA_AUDIT_20260302_234108",
+  "frozen_repaired_multicoin_reference_vs_best_csv": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MULTICOIN_MODELA_AUDIT_20260302_234108/repaired_multicoin_modelA_reference_vs_best.csv",
+  "generated_utc": "2026-03-03T00:39:48.239010+00:00",
+  "legacy_pre_repair_results_used": 0,
+  "outputs": {
+    "survivor_fix_decision_report_md": "/root/analysis/0.87/reports/execution_layer/SURVIVOR_COIN_STOP_FORENSICS_20260303_003559/survivor_fix_decision_report.md",
+    "survivor_forensics_manifest_json": "/root/analysis/0.87/reports/execution_layer/SURVIVOR_COIN_STOP_FORENSICS_20260303_003559/survivor_forensics_manifest.json",
+    "survivor_hold_duration_by_coin_csv": "/root/analysis/0.87/reports/execution_layer/SURVIVOR_COIN_STOP_FORENSICS_20260303_003559/survivor_hold_duration_by_coin.csv",
+    "survivor_short_exit_reason_breakdown_csv": "/root/analysis/0.87/reports/execution_layer/SURVIVOR_COIN_STOP_FORENSICS_20260303_003559/survivor_short_exit_reason_breakdown.csv",
+    "survivor_stop_definition_matrix_csv": "/root/analysis/0.87/reports/execution_layer/SURVIVOR_COIN_STOP_FORENSICS_20260303_003559/survivor_stop_definition_matrix.csv",
+    "survivor_stop_root_cause_by_coin_csv": "/root/analysis/0.87/reports/execution_layer/SURVIVOR_COIN_STOP_FORENSICS_20260303_003559/survivor_stop_root_cause_by_coin.csv"
+  },
+  "repaired_contract_guards": {
+    "model_a_exit_after_fill_guard": "scripts/phase_a_model_a_audit.py:423",
+    "model_a_stop_anchor_formula": "scripts/phase_a_model_a_audit.py:445",
+    "paper_runtime_guard": "paper_trading/app/model_a_runtime.py:672-674",
+    "repaired_1h_defer_exit_default": "scripts/backtest_exec_phasec_sol.py:247",
+    "repaired_1h_eval_start": "scripts/backtest_exec_phasec_sol.py:316",
+    "wick_touch_trigger_rule": "scripts/execution_layer_3m_ict.py:780-805"
+  },
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/SURVIVOR_COIN_STOP_FORENSICS_20260303_003559",
+  "shadow_only": [
+    "DOGEUSDT",
+    "LTCUSDT",
+    "NEARUSDT"
+  ],
+  "symbol_meta": {
+    "AVAXUSDT": {
+      "best_candidate_id": "M2_ENTRY_ONLY_MORE_PASSIVE",
+      "best_delta_expectancy_vs_repaired_1h": 0.000258102054171,
+      "bundle_build": {
+        "signals_missing_3m_data": 92,
+        "signals_partial_3m_data": 18,
+        "signals_total": 1732,
+        "signals_with_3m_data": 1640,
+        "window_count": 366,
+        "window_source_counts": {
+          "legacy_exec_cache_cover": 1622,
+          "remote_refill": 18
+        }
+      },
+      "foundation_integrity_status": "PARTIAL",
+      "ranking_label": "MODEL_A_NO_GO_REPAIRED",
+      "recommended_action": "DISABLE_COIN",
+      "root_cause_classification": "STOP_TOO_TIGHT_BUT_LOGICALLY_CORRECT"
+    },
+    "DOGEUSDT": {
+      "best_candidate_id": "M2_ENTRY_ONLY_MORE_PASSIVE",
+      "best_delta_expectancy_vs_repaired_1h": 0.0006817630796743,
+      "bundle_build": {
+        "signals_missing_3m_data": 12,
+        "signals_partial_3m_data": 22,
+        "signals_total": 1391,
+        "signals_with_3m_data": 1379,
+        "window_count": 309,
+        "window_source_counts": {
+          "remote_refill": 1379
+        }
+      },
+      "foundation_integrity_status": "PARTIAL",
+      "ranking_label": "MODEL_A_WEAK_GO_REPAIRED",
+      "recommended_action": "MOVE_TO_SHADOW_ONLY",
+      "root_cause_classification": "STOP_TOO_TIGHT_BUT_LOGICALLY_CORRECT"
+    },
+    "LINKUSDT": {
+      "best_candidate_id": "M3_ENTRY_ONLY_FASTER",
+      "best_delta_expectancy_vs_repaired_1h": 0.0002978493518855,
+      "bundle_build": {
+        "signals_missing_3m_data": 0,
+        "signals_partial_3m_data": 21,
+        "signals_total": 968,
+        "signals_with_3m_data": 968,
+        "window_count": 332,
+        "window_source_counts": {
+          "remote_refill": 968
+        }
+      },
+      "foundation_integrity_status": "PARTIAL",
+      "ranking_label": "MODEL_A_STRONG_GO_REPAIRED",
+      "recommended_action": "KEEP_AS_IS",
+      "root_cause_classification": "STOP_TOO_TIGHT_BUT_LOGICALLY_CORRECT"
+    },
+    "LTCUSDT": {
+      "best_candidate_id": "M2_ENTRY_ONLY_MORE_PASSIVE",
+      "best_delta_expectancy_vs_repaired_1h": 0.0004895665814257,
+      "bundle_build": {
+        "signals_missing_3m_data": 3,
+        "signals_partial_3m_data": 19,
+        "signals_total": 940,
+        "signals_with_3m_data": 937,
+        "window_count": 348,
+        "window_source_counts": {
+          "remote_refill": 937
+        }
+      },
+      "foundation_integrity_status": "PARTIAL",
+      "ranking_label": "MODEL_A_WEAK_GO_REPAIRED",
+      "recommended_action": "MOVE_TO_SHADOW_ONLY",
+      "root_cause_classification": "STOP_TOO_TIGHT_BUT_LOGICALLY_CORRECT"
+    },
+    "NEARUSDT": {
+      "best_candidate_id": "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+      "best_delta_expectancy_vs_repaired_1h": 0.0003615505286422,
+      "bundle_build": {
+        "signals_missing_3m_data": 32,
+        "signals_partial_3m_data": 13,
+        "signals_total": 1380,
+        "signals_with_3m_data": 1348,
+        "window_count": 288,
+        "window_source_counts": {
+          "legacy_exec_cache_cover": 1348
+        }
+      },
+      "foundation_integrity_status": "PARTIAL",
+      "ranking_label": "MODEL_A_WEAK_GO_REPAIRED",
+      "recommended_action": "MOVE_TO_SHADOW_ONLY",
+      "root_cause_classification": "STOP_TOO_TIGHT_BUT_LOGICALLY_CORRECT"
+    },
+    "SOLUSDT": {
+      "best_candidate_id": "M3_ENTRY_ONLY_FASTER",
+      "best_delta_expectancy_vs_repaired_1h": 9.036603984106116e-05,
+      "bundle_build": {
+        "signals_missing_3m_data": 424,
+        "signals_partial_3m_data": 56,
+        "signals_total": 5034,
+        "signals_with_3m_data": 4610,
+        "window_count": 397,
+        "window_source_counts": {
+          "legacy_exec_cache_cover": 2239,
+          "local_full_3m": 2315,
+          "remote_refill": 56
+        }
+      },
+      "foundation_integrity_status": "PARTIAL",
+      "ranking_label": "MODEL_A_NO_GO_REPAIRED",
+      "recommended_action": "DISABLE_COIN",
+      "root_cause_classification": "STOP_TOO_TIGHT_BUT_LOGICALLY_CORRECT"
+    }
+  },
+  "universal_stop_issue_scope": "universal"
+}

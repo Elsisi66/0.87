@@ -1,0 +1,56 @@
+{
+  "classification": "HARNESS_FIXED_EXEC_STILL_NO_GO",
+  "freeze_lock_validation": {
+    "allow_freeze_hash_mismatch": 0,
+    "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+    "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+    "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "copied_verbatim_fee": 1,
+    "copied_verbatim_metrics": 1,
+    "expected_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "expected_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "fee_hash_match_expected": 1,
+    "fee_value_diffs": {},
+    "fee_value_match_args": 1,
+    "freeze_lock_pass": 1,
+    "generated_utc": "2026-02-28T00:53:34.935403+00:00",
+    "metrics_hash_match_expected": 1,
+    "run_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "run_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+  },
+  "generated_utc": "2026-02-28T00:54:29.569567+00:00",
+  "legacy_failing_routes": [
+    "route1_holdout"
+  ],
+  "load_meta": {
+    "bundle_sizes": {
+      "SOLUSDT": {
+        "signals": 1200,
+        "splits": 5
+      }
+    },
+    "execution_config_path": "/root/analysis/0.87/configs/execution_configs.yaml",
+    "signals": {
+      "SOLUSDT": "/root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv"
+    },
+    "symbols": [
+      "SOLUSDT"
+    ]
+  },
+  "nx_dir": "/root/analysis/0.87/reports/execution_layer/PHASENX_EXEC_FAMILY_DISCOVERY_20260227_115329",
+  "ny_dir": "/root/analysis/0.87/reports/execution_layer/PHASENY_NX_POSTMORTEM_FEASIBILITY_20260227_123357",
+  "repaired_route_ids": [
+    "route_back_60pct",
+    "route_center_60pct",
+    "route_front_60pct"
+  ],
+  "repaired_route_meta": {
+    "coverage_frac": 0.6,
+    "min_contexts_for_overall_gate": 665,
+    "min_test_signals_for_overall_gate": 200,
+    "route_count": 3,
+    "window_n": 720
+  },
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASER_ROUTE_HARNESS_REDESIGN_20260228_005334"
+}

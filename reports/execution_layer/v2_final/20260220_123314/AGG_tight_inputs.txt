@@ -1,0 +1,3 @@
+/root/analysis/0.87/reports/execution_layer/20260220_122741_walkforward_SOLUSDT
+/root/analysis/0.87/reports/execution_layer/20260220_122941_walkforward_AVAXUSDT
+/root/analysis/0.87/reports/execution_layer/20260220_123057_walkforward_NEARUSDT

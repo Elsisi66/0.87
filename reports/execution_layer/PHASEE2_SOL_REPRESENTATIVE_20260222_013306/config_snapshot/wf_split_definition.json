@@ -1,0 +1,68 @@
+{
+  "generated_utc": "2026-02-21T23:14:30.846372+00:00",
+  "n_signals": 2000,
+  "splits": [
+    {
+      "split_id": 0,
+      "test_count": 120,
+      "test_end": 1520,
+      "test_end_signal_id": "sig_01520",
+      "test_end_time": "2025-05-09T22:00:00+00:00",
+      "test_start": 1400,
+      "test_start_signal_id": "sig_01401",
+      "test_start_time": "2025-04-11T18:00:00+00:00",
+      "train_end": 1400,
+      "train_start": 0
+    },
+    {
+      "split_id": 1,
+      "test_count": 120,
+      "test_end": 1640,
+      "test_end_signal_id": "sig_01640",
+      "test_end_time": "2025-06-29T05:00:00+00:00",
+      "test_start": 1520,
+      "test_start_signal_id": "sig_01521",
+      "test_start_time": "2025-05-09T23:00:00+00:00",
+      "train_end": 1520,
+      "train_start": 0
+    },
+    {
+      "split_id": 2,
+      "test_count": 120,
+      "test_end": 1760,
+      "test_end_signal_id": "sig_01760",
+      "test_end_time": "2025-08-08T05:00:00+00:00",
+      "test_start": 1640,
+      "test_start_signal_id": "sig_01641",
+      "test_start_time": "2025-06-29T09:00:00+00:00",
+      "train_end": 1640,
+      "train_start": 0
+    },
+    {
+      "split_id": 3,
+      "test_count": 120,
+      "test_end": 1880,
+      "test_end_signal_id": "sig_01880",
+      "test_end_time": "2025-09-11T00:00:00+00:00",
+      "test_start": 1760,
+      "test_start_signal_id": "sig_01761",
+      "test_start_time": "2025-08-08T06:00:00+00:00",
+      "train_end": 1760,
+      "train_start": 0
+    },
+    {
+      "split_id": 4,
+      "test_count": 120,
+      "test_end": 2000,
+      "test_end_signal_id": "sig_02000",
+      "test_end_time": "2025-11-11T04:00:00+00:00",
+      "test_start": 1880,
+      "test_start_signal_id": "sig_01881",
+      "test_start_time": "2025-09-11T01:00:00+00:00",
+      "train_end": 1880,
+      "train_start": 0
+    }
+  ],
+  "train_ratio": 0.7,
+  "wf_splits": 5
+}

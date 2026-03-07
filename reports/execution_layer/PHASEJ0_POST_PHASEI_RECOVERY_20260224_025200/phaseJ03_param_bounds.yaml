@@ -1,0 +1,29 @@
+family_bounds:
+  size_step_by_risk_score:
+    t1: [0.40, 0.60]
+    t2: [0.65, 0.85]
+    s_hi: [1.00, 1.15]
+    s_mid: [0.85, 1.00]
+    s_lo: [0.65, 0.88]
+  size_linear_by_risk_score:
+    slope: [0.25, 1.10]
+  size_cap_after_loss_streak:
+    k_streak: [2, 5]
+    s_down: [0.70, 0.92]
+    s_up: [1.00, 1.12]
+  size_cap_after_tail_count:
+    k_tail20: [6, 12]
+    s_down: [0.70, 0.92]
+    s_up: [1.00, 1.12]
+  hybrid_stateaware:
+    slope: [0.30, 1.00]
+    k_streak: [2, 5]
+    k_tail20: [6, 12]
+    penalty_mult: [0.65, 0.95]
+    recovery_bonus: [0.00, 0.08]
+global_constraints:
+  size_floor: 0.50
+  size_cap: 1.50
+  mean_size_normalization: true
+  hard_gates_unchanged: true
+  no_entry_exit_mechanics_change: true

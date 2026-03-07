@@ -1,0 +1,26 @@
+{
+  "forbidden_exit_knobs_blocked": [
+    "tp_mult",
+    "sl_mult",
+    "time_stop_min",
+    "break_even_enabled",
+    "break_even_trigger_r",
+    "break_even_offset_bps",
+    "trailing_enabled",
+    "trail_start_r",
+    "trail_step_bps",
+    "partial_take_enabled",
+    "partial_take_r",
+    "partial_take_pct"
+  ],
+  "freeze_lock_pass": 1,
+  "generated_utc": "2026-02-28T02:05:21.078591+00:00",
+  "hybrid_exit_override_detected": 1,
+  "phase_a_reference_dir": "/root/analysis/0.87/reports/execution_layer/PHASEA_MODEL_A_AUDIT_20260228_014944",
+  "phase_r_reference_dir": "/root/analysis/0.87/reports/execution_layer/PHASER_ROUTE_HARNESS_REDESIGN_20260228_005334",
+  "route_count": 3,
+  "route_reproduction_match_phaseR": 1,
+  "route_reproduction_mismatches": [],
+  "wrapper_uses_1h_exit_only": 1,
+  "wrapper_uses_3m_entry_only": 1
+}

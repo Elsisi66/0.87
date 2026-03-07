@@ -1,0 +1,1 @@
+Failure branch (Phase W=C): avoid additional overlay/GA compute on current family; allocate next block to objective redesign diagnostics.

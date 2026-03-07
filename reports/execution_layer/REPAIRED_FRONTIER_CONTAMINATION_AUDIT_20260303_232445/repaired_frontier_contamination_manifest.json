@@ -1,0 +1,120 @@
+{
+  "artifact_paths": {
+    "params_scan_dir": "/root/analysis/0.87/reports/params_scan/20260220_044949",
+    "phase_h_rep_subset": "/root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv",
+    "phase_i_dir": "/root/analysis/0.87/reports/execution_layer/PHASEI_EXECAWARE_1H_GA_EXPANSION_20260224_012237",
+    "phase_j0_dir": "/root/analysis/0.87/reports/execution_layer/PHASEJ0_POST_PHASEI_RECOVERY_20260224_025200",
+    "repaired_baseline_dir": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650",
+    "repaired_signal_root": "/root/analysis/0.87/reports/execution_layer/MULTICOIN_MODELA_AUDIT_20260228_180250"
+  },
+  "coverage": {
+    "frontier": {
+      "coverage_pct": 1.0,
+      "failed_rows": [],
+      "ok_rows": 215,
+      "total_rows": 215
+    },
+    "universe": {
+      "coverage_pct": 1.0,
+      "failed_rows": [],
+      "ok_rows": 18,
+      "total_rows": 18
+    }
+  },
+  "generated_utc": "2026-03-03T23:34:29.399441+00:00",
+  "metrics": {
+    "contamination": "HIGH_CONTAMINATION",
+    "frontier": {
+      "spearman": -0.2625866357555121,
+      "top20_proxy_flip_count": 16,
+      "top20_proxy_flip_rate": 0.8,
+      "topk": {
+        "top10_legacy_retained_pct": 0.0,
+        "top10_shared": 0,
+        "top10_turnover": 1.0,
+        "top20_legacy_retained_pct": 0.0,
+        "top20_shared": 0,
+        "top20_turnover": 1.0,
+        "top5_legacy_retained_pct": 0.0,
+        "top5_shared": 0,
+        "top5_turnover": 1.0
+      }
+    },
+    "universe": {
+      "drop_from_pass_count": 1,
+      "drop_from_pass_rate_vs_legacy": 0.07692307692307693,
+      "legacy_pass_set": [
+        "ADAUSDT",
+        "AVAXUSDT",
+        "AXSUSDT",
+        "BCHUSDT",
+        "CRVUSDT",
+        "DOGEUSDT",
+        "LINKUSDT",
+        "LTCUSDT",
+        "NEARUSDT",
+        "SOLUSDT",
+        "TRXUSDT",
+        "XRPUSDT",
+        "ZECUSDT"
+      ],
+      "new_pass_count": 2,
+      "passed_set_jaccard": 0.8,
+      "repaired_pass_set": [
+        "ADAUSDT",
+        "AVAXUSDT",
+        "AXSUSDT",
+        "BCHUSDT",
+        "BTCUSDT",
+        "CRVUSDT",
+        "DOGEUSDT",
+        "LINKUSDT",
+        "LTCUSDT",
+        "NEARUSDT",
+        "OGUSDT",
+        "SOLUSDT",
+        "TRXUSDT",
+        "ZECUSDT"
+      ],
+      "shared_pass_rank_spearman": 0.843408677573517,
+      "stay_fail_count": 3,
+      "stay_pass_count": 12,
+      "topk": {
+        "top10_shared": 9,
+        "top10_turnover": 0.09999999999999998,
+        "top5_shared": 4,
+        "top5_turnover": 0.19999999999999996
+      }
+    }
+  },
+  "notes": [
+    "Primary decision weighting: universe pass-set instability, then universe rank instability, then Phase I top-k instability, then Phase I repaired pass-proxy flips.",
+    "Phase I repaired pass proxy is secondary annotation only.",
+    "Audit intentionally excludes the 3m execution layer."
+  ],
+  "recommendation": "FULL_1H_GA_RERUN_RECOMMENDED",
+  "validation": {
+    "phase_i_parity_summary": {
+      "exact_signal_signature_matches": 25,
+      "mismatch_count": 0,
+      "ok": true,
+      "reason": "",
+      "sample_size": 25,
+      "source_subset_csv": "/root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv"
+    },
+    "phase_i_rank_reconstruction_ok": 1,
+    "repaired_smoke_summary": {
+      "mismatch_count": 0,
+      "ok": true,
+      "reason": "",
+      "sample_size": 3
+    },
+    "universe_parity_summary": {
+      "mismatch_count": 0,
+      "ok": true,
+      "reason": "",
+      "sample_size": 18
+    },
+    "universe_score_formula_ok": 1
+  }
+}

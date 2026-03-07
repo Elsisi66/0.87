@@ -1,0 +1,105 @@
+{
+  "best_config": {
+    "config_id": "9e16d9ae4f163245",
+    "cooldown_h": 0,
+    "max_signals_24h": 999,
+    "overlap_h": 0,
+    "session_mode": "all",
+    "stop_distance_min": 0.001,
+    "trend_required": 1,
+    "vol_max_pct": 100.0,
+    "vol_min_pct": 5.0
+  },
+  "best_metrics": {
+    "cvar5": -0.0019496200759849,
+    "entry_rate": 0.5883333333333334,
+    "expectancy_net": -0.0005103661266516368,
+    "max_drawdown": -0.36330626416448547,
+    "pass_all": 1,
+    "pnl_net_sum": -0.18015924270802786,
+    "split_median_expectancy_delta": 0.00021287130679020403,
+    "trades_total": 353
+  },
+  "checks": {
+    "phase_a_fee_hash_match_expected": 1,
+    "phase_a_fee_hash_match_manifest": 1,
+    "phase_a_metrics_hash_match_expected": 1,
+    "phase_a_metrics_hash_match_manifest": 1,
+    "split_hash_match_expected": 1,
+    "split_hash_match_manifest": 1,
+    "subset_hash_match_expected": 1,
+    "subset_hash_match_manifest": 1
+  },
+  "control_metrics": {
+    "cvar5": -0.0019496200759848996,
+    "entry_rate": 1.0,
+    "expectancy_net": -0.0005588693803531983,
+    "max_drawdown": -0.5184686496683771,
+    "pnl_net_sum": -0.33532162821191897,
+    "trades_total": 600
+  },
+  "fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+  "generated_utc": "2026-02-22T01:04:19.740361+00:00",
+  "max_configs": 480,
+  "metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+  "phase_a_contract_dir": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310",
+  "phase_c_best_cfg_hash": "a285b86c4c22a26976d4a762",
+  "phase_c_dir": "/root/analysis/0.87/reports/execution_layer/PHASEC_SOL_20260221_231430",
+  "pregate_sampling": {
+    "cap": 480,
+    "full_count": 1944,
+    "method": "deterministic_random_sample_plus_baseline",
+    "sampled_count": 480,
+    "seed": 42
+  },
+  "seed": 42,
+  "signal_subset_sha256": "5e719faf676dffba8d7da926314997182d429361495884b8a870c3393c079bbf",
+  "signals_total_test": 600,
+  "splits": [
+    {
+      "split_id": 0,
+      "test_end": 1520,
+      "test_start": 1400,
+      "train_end": 1400,
+      "train_start": 0
+    },
+    {
+      "split_id": 1,
+      "test_end": 1640,
+      "test_start": 1520,
+      "train_end": 1520,
+      "train_start": 0
+    },
+    {
+      "split_id": 2,
+      "test_end": 1760,
+      "test_start": 1640,
+      "train_end": 1640,
+      "train_start": 0
+    },
+    {
+      "split_id": 3,
+      "test_end": 1880,
+      "test_start": 1760,
+      "train_end": 1760,
+      "train_start": 0
+    },
+    {
+      "split_id": 4,
+      "test_end": 2000,
+      "test_start": 1880,
+      "train_end": 1880,
+      "train_start": 0
+    }
+  ],
+  "status": "PASS",
+  "symbol": "SOLUSDT",
+  "thresholds": {
+    "cvar5_not_worse_tol": 0.0001,
+    "max_missing_slice_rate": 0.02,
+    "maxdd_not_worse_tol": 0.02,
+    "min_entry_rate": 0.55,
+    "min_split_trades": 30
+  },
+  "wf_split_sha256": "388ba743b9c16c291385a9ecab6435eabf65eb16f1e1083eee76627193c42c01"
+}

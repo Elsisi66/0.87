@@ -1,0 +1,9 @@
+{
+  "decision": "PASS_GO_PAPER_CANDIDATES",
+  "duration_sec": 0.8200421333312988,
+  "generated_utc": "2026-02-23T14:09:25.661805+00:00",
+  "phase": "D3",
+  "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASED_TAIL_BRANCH_20260223_134324/phaseD3",
+  "reason": ">=1 strict passer",
+  "strict_passers": 3
+}

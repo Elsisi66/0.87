@@ -1,0 +1,8 @@
+{
+  "decision": "NO_GO",
+  "duration_sec": 0.10333967208862305,
+  "generated_utc": "2026-02-23T13:29:28.440337+00:00",
+  "phase": "D2",
+  "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASED123_TAIL_FILTER_20260223_132851/phaseD2_20260223_132928",
+  "reason": "tail label stability below threshold or pathology"
+}

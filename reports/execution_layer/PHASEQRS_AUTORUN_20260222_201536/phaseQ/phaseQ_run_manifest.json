@@ -1,0 +1,58 @@
+{
+  "code_modified": "NO",
+  "command_log": [
+    {
+      "cwd": "/root/analysis/0.87",
+      "step": "autorun_start",
+      "utc": "2026-02-22T20:15:42.144741+00:00"
+    },
+    {
+      "source_run": "/root/analysis/0.87/reports/execution_layer/GA_EXEC_OPT_20260222_193057",
+      "step": "selected_source_run",
+      "utc": "2026-02-22T20:15:42.293806+00:00"
+    }
+  ],
+  "decision": "Q_PASS_WEAK",
+  "delta_sign_consistency": 0.8,
+  "duration_sec": 80.9682788848877,
+  "freeze_global": {
+    "canonical_fee_model": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+    "canonical_fee_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "canonical_metrics_definition": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+    "canonical_metrics_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "expected_fee_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "expected_metrics_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "fee_hash_match": 1,
+    "metrics_hash_match": 1,
+    "representative_subset_csv": "/root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv"
+  },
+  "generated_utc": "2026-02-22T20:17:03.262077+00:00",
+  "median_delta_vs_base_pct_drop": 0.03783462080303029,
+  "pass_any_count": 5,
+  "pass_both_count": 0,
+  "phase": "Q",
+  "phase_freeze_lock_validation": {
+    "allow_freeze_hash_mismatch": 0,
+    "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+    "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+    "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "copied_verbatim_fee": 1,
+    "copied_verbatim_metrics": 1,
+    "expected_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "expected_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "fee_hash_match_expected": 1,
+    "fee_value_diffs": {},
+    "fee_value_match_args": 1,
+    "freeze_lock_pass": 1,
+    "generated_utc": "2026-02-22T20:15:42.918656+00:00",
+    "metrics_hash_match_expected": 1,
+    "run_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "run_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+  },
+  "route1_signals": 240,
+  "route2_signals": 1200,
+  "shortlist_count": 15,
+  "source_run_dir": "/root/analysis/0.87/reports/execution_layer/GA_EXEC_OPT_20260222_193057",
+  "source_valid_for_ranking_count": 2888
+}

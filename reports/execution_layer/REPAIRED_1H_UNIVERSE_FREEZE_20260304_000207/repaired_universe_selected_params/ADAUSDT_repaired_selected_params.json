@@ -1,0 +1,92 @@
+{
+  "candidate_id": "R_ADAUSDT_G00_I0001",
+  "param_hash": "f23a9ae154560294b8b2c2de31ade9c5292bad1715809d7d9410fa4508fdc66d",
+  "params": {
+    "adx_min": 18.0,
+    "allow_hours": [
+      1,
+      6,
+      8,
+      9,
+      12,
+      15,
+      17,
+      20,
+      21
+    ],
+    "atr_k": 0.42555955200830375,
+    "breakout_atr_mult": 1.5,
+    "breakout_window": 20,
+    "cycle1_adx_boost": 1.6270910327941674,
+    "cycle1_ema_sep_atr": 0.05793463921547241,
+    "cycle_fill": 2,
+    "cycle_shift": 1,
+    "ema_align": true,
+    "ema_span": 35,
+    "ema_trend_long": 120,
+    "entry_rsi_buffer": 0.0,
+    "entry_rsi_max": 95.0,
+    "entry_rsi_min": 47.827816444849496,
+    "exit_rsi_by_cycle": [
+      65.58460043857613,
+      62.981967939957386,
+      60.295910022245344,
+      67.75688448480422,
+      47.51711237265284
+    ],
+    "max_allocation": 0.95,
+    "max_hold_hours": 115,
+    "require_ema200_slope": true,
+    "require_plus_di": true,
+    "require_trade_cycles": true,
+    "risk_per_trade": 0.019263989349674913,
+    "sl_mult_by_cycle": [
+      0.9561729161660716,
+      0.999,
+      0.8979734853371999,
+      0.9512602394215863,
+      0.9116785858764813
+    ],
+    "tp_mult_by_cycle": [
+      1.008080483040384,
+      1.0599320414593432,
+      1.0291111031355777,
+      1.0492735523623196,
+      1.0484740864305828
+    ],
+    "trade_cycles": [
+      1,
+      3
+    ],
+    "two_candle_confirm": false,
+    "willr_by_cycle": [
+      -97.26151678862225,
+      -1.3111070708778227,
+      -100.0,
+      -1.0,
+      -8.00553386199894
+    ],
+    "willr_floor": -100.0
+  },
+  "params_source": "data/metadata/params/ADAUSDT_C13_active_params_long.json",
+  "repaired_metrics": {
+    "cvar_5": -0.0097729681098471,
+    "expectancy_net": 0.003130086736955,
+    "max_dd_pct": 32.167747828337966,
+    "pass": 1,
+    "profit_factor": 2.3199598301348203,
+    "rank": 10,
+    "score": 11.083812012614082,
+    "trades": 2470,
+    "valid_for_ranking": 1
+  },
+  "selection_rule": {
+    "primary": "repaired_score desc",
+    "secondary": "repaired_expectancy_net desc",
+    "tertiary": "repaired_max_dd_pct asc",
+    "tie_break_1": "candidate_id asc",
+    "tie_break_2": "param_hash asc"
+  },
+  "side": "long",
+  "symbol": "ADAUSDT"
+}

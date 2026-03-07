@@ -1,0 +1,18 @@
+{
+  "books": [
+    "paper_primary",
+    "shadow_backup"
+  ],
+  "candidate_ids": [
+    "M3_ENTRY_ONLY_FASTER_C_WIN_02",
+    "M2_ENTRY_ONLY_MORE_PASSIVE_NOFB_C_FB_ON"
+  ],
+  "entry_executor": "paper_trading.app.model_a_runtime.ModelAPaperRuntime._simulate_entry_fill",
+  "exit_owner": "paper_trading.app.model_a_runtime.ModelAPaperRuntime._maybe_close_position",
+  "generated_utc": "2026-02-28T03:01:45.493900+00:00",
+  "orchestrator": "/root/analysis/0.87/scripts/phase_e_model_a_paper_runtime.py",
+  "runtime_launcher": "/root/analysis/0.87/paper_trading/scripts/run_model_a_runtime.py",
+  "runtime_module": "/root/analysis/0.87/paper_trading/app/model_a_runtime.py",
+  "signal_owner": "paper_trading.app.signal_runner.SignalRunner",
+  "state_root": "/root/analysis/0.87/paper_trading/state/model_a_runtime"
+}

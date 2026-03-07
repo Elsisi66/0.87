@@ -1,0 +1,177 @@
+{
+  "early_stop_patience": 12,
+  "elitism_rate": 0.05,
+  "fees": {
+    "fee_bps_maker": 2.0,
+    "fee_bps_taker": 4.0,
+    "slippage_bps_limit": 0.5,
+    "slippage_bps_market": 2.0
+  },
+  "freeze_lock": {
+    "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+    "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+    "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "freeze_lock_pass": 1
+  },
+  "gate_stall_generations": 10,
+  "gates": {
+    "cvar_improve_min": 0.15,
+    "maxdd_improve_min": 0.15
+  },
+  "gene_space": {
+    "break_even_enabled": [
+      0,
+      1
+    ],
+    "break_even_offset_bps": [
+      0.0,
+      10.0
+    ],
+    "break_even_trigger_r": [
+      0.25,
+      1.5
+    ],
+    "cooldown_min": [
+      0,
+      240
+    ],
+    "entry_mode": [
+      "market",
+      "limit",
+      "hybrid"
+    ],
+    "fallback_delay_min": [
+      0,
+      "max_fill_delay_min"
+    ],
+    "fallback_to_market": [
+      0,
+      1
+    ],
+    "killzone_filter": [
+      0,
+      1
+    ],
+    "limit_offset_bps": [
+      0.0,
+      30.0
+    ],
+    "max_fill_delay_min": [
+      0,
+      180
+    ],
+    "max_taker_share": [
+      0.0,
+      1.0
+    ],
+    "micro_vol_filter": [
+      0,
+      1
+    ],
+    "min_entry_improvement_bps_gate": [
+      0.0,
+      20.0
+    ],
+    "min_signal_quality_gate": [
+      0.0,
+      1.0
+    ],
+    "mss_displacement_gate": [
+      0,
+      1
+    ],
+    "partial_take_enabled": [
+      0,
+      1
+    ],
+    "partial_take_pct": [
+      0.1,
+      0.9
+    ],
+    "partial_take_r": [
+      0.3,
+      1.5
+    ],
+    "skip_if_vol_gate": [
+      0,
+      1
+    ],
+    "sl_mult": [
+      0.3,
+      2.0
+    ],
+    "spread_guard_bps": [
+      0.0,
+      100.0
+    ],
+    "time_stop_min": [
+      0,
+      4320
+    ],
+    "tp_mult": [
+      0.5,
+      3.0
+    ],
+    "trail_start_r": [
+      0.5,
+      2.0
+    ],
+    "trail_step_bps": [
+      1.0,
+      50.0
+    ],
+    "trailing_enabled": [
+      0,
+      1
+    ],
+    "use_signal_quality_gate": [
+      0,
+      1
+    ],
+    "vol_threshold": [
+      0.5,
+      6.0
+    ]
+  },
+  "generated_utc": "2026-02-22T19:31:23.802773+00:00",
+  "generations": 24,
+  "immigrant_rate": 0.05,
+  "mode": "tight",
+  "mutation_rate_end": 0.05,
+  "mutation_rate_start": 0.15,
+  "population": 192,
+  "sampler_strategy": {
+    "avoid_cached_hashes_on_refill": 1,
+    "constraint_first_repair": 1,
+    "invalid_by_construction_reject": 1,
+    "participation_risk_reject_high_bundle": 1,
+    "participation_risk_repair": 1,
+    "pre_eval_genome_hash_dedupe": 1,
+    "tight_mode_feasible_prior_weight": 0.8
+  },
+  "seed": 20260225,
+  "selection": {
+    "k": 5,
+    "type": "tournament"
+  },
+  "signals": {
+    "bundle_sizes": {
+      "SOLUSDT": {
+        "signals": 1200,
+        "splits": 5
+      }
+    },
+    "execution_config_path": "/root/analysis/0.87/configs/execution_configs.yaml",
+    "signals": {
+      "SOLUSDT": "/root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv"
+    },
+    "symbols": [
+      "SOLUSDT"
+    ]
+  },
+  "symbols": [
+    "SOLUSDT"
+  ],
+  "workers": 4
+}

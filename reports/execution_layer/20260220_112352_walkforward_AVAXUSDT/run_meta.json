@@ -1,0 +1,53 @@
+{
+  "generated_utc": "2026-02-20T11:23:52.239703+00:00",
+  "symbol": "AVAXUSDT",
+  "rank": 1,
+  "scan_dir": "/root/analysis/0.87/reports/params_scan/20260220_044949",
+  "best_csv": "/root/analysis/0.87/reports/params_scan/20260220_044949/best_by_symbol.csv",
+  "params_file": "/root/analysis/0.87/data/metadata/params/AVAXUSDT_C13_active_params_long.json",
+  "execution_config_path": "/root/analysis/0.87/configs/execution_configs.yaml",
+  "symbol_config": {
+    "exec_mode": "exec_limit",
+    "k_base": 0.05,
+    "k_values": [
+      0.0,
+      0.05,
+      0.1,
+      0.2
+    ],
+    "timeout_bars": 20,
+    "timeout_values": [
+      10,
+      20,
+      40
+    ],
+    "fallback": "market",
+    "fallback_values": [
+      "market"
+    ],
+    "use_vol_gate": 0,
+    "vol_gate_values": [
+      0
+    ],
+    "use_panic_filter": 0,
+    "ladder": 0,
+    "constraints": {
+      "min_entry_rate": 0.55,
+      "max_taker_share": 0.4,
+      "max_fill_delay_min": 90
+    }
+  },
+  "signals_total": 1624,
+  "train_signals": 1137,
+  "test_signals": 487,
+  "selected_config": {
+    "k": 0.0,
+    "timeout_bars": 10,
+    "fallback": "market",
+    "use_vol_gate": 0
+  },
+  "report_md": "/root/analysis/0.87/reports/execution_layer/20260220_112352_walkforward_AVAXUSDT/AVAXUSDT_walkforward_report.md",
+  "train_csv": "/root/analysis/0.87/reports/execution_layer/20260220_112352_walkforward_AVAXUSDT/AVAXUSDT_walkforward_train_tuning.csv",
+  "test_signals_csv": "/root/analysis/0.87/reports/execution_layer/20260220_112352_walkforward_AVAXUSDT/AVAXUSDT_walkforward_test_signals.csv",
+  "test_summary_csv": "/root/analysis/0.87/reports/execution_layer/20260220_112352_walkforward_AVAXUSDT/AVAXUSDT_walkforward_test_summary.csv"
+}

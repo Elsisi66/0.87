@@ -1,0 +1,41 @@
+{
+  "discovery": {
+    "fallback_candidate": "/root/analysis/0.87/reports/execution_layer/PAPER_REPAIRED_POSTURE_SWITCH_20260306_195539/paper_alignment_check.csv",
+    "primary_candidate": "/root/analysis/0.87/paper_trading/state/journal.jsonl"
+  },
+  "excluded_primary_paths": [
+    "/root/analysis/0.87/reports/execution_layer/PAPER_SOL_FORWARD_MONITOR_20260306_205431/paper_trades_20260306.csv",
+    "/root/analysis/0.87/reports/execution_layer/PAPER_SOL_FORWARD_MONITOR_20260306_205431/paper_trades_20260307.csv"
+  ],
+  "generated_utc": "2026-03-07T00:22:53.106321+00:00",
+  "selected": {
+    "end_utc_exclusive": "2026-03-06T00:00:00+00:00",
+    "primary_source_has_rows_in_window": true,
+    "start_utc": "2026-03-01T00:00:00+00:00",
+    "used_fallback_data": false,
+    "window_label": "default"
+  },
+  "sources_used": [
+    {
+      "event_filter": "fill_close",
+      "path": "/root/analysis/0.87/paper_trading/state/journal.jsonl",
+      "rows_in_default_window": 107,
+      "rows_used": 107,
+      "source_type": "paper_bot_journal_jsonl",
+      "total_fill_close_rows_in_file": 108,
+      "total_rows_in_file": 2740
+    }
+  ],
+  "target_windows_considered": [
+    {
+      "end_utc_exclusive": "2026-03-06T00:00:00+00:00",
+      "label": "default",
+      "start_utc": "2026-03-01T00:00:00+00:00"
+    },
+    {
+      "end_utc_exclusive": "2026-03-06T00:00:00+00:00",
+      "label": "fallback",
+      "start_utc": "2026-03-04T00:00:00+00:00"
+    }
+  ]
+}

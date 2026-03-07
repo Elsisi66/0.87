@@ -1,0 +1,1 @@
+Phase E paper/shadow confirmation (contract-locked): validate D3 strict-pass filter policy set under route perturbation and stress scenarios. Keep hard gates unchanged, include rollback triggers, and do not run full GA.

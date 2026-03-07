@@ -1,0 +1,1 @@
+NO_GO_COMPUTE_BURN branch: keep frozen locks and stop large combined compute. Run a targeted forensic batch on top 10 pilot candidates to isolate why economics stay weak (cost drag vs signal timing vs split instability), then decide between objective redesign and branch kill.

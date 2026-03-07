@@ -1,0 +1,1 @@
+AG fail/no-oos fallback: stop promotion, run targeted robustness repair on sizing policy stability (route/sensitivity) before any paper deployment.

@@ -1,0 +1,160 @@
+{
+  "backup_direction_consistent": 1,
+  "e1_summary": {
+    "event_rate_by_quintile": [
+      {
+        "bin": "(-0.001, 0.243]",
+        "event_rate": 0.7605633802816901,
+        "score_max": 0.24,
+        "score_min": 0.0,
+        "support": 71
+      },
+      {
+        "bin": "(0.243, 0.341]",
+        "event_rate": 0.8169014084507042,
+        "score_max": 0.3404429530721969,
+        "score_min": 0.2434410733233879,
+        "support": 71
+      },
+      {
+        "bin": "(0.341, 0.428]",
+        "event_rate": 0.9154929577464789,
+        "score_max": 0.42732723715736665,
+        "score_min": 0.34165146195165486,
+        "support": 71
+      },
+      {
+        "bin": "(0.428, 0.509]",
+        "event_rate": 0.9014084507042254,
+        "score_max": 0.5084029699787552,
+        "score_min": 0.42885599541668684,
+        "support": 71
+      },
+      {
+        "bin": "(0.509, 0.928]",
+        "event_rate": 0.9295774647887324,
+        "score_max": 0.9280415066348345,
+        "score_min": 0.508927731990449,
+        "support": 71
+      }
+    ],
+    "monotonic_violations": 1,
+    "overall_spearman": 0.19067286860087052,
+    "score_nan_rate": 0.0,
+    "split_eligible": 5,
+    "split_positive": 4,
+    "split_rows": [
+      {
+        "spearman": 0.3745158101764854,
+        "split_id": 0,
+        "support": 71
+      },
+      {
+        "spearman": 0.13832083379312202,
+        "split_id": 1,
+        "support": 71
+      },
+      {
+        "spearman": -0.2771655007034974,
+        "split_id": 2,
+        "support": 72
+      },
+      {
+        "spearman": 0.17751173670117326,
+        "split_id": 3,
+        "support": 71
+      },
+      {
+        "spearman": 0.062223451339573424,
+        "split_id": 4,
+        "support": 70
+      }
+    ],
+    "stable_sign_frac": 0.8,
+    "support": 355
+  },
+  "e2_summary": {
+    "event_rate_by_quintile": [
+      {
+        "bin": "(-0.001, 0.243]",
+        "event_rate": 0.7605633802816901,
+        "score_max": 0.24,
+        "score_min": 0.0,
+        "support": 71
+      },
+      {
+        "bin": "(0.243, 0.341]",
+        "event_rate": 0.8169014084507042,
+        "score_max": 0.3404429530721969,
+        "score_min": 0.2434410733233879,
+        "support": 71
+      },
+      {
+        "bin": "(0.341, 0.428]",
+        "event_rate": 0.9154929577464789,
+        "score_max": 0.42732723715736665,
+        "score_min": 0.34165146195165486,
+        "support": 71
+      },
+      {
+        "bin": "(0.428, 0.509]",
+        "event_rate": 0.9014084507042254,
+        "score_max": 0.5084029699787552,
+        "score_min": 0.42885599541668684,
+        "support": 71
+      },
+      {
+        "bin": "(0.509, 0.928]",
+        "event_rate": 0.9295774647887324,
+        "score_max": 0.9280415066348345,
+        "score_min": 0.508927731990449,
+        "support": 71
+      }
+    ],
+    "monotonic_violations": 1,
+    "overall_spearman": 0.19067286860087052,
+    "score_nan_rate": 0.0,
+    "split_eligible": 5,
+    "split_positive": 4,
+    "split_rows": [
+      {
+        "spearman": 0.3745158101764854,
+        "split_id": 0,
+        "support": 71
+      },
+      {
+        "spearman": 0.13832083379312202,
+        "split_id": 1,
+        "support": 71
+      },
+      {
+        "spearman": -0.2771655007034974,
+        "split_id": 2,
+        "support": 72
+      },
+      {
+        "spearman": 0.17751173670117326,
+        "split_id": 3,
+        "support": 71
+      },
+      {
+        "spearman": 0.062223451339573424,
+        "split_id": 4,
+        "support": 70
+      }
+    ],
+    "stable_sign_frac": 0.8,
+    "support": 355
+  },
+  "generated_utc": "2026-02-23T13:14:46.389242+00:00",
+  "phase": "B",
+  "rule": {
+    "backup_direction_consistent_required": true,
+    "leakage_check": "pre-entry and prior-only features only",
+    "monotonic_violations_e1_max": 2,
+    "overall_spearman_e1_positive": true,
+    "score_nan_rate_e1_max": 0.0,
+    "stable_sign_frac_e1_min": 0.6
+  },
+  "score_name": "risk_score_s1"
+}

@@ -1,0 +1,14 @@
+{
+  "SOLUSDT:entry_rate": 1830,
+  "SOLUSDT:median_fill_delay": 472,
+  "SOLUSDT:nan_or_inf": 468,
+  "SOLUSDT:p95_fill_delay": 468,
+  "SOLUSDT:taker_share": 484,
+  "SOLUSDT:trades<50": 1599,
+  "overall:entry_rate": 1829,
+  "overall:median_fill_delay": 472,
+  "overall:nan_or_inf": 468,
+  "overall:p95_fill_delay": 468,
+  "overall:taker_share": 475,
+  "overall:trades<200": 1829
+}

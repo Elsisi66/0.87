@@ -1,0 +1,25 @@
+{
+  "contract_integrity_gates": {
+    "all_variants_use_same_fee_metrics": 1,
+    "all_variants_use_same_splits": 1,
+    "all_variants_use_same_subset": 1,
+    "single_contract_locked": 1
+  },
+  "harness_trustworthy": 1,
+  "phase_result_classification": "PASS_TRUSTWORTHY_HARNESS_PAUSE_SOL_SIGNAL_LAYER",
+  "representativeness_gates": {
+    "minimum_split_support_ok": 1,
+    "no_catastrophic_bucket_undercoverage": 1,
+    "representative_enough": 1
+  },
+  "strategy_interpretation_gates": {
+    "classification_label": "likely_signal_quality_issue",
+    "execution_consistency_no_unexpected_degrade": 1,
+    "phasec_best_ge_phasec_control": 1
+  },
+  "thresholds": {
+    "max_bucket_delta": 0.9,
+    "min_split_support": 40,
+    "relative_tvd_improve_required": 0.05
+  }
+}

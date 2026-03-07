@@ -1,0 +1,60 @@
+{
+  "consensus_mapping": {
+    "other": 1,
+    "vol_high|trend_up": 61,
+    "vol_low|trend_up": 1,
+    "vol_mid|trend_up": 41,
+    "vol_unknown|trend_down": 48
+  },
+  "control_cfg_hash": "a285b86c4c22a26976d4a762",
+  "generated_utc": "2026-02-22T00:14:59.103779+00:00",
+  "keep_regimes": [
+    "vol_high|trend_up",
+    "vol_low|trend_up",
+    "vol_mid|trend_up",
+    "vol_unknown|trend_down"
+  ],
+  "low_support_merged_to_other": [
+    "vol_high|trend_down",
+    "vol_low|trend_down",
+    "vol_mid|trend_down"
+  ],
+  "split_mappings": {
+    "0": {
+      "other": 1,
+      "vol_high|trend_up": 61,
+      "vol_low|trend_up": 45,
+      "vol_mid|trend_up": 41,
+      "vol_unknown|trend_down": 47
+    },
+    "1": {
+      "other": 1,
+      "vol_high|trend_up": 61,
+      "vol_low|trend_up": 1,
+      "vol_mid|trend_up": 41,
+      "vol_unknown|trend_down": 48
+    },
+    "2": {
+      "other": 1,
+      "vol_high|trend_up": 61,
+      "vol_low|trend_up": 1,
+      "vol_mid|trend_up": 41,
+      "vol_unknown|trend_down": 48
+    },
+    "3": {
+      "other": 1,
+      "vol_high|trend_up": 61,
+      "vol_low|trend_up": 1,
+      "vol_mid|trend_up": 44,
+      "vol_unknown|trend_down": 48
+    },
+    "4": {
+      "other": 1,
+      "vol_high|trend_up": 61,
+      "vol_low|trend_up": 1,
+      "vol_mid|trend_up": 41,
+      "vol_unknown|trend_down": 48
+    }
+  },
+  "symbol": "SOLUSDT"
+}

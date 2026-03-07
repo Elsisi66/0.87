@@ -1,0 +1,17 @@
+{
+  "generated_utc": "2026-02-23T13:12:14.352855+00:00",
+  "mainline_status": "STOP_INFRA",
+  "phases": {
+    "A": {
+      "classification": "PASS",
+      "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASEABC_LABEL_REPAIR_20260223_131214/phaseA_20260223_131214"
+    },
+    "B": {
+      "classification": "INFRA_FAIL",
+      "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASEABC_LABEL_REPAIR_20260223_131214/phaseB_20260223_131214",
+      "reason": "No module named 'scipy'"
+    }
+  },
+  "run_root": "/root/analysis/0.87/reports/execution_layer/PHASEABC_LABEL_REPAIR_20260223_131214",
+  "seed": 20260223
+}

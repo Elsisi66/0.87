@@ -1,0 +1,54 @@
+{
+  "failure_branch": "INFRA_FAIL",
+  "furthest_classification": "INFRA_FAIL",
+  "furthest_phase": "E0",
+  "generated_utc": "2026-02-23T18:47:44.113162+00:00",
+  "mainline_status": "STOP_INFRA",
+  "phases": {
+    "A": {
+      "classification": "PASS",
+      "info": {
+        "decision": "PASS",
+        "duration_sec": 0.041966915130615234,
+        "fee_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+        "freeze_lock_validation": {
+          "allow_freeze_hash_mismatch": 0,
+          "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+          "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+          "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+          "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+          "copied_verbatim_fee": 1,
+          "copied_verbatim_metrics": 1,
+          "expected_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+          "expected_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+          "fee_hash_match_expected": 1,
+          "fee_value_diffs": {},
+          "fee_value_match_args": 1,
+          "freeze_lock_pass": 1,
+          "generated_utc": "2026-02-23T18:47:44.248016+00:00",
+          "metrics_hash_match_expected": 1,
+          "run_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+          "run_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+        },
+        "generated_utc": "2026-02-23T18:47:44.248674+00:00",
+        "metrics_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+        "phase": "A",
+        "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASEE_PAPER_CONFIRM_20260223_184742/phaseA",
+        "required_cols": [
+          "signal_id",
+          "signal_time",
+          "tp_mult",
+          "sl_mult",
+          "atr_percentile_1h",
+          "trend_up_1h"
+        ],
+        "subset_rows_raw": 1200,
+        "subset_rows_schema_normalized": 1200
+      }
+    }
+  },
+  "plain_english": "Failed to build route cache: Cannot save file into a non-existent directory: '/root/analysis/0.87/reports/execution_layer/PHASEE_PAPER_CONFIRM_20260223_184742/phaseE1'",
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASEE_PAPER_CONFIRM_20260223_184742",
+  "start_utc": "2026-02-23T18:47:44.113193+00:00",
+  "time_budget_minutes": 175
+}

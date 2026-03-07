@@ -1,0 +1,7 @@
+PASS cvar_identical: cvar=-0.010000000000, k=5
+PASS cvar_mixed_tail: cvar=-0.200000000000, k=5
+PASS cvar_tail_order: cvar=-0.110000000000, expected=-0.110000000000, k=5
+PASS geom_mild_losses: legacy=-0.006744722337392428, clean=-0.006744722337392428, ruin=0
+PASS geom_mixed: legacy=0.00231670189728872, clean=0.00231670189728872, ruin=0
+PASS geom_ruin_event: legacy=-1.0, clean=nan, ruin=1
+SUMMARY pass=6 fail=0

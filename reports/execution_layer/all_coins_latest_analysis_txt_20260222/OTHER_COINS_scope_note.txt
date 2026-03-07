@@ -1,0 +1,11 @@
+Scope note for "other coins" request
+
+In the latest execution-layer decision bundle, non-SOL coins with explicit walkforward + tight-summary outputs are:
+- AVAXUSDT
+- NEARUSDT
+
+Reference bundle:
+- analysis/0.87/reports/execution_layer/v2_final/20260220_123314/
+- analysis/0.87/reports/execution_layer/v2_final/phase_result_tight.md
+
+No later (2026-02-22) Phase C/D/E/F-style per-coin folders were found for AVAX/NEAR analogous to the SOL-only sequence.

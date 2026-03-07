@@ -1,0 +1,1 @@
+Failure branch (E): do not continue to U2/U3. Provide minimal reproducible command, mismatch details, and patch list; then stop.

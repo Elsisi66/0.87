@@ -1,0 +1,83 @@
+{
+  "acceptance_rule": {
+    "monotonic_violations_max": 1,
+    "overall_spearman_positive": true,
+    "score_nan_rate_max": 0.0,
+    "stable_sign_frac_min": 0.75
+  },
+  "combined_monotonic_violations": 0,
+  "combined_overall_spearman_tail": 0.29127581465673674,
+  "combined_split_eligible": 6,
+  "combined_split_positive": 6,
+  "combined_stable_sign_frac": 1.0,
+  "combined_support": 478,
+  "generated_utc": "2026-02-23T13:44:03.144420+00:00",
+  "label_tail_fraction": 0.05,
+  "per_route": [
+    {
+      "overall_spearman_tail": 0.2739260137206903,
+      "route_id": "route1_holdout",
+      "score_nan_rate": 0.0,
+      "split_eligible": 0,
+      "split_positive": 0,
+      "stable_sign_frac": 0.0,
+      "support": 70,
+      "tail_rate": 0.2857142857142857
+    },
+    {
+      "overall_spearman_tail": 0.17731900413052445,
+      "route_id": "route2_reslice",
+      "score_nan_rate": 0.0,
+      "split_eligible": 6,
+      "split_positive": 6,
+      "stable_sign_frac": 1.0,
+      "support": 408,
+      "tail_rate": 0.061274509803921566
+    }
+  ],
+  "phase": "D2",
+  "split_rows": [
+    {
+      "route_id": "route2_reslice",
+      "spearman_tail": 0.044694838642368576,
+      "split_id": 0,
+      "support": 53
+    },
+    {
+      "route_id": "route2_reslice",
+      "spearman_tail": 0.25399922732554003,
+      "split_id": 1,
+      "support": 60
+    },
+    {
+      "route_id": "route2_reslice",
+      "spearman_tail": 0.12883520785713443,
+      "split_id": 2,
+      "support": 58
+    },
+    {
+      "route_id": "route2_reslice",
+      "spearman_tail": 0.32706743065808075,
+      "split_id": 3,
+      "support": 60
+    },
+    {
+      "route_id": "route2_reslice",
+      "spearman_tail": 0.11129018927426881,
+      "split_id": 4,
+      "support": 59
+    },
+    {
+      "route_id": "route2_reslice",
+      "spearman_tail": 0.23446265249669562,
+      "split_id": 5,
+      "support": 60
+    },
+    {
+      "route_id": "route2_reslice",
+      "spearman_tail": NaN,
+      "split_id": 6,
+      "support": 58
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "candidate_ids": [
+    "M3_ENTRY_ONLY_FASTER_C_WIN_02",
+    "M2_ENTRY_ONLY_MORE_PASSIVE_NOFB_C_FB_ON"
+  ],
+  "candidate_mapping_exists": 1,
+  "candidate_roles": [
+    "paper_primary",
+    "shadow_backup"
+  ],
+  "exits_owned_by_1h_only": 1,
+  "fee_model_sha256_expected": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+  "fee_model_sha256_observed": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+  "forbidden_exit_controls_active": 0,
+  "freeze_lock_pass": 1,
+  "generated_utc": "2026-02-28T03:01:46.374740+00:00",
+  "isolated_books": 1,
+  "metrics_definition_sha256_expected": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+  "metrics_definition_sha256_observed": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+  "one_h_feed_ready": 1,
+  "params_path": "/root/analysis/0.87/data/metadata/params/SOLUSDT_C13_active_params_long.json",
+  "primary_backup_loaded": 1,
+  "repaired_route_support_feasible": 1,
+  "runtime_launcher_exists": 1,
+  "state_root": "/root/analysis/0.87/paper_trading/state/model_a_runtime",
+  "symbol": "SOLUSDT",
+  "three_m_feed_ready": 1,
+  "uses_1h_signal_owner": 1,
+  "uses_3m_entry_executor": 1
+}

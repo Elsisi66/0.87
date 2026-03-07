@@ -1,0 +1,93 @@
+{
+  "generated_utc": "2026-03-06T19:55:41.662406+00:00",
+  "switch_scope": "config/plumbing only; no strategy logic changes",
+  "working_dir": "/root/analysis/0.87",
+  "runtime_discovery": {
+    "scheduler": "cron",
+    "crontab_entry": "3 * * * * /root/analysis/0.87/paper_trading/scripts/hourly_signal_scan.sh",
+    "launcher_script": "/root/analysis/0.87/paper_trading/scripts/hourly_signal_scan.sh",
+    "runtime_command": "python -m paper_trading.app.main --once --max-cycles 1 --no-startup-reset",
+    "logs": {
+      "hourly_scan_log": "/root/analysis/0.87/paper_trading/logs/hourly_scan.log",
+      "service_log": "/root/analysis/0.87/paper_trading/logs/service.log",
+      "errors_log": "/root/analysis/0.87/paper_trading/logs/errors.log"
+    }
+  },
+  "config_paths": {
+    "settings_yaml": "/root/analysis/0.87/paper_trading/config/settings.yaml",
+    "env_file": "/root/analysis/0.87/paper_trading/config/.env",
+    "resolved_universe_json": "/root/analysis/0.87/paper_trading/config/resolved_universe.json",
+    "state_journal": "/root/analysis/0.87/paper_trading/state/journal.jsonl"
+  },
+  "legacy_glitch_evidence": {
+    "legacy_source_path": "/root/analysis/0.87/reports/params_scan/20260220_044949/best_by_symbol.csv",
+    "legacy_symbols_seen_in_logs": [
+      "ADAUSDT",
+      "AVAXUSDT",
+      "AXSUSDT",
+      "BCHUSDT",
+      "CRVUSDT",
+      "DOGEUSDT",
+      "LINKUSDT",
+      "LTCUSDT",
+      "NEARUSDT",
+      "SOLUSDT",
+      "TRXUSDT",
+      "XRPUSDT",
+      "ZECUSDT"
+    ]
+  },
+  "posture_lock": {
+    "posture_freeze_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126",
+    "active_subset_csv": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126/repaired_active_3m_subset.csv",
+    "active_params_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126/repaired_active_3m_params",
+    "active_symbols": [
+      "SOLUSDT"
+    ],
+    "required_strategy_id": "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+    "sol_params_sha256": "2ebc1caabad9e0c057bb32c2ff2562e8420b456fd97eb4ea00f1829215ea5958",
+    "script_env_exports": {
+      "PAPER_MODE": "true",
+      "BINANCE_MODE": "marketdata_only",
+      "START_EQUITY_EUR": "320",
+      "REPAIRED_POSTURE_FREEZE_DIR": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126",
+      "REPAIRED_ACTIVE_SUBSET_CSV": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126/repaired_active_3m_subset.csv",
+      "REPAIRED_ACTIVE_PARAMS_DIR": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126/repaired_active_3m_params",
+      "REQUIRE_REPAIRED_POSTURE_PACK": "true",
+      "PAPER_SYMBOL_ALLOWLIST": "SOLUSDT",
+      "REQUIRED_ACTIVE_STRATEGY_ID": "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+      "REPAIRED_CONTRACT_DEFER_EXIT_TO_NEXT_BAR": "true"
+    }
+  },
+  "alignment_window_utc": {
+    "start": "2026-03-04 00:00:00+00:00",
+    "end": "2026-03-06 00:00:00+00:00"
+  },
+  "alignment_metrics": {
+    "expected_sol_signal_count": 0,
+    "observed_sol_open_count": 35,
+    "non_sol_trades": 32,
+    "same_bar_exits": 67,
+    "fee_errors": 0,
+    "slippage_errors": 0,
+    "pnl_sign": {
+      "pos": 0,
+      "neg": 67
+    }
+  },
+  "startup_banner_status": {
+    "assertion_banner_present": true,
+    "sol_only_resolved_universe": true
+  },
+  "outcome": "PAPER_FIXED_BUT_MISMATCH_REMAINS",
+  "root_cause": "Historical window used legacy 13-symbol universe and non-posture params; post-switch run is posture-locked SOL-only.",
+  "root_cause_details": {
+    "legacy_source_pre_switch": "paper_trading/app/universe.py:284-299",
+    "same_bar_close_logic": [
+      "paper_trading/app/execution_sim.py:126-166",
+      "paper_trading/app/execution_sim.py:143-154",
+      "paper_trading/app/execution_sim.py:203"
+    ],
+    "next_fix_not_applied": "Add no-same-bar-exit guard in ExecutionSimulator.process_bar for entry bar"
+  }
+}

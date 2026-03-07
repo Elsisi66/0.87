@@ -1,0 +1,26 @@
+{
+  "contract_id": "SOL_PHASEE2_CANONICAL_V1",
+  "cvar_5_formula": "mean of worst 5% pnl_net_pct over valid filled trades",
+  "drawdown_convention": "negative_fraction_peak_to_trough",
+  "entry_semantics": "next_3m_open_after_1h_signal_for_all_variants",
+  "entry_semantics_detail": {
+    "v2r_1h_reference": "uses baseline 3m entry timestamps/prices; exits evaluated with 1h control semantics",
+    "v3r_exec_control": "same baseline 3m entry timestamps/prices; exits on 3m control path",
+    "v4r_exec_phasec_best": "same baseline 3m entry timestamps/prices; exits on Phase C best path"
+  },
+  "expectancy_formula": "mean(pnl_net_pct) over valid filled trades",
+  "fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+  "fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+  "initial_equity": 1.0,
+  "metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+  "metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+  "missing_data_handling": "missing slices tracked; invalid fills excluded from per-trade metrics",
+  "no_trade_handling": "entry_rate and support explicitly reported; no silent skips",
+  "phase_a_contract": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310",
+  "phase_c_source": "/root/analysis/0.87/reports/execution_layer/PHASEC_SOL_20260221_231430",
+  "pnl_aggregation_units": "net_return_per_trade_compounded_to_equity",
+  "position_sizing": "fixed_fractional_risk_per_trade_compounding",
+  "risk_per_trade": 0.01,
+  "split_aggregation_method": "weighted by signal count",
+  "symbol": "SOLUSDT"
+}

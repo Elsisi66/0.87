@@ -1,0 +1,133 @@
+{
+  "evidence": {
+    "frozen_percentiles": [
+      {
+        "alt_mean": -0.0009801390105198258,
+        "alt_median": -0.0009243534212728517,
+        "frozen_percentile": 1.0,
+        "frozen_value": -0.0006429344379359447,
+        "metric": "expectancy_net",
+        "variant": "1h_reference"
+      },
+      {
+        "alt_mean": -0.9990458996035768,
+        "alt_median": -0.9989356567214436,
+        "frozen_percentile": 1.0,
+        "frozen_value": -0.9964495858427482,
+        "metric": "total_return",
+        "variant": "1h_reference"
+      },
+      {
+        "alt_mean": -0.9991982178020141,
+        "alt_median": -0.9993261065403427,
+        "frozen_percentile": 0.6,
+        "frozen_value": -0.9989855391907831,
+        "metric": "max_drawdown_pct",
+        "variant": "1h_reference"
+      },
+      {
+        "alt_mean": -0.0022496948343724214,
+        "alt_median": -0.002199520095980933,
+        "frozen_percentile": 1.0,
+        "frozen_value": -0.0021995200959809068,
+        "metric": "cvar_5",
+        "variant": "1h_reference"
+      },
+      {
+        "alt_mean": -0.000931972377732069,
+        "alt_median": -0.0008782174179833825,
+        "frozen_percentile": 1.0,
+        "frozen_value": -0.0005588693803532359,
+        "metric": "expectancy_net",
+        "variant": "phasec_best_exit"
+      },
+      {
+        "alt_mean": -0.9998675764583009,
+        "alt_median": -0.9998699750396216,
+        "frozen_percentile": 1.0,
+        "frozen_value": -0.9991733946554319,
+        "metric": "total_return",
+        "variant": "phasec_best_exit"
+      },
+      {
+        "alt_mean": -0.9998916556261668,
+        "alt_median": -0.9999051949106897,
+        "frozen_percentile": 0.8,
+        "frozen_value": -0.999828432227568,
+        "metric": "max_drawdown_pct",
+        "variant": "phasec_best_exit"
+      },
+      {
+        "alt_mean": -0.002002293814576423,
+        "alt_median": -0.0019496200759849735,
+        "frozen_percentile": 1.0,
+        "frozen_value": -0.0019496200759849586,
+        "metric": "cvar_5",
+        "variant": "phasec_best_exit"
+      }
+    ],
+    "intrabar_sensitivity_rows": [
+      {
+        "cvar_5": -0.0021995200959809068,
+        "delta_expectancy_vs_intrabar3m": 0.0,
+        "delta_maxdd_vs_intrabar3m": 0.0,
+        "delta_total_return_vs_intrabar3m": 0.0,
+        "expectancy_net": -0.0006429344379359447,
+        "max_drawdown_pct": -0.9989855391907831,
+        "mode": "intrabar_3m_reference",
+        "total_return": -0.9964495858427482
+      },
+      {
+        "cvar_5": -0.0021995200959809068,
+        "delta_expectancy_vs_intrabar3m": -6.206719021819001e-06,
+        "delta_maxdd_vs_intrabar3m": -0.00018967187827445553,
+        "delta_total_return_vs_intrabar3m": -0.0003491180451988818,
+        "expectancy_net": -0.0006491411569577637,
+        "max_drawdown_pct": -0.9991752110690576,
+        "mode": "bar_1h_optimistic",
+        "total_return": -0.9967987038879471
+      },
+      {
+        "cvar_5": -0.0021995200959809068,
+        "delta_expectancy_vs_intrabar3m": -6.206719021819001e-06,
+        "delta_maxdd_vs_intrabar3m": -0.00018967187827445553,
+        "delta_total_return_vs_intrabar3m": -0.0003491180451988818,
+        "expectancy_net": -0.0006491411569577637,
+        "max_drawdown_pct": -0.9991752110690576,
+        "mode": "bar_1h_neutral",
+        "total_return": -0.9967987038879471
+      },
+      {
+        "cvar_5": -0.0021995200959809068,
+        "delta_expectancy_vs_intrabar3m": -6.206719021819001e-06,
+        "delta_maxdd_vs_intrabar3m": -0.00018967187827445553,
+        "delta_total_return_vs_intrabar3m": -0.0003491180451988818,
+        "expectancy_net": -0.0006491411569577637,
+        "max_drawdown_pct": -0.9991752110690576,
+        "mode": "bar_1h_pessimistic",
+        "total_return": -0.9967987038879471
+      }
+    ],
+    "v1_native_max_dd_pct_positive": 15.660755149054232,
+    "v1_native_net_profit": 6783048.248078086,
+    "v2_expectancy_net": -0.0006491411569577,
+    "v2_total_return": -0.9967987038879472,
+    "v4_expectancy_net": -0.0005588693803532,
+    "v4_total_return": -0.9931510134935536
+  },
+  "genuine_strategy_degradation_on_frozen_test": 1,
+  "intrabar_optimism_bias": 0,
+  "measurement_mismatch": 1,
+  "mixed_causes": 1,
+  "pass_criteria": {
+    "contract_comparison_completed": 1,
+    "critical_contradiction_resolved": 1,
+    "intrabar_impact_quantified": 1,
+    "representativeness_assessed": 1,
+    "reproduction_completed": 1,
+    "universe_mismatch_quantified": 1
+  },
+  "phase_status": "PASS",
+  "subset_non_representativeness": 1,
+  "universe_mismatch": 1
+}

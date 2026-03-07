@@ -1,0 +1,33 @@
+NEARUSDT Latest Reports - Short Summary
+Generated: 2026-02-22 (UTC)
+Scope: execution-layer NEAR walkforward runs in analysis/0.87/reports/execution_layer
+
+1) 20260220_074718_walkforward_NEARUSDT
+- What was done: initial NEAR walkforward exec-limit test.
+- Outcome: pass=1; entry_rate=0.504831; expectancy_net=-0.001260 vs baseline_expectancy_net=-0.001797; pnl_net_sum=-0.263242.
+- Notes: 112112 and 112225 repeated same result.
+
+2) 20260220_112659_walkforward_NEARUSDT
+- What was done: retune to higher participation profile.
+- Outcome: pass=1; entry_rate=0.932367; expectancy_net=-0.001043 vs baseline=-0.001093; pnl_net_sum=-0.402413.
+- Notes: 113038 repeated this result.
+
+3) 20260220_114302_walkforward_NEARUSDT
+- What was done: added trend + vol-regime gate configuration.
+- Outcome: pass=1; entry_rate=0.951311; expectancy_net=-0.000837 vs baseline=-0.000695; pnl_net_sum=-0.212500.
+- Notes: 114427 repeated this result.
+
+4) 20260220_122453_walkforward_NEARUSDT
+- What was done: tight-mode constraints check.
+- Outcome: selected_passes_constraints=1 but tight_require_pass=0.
+- Notes: not accepted as final tight pass.
+
+5) 20260220_123057_walkforward_NEARUSDT (latest/final NEAR walkforward)
+- What was done: final tight-mode NEAR run (copied into v2_final).
+- Outcome: pass=1 and tight_require_pass=1.
+- Key test metrics: entry_rate=0.951311, taker_share=0.122047, expectancy_net=-0.000837, baseline_expectancy_net=-0.000695, pnl_net_sum=-0.212500.
+
+Cross-symbol rubric context (tight bundle)
+- Source: v2_final/20260220_123314/AGG_exec_testonly_summary_tight.md
+- Decision: exec not worth it; focus on 1h edge/stops.
+- NEAR detail in tight summary matches run 20260220_123057.

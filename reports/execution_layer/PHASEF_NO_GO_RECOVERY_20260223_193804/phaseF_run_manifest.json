@@ -1,0 +1,11 @@
+{
+  "classification": "STOP_NO_GO",
+  "duration_sec": 39.092830419540405,
+  "generated_utc": "2026-02-23T19:38:43.256653+00:00",
+  "mainline_status": "STOP_NO_GO",
+  "reason": "no variant reached valid_for_ranking under strict multi-route gates",
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASEF_NO_GO_RECOVERY_20260223_193804",
+  "source_phase_ae": "/root/analysis/0.87/reports/execution_layer/PHASEAE_SIGNAL_LABELING_20260223_111116",
+  "source_phase_e": "/root/analysis/0.87/reports/execution_layer/PHASEE_PAPER_CONFIRM_20260223_185139",
+  "valid_for_ranking_count": 0
+}

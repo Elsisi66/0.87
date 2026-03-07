@@ -1,0 +1,63 @@
+{
+  "config": {
+    "elite_k": 2,
+    "fee_model_source": "/root/analysis/0.87/reports/execution_layer/MULTICOIN_MODELA_AUDIT_20260228_180250/fee_model.json",
+    "generations": 1,
+    "mutation_rate": 0.65,
+    "mutation_strength": 0.9,
+    "pop_size": 2,
+    "seed": 20260304,
+    "shortlist_n": 5,
+    "thresholds": {
+      "max_dd_pct": 35.0,
+      "min_cagr_pct": 15.0,
+      "min_net_profit": 0.0,
+      "min_profit_factor": 1.15,
+      "min_trades": 50.0,
+      "min_trades_per_year": 10.0
+    }
+  },
+  "discovered_paths": {
+    "contamination_audit_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_FRONTIER_CONTAMINATION_AUDIT_20260303_232445",
+    "params_scan_dir": "/root/analysis/0.87/reports/params_scan/20260220_044949",
+    "phase_i_dir": "/root/analysis/0.87/reports/execution_layer/PHASEI_EXECAWARE_1H_GA_EXPANSION_20260224_012237",
+    "repaired_baseline_dir": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650"
+  },
+  "frontier_summary": {
+    "top_candidate_id": "R_SOLUSDT_G00_I0000",
+    "top_frontier_symbol_mix": {
+      "AVAXUSDT": 2,
+      "AXSUSDT": 1,
+      "CRVUSDT": 2,
+      "DOGEUSDT": 1,
+      "NEARUSDT": 1,
+      "OGUSDT": 2,
+      "SOLUSDT": 1
+    },
+    "top_score": 131.03643759861853,
+    "total_candidates_evaluated": 36,
+    "unique_symbols_in_frontier": 14,
+    "valid_frontier_count": 24
+  },
+  "generated_utc": "2026-03-03T23:47:02.662853+00:00",
+  "legacy_code_paths": [
+    "scripts/phase_h_execaware_1h_ga_pilot.py",
+    "scripts/phase_i_execaware_1h_ga_expansion.py",
+    "scripts/phase_u_combined_1h3m_pilot.py",
+    "src/bot087/optim/ga.py"
+  ],
+  "objective_change": {
+    "legacy_invalid_objective": "OJ2 execution-aware 3m objective from Phase I/H",
+    "replacement_objective": "repaired_1h_score = (cagr_pct * profit_factor) / (1 + max_dd_pct)",
+    "replacement_pass_logic": "scan_params_all_coins thresholds from scan_meta.json",
+    "why": "Old H/I objective depends on execution-aware 3m metrics and cannot be used in a pure 1h-only rerun."
+  },
+  "recommendation": "PROCEED_TO_REPAIRED_UNIVERSE_REBUILD",
+  "recommendation_reason": "The repaired 1h rerun produced a broad enough passing long set to rebuild the universe before any new 3m work.",
+  "repaired_code_paths": [
+    "scripts/repaired_1h_ga_rerun.py",
+    "scripts/repaired_frontier_contamination_audit.py",
+    "scripts/backtest_exec_phasec_sol.py"
+  ],
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_GA_RERUN_20260303_234557"
+}

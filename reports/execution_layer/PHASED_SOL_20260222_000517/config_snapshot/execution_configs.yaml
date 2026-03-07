@@ -1,0 +1,98 @@
+{
+  "SOLUSDT": {
+    "exec_mode": "exec_limit",
+    "k_base": 0.2,
+    "k_values": [0.0, 0.1, 0.2, 0.3],
+    "timeout_bars": 10,
+    "timeout_values": [10, 20, 40],
+    "fallback": "market",
+    "fallback_values": ["market"],
+    "use_vol_gate": 0,
+    "vol_gate_values": [0],
+    "use_vol_regime_gate": 1,
+    "vol_regime_max_percentile": 90,
+    "vol_regime_lookback_bars": 2160,
+    "use_trend_gate": 0,
+    "trend_fast_col": "EMA_50",
+    "trend_slow_col": "EMA_120",
+    "trend_min_slope": 0.0,
+    "stop_distance_min_pct": 0.0,
+    "use_panic_filter": 1,
+    "ladder": 0,
+    "constraints": {
+      "min_entry_rate": 0.60,
+      "max_taker_share": 0.40,
+      "max_fill_delay_min": 90
+    },
+    "tight_constraints": {
+      "min_entry_rate": 0.97,
+      "max_taker_share": 0.25,
+      "max_fill_delay_min": 45,
+      "min_median_entry_improvement_bps": 0.0
+    }
+  },
+  "AVAXUSDT": {
+    "exec_mode": "exec_limit",
+    "k_base": 0.05,
+    "k_values": [0.0, 0.05, 0.1, 0.2],
+    "timeout_bars": 20,
+    "timeout_values": [10, 20, 40],
+    "fallback": "market",
+    "fallback_values": ["market"],
+    "use_vol_gate": 0,
+    "vol_gate_values": [0],
+    "use_vol_regime_gate": 1,
+    "vol_regime_max_percentile": 90,
+    "vol_regime_lookback_bars": 2160,
+    "use_trend_gate": 0,
+    "trend_fast_col": "EMA_50",
+    "trend_slow_col": "EMA_120",
+    "trend_min_slope": 0.0,
+    "stop_distance_min_pct": 0.0,
+    "use_panic_filter": 0,
+    "ladder": 0,
+    "constraints": {
+      "min_entry_rate": 0.55,
+      "max_taker_share": 0.40,
+      "max_fill_delay_min": 90
+    },
+    "tight_constraints": {
+      "min_entry_rate": 0.93,
+      "max_taker_share": 0.25,
+      "max_fill_delay_min": 60,
+      "min_median_entry_improvement_bps": 0.0
+    }
+  },
+  "NEARUSDT": {
+    "exec_mode": "exec_limit",
+    "k_base": 0.1,
+    "k_values": [0.0, 0.1, 0.2, 0.3],
+    "timeout_bars": 20,
+    "timeout_values": [10, 20, 40],
+    "fallback": "market",
+    "fallback_values": ["market"],
+    "use_vol_gate": 0,
+    "vol_gate_values": [0],
+    "use_vol_regime_gate": 1,
+    "vol_regime_max_percentile": 90,
+    "vol_regime_lookback_bars": 2160,
+    "use_trend_gate": 1,
+    "trend_fast_col": "EMA_50",
+    "trend_slow_col": "EMA_120",
+    "trend_min_slope": 0.0,
+    "stop_distance_min_pct": 0.0,
+    "use_panic_filter": 0,
+    "ladder": 0,
+    "constraints": {
+      "min_entry_rate": 0.55,
+      "max_taker_share": 0.40,
+      "max_fill_delay_min": 90
+    },
+    "tight_constraints": {
+      "min_entry_rate": 0.95,
+      "max_taker_share": 0.30,
+      "max_fill_delay_min": 45,
+      "min_median_entry_improvement_bps": 0.0
+    }
+  }
+}

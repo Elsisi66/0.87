@@ -1,0 +1,8 @@
+{
+  "cvar_negative": 1,
+  "delta_nonpositive": 2,
+  "maxdd_nonpositive": 5,
+  "route_center_collapse": 11,
+  "route_survivability_not_improved": 11,
+  "support_starvation": 3
+}

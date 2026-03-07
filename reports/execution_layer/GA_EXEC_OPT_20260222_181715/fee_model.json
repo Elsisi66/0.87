@@ -1,0 +1,9 @@
+{
+  "baseline_definition": "market at next 3m open after 1h signal",
+  "fee_bps_maker": 2.0,
+  "fee_bps_taker": 4.0,
+  "generated_utc": "2026-02-22T18:17:43.235654+00:00",
+  "slippage_bps_limit": 0.5,
+  "slippage_bps_market": 2.0,
+  "source_script": "src/execution/ga_exec_3m_opt.py"
+}

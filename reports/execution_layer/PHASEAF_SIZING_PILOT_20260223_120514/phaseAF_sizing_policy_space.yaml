@@ -1,0 +1,28 @@
+phase: AF2
+symbol: SOLUSDT
+size_bounds_default: [0.5, 1.5]
+families:
+  step:
+    risk_to_size: "piecewise non-increasing"
+  smooth:
+    risk_to_size: "linear clipped monotonic"
+  streak:
+    risk_to_size: "triggered downscale by prior streak/tail count"
+  hybrid:
+    risk_to_size: "smooth base + streak penalty + optional recovery bonus"
+  ae_s1_anchor:
+    risk_to_size: "AE anchor 4-flag score threshold"
+features:
+  - "prior_loss_streak_len"
+  - "prior_rolling_tail_count_20"
+  - "pre3m_close_to_high_dist_bps"
+  - "pre3m_realized_vol_12"
+  - "pre3m_wick_ratio"
+  - "interaction(prior_rolling_loss_rate_5, pre3m_wick_ratio)"
+  - "interaction(pre3m_close_to_high_dist_bps, pre3m_realized_vol_12)"
+constraints:
+  monotonic_non_increasing_with_risk: true
+  no_upsize_highest_risk_bucket: true
+  entries_invariance_required: true
+  budget_norm_error_abs_max: 0.02
+  hard_gates_unchanged: true

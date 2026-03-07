@@ -1,0 +1,287 @@
+{
+  "baseline_source_meta": {
+    "ADAUSDT": {
+      "source_kind": "canonical_repaired_export",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv",
+      "trade_rows": 2660
+    },
+    "AVAXUSDT": {
+      "source_kind": "canonical_repaired_export",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv",
+      "trade_rows": 1732
+    },
+    "AXSUSDT": {
+      "source_kind": "canonical_repaired_export",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv",
+      "trade_rows": 573
+    },
+    "BCHUSDT": {
+      "source_kind": "canonical_repaired_export",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv",
+      "trade_rows": 1731
+    },
+    "BNBUSDT": {
+      "market_path": "/root/analysis/0.87/data/processed/_full/BNBUSDT_1h_full.parquet",
+      "source_kind": "runtime_reconstructed_repaired_contract",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_signal_timeline.csv",
+      "trade_rows": 617
+    },
+    "BTCUSDT": {
+      "market_path": "/root/analysis/0.87/data/processed/_full/BTCUSDT_1h_full.parquet",
+      "source_kind": "runtime_reconstructed_repaired_contract",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_signal_timeline.csv",
+      "trade_rows": 905
+    },
+    "CRVUSDT": {
+      "source_kind": "canonical_repaired_export",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv",
+      "trade_rows": 1586
+    },
+    "DOGEUSDT": {
+      "source_kind": "canonical_repaired_export",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv",
+      "trade_rows": 1391
+    },
+    "LINKUSDT": {
+      "source_kind": "canonical_repaired_export",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv",
+      "trade_rows": 968
+    },
+    "LTCUSDT": {
+      "source_kind": "canonical_repaired_export",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv",
+      "trade_rows": 940
+    },
+    "NEARUSDT": {
+      "source_kind": "canonical_repaired_export",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv",
+      "trade_rows": 1380
+    },
+    "OGUSDT": {
+      "market_path": "/root/analysis/0.87/data/processed/_full/OGUSDT_1h_full.parquet",
+      "source_kind": "runtime_reconstructed_repaired_contract",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_signal_timeline.csv",
+      "trade_rows": 1322
+    },
+    "PAXGUSDT": {
+      "market_path": "/root/analysis/0.87/data/processed/_full/PAXGUSDT_1h_full.parquet",
+      "source_kind": "runtime_reconstructed_repaired_contract",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_signal_timeline.csv",
+      "trade_rows": 231
+    },
+    "SOLUSDT": {
+      "source_kind": "canonical_repaired_export",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv",
+      "trade_rows": 5034
+    },
+    "TRXUSDT": {
+      "source_kind": "canonical_repaired_export",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv",
+      "trade_rows": 976
+    },
+    "XRPUSDT": {
+      "source_kind": "canonical_repaired_export",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv",
+      "trade_rows": 2034
+    },
+    "ZECUSDT": {
+      "source_kind": "canonical_repaired_export",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv",
+      "trade_rows": 1374
+    }
+  },
+  "best_symbols_by_quality": [
+    "DOGEUSDT",
+    "AXSUSDT",
+    "OGUSDT",
+    "CRVUSDT",
+    "NEARUSDT"
+  ],
+  "generated_utc": "2026-03-02T23:55:59.830107+00:00",
+  "label_counts": {
+    "KEEP": 4,
+    "TRASH": 4,
+    "WATCH": 4,
+    "WEAK": 5
+  },
+  "label_rules": {
+    "basis": "repaired_1h_full_trade_metrics_only",
+    "data_blocked": "no repaired trade sample",
+    "keep": "expectancy>=q75 and profit_factor>=q75",
+    "thresholds": {
+      "edge_vs_max_drawdown_q1": 0.005535261438416226,
+      "expectancy_q1": 0.0014060190829224706,
+      "expectancy_q2": 0.0028582919494726865,
+      "expectancy_q3": 0.003511544869297268,
+      "profit_factor_q1": 1.701798004963739,
+      "profit_factor_q2": 2.425528737842838,
+      "profit_factor_q3": 2.7544379676646535
+    },
+    "trash": "expectancy<=q25 and profit_factor<=q25 and edge_vs_max_drawdown<=q25",
+    "watch": "expectancy>=q50 and profit_factor>=q50",
+    "weak": "everything else with repaired data"
+  },
+  "missing_from_canonical_repaired_export": [
+    "BNBUSDT",
+    "BTCUSDT",
+    "OGUSDT",
+    "PAXGUSDT"
+  ],
+  "outputs": {
+    "repaired_trade_exit_reason_breakdown_csv": "/root/analysis/0.87/reports/execution_layer/REPAIRED_TRADE_LEDGER_DIAGNOSTICS_20260302_235325/repaired_trade_exit_reason_breakdown.csv",
+    "repaired_trade_judgment_by_coin_csv": "/root/analysis/0.87/reports/execution_layer/REPAIRED_TRADE_LEDGER_DIAGNOSTICS_20260302_235325/repaired_trade_judgment_by_coin.csv",
+    "repaired_trade_judgment_manifest_json": "/root/analysis/0.87/reports/execution_layer/REPAIRED_TRADE_LEDGER_DIAGNOSTICS_20260302_235325/repaired_trade_judgment_manifest.json",
+    "repaired_trade_judgment_reference_vs_modelA_csv": "/root/analysis/0.87/reports/execution_layer/REPAIRED_TRADE_LEDGER_DIAGNOSTICS_20260302_235325/repaired_trade_judgment_reference_vs_modelA.csv",
+    "repaired_trade_quality_report_md": "/root/analysis/0.87/reports/execution_layer/REPAIRED_TRADE_LEDGER_DIAGNOSTICS_20260302_235325/repaired_trade_quality_report.md"
+  },
+  "priority_symbols": [
+    "SOLUSDT",
+    "AVAXUSDT",
+    "NEARUSDT"
+  ],
+  "priority_trade_meta": {
+    "AVAXUSDT": {
+      "best_candidate_id": "M2_ENTRY_ONLY_MORE_PASSIVE",
+      "build_meta": {
+        "signals_missing_3m_data": 92,
+        "signals_partial_3m_data": 18,
+        "signals_total": 1732,
+        "signals_with_3m_data": 1640,
+        "window_count": 366,
+        "window_source_counts": {
+          "legacy_exec_cache_cover": 1622,
+          "remote_refill": 18
+        }
+      },
+      "modela_metrics": {
+        "baseline_exec_expectancy_net": 0.0028800048655557016,
+        "invalid_reason": "AVAXUSDT:missing_slice_rate>0.0200",
+        "min_split_delta": -0.00037744777819056835,
+        "missing_slice_rate": 0.03653846153846154,
+        "overall_cvar_improve_ratio": 0.0305820717171629,
+        "overall_delta_expectancy_exec_minus_baseline": 0.0002581020541710267,
+        "overall_entries_valid": 501,
+        "overall_entry_rate": 0.9634615384615385,
+        "overall_exec_expectancy_net": 0.0031381069197267283,
+        "overall_exec_median_fill_delay_min": 0.0,
+        "overall_exec_p95_fill_delay_min": 12.0,
+        "overall_exec_taker_share": 0.04790419161676647,
+        "overall_maxdd_improve_ratio": 0.005546061052434381,
+        "overall_min_trades_required": 200,
+        "overall_signals_total": 520,
+        "valid_for_ranking": 0
+      },
+      "priority_compare_row_source": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MODELA_REBASE_PRIORITY_20260302_233206/repaired_modelA_reference_vs_best_priority.csv"
+    },
+    "NEARUSDT": {
+      "best_candidate_id": "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+      "build_meta": {
+        "signals_missing_3m_data": 32,
+        "signals_partial_3m_data": 13,
+        "signals_total": 1380,
+        "signals_with_3m_data": 1348,
+        "window_count": 288,
+        "window_source_counts": {
+          "legacy_exec_cache_cover": 1348
+        }
+      },
+      "modela_metrics": {
+        "baseline_exec_expectancy_net": 0.0024168910562033536,
+        "invalid_reason": "",
+        "min_split_delta": 6.084504542904715e-05,
+        "missing_slice_rate": 0.00966183574879227,
+        "overall_cvar_improve_ratio": 0.04543622083689238,
+        "overall_delta_expectancy_exec_minus_baseline": 0.00036155052864222806,
+        "overall_entries_valid": 410,
+        "overall_entry_rate": 0.9903381642512077,
+        "overall_exec_expectancy_net": 0.0027784415848455817,
+        "overall_exec_median_fill_delay_min": 0.0,
+        "overall_exec_p95_fill_delay_min": 6.0,
+        "overall_exec_taker_share": 0.04390243902439024,
+        "overall_maxdd_improve_ratio": 0.1553284758841474,
+        "overall_min_trades_required": 200,
+        "overall_signals_total": 414,
+        "valid_for_ranking": 1
+      },
+      "priority_compare_row_source": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MODELA_REBASE_PRIORITY_20260302_233206/repaired_modelA_reference_vs_best_priority.csv"
+    },
+    "SOLUSDT": {
+      "best_candidate_id": "M3_ENTRY_ONLY_FASTER",
+      "build_meta": {
+        "signals_missing_3m_data": 424,
+        "signals_partial_3m_data": 56,
+        "signals_total": 5034,
+        "signals_with_3m_data": 4610,
+        "window_count": 397,
+        "window_source_counts": {
+          "legacy_exec_cache_cover": 2239,
+          "local_full_3m": 2315,
+          "remote_refill": 56
+        }
+      },
+      "modela_metrics": {
+        "baseline_exec_expectancy_net": 0.001803358946046841,
+        "invalid_reason": "SOLUSDT:missing_slice_rate>0.0200",
+        "min_split_delta": -0.0010776988623947626,
+        "missing_slice_rate": 0.10132450331125828,
+        "overall_cvar_improve_ratio": 0.054403896002059596,
+        "overall_delta_expectancy_exec_minus_baseline": 9.036603984106115e-05,
+        "overall_entries_valid": 1357,
+        "overall_entry_rate": 0.8986754966887417,
+        "overall_exec_expectancy_net": 0.0018937249858879022,
+        "overall_exec_median_fill_delay_min": 0.0,
+        "overall_exec_p95_fill_delay_min": 3.0,
+        "overall_exec_taker_share": 0.04274134119380987,
+        "overall_maxdd_improve_ratio": 0.23929708623519969,
+        "overall_min_trades_required": 227,
+        "overall_signals_total": 1510,
+        "valid_for_ranking": 0
+      },
+      "priority_compare_row_source": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MODELA_REBASE_PRIORITY_20260302_233206/repaired_modelA_reference_vs_best_priority.csv"
+    }
+  },
+  "repaired_multicoin_status": {
+    "complete_usable": 1,
+    "missing_required_files": [],
+    "present": 1
+  },
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_TRADE_LEDGER_DIAGNOSTICS_20260302_235325",
+  "source_paths": {
+    "canonical_repaired_1h_summary_csv": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_reference_summary.csv",
+    "canonical_repaired_1h_trade_csv": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv",
+    "foundation_download_manifest_csv": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_3m_download_manifest.csv",
+    "foundation_quality_csv": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_3m_data_quality.csv",
+    "foundation_readiness_csv": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_symbol_readiness.csv",
+    "foundation_signal_timeline_csv": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_signal_timeline.csv",
+    "priority_repaired_modelA_manifest_json": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MODELA_REBASE_PRIORITY_20260302_233206/repaired_modelA_run_manifest.json",
+    "priority_repaired_modelA_reference_vs_best_csv": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MODELA_REBASE_PRIORITY_20260302_233206/repaired_modelA_reference_vs_best_priority.csv",
+    "priority_repaired_modelA_results_csv": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MODELA_REBASE_PRIORITY_20260302_233206/repaired_modelA_results_priority.csv",
+    "repaired_multicoin_dir_checked": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MULTICOIN_MODELA_AUDIT_20260302_234108"
+  },
+  "universe": [
+    "SOLUSDT",
+    "AVAXUSDT",
+    "BCHUSDT",
+    "CRVUSDT",
+    "NEARUSDT",
+    "ADAUSDT",
+    "AXSUSDT",
+    "BNBUSDT",
+    "BTCUSDT",
+    "DOGEUSDT",
+    "LINKUSDT",
+    "LTCUSDT",
+    "OGUSDT",
+    "PAXGUSDT",
+    "TRXUSDT",
+    "XRPUSDT",
+    "ZECUSDT"
+  ],
+  "worst_symbols_by_quality": [
+    "PAXGUSDT",
+    "LTCUSDT",
+    "BTCUSDT",
+    "TRXUSDT",
+    "BNBUSDT"
+  ]
+}

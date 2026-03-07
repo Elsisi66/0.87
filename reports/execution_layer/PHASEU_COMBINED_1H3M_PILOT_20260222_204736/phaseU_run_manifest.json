@@ -1,0 +1,18 @@
+{
+  "classification": "E",
+  "classification_reason": "infra_exception",
+  "code_modified": "YES (new script phase_u_combined_1h3m_pilot.py)",
+  "commands": [
+    {
+      "cmd": "python -m scripts.phase_u_combined_1h3m_pilot",
+      "utc": "2026-02-22T20:47:36.437130+00:00"
+    }
+  ],
+  "completed_utc": "2026-02-22T20:48:03.001136+00:00",
+  "duration_sec": 26.564568042755127,
+  "error": "KeyError: 'signal_time'",
+  "generated_utc": "2026-02-22T20:47:36.437101+00:00",
+  "phase": "U",
+  "project_root": "/root/analysis/0.87",
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASEU_COMBINED_1H3M_PILOT_20260222_204736"
+}

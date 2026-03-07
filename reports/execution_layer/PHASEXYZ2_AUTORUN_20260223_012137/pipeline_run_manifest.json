@@ -1,0 +1,31 @@
+{
+  "classification_at_furthest": "D",
+  "code_modified": "YES (new script phase_xyz2_autorun.py)",
+  "commands": [
+    {
+      "cmd": "python scripts/phase_xyz2_autorun.py",
+      "utc": "2026-02-23T01:21:37.139940+00:00"
+    }
+  ],
+  "duration_sec": 82.5171160697937,
+  "furthest_phase_reached": "X",
+  "generated_utc": "2026-02-23T01:21:37.139873+00:00",
+  "mainline_status": "STOP_NO_GO",
+  "phaseX": {
+    "classification": "D",
+    "mainline_status": "STOP_NO_GO",
+    "next_prompt_path": "/root/analysis/0.87/reports/execution_layer/PHASEXYZ2_AUTORUN_20260223_012137/phaseX/phaseX_no_go_package/ready_to_launch_phaseX_alt_prompt.txt",
+    "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASEXYZ2_AUTORUN_20260223_012137/phaseX"
+  },
+  "phase_sequence_target": [
+    "X",
+    "Y",
+    "Y2",
+    "Z",
+    "Z2"
+  ],
+  "phasex_candidates": 32,
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASEXYZ2_AUTORUN_20260223_012137",
+  "seed": 20260223,
+  "stop_reason": "Phase X no-go/infra classification triggered branch stop by policy."
+}

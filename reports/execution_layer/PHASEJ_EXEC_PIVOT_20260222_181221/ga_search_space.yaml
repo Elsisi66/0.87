@@ -1,0 +1,65 @@
+schema_version: 1
+experiment_name: phase_j_sol_execution_exit_pivot
+symbol: SOLUSDT
+mode: tight
+frozen_contract:
+  representative_subset_sha256: fdc34c3dcab18e8f8577857d7f879f92af822fc24bf3e0ec90a346a2a4cc372d
+  fee_model_sha256: b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a
+  metrics_definition_sha256: d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99
+  selected_model_set_sha256: 4a8cb243e7f7e6425db6726302d6326bf727fe026baca77980af0532543c2fc4
+entry_knobs:
+  entry_mode: [market, limit, marketable_limit]
+  limit_offset_bps: [0.0, 30.0]
+  max_fill_delay_min: [0, 45]
+  fallback_to_market: [0, 1]
+  fallback_delay_min: [0, max_fill_delay_min]
+  max_taker_share: [0.0, 0.25]
+  mss_displacement_gate: [0, 1]
+  min_entry_improvement_bps_gate: [0.0, 20.0]
+  micro_vol_filter: [0, 1]
+  vol_threshold: [0.5, 6.0]
+  spread_guard_bps: [0.0, 100.0]
+  killzone_filter: [0, 1]
+  skip_if_vol_gate: [0, 1]
+  cooldown_min: [0, 240]
+exit_knobs:
+  tp_mult: [0.5, 3.0]
+  sl_mult: [0.3, 2.0]
+  time_stop_min: [0, 4320]
+  trailing_enabled: [0, 1]
+  trail_start_r: [0.5, 2.0]
+  trail_step_bps: [1.0, 50.0]
+  break_even_enabled: [0, 1]
+  break_even_trigger_r: [0.25, 1.5]
+  break_even_offset_bps: [0.0, 10.0]
+  partial_take_enabled: [0, 1]
+  partial_take_r: [0.3, 1.5]
+  partial_take_pct: [0.1, 0.9]
+objectives:
+  primary:
+    - fixed_size_geometric_equity_step_return
+  secondary:
+    - max_drawdown_floor
+    - cvar_floor
+    - split_support_stability
+  tertiary:
+    - expectancy_net
+    - fill_quality
+penalties:
+  - overtrading
+  - excessive_taker_share
+  - regime_concentration
+hard_constraints:
+  - min_split_trades
+  - support_ok
+  - nan_pathology_forbidden
+  - single_regime_dominance_cap
+anti_overfit_controls:
+  - duplicate_candidate_collapse
+  - effective_trials_estimate
+  - psr_dsr_reporting
+  - reality_check_bootstrap_placeholder
+pilot:
+  candidate_budget: 48
+  generator: constrained_random
+  stop_if_no_viable: true

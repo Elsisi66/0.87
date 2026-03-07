@@ -1,0 +1,50 @@
+{
+  "allow_freeze_hash_mismatch": 0,
+  "contract_lock_pass": 1,
+  "expected_hashes": {
+    "fee_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "metrics_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+  },
+  "fee_hash_match_expected": 1,
+  "ga_exec_freeze_lock_validation": {
+    "allow_freeze_hash_mismatch": 0,
+    "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+    "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+    "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "copied_verbatim_fee": 1,
+    "copied_verbatim_metrics": 1,
+    "expected_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "expected_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "fee_hash_match_expected": 1,
+    "fee_value_diffs": {},
+    "fee_value_match_args": 1,
+    "freeze_lock_pass": 1,
+    "generated_utc": "2026-02-27T11:53:29.636811+00:00",
+    "metrics_hash_match_expected": 1,
+    "run_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "run_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+  },
+  "generated_utc": "2026-02-27T11:53:29.619043+00:00",
+  "metrics_hash_match_expected": 1,
+  "mismatch_fields": [],
+  "observed_hashes": {
+    "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "representative_subset_csv_sha256": "7259f23f6ac3ccb6607a834d9e90fc471e03d38c00b48a7334d8b6234df65252"
+  },
+  "paths": {
+    "canonical_fee_model": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+    "canonical_metrics_definition": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+    "representative_subset_csv": "/root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv"
+  },
+  "subset_columns": [
+    "signal_id",
+    "signal_time",
+    "tp_mult",
+    "sl_mult",
+    "atr_percentile_1h",
+    "trend_up_1h"
+  ],
+  "subset_rows": 1200
+}

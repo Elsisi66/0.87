@@ -1,0 +1,15 @@
+{
+  "candidate_count": 240,
+  "classification": "SUBPHASE1_FAIL_STOP_NO_GO",
+  "generated_utc": "2026-02-23T12:59:10.507619+00:00",
+  "go": 0,
+  "pass_count": 0,
+  "pass_gate_rule": {
+    "cvar_improve_ratio_vs_flat": ">= 0 on both routes",
+    "delta_expectancy_vs_flat": "> 0 on both routes",
+    "invariance_and_budget": "all pass",
+    "maxdd_improve_ratio_vs_flat": "> 0 on both routes"
+  },
+  "phase": "SUBPHASE1_AF_REPAIR",
+  "strict_cvar_reject_rule": "reject if cvar_improve_ratio_vs_flat < 0 on either route"
+}

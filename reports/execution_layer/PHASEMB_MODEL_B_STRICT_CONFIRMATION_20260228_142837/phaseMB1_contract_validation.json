@@ -1,0 +1,65 @@
+{
+  "all_candidates_sizing_only": 1,
+  "correlation_adjusted_clusters": 2,
+  "forbidden_exit_controls_active": 0,
+  "forbidden_exit_knobs_blocked": [
+    "tp_mult",
+    "sl_mult",
+    "time_stop_min",
+    "break_even_enabled",
+    "break_even_trigger_r",
+    "break_even_offset_bps",
+    "trailing_enabled",
+    "trail_start_r",
+    "trail_step_bps",
+    "partial_take_enabled",
+    "partial_take_r",
+    "partial_take_pct"
+  ],
+  "freeze_lock_pass": 1,
+  "generated_utc": "2026-02-28T14:29:11.183721+00:00",
+  "model_a_primary_parity_diffs": {
+    "min_split_delta": 7.37257477290143e-17,
+    "overall_cvar_improve_ratio": 1.3877787807814457e-17,
+    "overall_delta_expectancy_exec_minus_baseline": 8.847089727481716e-17,
+    "overall_entries_valid": 0.0,
+    "overall_entry_rate": 0.0,
+    "overall_exec_expectancy_net": 2.710505431213761e-17,
+    "overall_exec_p95_fill_delay_min": 0.0,
+    "overall_exec_taker_share": 4.5102810375396984e-17,
+    "overall_maxdd_improve_ratio": 0.0
+  },
+  "model_a_primary_parity_ok": 1,
+  "model_b_anchor_diffs": {
+    "regime_cap_size_delay_soft": {
+      "bootstrap_pass_rate": 0.0,
+      "cvar_improve_ratio": 2.7755575615628914e-17,
+      "delta_expectancy_vs_modelA": 0.0,
+      "expectancy_net": 6.461844948013606e-17,
+      "maxdd_improve_ratio": 7.112366251504909e-17,
+      "route_pass": 0.0,
+      "stress_lite_pass": 0.0
+    },
+    "regime_cap_size_delay_tiered": {
+      "bootstrap_pass_rate": 0.0,
+      "cvar_improve_ratio": 4.85722573273506e-17,
+      "delta_expectancy_vs_modelA": 0.0,
+      "expectancy_net": 5.854691731421724e-18,
+      "maxdd_improve_ratio": 1.214306433183765e-17,
+      "route_pass": 0.0,
+      "stress_lite_pass": 0.0
+    }
+  },
+  "raw_candidates_generated": 20,
+  "route_harness_meta": {
+    "coverage_frac": 0.6,
+    "min_contexts_for_overall_gate": 665,
+    "min_test_signals_for_overall_gate": 200,
+    "route_count": 3,
+    "window_n": 720
+  },
+  "route_trade_gates_reachable": 1,
+  "unique_candidates_after_duplicate_collapse": 20,
+  "wrapper_uses_1h_exit_only": 1,
+  "wrapper_uses_3m_entry_only": 1
+}

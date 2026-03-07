@@ -1,0 +1,153 @@
+{
+  "best_overlay": {
+    "approximate_counterfactual": 1,
+    "cvar_improve_ratio_vs_base": 0.054602462165635676,
+    "delta_cvar_vs_base": 9.717850850747708e-05,
+    "delta_expectancy_vs_base": 0.00012262988867365907,
+    "delta_maxdd_vs_base": 0.05718613604736586,
+    "entries_valid": 270,
+    "entry_rate": 0.75,
+    "exec_cvar_5": -0.001682567397687882,
+    "exec_expectancy_net": 0.0001791217957814122,
+    "exec_max_drawdown": -0.12973060176586446,
+    "hard_gate_proxy_pass": 1,
+    "maxdd_improve_ratio_vs_base": 0.30594443663203136,
+    "median_fill_delay_min": 0.0,
+    "overlay_desc": "session_veto_worst:06_11",
+    "overlay_id": "O1",
+    "p95_fill_delay_min": 12.0,
+    "participation_pass_proxy": 1,
+    "realism_pass_proxy": 1,
+    "removed_entries_count": 85,
+    "removed_entries_pct": 0.23943661971830985,
+    "removed_loss_share_abs": 0.2421862232578701,
+    "scenario_id": "SOL_BASE_E1",
+    "signals_total": 360,
+    "taker_share": 0.08518518518518518
+  },
+  "classification": "B",
+  "classification_reason": "sol_overlay_material_dd_tail_improvement",
+  "code_modified": "YES (new script phase_v_branchb_portability_dd.py)",
+  "commands": [
+    {
+      "cmd": "python -m scripts.phase_v_branchb_portability_dd",
+      "utc": "2026-02-22T23:50:09.718463+00:00"
+    }
+  ],
+  "completed_utc": "2026-02-22T23:51:41.376238+00:00",
+  "duration_sec": 91.6583309173584,
+  "freeze": {
+    "canonical_fee_model": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+    "canonical_fee_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "canonical_metrics_definition": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+    "canonical_metrics_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "expected_fee_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "expected_metrics_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "ga_exec_lock_validation": {
+      "allow_freeze_hash_mismatch": 0,
+      "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+      "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+      "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "copied_verbatim_fee": 1,
+      "copied_verbatim_metrics": 1,
+      "expected_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "expected_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "fee_hash_match_expected": 1,
+      "fee_value_diffs": {},
+      "fee_value_match_args": 1,
+      "freeze_lock_pass": 1,
+      "generated_utc": "2026-02-22T23:50:09.857809+00:00",
+      "metrics_hash_match_expected": 1,
+      "run_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "run_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+    },
+    "hash_match": 1
+  },
+  "generated_utc": "2026-02-22T23:50:09.718433+00:00",
+  "invalid_reason_histogram": {
+    "BCHUSDT:taker_share": 2,
+    "NEARUSDT:entry_rate": 2,
+    "overall:taker_share": 4,
+    "overall:trades<200": 9
+  },
+  "overlay_rows": 10,
+  "phase": "V",
+  "phase_u_source": {
+    "phase_u_classification": "B",
+    "phase_u_dir": "/root/analysis/0.87/reports/execution_layer/PHASEU_COMBINED_1H3M_PILOT_20260222_205031",
+    "source_run": "/root/analysis/0.87/reports/execution_layer/GA_EXEC_OPT_20260222_193057"
+  },
+  "portability_meta": {
+    "coins": {
+      "AVAXUSDT": {
+        "signals_loaded": 600,
+        "splits": 5,
+        "status": "ok",
+        "subset": {
+          "params_path": "/root/analysis/0.87/data/metadata/params/AVAXUSDT__UNIVERSE_LONG_active_params.json",
+          "signals_count": 600,
+          "subset_hash": "be521014eea6480430b1a56c4a72ad650bbbe3cd97484e435b65f244746ff9d3",
+          "subset_method": "generated_from_best_params_latestN",
+          "subset_path": "/root/analysis/0.87/reports/execution_layer/PHASEV_BRANCHB_PORTABILITY_DD_20260222_235009/subsets/AVAXUSDT_subset_signals.csv",
+          "subset_source": "best_params:/root/analysis/0.87/data/metadata/params/AVAXUSDT__UNIVERSE_LONG_active_params.json"
+        }
+      },
+      "BCHUSDT": {
+        "signals_loaded": 600,
+        "splits": 5,
+        "status": "ok",
+        "subset": {
+          "params_path": "/root/analysis/0.87/data/metadata/params/BCHUSDT__UNIVERSE_LONG_C3_active_params.json",
+          "signals_count": 600,
+          "subset_hash": "0f6f62d7ac4b4f8ab2d3b219e278cb1186a7fd2613db676086d819e099e09242",
+          "subset_method": "generated_from_best_params_latestN",
+          "subset_path": "/root/analysis/0.87/reports/execution_layer/PHASEV_BRANCHB_PORTABILITY_DD_20260222_235009/subsets/BCHUSDT_subset_signals.csv",
+          "subset_source": "best_params:/root/analysis/0.87/data/metadata/params/BCHUSDT__UNIVERSE_LONG_C3_active_params.json"
+        }
+      },
+      "NEARUSDT": {
+        "signals_loaded": 600,
+        "splits": 5,
+        "status": "ok",
+        "subset": {
+          "params_path": "/root/analysis/0.87/data/metadata/params/NEARUSDT_C13_active_params_long.json",
+          "signals_count": 600,
+          "subset_hash": "441cb5fcd634722bb49ca30e16a6f44b6344f94f7260b48e7428d08ddaa21b22",
+          "subset_method": "generated_from_best_params_latestN",
+          "subset_path": "/root/analysis/0.87/reports/execution_layer/PHASEV_BRANCHB_PORTABILITY_DD_20260222_235009/subsets/NEARUSDT_subset_signals.csv",
+          "subset_source": "best_params:/root/analysis/0.87/data/metadata/params/NEARUSDT_C13_active_params_long.json"
+        }
+      },
+      "SOLUSDT": {
+        "signals_loaded": 1200,
+        "splits": 5,
+        "status": "ok",
+        "subset": {
+          "params_path": "/root/analysis/0.87/data/metadata/params/SOLUSDT_C13_active_params_long.json",
+          "signals_count": 1200,
+          "subset_hash": "d4a10ce0bbcfc6ce4a04211240704e7e14c3fdd6cb8074be392c9c8a3f5311d5",
+          "subset_method": "frozen_representative_subset",
+          "subset_path": "/root/analysis/0.87/reports/execution_layer/PHASEV_BRANCHB_PORTABILITY_DD_20260222_235009/subsets/SOLUSDT_subset_signals.csv",
+          "subset_source": "/root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv"
+        }
+      }
+    },
+    "selected_coins": [
+      "SOLUSDT",
+      "AVAXUSDT",
+      "NEARUSDT",
+      "BCHUSDT"
+    ]
+  },
+  "portability_rows": 16,
+  "project_root": "/root/analysis/0.87",
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASEV_BRANCHB_PORTABILITY_DD_20260222_235009",
+  "sol_forensic_rows": 3,
+  "target_coins": [
+    "SOLUSDT",
+    "AVAXUSDT",
+    "NEARUSDT",
+    "BCHUSDT"
+  ]
+}

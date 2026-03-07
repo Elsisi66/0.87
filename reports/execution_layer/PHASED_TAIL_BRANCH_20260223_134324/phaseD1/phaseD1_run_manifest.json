@@ -1,0 +1,31 @@
+{
+  "decision": "PASS",
+  "duration_sec": 37.32596707344055,
+  "generated_utc": "2026-02-23T13:44:02.849506+00:00",
+  "phase": "D1",
+  "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASED_TAIL_BRANCH_20260223_134324/phaseD1",
+  "reason": "worst route + tail concentration identified",
+  "summary": {
+    "route_rows": [
+      {
+        "cvar5": -0.0015367996349265494,
+        "cvar5_cut": -0.0014493389772697977,
+        "entries": 70,
+        "mean_pnl": 6.653104475019525e-06,
+        "route_id": "route1_holdout",
+        "tail_cut10": -0.0014493389772697977
+      },
+      {
+        "cvar5": -0.0017991816078968624,
+        "cvar5_cut": -0.001676736687177318,
+        "entries": 408,
+        "mean_pnl": 0.00027926906844173705,
+        "route_id": "route2_reslice",
+        "tail_cut10": -0.0014493389772697977
+      }
+    ],
+    "worst_route": "route2_reslice",
+    "worst_route_cvar5": -0.0017991816078968624,
+    "worst_route_top2_decile_cvar5_loss_share": 0.4285714285714323
+  }
+}

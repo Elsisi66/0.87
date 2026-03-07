@@ -1,0 +1,93 @@
+{
+  "model_a_variant": {
+    "candidate_id": "M2_ENTRY_ONLY_MORE_PASSIVE",
+    "entry_mode": "limit",
+    "fallback_delay_min": 12.0,
+    "fallback_to_market": 1,
+    "label": "M2 3m entry-only more passive",
+    "limit_offset_bps": 1.5,
+    "max_fill_delay_min": 45.0
+  },
+  "opcheck_classification": "BLOCKED",
+  "opcheck_reason": "coverage_not_fully_clean",
+  "repaired_1h_params": {
+    "adx_min": 18.0,
+    "allow_hours": [
+      1,
+      6,
+      8,
+      9,
+      12,
+      15,
+      17,
+      20,
+      21
+    ],
+    "atr_k": 0.3017416687429151,
+    "breakout_atr_mult": 1.5,
+    "breakout_window": 20,
+    "cycle1_adx_boost": 8.338400482301966,
+    "cycle1_ema_sep_atr": 0.4142239682516651,
+    "cycle_fill": 2,
+    "cycle_shift": 1,
+    "ema_align": true,
+    "ema_span": 35,
+    "ema_trend_long": 120,
+    "entry_rsi_buffer": 1.1927103161257158,
+    "entry_rsi_max": 91.08705558988376,
+    "entry_rsi_min": 49.5208179905982,
+    "exit_rsi_by_cycle": [
+      48.54749634916192,
+      46.782081570332466,
+      45.94986348787394,
+      49.73535260964356,
+      31.563418761872065
+    ],
+    "max_allocation": 0.9480540198136911,
+    "max_hold_hours": 6,
+    "profit_target_mult": 1.06,
+    "require_ema200_slope": true,
+    "require_plus_di": true,
+    "require_trade_cycles": true,
+    "risk_per_trade": 0.013656399653972452,
+    "sl_mult_by_cycle": [
+      0.9638500148438638,
+      0.9990000000000001,
+      0.969205478680661,
+      0.9990000000000001,
+      0.956270710404582
+    ],
+    "stop_loss_mult": 0.98,
+    "tp_mult_by_cycle": [
+      1.0276413553120662,
+      1.1409065064901012,
+      1.0694403312170917,
+      1.088516215406627,
+      1.0372275488353664
+    ],
+    "trade_cycles": [
+      1,
+      2,
+      3
+    ],
+    "two_candle_confirm": false,
+    "use_sig_baseline": true,
+    "use_sig_breakout": false,
+    "use_sig_pullback": false,
+    "use_vol_filter": false,
+    "vol_tail_percentile": 0.55,
+    "willr_by_cycle": [
+      -71.78648366026964,
+      -47.97541602963524,
+      -93.3349093770833,
+      -2.6200844371750414,
+      -37.625948125996686
+    ],
+    "willr_floor": -100.0,
+    "willr_max": -30.0
+  },
+  "repaired_1h_params_source": "data/metadata/params/LTCUSDT__UNIVERSE_LONG_C3_active_params.json",
+  "strict_confirm_artifact": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_EXEC_SUBSET1_CONFIRM_20260304_010143/repaired_subset1_confirm_by_symbol.csv",
+  "strict_confirm_candidate_id": "M2_ENTRY_ONLY_MORE_PASSIVE",
+  "symbol": "LTCUSDT"
+}

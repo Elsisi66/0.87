@@ -1,0 +1,30 @@
+{
+  "after_smoke_run": {
+    "allow_freeze_hash_mismatch": 0,
+    "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+    "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+    "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "copied_verbatim_fee": 1,
+    "copied_verbatim_metrics": 1,
+    "expected_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "expected_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "fee_hash_match_expected": 1,
+    "fee_value_diffs": {},
+    "fee_value_match_args": 1,
+    "freeze_lock_pass": 1,
+    "generated_utc": "2026-02-22T18:46:14.050743+00:00",
+    "metrics_hash_match_expected": 1,
+    "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASEL_SAMPLER_REPAIR_20260222_184421/smoke_ga_runs/GA_EXEC_OPT_20260222_184614",
+    "run_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "run_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+  },
+  "before_run": {
+    "fee_hash_match_expected": 0,
+    "fee_model_sha256": "b209accd0f7a3f1b07ef6ca8eb75dee1d0a155abca6891367297fa1aa8c55214",
+    "metrics_definition_sha256": "6ee9a425d515ea946045554b4128f6aa0f401104328052fb8fe3e82b7afd0a19",
+    "metrics_hash_match_expected": 0,
+    "run_dir": "/root/analysis/0.87/reports/execution_layer/GA_EXEC_OPT_20260222_181715"
+  },
+  "generated_utc": "2026-02-22T18:48:26.688835+00:00"
+}

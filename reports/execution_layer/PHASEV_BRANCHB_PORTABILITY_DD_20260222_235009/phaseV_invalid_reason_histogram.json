@@ -1,0 +1,6 @@
+{
+  "BCHUSDT:taker_share": 2,
+  "NEARUSDT:entry_rate": 2,
+  "overall:taker_share": 4,
+  "overall:trades<200": 9
+}

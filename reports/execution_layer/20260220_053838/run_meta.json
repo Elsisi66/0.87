@@ -1,0 +1,14 @@
+{
+  "generated_utc": "2026-02-20T05:38:39.305634+00:00",
+  "symbol": "SOLUSDT",
+  "rank": 1,
+  "scan_dir": "/root/analysis/0.87/reports/params_scan/20260220_044949",
+  "best_csv": "/root/analysis/0.87/reports/params_scan/20260220_044949/best_by_symbol.csv",
+  "params_file": "/root/analysis/0.87/data/metadata/params/SOLUSDT_C13_active_params_long.json",
+  "timeframe": "3m",
+  "signals_count": 20,
+  "signals_csv": "/root/analysis/0.87/reports/execution_layer/20260220_053838/SOLUSDT_signals_1h.csv",
+  "diag_csv": "/root/analysis/0.87/reports/execution_layer/20260220_053838/SOLUSDT_exec_ict_vs_baseline.csv",
+  "summary_md": "/root/analysis/0.87/reports/execution_layer/20260220_053838/SOLUSDT_exec_summary.md",
+  "cache_dir": "/root/analysis/0.87/data/processed/_exec_klines_cache"
+}

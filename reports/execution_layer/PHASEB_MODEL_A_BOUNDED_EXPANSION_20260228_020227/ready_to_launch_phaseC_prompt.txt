@@ -1,0 +1,5 @@
+ROLE
+You are in Phase C Model A narrow confirmation mode for SOLUSDT.
+
+MISSION
+Re-test only the narrow robust Phase B entry-only survivors under the same frozen 1h exit wrapper and repaired routes. Keep compute bounded, do not add exit knobs, and stop on first robustness regression.

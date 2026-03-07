@@ -1,0 +1,21 @@
+{
+  "generated_utc": "2026-02-22T18:53:22.476824+00:00",
+  "invalid_reason_histogram": {
+    "SOLUSDT:entry_rate": 60,
+    "SOLUSDT:median_fill_delay": 31,
+    "SOLUSDT:nan_or_inf": 31,
+    "SOLUSDT:p95_fill_delay": 31,
+    "SOLUSDT:taker_share": 31,
+    "SOLUSDT:trades<50": 36,
+    "overall:entry_rate": 43,
+    "overall:median_fill_delay": 31,
+    "overall:nan_or_inf": 31,
+    "overall:p95_fill_delay": 31,
+    "overall:taker_share": 31,
+    "overall:trades<200": 41
+  },
+  "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASEM_PILOT_VALIDATION_20260222_185113",
+  "population": 60,
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASEM_PILOT_VALIDATION_20260222_185113/pilot_ga_runs/GA_EXEC_OPT_20260222_185122",
+  "valid_for_ranking_count": 0
+}

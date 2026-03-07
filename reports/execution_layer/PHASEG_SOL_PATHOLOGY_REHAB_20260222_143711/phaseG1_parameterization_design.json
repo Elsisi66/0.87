@@ -1,0 +1,94 @@
+{
+  "global_prior_symbols": [
+    "AVAXUSDT",
+    "BCHUSDT",
+    "CRVUSDT",
+    "NEARUSDT",
+    "SOLUSDT"
+  ],
+  "offset_scale_selected": 0.25,
+  "practical_risk_constraints": {
+    "deploy_cvar5_floor": -0.0015,
+    "deploy_max_dd_floor": -0.35,
+    "fatal_max_dd": -0.95,
+    "fatal_total_return": -0.95,
+    "no_accept_if_absolute_profile_trash": true,
+    "require_positive_expectancy": true,
+    "require_positive_total_return": true
+  },
+  "regime_modifiers": {
+    "adverse_sl_delta": 0.01,
+    "adverse_tp_delta": -0.02,
+    "bounded": true,
+    "enabled_in_variants": true,
+    "favorable_sl_delta": -0.005,
+    "favorable_tp_delta": 0.01,
+    "sparse": true
+  },
+  "selected_model_set_sha256": "4a8cb243e7f7e6425db6726302d6326bf727fe026baca77980af0532543c2fc4",
+  "sl_offset_cap": 0.05,
+  "sl_prior_median": [
+    0.9642293328418552,
+    0.999,
+    0.9677053885875903,
+    0.9912945918524734,
+    0.9379861824348832
+  ],
+  "sol_anchor_sl": [
+    0.9671172591809992,
+    0.9989999999999999,
+    0.960226527449092,
+    0.9274369172280357,
+    0.9224723138507812
+  ],
+  "sol_anchor_tp": [
+    1.022012997453176,
+    1.0999186746461134,
+    1.1024155778321396,
+    1.0211655645477558,
+    1.0050572737098042
+  ],
+  "stability_constraints": {
+    "drift_measured": 0.0,
+    "min_bucket_support": 30,
+    "min_split_trades": 40,
+    "min_trades": 120,
+    "parameter_drift_limit": 0.03
+  },
+  "tp_offset_cap": 0.08,
+  "tp_prior_median": [
+    1.0395002075686774,
+    1.1250482909043047,
+    1.06744923065335,
+    1.080212952694205,
+    1.030945214215777
+  ],
+  "uc_sl_offsets_applied": [
+    0.0007219815847860078,
+    -2.7755575615628914e-17,
+    -0.001869715284624568,
+    -0.015964418656109425,
+    -0.003878467146025494
+  ],
+  "uc_sl_vector": [
+    0.9649513144266412,
+    0.999,
+    0.9658356733029657,
+    0.975330173196364,
+    0.9341077152888577
+  ],
+  "uc_tp_offsets_applied": [
+    -0.004371802528875368,
+    -0.006282404064547831,
+    0.008741586794697387,
+    -0.014761847036612319,
+    -0.006471985126493163
+  ],
+  "uc_tp_vector": [
+    1.035128405039802,
+    1.118765886839757,
+    1.0761908174480475,
+    1.0654511056575928,
+    1.0244732290892837
+  ]
+}

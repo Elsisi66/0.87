@@ -1,0 +1,1 @@
+Failure branch (B): do not run full combined GA. If execution-only refinement cannot improve R1 robustness with unchanged gates, classify NO_GO_COMPUTE_BURN and stop this branch.

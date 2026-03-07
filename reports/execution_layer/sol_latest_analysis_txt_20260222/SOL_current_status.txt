@@ -1,0 +1,26 @@
+SOL Current Status (as of 2026-02-22 UTC)
+
+Current position
+- Deployment state: NO_DEPLOY / HOLD.
+- Most recent practical decision: NO_DEPLOY_PAUSE_SOL_SIGNAL_LAYER
+  (source: PHASEF_SOL_SIGNAL_REHAB_20260222_022002).
+
+Why we are here
+- Phase C best execution config shows relative uplift vs control, but absolute performance remains too weak for deployment.
+- Reconciliation runs show the major contradiction with historical fullscan is driven by universe/contract mismatch, not a single code bug.
+- Representative harness now appears trustworthy, and it still shows poor absolute signal outcomes.
+- Therefore the active bottleneck is upstream SOL signal definition quality, not downstream execution simulation.
+
+Latest confirmed decision points
+- BACKTEST_SOL_PHASEC_20260222_002750: HOLD (positive_practical=0).
+- SOL_RECON_20260222_005656: HOLD (BUG=NO, mismatches quantified).
+- PHASEE2_SOL_REPRESENTATIVE_20260222_021052: practical NO_DEPLOY.
+- PHASEF_SOL_SIGNAL_REHAB_20260222_022002: NO_DEPLOY_PAUSE_SOL_SIGNAL_LAYER.
+
+What should happen next
+1) Add an upstream regime gate (trend/vol filter) to suppress adverse buckets.
+2) Add signal cooldown/de-clustering at the 1h layer.
+3) Rework signal entry timing options (0/1/2 bar delayed-open modes) under the same frozen contract.
+
+Exit condition to move forward
+- Re-run on the same contract-locked representative harness and pass practical absolute gates before resuming broader optimization or paper deployment.

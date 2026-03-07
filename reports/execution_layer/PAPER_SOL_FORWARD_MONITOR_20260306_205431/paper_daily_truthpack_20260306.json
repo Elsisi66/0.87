@@ -1,0 +1,22 @@
+{
+  "closed_trades": 0,
+  "date_utc": "2026-03-06",
+  "entry_on_signal_violations": 0,
+  "exit_before_entry_count": 0,
+  "expectancy_eur": 0.0,
+  "generated_utc": "2026-03-06T23:03:06.971291+00:00",
+  "guard_deferrals": {
+    "exits_blocked_pre_entry": 0,
+    "exits_deferred_to_next_bar": 0,
+    "same_bar_exit_attempts": 0
+  },
+  "health": "YELLOW",
+  "mean_pnl_eur": 0.0,
+  "median_pnl_eur": 0.0,
+  "opened_trades": 0,
+  "profit_factor": null,
+  "same_bar_exit_count": 0,
+  "total_trades": 0,
+  "win_rate_pct": 0.0,
+  "worst_5_trades": []
+}

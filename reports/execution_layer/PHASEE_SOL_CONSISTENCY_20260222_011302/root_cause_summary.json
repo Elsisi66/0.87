@@ -1,0 +1,133 @@
+{
+  "evidence": {
+    "frozen_percentiles": [
+      {
+        "alt_mean": -0.0010148822297974469,
+        "alt_median": -0.0010011507876033757,
+        "frozen_percentile": 1.0,
+        "frozen_value": -0.0006491411569577637,
+        "metric": "expectancy_net",
+        "variant": "1h_reference"
+      },
+      {
+        "alt_mean": -0.9992563850006567,
+        "alt_median": -0.9993424234577877,
+        "frozen_percentile": 1.0,
+        "frozen_value": -0.9967987038879471,
+        "metric": "total_return",
+        "variant": "1h_reference"
+      },
+      {
+        "alt_mean": -0.9993828240391874,
+        "alt_median": -0.9995911414287122,
+        "frozen_percentile": 0.8,
+        "frozen_value": -0.9991752110690576,
+        "metric": "max_drawdown_pct",
+        "variant": "1h_reference"
+      },
+      {
+        "alt_mean": -0.0021995200959809297,
+        "alt_median": -0.002199520095980929,
+        "frozen_percentile": 1.0,
+        "frozen_value": -0.0021995200959809068,
+        "metric": "cvar_5",
+        "variant": "1h_reference"
+      },
+      {
+        "alt_mean": NaN,
+        "alt_median": NaN,
+        "frozen_percentile": NaN,
+        "frozen_value": NaN,
+        "metric": "expectancy_net",
+        "variant": "phasec_best_exit"
+      },
+      {
+        "alt_mean": 0.0,
+        "alt_median": 0.0,
+        "frozen_percentile": 1.0,
+        "frozen_value": 0.0,
+        "metric": "total_return",
+        "variant": "phasec_best_exit"
+      },
+      {
+        "alt_mean": 0.0,
+        "alt_median": 0.0,
+        "frozen_percentile": 1.0,
+        "frozen_value": 0.0,
+        "metric": "max_drawdown_pct",
+        "variant": "phasec_best_exit"
+      },
+      {
+        "alt_mean": NaN,
+        "alt_median": NaN,
+        "frozen_percentile": NaN,
+        "frozen_value": NaN,
+        "metric": "cvar_5",
+        "variant": "phasec_best_exit"
+      }
+    ],
+    "intrabar_sensitivity_rows": [
+      {
+        "cvar_5": -0.0021995200959809068,
+        "delta_expectancy_vs_intrabar3m": 0.0,
+        "delta_maxdd_vs_intrabar3m": 0.0,
+        "delta_total_return_vs_intrabar3m": 0.0,
+        "expectancy_net": -0.0006491411569577637,
+        "max_drawdown_pct": -0.9991752110690576,
+        "mode": "intrabar_3m_reference",
+        "total_return": -0.9967987038879471
+      },
+      {
+        "cvar_5": -0.0021995200959809068,
+        "delta_expectancy_vs_intrabar3m": 0.0,
+        "delta_maxdd_vs_intrabar3m": 0.0,
+        "delta_total_return_vs_intrabar3m": 0.0,
+        "expectancy_net": -0.0006491411569577637,
+        "max_drawdown_pct": -0.9991752110690576,
+        "mode": "bar_1h_optimistic",
+        "total_return": -0.9967987038879471
+      },
+      {
+        "cvar_5": -0.0021995200959809068,
+        "delta_expectancy_vs_intrabar3m": 0.0,
+        "delta_maxdd_vs_intrabar3m": 0.0,
+        "delta_total_return_vs_intrabar3m": 0.0,
+        "expectancy_net": -0.0006491411569577637,
+        "max_drawdown_pct": -0.9991752110690576,
+        "mode": "bar_1h_neutral",
+        "total_return": -0.9967987038879471
+      },
+      {
+        "cvar_5": -0.0021995200959809068,
+        "delta_expectancy_vs_intrabar3m": 0.0,
+        "delta_maxdd_vs_intrabar3m": 0.0,
+        "delta_total_return_vs_intrabar3m": 0.0,
+        "expectancy_net": -0.0006491411569577637,
+        "max_drawdown_pct": -0.9991752110690576,
+        "mode": "bar_1h_pessimistic",
+        "total_return": -0.9967987038879471
+      }
+    ],
+    "v1_native_max_dd_pct_positive": 15.660755149054232,
+    "v1_native_net_profit": 6783048.248078086,
+    "v2_expectancy_net": -0.0006491411569577,
+    "v2_total_return": -0.9967987038879472,
+    "v4_expectancy_net": -0.0005588693803532,
+    "v4_total_return": -0.9931510134935536
+  },
+  "genuine_strategy_degradation_on_frozen_test": 1,
+  "intrabar_optimism_bias": 0,
+  "measurement_mismatch": 1,
+  "mixed_causes": 1,
+  "pass_criteria": {
+    "contract_comparison_completed": 1,
+    "critical_contradiction_resolved": 1,
+    "intrabar_impact_quantified": 1,
+    "representativeness_assessed": 1,
+    "reproduction_completed": 1,
+    "universe_mismatch_quantified": 1
+  },
+  "phase_status": "PASS",
+  "subset_non_representativeness": 1,
+  "universe_mismatch": 1
+}

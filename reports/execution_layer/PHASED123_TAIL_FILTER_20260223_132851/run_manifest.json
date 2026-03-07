@@ -1,0 +1,16 @@
+{
+  "generated_utc": "2026-02-23T13:28:51.155086+00:00",
+  "mainline_status": "STOP_NO_GO",
+  "phases": {
+    "D1": {
+      "classification": "PASS",
+      "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASED123_TAIL_FILTER_20260223_132851/phaseD1_20260223_132851"
+    },
+    "D2": {
+      "classification": "NO_GO",
+      "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASED123_TAIL_FILTER_20260223_132851/phaseD2_20260223_132928"
+    }
+  },
+  "run_root": "/root/analysis/0.87/reports/execution_layer/PHASED123_TAIL_FILTER_20260223_132851",
+  "seed": 20260223
+}

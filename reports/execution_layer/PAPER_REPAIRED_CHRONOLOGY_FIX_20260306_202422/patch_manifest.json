@@ -1,0 +1,19 @@
+{
+  "generated_utc": "2026-03-06T20:24:24.182273+00:00",
+  "files_touched": [
+    "paper_trading/app/universe.py",
+    "paper_trading/app/main.py",
+    "paper_trading/app/execution_sim.py"
+  ],
+  "line_targets": {
+    "universe_fallback_disable": "paper_trading/app/universe.py:268-300",
+    "startup_fallback_disabled_log": "paper_trading/app/main.py:477-481",
+    "same_bar_chronology_guard": "paper_trading/app/execution_sim.py:151-213",
+    "guard_summary_logging": "paper_trading/app/main.py:566-584"
+  },
+  "git_diff_available": false,
+  "git_diff": "unavailable (paths are untracked in current repo state)",
+  "posture_freeze_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126",
+  "active_subset_csv": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126/repaired_active_3m_subset.csv",
+  "active_params_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126/repaired_active_3m_params"
+}

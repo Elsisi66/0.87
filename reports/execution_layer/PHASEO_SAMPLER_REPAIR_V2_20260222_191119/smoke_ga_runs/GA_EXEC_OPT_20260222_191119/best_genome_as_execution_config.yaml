@@ -1,0 +1,36 @@
+{
+  "SOLUSDT": {
+    "break_even_enabled": 0,
+    "break_even_offset_bps": 8.802361210669195,
+    "break_even_trigger_r": 0.5448814056356429,
+    "constraints": {
+      "max_fill_delay_min": 45.0,
+      "max_taker_share": 0.25,
+      "min_entry_rate": 0.97,
+      "min_median_entry_improvement_bps": 0.0
+    },
+    "cooldown_min": 13,
+    "entry_mode": "hybrid",
+    "exec_mode": "ga_exec_3m_opt",
+    "fallback_delay_min": 1,
+    "fallback_to_market": 1,
+    "killzone_filter": 0,
+    "limit_offset_bps": 0.3544243475908244,
+    "max_fill_delay_min": 20,
+    "micro_vol_filter": 0,
+    "min_entry_improvement_bps_gate": 0.1,
+    "mss_displacement_gate": 0,
+    "partial_take_enabled": 1,
+    "partial_take_pct": 0.25714912985126004,
+    "partial_take_r": 0.9513885628385883,
+    "skip_if_vol_gate": 0,
+    "sl_mult": 0.36603932449863485,
+    "spread_guard_bps": 94.01019372268352,
+    "time_stop_min": 2424,
+    "tp_mult": 2.165747413416847,
+    "trail_start_r": 0.5678099677547235,
+    "trail_step_bps": 12.231754446224183,
+    "trailing_enabled": 0,
+    "vol_threshold": 5.416005304938349
+  }
+}

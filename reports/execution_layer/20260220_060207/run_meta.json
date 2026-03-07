@@ -1,0 +1,25 @@
+{
+  "generated_utc": "2026-02-20T06:04:13.496933+00:00",
+  "symbol": "SOLUSDT",
+  "rank": 1,
+  "scan_dir": "/root/analysis/0.87/reports/params_scan/20260220_044949",
+  "best_csv": "/root/analysis/0.87/reports/params_scan/20260220_044949/best_by_symbol.csv",
+  "params_file": "/root/analysis/0.87/data/metadata/params/SOLUSDT_C13_active_params_long.json",
+  "timeframe": "3m",
+  "signals_count": 200,
+  "signals_csv": "/root/analysis/0.87/reports/execution_layer/20260220_060207/SOLUSDT_signals_1h.csv",
+  "diag_csv": "/root/analysis/0.87/reports/execution_layer/20260220_060207/SOLUSDT_exec_ict_vs_baseline.csv",
+  "summary_md": "/root/analysis/0.87/reports/execution_layer/20260220_060207/SOLUSDT_exec_summary.md",
+  "cache_dir": "/root/analysis/0.87/data/processed/_exec_klines_cache",
+  "ablation_csv": "/root/analysis/0.87/reports/execution_layer/20260220_060207/ablation_summary.csv",
+  "debug_csv": "",
+  "ict_mode": "rules",
+  "ict_score_threshold": 3.0,
+  "ict_score_weights": {
+    "sweep": 1.0,
+    "displacement": 1.0,
+    "killzone": 1.0,
+    "fvg": 1.0,
+    "ob": 1.0
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "classification": "A",
+  "config_names": [
+    "A_tight_baseline",
+    "B_permissive_control",
+    "C_no_killzone",
+    "D_no_displacement",
+    "E_no_micro_vol",
+    "F_relaxed_limit_offset",
+    "G_aggressive_fallback",
+    "H_relaxed_cancel_after",
+    "UB_market_upper_bound"
+  ],
+  "frozen_setup": {
+    "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+    "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+    "fee_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "metrics_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "selected_model_set_sha256_reference": "4a8cb243e7f7e6425db6726302d6326bf727fe026baca77980af0532543c2fc4",
+    "signals_csv": "/root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv",
+    "subset_sha256_observed": "7259f23f6ac3ccb6607a834d9e90fc471e03d38c00b48a7334d8b6234df65252",
+    "subset_sha256_reference": "fdc34c3dcab18e8f8577857d7f879f92af822fc24bf3e0ec90a346a2a4cc372d"
+  },
+  "generated_utc": "2026-02-22T19:05:31.179140+00:00",
+  "non_negotiables": {
+    "frozen_subset_only": 1,
+    "full_ga_run_executed": 0,
+    "hard_gates_changed": 0
+  },
+  "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASEN_FEASIBILITY_FORENSICS_20260222_190446",
+  "summary_counts": {
+    "part_reach_configs": 2,
+    "realism_reach_configs": 1,
+    "signals_total": 1200
+  },
+  "symbol": "SOLUSDT",
+  "top2_participation_restoring_ablations": [
+    "D_no_displacement",
+    "H_relaxed_cancel_after"
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "generated_utc": "2026-02-21T21:40:40.861886+00:00",
+  "load_meta": {
+    "symbols": [
+      "SOLUSDT"
+    ],
+    "execution_config_path": "/root/analysis/0.87/configs/execution_configs.yaml",
+    "signals": {
+      "SOLUSDT": "/root/analysis/0.87/data/signals/SOLUSDT_signals_1h.csv"
+    },
+    "bundle_sizes": {
+      "SOLUSDT": {
+        "signals": 2000,
+        "splits": 5
+      }
+    }
+  },
+  "args": {
+    "symbols": "SOLUSDT,AVAXUSDT,NEARUSDT",
+    "symbol": "SOLUSDT",
+    "rank": 1,
+    "signals_dir": "data/signals",
+    "signals_csv": "data/signals/SOLUSDT_signals_1h.csv",
+    "signal_order": "latest",
+    "max_signals": 2000,
+    "train_ratio": 0.7,
+    "wf_splits": 5,
+    "mode": "normal",
+    "timeframe": "3m",
+    "pre_buffer_hours": 6.0,
+    "exec_horizon_hours": 12.0,
+    "cache_dir": "data/processed/_exec_klines_cache",
+    "max_fetch_retries": 8,
+    "retry_base_sleep": 0.5,
+    "retry_max_sleep": 30.0,
+    "fetch_pause_sec": 0.03,
+    "execution_config": "configs/execution_configs.yaml",
+    "fee_bps_maker": 2.0,
+    "fee_bps_taker": 4.0,
+    "slippage_bps_limit": 0.5,
+    "slippage_bps_market": 2.0,
+    "tp_mults": "0.7,0.8,1.0,1.2,1.5,2.0",
+    "sl_mults": "0.5,0.75,1.0,1.25,1.5",
+    "time_stops_min": "360,720,1440,2160,2880",
+    "break_even_enabled": "0,1",
+    "break_even_trigger_r": "0.5,0.75,1.0",
+    "break_even_offset_bps": "0,2,5",
+    "partial_take_enabled": "0,1",
+    "partial_take_r": "0.6,0.8,1.0",
+    "partial_take_pct": "0.25,0.5",
+    "max_configs": 24,
+    "topk": 20,
+    "expectancy_epsilon": 5e-05,
+    "maxdd_worse_tol": 0.02,
+    "cvar_worse_tol": 0.0001,
+    "max_missing_slice_rate": 0.02,
+    "outdir": "reports/execution_layer"
+  },
+  "eval_args": {
+    "max_signals": 2000,
+    "train_ratio": 0.7,
+    "wf_splits": 5,
+    "mode": "normal",
+    "force_no_skip": 1,
+    "fee_bps_maker": 2.0,
+    "fee_bps_taker": 4.0,
+    "slippage_bps_limit": 0.5,
+    "slippage_bps_market": 2.0
+  },
+  "grid_size": 24
+}

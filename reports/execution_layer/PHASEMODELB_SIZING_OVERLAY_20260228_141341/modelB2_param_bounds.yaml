@@ -1,0 +1,58 @@
+{
+  "baseline_primary": {
+    "size_ceiling": 1.0,
+    "size_floor": 1.0
+  },
+  "fixed_half_on_risk": {
+    "constant_size_mult": [
+      0.5,
+      0.7
+    ]
+  },
+  "linear_risk_score_scale": {
+    "floor_mult": [
+      0.6,
+      0.75
+    ],
+    "loss_ratio_coef": [
+      0.25,
+      0.4
+    ],
+    "rolling_window": [
+      8
+    ]
+  },
+  "regime_cap_size": {
+    "delay_0_to_6_mult": [
+      0.85
+    ],
+    "delay_ge_6_mult": [
+      0.35
+    ],
+    "delay_gt_min": [
+      0.0
+    ],
+    "size_mult_on_delay": [
+      0.75
+    ]
+  },
+  "step_down_after_streak": {
+    "down_mult": [
+      0.5,
+      0.75
+    ],
+    "trigger_loss_streak": [
+      2
+    ]
+  },
+  "tail_cap_size": {
+    "cap_mult": [
+      0.6,
+      0.8
+    ],
+    "drawdown_trigger": [
+      -0.02,
+      -0.01
+    ]
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "generated_utc": "2026-02-20T12:17:10.710522+00:00",
+  "symbol": "SOLUSDT",
+  "rank": 1,
+  "scan_dir": "/root/analysis/0.87/reports/params_scan/20260220_044949",
+  "best_csv": "/root/analysis/0.87/reports/params_scan/20260220_044949/best_by_symbol.csv",
+  "params_file": "/root/analysis/0.87/data/metadata/params/SOLUSDT_C13_active_params_long.json",
+  "execution_config_path": "/root/analysis/0.87/configs/execution_configs.yaml",
+  "symbol_config": {
+    "exec_mode": "exec_limit",
+    "k_base": 0.2,
+    "k_values": [
+      0.0,
+      0.1,
+      0.2,
+      0.3
+    ],
+    "timeout_bars": 10,
+    "timeout_values": [
+      10,
+      20,
+      40
+    ],
+    "fallback": "market",
+    "fallback_values": [
+      "market"
+    ],
+    "use_vol_gate": 0,
+    "vol_gate_values": [
+      0
+    ],
+    "use_vol_regime_gate": 1,
+    "vol_regime_max_percentile": 90,
+    "vol_regime_lookback_bars": 2160,
+    "use_trend_gate": 0,
+    "trend_fast_col": "EMA_50",
+    "trend_slow_col": "EMA_120",
+    "trend_min_slope": 0.0,
+    "stop_distance_min_pct": 0.0,
+    "use_panic_filter": 1,
+    "ladder": 0,
+    "constraints": {
+      "min_entry_rate": 0.6,
+      "max_taker_share": 0.4,
+      "max_fill_delay_min": 90
+    },
+    "tight_constraints": {
+      "min_entry_rate": 0.98,
+      "max_taker_share": 0.25,
+      "max_fill_delay_min": 45,
+      "min_median_entry_improvement_bps": 0.0
+    }
+  },
+  "gate_config": {
+    "use_vol_regime_gate": 1,
+    "vol_regime_max_percentile": 90,
+    "vol_regime_lookback_bars": 2160,
+    "use_trend_gate": 0,
+    "trend_fast_col": "EMA_50",
+    "trend_slow_col": "EMA_120",
+    "trend_min_slope": 0.0,
+    "stop_distance_min_pct": 0.0
+  },
+  "tight_mode": 1,
+  "tight_constraints": {
+    "min_entry_rate": 0.98,
+    "max_fill_delay_min": 45.0,
+    "max_taker_share": 0.25,
+    "min_median_entry_improvement_bps": 0.0
+  },
+  "signals_total": 2000,
+  "train_signals": 1400,
+  "test_signals": 600,
+  "selected_config": {
+    "k": 0.0,
+    "timeout_bars": 10,
+    "fallback": "market",
+    "use_vol_gate": 0
+  },
+  "report_md": "/root/analysis/0.87/reports/execution_layer/20260220_121710_walkforward_SOLUSDT/SOLUSDT_walkforward_report.md",
+  "train_csv": "/root/analysis/0.87/reports/execution_layer/20260220_121710_walkforward_SOLUSDT/SOLUSDT_walkforward_train_tuning.csv",
+  "test_signals_csv": "/root/analysis/0.87/reports/execution_layer/20260220_121710_walkforward_SOLUSDT/SOLUSDT_walkforward_test_signals.csv",
+  "test_summary_csv": "/root/analysis/0.87/reports/execution_layer/20260220_121710_walkforward_SOLUSDT/SOLUSDT_walkforward_test_summary.csv"
+}

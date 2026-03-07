@@ -1,0 +1,130 @@
+{
+  "baseline_strategy_id": "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+  "build_meta": {
+    "signals_missing_3m_data": 0,
+    "signals_partial_3m_data": 0,
+    "signals_total": 4773,
+    "signals_with_3m_data": 4773,
+    "window_count": 1,
+    "window_source_counts": {
+      "local_full_3m": 4773
+    }
+  },
+  "contract_validation": {
+    "allowed_variant_keys": [
+      "candidate_id",
+      "entry_mode",
+      "fallback_delay_min",
+      "fallback_to_market",
+      "label",
+      "limit_offset_bps",
+      "max_fill_delay_min"
+    ],
+    "forbidden_exit_knobs_blocked": [
+      "tp_mult",
+      "sl_mult",
+      "time_stop_min",
+      "break_even_enabled",
+      "break_even_trigger_r",
+      "break_even_offset_bps",
+      "trailing_enabled",
+      "trail_start_r",
+      "trail_step_bps",
+      "partial_take_enabled",
+      "partial_take_r",
+      "partial_take_pct"
+    ],
+    "freeze_lock": {
+      "allow_freeze_hash_mismatch": 0,
+      "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+      "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+      "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "copied_verbatim_fee": 1,
+      "copied_verbatim_metrics": 1,
+      "expected_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "expected_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "fee_hash_match_expected": 1,
+      "fee_value_diffs": {},
+      "fee_value_match_args": 1,
+      "freeze_lock_pass": 1,
+      "generated_utc": "2026-03-06T22:44:38.246065+00:00",
+      "metrics_hash_match_expected": 1,
+      "run_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "run_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+    },
+    "generated_utc": "2026-03-06T22:44:38.246323+00:00",
+    "hybrid_exit_mutation_enabled": 0,
+    "observed_variant_keys": [
+      "candidate_id",
+      "entry_mode",
+      "fallback_delay_min",
+      "fallback_to_market",
+      "label",
+      "limit_offset_bps",
+      "max_fill_delay_min"
+    ],
+    "variant_family_size": 4,
+    "variant_ids": [
+      "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+      "M2_ENTRY_ONLY_MORE_PASSIVE",
+      "M3_ENTRY_ONLY_FASTER",
+      "M4_ENTRY_ONLY_MARKET_CONTROL"
+    ],
+    "wrapper_uses_1h_exit_owner": 1,
+    "wrapper_uses_1h_signal_owner": 1,
+    "wrapper_uses_3m_entry_only": 1
+  },
+  "decision": "NO_CHANGE_RECOMMENDED",
+  "generated_utc": "2026-03-06T22:47:19.981509+00:00",
+  "input_paths": {
+    "foundation_dir": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929",
+    "freeze_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207",
+    "posture_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126",
+    "strict_confirm_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_EXEC_SUBSET1_CONFIRM_20260304_010143"
+  },
+  "outputs": {
+    "event_stats": "/root/analysis/0.87/reports/execution_layer/SOL_TIE_TOUCH_POLICY_AUDIT_20260306_224437/tie_touch_event_stats.csv",
+    "policy_comparison": "/root/analysis/0.87/reports/execution_layer/SOL_TIE_TOUCH_POLICY_AUDIT_20260306_224437/tie_touch_policy_comparison.csv",
+    "report": "/root/analysis/0.87/reports/execution_layer/SOL_TIE_TOUCH_POLICY_AUDIT_20260306_224437/sol_tie_touch_policy_audit_report.md",
+    "tail_contribution": "/root/analysis/0.87/reports/execution_layer/SOL_TIE_TOUCH_POLICY_AUDIT_20260306_224437/tie_touch_tail_contribution.csv"
+  },
+  "policies": [
+    {
+      "conservative_for_approval": 1,
+      "description": "Conservative baseline: if SL and TP touched in same evaluated bar, resolve SL first",
+      "policy_id": "P1_SL_FIRST",
+      "tie_touch_policy": "sl_first"
+    },
+    {
+      "conservative_for_approval": 0,
+      "description": "Optimistic sanity bound: resolve TP first on tie-touch",
+      "policy_id": "P2_TP_FIRST",
+      "tie_touch_policy": "tp_first"
+    },
+    {
+      "conservative_for_approval": 1,
+      "description": "Deterministic causal: resolve to boundary closer to entry price; equal distance falls back to SL",
+      "policy_id": "P3_DISTANCE_TO_ENTRY",
+      "tie_touch_policy": "distance_to_entry"
+    }
+  ],
+  "route_meta": {
+    "route_examples_count": 3,
+    "route_feasibility_count": 3,
+    "route_ids": [
+      "route_back_60pct",
+      "route_center_60pct",
+      "route_front_60pct"
+    ],
+    "route_meta": {
+      "coverage_frac": 0.6,
+      "min_contexts_for_overall_gate": 665,
+      "min_test_signals_for_overall_gate": 200,
+      "route_count": 3,
+      "window_n": 2864
+    }
+  },
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/SOL_TIE_TOUCH_POLICY_AUDIT_20260306_224437",
+  "symbol": "SOLUSDT"
+}

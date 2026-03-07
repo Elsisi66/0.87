@@ -1,0 +1,170 @@
+{
+  "active_keep_list": [
+    "SOLUSDT",
+    "LTCUSDT",
+    "NEARUSDT"
+  ],
+  "artifacts": {
+    "repaired_subset1_confirm_by_symbol": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_EXEC_SUBSET1_CONFIRM_20260304_010143/repaired_subset1_confirm_by_symbol.csv",
+    "repaired_subset1_confirm_report": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_EXEC_SUBSET1_CONFIRM_20260304_010143/repaired_subset1_confirm_report.md",
+    "repaired_subset1_confirm_summary": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_EXEC_SUBSET1_CONFIRM_20260304_010143/repaired_subset1_confirm_summary.csv"
+  },
+  "contract_validation": {
+    "allowed_variant_keys": [
+      "candidate_id",
+      "entry_mode",
+      "fallback_delay_min",
+      "fallback_to_market",
+      "label",
+      "limit_offset_bps",
+      "max_fill_delay_min"
+    ],
+    "forbidden_exit_knobs_blocked": [
+      "tp_mult",
+      "sl_mult",
+      "time_stop_min",
+      "break_even_enabled",
+      "break_even_trigger_r",
+      "break_even_offset_bps",
+      "trailing_enabled",
+      "trail_start_r",
+      "trail_step_bps",
+      "partial_take_enabled",
+      "partial_take_r",
+      "partial_take_pct"
+    ],
+    "freeze_lock": {
+      "allow_freeze_hash_mismatch": 0,
+      "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+      "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+      "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "copied_verbatim_fee": 1,
+      "copied_verbatim_metrics": 1,
+      "expected_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "expected_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "fee_hash_match_expected": 1,
+      "fee_value_diffs": {},
+      "fee_value_match_args": 1,
+      "freeze_lock_pass": 1,
+      "generated_utc": "2026-03-04T01:01:44.609318+00:00",
+      "metrics_hash_match_expected": 1,
+      "run_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "run_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+    },
+    "generated_utc": "2026-03-04T01:01:44.609623+00:00",
+    "hybrid_exit_mutation_enabled": 0,
+    "observed_variant_keys": [
+      "candidate_id",
+      "entry_mode",
+      "fallback_delay_min",
+      "fallback_to_market",
+      "label",
+      "limit_offset_bps",
+      "max_fill_delay_min"
+    ],
+    "variant_family_size": 4,
+    "variant_ids": [
+      "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+      "M2_ENTRY_ONLY_MORE_PASSIVE",
+      "M3_ENTRY_ONLY_FASTER",
+      "M4_ENTRY_ONLY_MARKET_CONTROL"
+    ],
+    "wrapper_uses_1h_exit_owner": 1,
+    "wrapper_uses_1h_signal_owner": 1,
+    "wrapper_uses_3m_entry_only": 1
+  },
+  "foundation_dir": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929",
+  "freeze_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207",
+  "generated_utc": "2026-03-04T01:04:53.860422+00:00",
+  "pathology_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_PREEXEC_PATHOLOGY_AUDIT_20260304_001818",
+  "recommendation": "SHRINK_TO_SMALLER_ACTIVE_SET",
+  "reused_code_paths": [
+    "scripts/phase_v_multicoin_model_a_audit.py",
+    "scripts/phase_a_model_a_audit.py",
+    "scripts/repaired_frontier_contamination_audit.py",
+    "scripts/repaired_universe_3m_exec_subset1_confirm.py"
+  ],
+  "subset_symbols": [
+    "NEARUSDT",
+    "SOLUSDT",
+    "LTCUSDT"
+  ],
+  "symbol_meta": {
+    "LTCUSDT": {
+      "build_meta": {
+        "signals_missing_3m_data": 0,
+        "signals_partial_3m_data": 0,
+        "signals_total": 940,
+        "signals_with_3m_data": 940,
+        "window_count": 1,
+        "window_source_counts": {
+          "prior_subset1_merged_3m": 940
+        }
+      },
+      "foundation_window_mode": "foundation_cached_windows",
+      "foundation_window_rows_used": 1,
+      "params_source": "data/metadata/params/LTCUSDT__UNIVERSE_LONG_C3_active_params.json",
+      "route_examples_count": 3,
+      "route_feasibility_count": 3,
+      "route_meta": {
+        "coverage_frac": 0.6,
+        "min_contexts_for_overall_gate": 665,
+        "min_test_signals_for_overall_gate": 200,
+        "route_count": 3,
+        "route_family_supported": 1,
+        "window_n": 665
+      }
+    },
+    "NEARUSDT": {
+      "build_meta": {
+        "signals_missing_3m_data": 0,
+        "signals_partial_3m_data": 0,
+        "signals_total": 1839,
+        "signals_with_3m_data": 1839,
+        "window_count": 1,
+        "window_source_counts": {
+          "local_full_3m": 1839
+        }
+      },
+      "foundation_window_mode": "local_full_3m",
+      "foundation_window_rows_used": 1,
+      "params_source": "data/metadata/params/NEARUSDT_C13_active_params_long.json",
+      "route_examples_count": 3,
+      "route_feasibility_count": 3,
+      "route_meta": {
+        "coverage_frac": 0.6,
+        "min_contexts_for_overall_gate": 665,
+        "min_test_signals_for_overall_gate": 200,
+        "route_count": 3,
+        "route_family_supported": 1,
+        "window_n": 1104
+      }
+    },
+    "SOLUSDT": {
+      "build_meta": {
+        "signals_missing_3m_data": 0,
+        "signals_partial_3m_data": 0,
+        "signals_total": 4773,
+        "signals_with_3m_data": 4773,
+        "window_count": 1,
+        "window_source_counts": {
+          "local_full_3m": 4773
+        }
+      },
+      "foundation_window_mode": "local_full_3m",
+      "foundation_window_rows_used": 1,
+      "params_source": "data/metadata/params/SOLUSDT_C13_active_params_long.json",
+      "route_examples_count": 3,
+      "route_feasibility_count": 3,
+      "route_meta": {
+        "coverage_frac": 0.6,
+        "min_contexts_for_overall_gate": 665,
+        "min_test_signals_for_overall_gate": 200,
+        "route_count": 3,
+        "route_family_supported": 1,
+        "window_n": 2864
+      }
+    }
+  }
+}

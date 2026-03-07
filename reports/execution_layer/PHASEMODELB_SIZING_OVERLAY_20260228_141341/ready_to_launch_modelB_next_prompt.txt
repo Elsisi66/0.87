@@ -1,0 +1,19 @@
+ROLE
+
+You are in Model B bounded follow-up mode.
+
+MISSION
+
+Expand only around the best Model B sizing overlay on top of the frozen Model A primary. Do not change signal logic, 1h exits, or 3m entry execution. Keep sizing-only and bounded.
+
+ANCHOR VARIANT
+
+regime_cap_size_delay_tiered
+
+REQUIREMENTS
+
+1. Same frozen Model A contract.
+2. Same repaired route harness.
+3. No exit mutation.
+4. No large GA; local neighborhood only.
+5. Stop on first expectancy damage beyond -5e-5 versus frozen Model A primary.

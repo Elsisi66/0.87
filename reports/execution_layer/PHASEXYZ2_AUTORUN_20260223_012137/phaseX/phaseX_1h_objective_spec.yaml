@@ -1,0 +1,21 @@
+objective_name: phaseX_execution_aware_1h_ranking
+scope: SOLUSDT 1h candidates scored through fixed 3m execution pair (E1/E2)
+primary:
+  - avg_post_exec_expectancy_net
+  - avg_delta_vs_exec_baseline
+  - split_stability: [avg_median_split_expectancy, worst_min_split_expectancy, max_std_split_expectancy]
+secondary:
+  - avg_cvar_improve_ratio
+  - avg_maxdd_improve_ratio
+  - support: [min_entries_valid_across_exec, min_entry_rate_across_exec]
+tertiary:
+  - fill_realism: [max_taker_share_across_exec, max_p95_fill_delay_across_exec]
+penalties:
+  - invalid_or_unrankable: strong_penalty
+  - weak_support: entries<200 or entry_rate<0.70
+  - realism_breach: taker_share>0.25 or p95_fill_delay>180
+  - NaN/pathology saturation
+notes:
+  - raw 1h backtest pnl is not primary objective
+  - hard execution gates unchanged
+  - canonical freeze hash lock required

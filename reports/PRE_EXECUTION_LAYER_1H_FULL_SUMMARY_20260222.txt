@@ -1,0 +1,118 @@
+0.87 Pre-Execution 1H Pass/Fail Consolidated Report
+Generated UTC: 2026-02-22
+Scope: 1h coin evaluation artifacts BEFORE execution-layer testing
+
+Source files used
+1) analysis/0.87/artifacts/reports/campaign_1h_long/20260209_030822/summary.csv
+2) analysis/0.87/artifacts/reports/campaign_1h_long/20260209_030822/summary.json
+3) analysis/0.87/artifacts/reports/campaign_1h_long/20260209_030841/ADAUSDT_campaign.json
+4) analysis/0.87/artifacts/reports/campaign_1h_long/20260209_030841/AVAXUSDT_campaign.json
+5) analysis/0.87/artifacts/reports/campaign_1h_long/20260209_030841/BNBUSDT_campaign.json
+6) analysis/0.87/artifacts/reports/backtests/passed_2017_2025/passed_compound_2017_2025_20260209_033952.csv
+7) analysis/0.87/artifacts/reports/backtests/passed_2017_2025/passed_compound_2017_2025_20260209_033952.json
+8) analysis/0.87/artifacts/reports/universe_20260211_172937/summary.csv
+9) analysis/0.87/artifacts/reports/universe_20260211_172937/summary.json
+10) analysis/0.87/artifacts/reports/universe_20260211_172937/universe_sim_summary.json
+
+============================================================
+A) Early 1H campaign gate (2026-02-09)
+============================================================
+Result: all tested symbols in this stage failed.
+
+A1) run_id 20260209_030822 (summary.csv/json)
+- BTCUSDT: FAILED
+- fail_reasons: full_net<=0;full_pf<1.08;full_dd>0.4;oos2025_net<-1500.0;mc_val_net<=0;mc_test_net<=0;mc_val_pf<1.03;mc_test_pf<1.0
+
+A2) run_ids 20260209_030841/031002/031121 (campaign json files)
+- ADAUSDT: FAILED (passed=0, fail_reasons=train_val_ratio>4.0)
+- AVAXUSDT: FAILED (passed=0, fail_reasons=train_val_ratio>4.0)
+- BNBUSDT: FAILED (passed=0, fail_reasons=train_val_ratio>4.0)
+
+Stage-A pass list: none
+Stage-A fail list: BTCUSDT, ADAUSDT, AVAXUSDT, BNBUSDT
+
+============================================================
+B) Compound backtest pass export (2017-2025 window, 2026-02-09)
+============================================================
+This file is a pass-only export (it does not include failed rows).
+
+Passed symbols from passed_compound_2017_2025_20260209_033952:
+- SOLUSDT (profit_factor=1.7978, max_dd=0.1887)
+- ADAUSDT (profit_factor=1.7632, max_dd=0.2396)
+- AVAXUSDT (profit_factor=2.4658, max_dd=0.1730)
+
+============================================================
+C) Universe 1H pre-execution gate (authoritative pass/fail set)
+Run: 20260211_172937
+============================================================
+Gate thresholds from summary.json meta.pass_criteria:
+- pf >= 1.5
+- dd <= 0.2
+- trades >= 30
+- stability >= 0.75
+
+C1) Totals (from summary.json rows)
+- rows_total: 34 symbol-side rows
+- pass_total: 5
+- fail_total: 29
+- long_pass: 5
+- long_fail: 12
+- short_pass: 0
+- short_fail: 17
+
+C2) LONG side PASSED coins (5)
+- AVAXUSDT (pf=2.6393, dd=0.1150, trades=399, stability=1.0)
+- BCHUSDT  (pf=1.5658, dd=0.0948, trades=355, stability=1.0)
+- CRVUSDT  (pf=2.8515, dd=0.1482, trades=364, stability=1.0)
+- NEARUSDT (pf=2.6009, dd=0.1139, trades=326, stability=1.0)
+- SOLUSDT  (pf=1.5845, dd=0.1301, trades=888, stability=1.0)
+
+C3) LONG side FAILED coins (12)
+- ADAUSDT (stability<0.75)
+- AXSUSDT (stability<0.75)
+- BNBUSDT (pf<1.5, stability<0.75)
+- BTCUSDT (pf<1.5, stability<0.75)
+- DOGEUSDT (stability<0.75)
+- LINKUSDT (pf<1.5, stability<0.75)
+- LTCUSDT (pf<1.5, stability<0.75)
+- OGUSDT (stability<0.75)
+- PAXGUSDT (pf<1.5, stability<0.75)
+- TRXUSDT (pf<1.5, stability<0.75)
+- XRPUSDT (run_incomplete_missing_ga_report)
+- ZECUSDT (stability<0.75)
+
+C4) SHORT side
+- Passed: none
+- Failed: ADAUSDT, AVAXUSDT, AXSUSDT, BCHUSDT, BNBUSDT, BTCUSDT, CRVUSDT, DOGEUSDT, LINKUSDT, LTCUSDT, NEARUSDT, OGUSDT, PAXGUSDT, SOLUSDT, TRXUSDT, XRPUSDT, ZECUSDT
+- Typical short-side blockers: pf<1.5, stability<0.75, and often trades<30
+
+C5) Fail reason frequency across all failed rows (34-row table)
+- fail_with_stability: 27
+- fail_with_pf: 22
+- fail_with_trades: 13
+- fail_with_incomplete: 2
+
+C6) Selected models used in pre-execution universe simulation
+From universe_sim_summary.json selected_models:
+- AVAXUSDT long
+- BCHUSDT long
+- CRVUSDT long
+- NEARUSDT long
+- SOLUSDT long
+
+============================================================
+D) Direct answer: 1H coins that passed/failed before execution layer
+============================================================
+Primary pre-execution pass list (long side):
+- AVAXUSDT, BCHUSDT, CRVUSDT, NEARUSDT, SOLUSDT
+
+Primary pre-execution fail list (long side):
+- ADAUSDT, AXSUSDT, BNBUSDT, BTCUSDT, DOGEUSDT, LINKUSDT, LTCUSDT,
+  OGUSDT, PAXGUSDT, TRXUSDT, XRPUSDT, ZECUSDT
+
+Short side before execution layer:
+- No coin passed.
+
+Note on file consistency
+- summary.json meta says symbols_count=14, but row data contains 17 unique symbols.
+- This report uses the row-level table as source-of-truth for pass/fail enumeration.

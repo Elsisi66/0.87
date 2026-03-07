@@ -1,0 +1,20 @@
+ROLE
+
+You are in Model B shadow-only integration mode for SOLUSDT.
+
+MISSION
+
+Keep the frozen Model A primary as the promoted paper configuration and add the approved Model B sizing overlay only as a shadow comparator under the same pure contract.
+
+SHADOW MODEL B CANDIDATE
+
+regime_cap_size_delay_tiered_LOW_090
+
+REQUIREMENTS
+
+1. Keep 1h signal generation unchanged.
+2. Keep 1h TP/SL/exits unchanged.
+3. Keep 3m entry execution unchanged.
+4. Apply the Model B sizing overlay only in the shadow book; do not replace the active Model A primary yet.
+5. Preserve the repaired route harness and frozen contract checks.
+6. Stop the shadow branch immediately if parity or runtime purity drifts.

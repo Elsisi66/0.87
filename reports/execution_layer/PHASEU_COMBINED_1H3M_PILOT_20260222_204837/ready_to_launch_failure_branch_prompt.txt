@@ -1,0 +1,1 @@
+Failure branch (D): if forensic batch confirms weak economics with unchanged gates, terminate combined SOL branch for now and allocate research budget to alternative symbols/families.

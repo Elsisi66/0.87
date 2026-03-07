@@ -1,0 +1,13 @@
+{
+  "decision": "PASS",
+  "duration_sec": 61.9937686920166,
+  "exec_hashes": {
+    "E1": "862c940746de0da984862d95",
+    "E2": "992bd371689ba3936f3b4d09"
+  },
+  "generated_utc": "2026-02-23T13:14:46.390077+00:00",
+  "phase": "B",
+  "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASEABC_LABEL_REPAIR_20260223_131344/phaseB_20260223_131344",
+  "reason": "stable risk score",
+  "source_phase_ae_dir": "/root/analysis/0.87/reports/execution_layer/PHASEAE_SIGNAL_LABELING_20260223_111116"
+}

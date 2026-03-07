@@ -1,0 +1,19 @@
+{
+  "canonical_fee_model_path_exists": 1,
+  "canonical_metrics_definition_path_exists": 1,
+  "expected_fee_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+  "expected_metrics_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+  "fee_hash_match_expected": 1,
+  "fee_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+  "frozen_subset_csv_exists": 1,
+  "generated_utc": "2026-02-24T00:01:47.676763+00:00",
+  "metrics_hash_match_expected": 1,
+  "metrics_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+  "paths": {
+    "fee_model": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+    "metrics_definition": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+    "phase_h_dir": "/root/analysis/0.87/reports/execution_layer/PHASEH_EXECAWARE_1H_GA_PILOT_20260223_224855",
+    "subset_csv": "/root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv"
+  },
+  "phase_h_dir_exists": 1
+}

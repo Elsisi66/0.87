@@ -1,0 +1,8 @@
+Phase: SOL reconciliation truth backtest
+Timestamp UTC: 2026-02-22T00:54:37.468612+00:00
+Status: COMPLETED
+BUG: NO
+UNIVERSE_MISMATCH: YES
+SIZING_COMPOUNDING_MISMATCH: YES
+SOL_DEPLOYABLE_STATUS: HOLD
+Artifacts: /root/analysis/0.87/reports/execution_layer/SOL_RECON_20260222_005433

@@ -1,0 +1,1 @@
+Execution-only continuation (SOLUSDT, contract-locked): freeze current 1h signal definition and run execution-layer objective/sampler refinement around E1/E2 only. Keep hard gates unchanged and prioritize robustness (split stability + cvar/maxdd retention) over nominal expectancy. Include duplicate-adjusted effective trials and stress micro-matrix before any larger GA budget.

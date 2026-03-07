@@ -1,0 +1,92 @@
+{
+  "budget_target": 1536,
+  "duplicate_param_reuse": 243,
+  "duplicate_signal_signature": 964,
+  "generated_utc": "2026-02-24T01:23:21.867312+00:00",
+  "generation_stats": [
+    {
+      "best_OJ2": 0.14254211878214781,
+      "best_candidate_id": "I00002",
+      "generation": 0,
+      "population_size": 192,
+      "valid_for_ranking_count": 145
+    },
+    {
+      "best_OJ2": 0.14263907560913183,
+      "best_candidate_id": "I00253",
+      "generation": 1,
+      "population_size": 192,
+      "valid_for_ranking_count": 156
+    },
+    {
+      "best_OJ2": 0.15390252674414617,
+      "best_candidate_id": "I00339",
+      "generation": 2,
+      "population_size": 192,
+      "valid_for_ranking_count": 148
+    },
+    {
+      "best_OJ2": 0.15390252674414617,
+      "best_candidate_id": "I00339",
+      "generation": 3,
+      "population_size": 192,
+      "valid_for_ranking_count": 145
+    },
+    {
+      "best_OJ2": 0.15390252674414617,
+      "best_candidate_id": "I00339",
+      "generation": 4,
+      "population_size": 192,
+      "valid_for_ranking_count": 148
+    },
+    {
+      "best_OJ2": 0.15390252674414617,
+      "best_candidate_id": "I00339",
+      "generation": 5,
+      "population_size": 192,
+      "valid_for_ranking_count": 158
+    },
+    {
+      "best_OJ2": 0.15390252674414617,
+      "best_candidate_id": "I00339",
+      "generation": 6,
+      "population_size": 192,
+      "valid_for_ranking_count": 153
+    },
+    {
+      "best_OJ2": 0.15390252674414617,
+      "best_candidate_id": "I00339",
+      "generation": 7,
+      "population_size": 192,
+      "valid_for_ranking_count": 156
+    }
+  ],
+  "gens": 8,
+  "initial_population_count": 192,
+  "objective_primary": "OJ2",
+  "objective_secondary": "OJ4",
+  "origin_counts": {
+    "crossover": 511,
+    "elite": 133,
+    "exploration": 311,
+    "mutation": 437,
+    "near_H0020": 47,
+    "near_H0313": 57,
+    "near_routepass_other": 38,
+    "phaseH_seed_H0020": 1,
+    "phaseH_seed_H0313": 1
+  },
+  "pop": 192,
+  "seed_mix_meta": {
+    "mandatory_seed_ids": [
+      "H0313",
+      "H0020"
+    ],
+    "phase_h_dir": "/root/analysis/0.87/reports/execution_layer/PHASEH_EXECAWARE_1H_GA_PILOT_20260223_224855",
+    "seed_count": 2,
+    "seed_ids": [
+      "phaseH_seed_H0313",
+      "phaseH_seed_H0020"
+    ]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "args": {
+    "allow_freeze_hash_mismatch": 0,
+    "bootstrap_n": 300,
+    "candidates_json": "",
+    "expected_fee_sha": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "expected_metrics_sha": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "fee_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+    "frozen_subset_csv": "/root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv",
+    "metrics_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+    "phaseD_dir": "/root/analysis/0.87/reports/execution_layer/PHASED_TAIL_BRANCH_20260223_134324",
+    "report_dir": "/root/analysis/0.87/reports/execution_layer/PHASEE_PAPER_CONFIRM_20260223_185139",
+    "routes": "",
+    "seed": 20260223,
+    "stress_profile": "standard",
+    "time_budget_minutes": 175
+  },
+  "deadline_utc_estimate": "2026-02-23T21:46:40.253766+00:00",
+  "generated_utc": "2026-02-23T18:51:40.253772+00:00",
+  "phase": "0",
+  "repo_root": "/root/analysis/0.87",
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASEE_PAPER_CONFIRM_20260223_185139",
+  "script": "/root/analysis/0.87/scripts/phase_e_paper_confirm_autorun.py",
+  "time_budget_minutes": 175
+}

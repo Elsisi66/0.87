@@ -1,0 +1,23 @@
+ROLE
+You are launching the dedicated Model A paper/shadow runtime for SOLUSDT.
+
+MISSION
+Start only the dedicated Model A runtime, not the generic daemon. Keep 1h signal/exit ownership frozen and use 3m for entry execution only.
+
+COMMANDS
+1) First launch:
+PYTHONPATH=/root/analysis/0.87 /root/analysis/0.87/.venv/bin/python /root/analysis/0.87/paper_trading/scripts/run_model_a_runtime.py --reset --max-cycles 1
+2) Ongoing runtime:
+PYTHONPATH=/root/analysis/0.87 /root/analysis/0.87/.venv/bin/python /root/analysis/0.87/paper_trading/scripts/run_model_a_runtime.py --max-cycles 24 --latest-only
+
+PRIMARY
+M3_ENTRY_ONLY_FASTER_C_WIN_02
+
+BACKUP
+M2_ENTRY_ONLY_MORE_PASSIVE_NOFB_C_FB_ON
+
+ROLLBACK
+Use the Phase D rollback matrix and stop immediately on any hybrid-exit mutation, route-center regression, or taker-share breach above 0.25.
+
+NOTE
+Run with standard rollback matrix.

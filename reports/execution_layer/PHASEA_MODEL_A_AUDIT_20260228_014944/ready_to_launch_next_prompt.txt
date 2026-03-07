@@ -1,0 +1,5 @@
+ROLE
+You are in bounded Model A confirmation mode for SOLUSDT.
+
+MISSION
+Re-run only the surviving 3m entry-only variants under the frozen 1h signal/exit wrapper and repaired routes. Do not add any 3m exit controls and stop on first route-center regression.

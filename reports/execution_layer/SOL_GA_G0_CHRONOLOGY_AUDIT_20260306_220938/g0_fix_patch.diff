@@ -1,0 +1,28 @@
+# file/line edits (workspace has no tracked baseline for unified git diff)
+
+File: /root/analysis/0.87/scripts/sol_3m_lossconcentration_ga.py
+Function: compute_chronology_stats
+Approx lines: 353-390
+
+1) same_bar_exit_count definition
+- Before behavior: counted `sum(exec_same_bar_hit)`.
+- After behavior: counts true same-parent-bar exits only:
+  `same_parent_exit = (filled & valid & floor(exec_entry_time,1h)==floor(exec_exit_time,1h)).sum()`
+
+2) preserved old label as separate metric
+- Added `same_bar_touch_count = sum(exec_same_bar_hit)`
+- Meaning: SL+TP tie touched in one evaluated exit candle (not chronology).
+
+3) entry-on-signal chronology gate
+- Before behavior: `entry_time <= signal_time` flagged.
+- After behavior: `entry_time < signal_time` flagged (pre-signal only).
+
+4) parity_clean gate
+- Before behavior inherited mislabeled same-bar signal from `exec_same_bar_hit`.
+- After behavior requires all true chronology conditions:
+  - same_parent_exit == 0
+  - exit_before_entry == 0
+  - entry_on_signal_count == 0
+  - invalid_stop_geometry == 0
+  - invalid_tp_geometry == 0
+  - lookahead_violation == 0

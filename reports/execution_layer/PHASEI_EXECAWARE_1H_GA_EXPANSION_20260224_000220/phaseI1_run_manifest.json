@@ -1,0 +1,80 @@
+{
+  "code_snapshot": {
+    "ga_exec_script": "/root/analysis/0.87/src/execution/ga_exec_3m_opt.py",
+    "phase_h_script": "/root/analysis/0.87/scripts/phase_h_execaware_1h_ga_pilot.py",
+    "phase_i_script": "/root/analysis/0.87/scripts/phase_i_execaware_1h_ga_expansion.py"
+  },
+  "duration_sec": 45.98809051513672,
+  "generated_utc": "2026-02-24T00:03:06.928755+00:00",
+  "h1_manifest_reused": {
+    "active_params_meta": {
+      "best_csv": "/root/analysis/0.87/reports/params_scan/20260220_044949/best_by_symbol.csv",
+      "row": {
+        "cagr_pct": "235.29459450705903",
+        "final_equity": "6793048.248078086",
+        "initial_equity": "10000.0",
+        "max_dd": "0.1566075514905423",
+        "max_dd_pct": "15.660755149054232",
+        "net_profit": "6783048.248078086",
+        "params_file": "data/metadata/params/SOLUSDT_C13_active_params_long.json",
+        "pass": "True",
+        "period_end": "2025-12-31 23:00:00+00:00",
+        "period_start": "2020-08-11 06:00:00+00:00",
+        "profit_factor": "1.797118446875397",
+        "return_pct": "67830.48248078086",
+        "score": "25.380137482106026",
+        "side": "long",
+        "symbol": "SOLUSDT",
+        "trades": "2551.0",
+        "trades_per_year": "473.2812546297276",
+        "win_rate_pct": "12.191297530380243",
+        "years": "5.390029660050194"
+      },
+      "score": 25.380137482106026,
+      "source": "best_by_symbol"
+    },
+    "active_params_path": "/root/analysis/0.87/data/metadata/params/SOLUSDT_C13_active_params_long.json",
+    "base_diag": {
+      "active_rate_vs_rep": 1.0,
+      "active_signals": 1200,
+      "mapped_to_1h_index": 1200,
+      "rep_signals_total": 1200
+    },
+    "duration_sec": 37.8331823348999,
+    "exec_choices": [
+      {
+        "genome_hash": "862c940746de0da984862d95",
+        "id": "E1"
+      },
+      {
+        "genome_hash": "992bd371689ba3936f3b4d09",
+        "id": "E2"
+      }
+    ],
+    "exec_meta": {
+      "backup_hash": "992bd371689ba3936f3b4d09",
+      "high_participation_hash": "3bfd8a6da99c536be927cb97",
+      "phase_s_dir": "/root/analysis/0.87/reports/execution_layer/PHASEQRS_AUTORUN_20260222_201536/phaseS",
+      "phase_s_parent": "/root/analysis/0.87/reports/execution_layer/PHASEQRS_AUTORUN_20260222_201536",
+      "primary_hash": "862c940746de0da984862d95",
+      "source_run_dir": "/root/analysis/0.87/reports/execution_layer/GA_EXEC_OPT_20260222_193057"
+    },
+    "generated_utc": "2026-02-24T00:02:58.774457+00:00",
+    "hard_gate_snapshot": {
+      "allow_freeze_hash_mismatch": 0,
+      "hard_max_median_fill_delay_min": 45.0,
+      "hard_max_p95_fill_delay_min": 180.0,
+      "hard_max_taker_share": 0.25,
+      "hard_min_entry_rate_overall": 0.7,
+      "hard_min_trade_frac_overall": 0.15,
+      "hard_min_trades_overall": 200
+    },
+    "lock_pass": 1,
+    "phase": "H1",
+    "phase_g_dir": "/root/analysis/0.87/reports/execution_layer/PHASEG_EXECAWARE_OBJECTIVE_20260223_220114",
+    "smoke_ok": 1
+  },
+  "lock_pass": 1,
+  "phase": "I1",
+  "seed_reproduction_pass": 1
+}

@@ -1,0 +1,33 @@
+{
+  "best_variant_net_expectancy": -0.00042183269196027225,
+  "best_variant_required_cost_reduction_pct": 48.081092469223556,
+  "classification": "ROUTE_INFEASIBLE",
+  "contract_validation_file": "/root/analysis/0.87/reports/execution_layer/PHASENY_NX_POSTMORTEM_FEASIBILITY_20260227_123357/phaseNY_contract_validation.json",
+  "economic_feasibility": "infeasible",
+  "generated_utc": "2026-02-27T12:34:28.127483+00:00",
+  "load_meta": {
+    "bundle_sizes": {
+      "SOLUSDT": {
+        "signals": 1200,
+        "splits": 5
+      }
+    },
+    "execution_config_path": "/root/analysis/0.87/configs/execution_configs.yaml",
+    "signals": {
+      "SOLUSDT": "/root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv"
+    },
+    "symbols": [
+      "SOLUSDT"
+    ]
+  },
+  "nx_input_dir": "/root/analysis/0.87/reports/execution_layer/PHASENX_EXEC_FAMILY_DISCOVERY_20260227_115329",
+  "phase_files": [
+    "phaseNY0_route_support_upper_bound.csv",
+    "phaseNY0_route_support_report.md",
+    "phaseNY1_economics_upper_bound.csv",
+    "phaseNY1_economics_report.md",
+    "phaseNY2_decision_next_step.md"
+  ],
+  "route_feasibility": "infeasible",
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASENY_NX_POSTMORTEM_FEASIBILITY_20260227_123357"
+}

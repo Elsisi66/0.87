@@ -1,0 +1,17 @@
+{
+  "generated_utc": "2026-03-06T20:06:27.295532+00:00",
+  "objective": "paper repaired chronology + posture fallback hard disable",
+  "files_touched": [
+    "paper_trading/app/universe.py",
+    "paper_trading/app/main.py",
+    "paper_trading/app/execution_sim.py"
+  ],
+  "line_targets": {
+    "universe_fallback_disable": "paper_trading/app/universe.py:268-300",
+    "startup_fallback_disabled_log": "paper_trading/app/main.py:477-481",
+    "same_bar_exit_guard": "paper_trading/app/execution_sim.py:151-213",
+    "guard_summary_logging": "paper_trading/app/main.py:566-584"
+  },
+  "git_diff_available": false,
+  "git_diff": "unavailable (repository currently treats these paths as untracked)"
+}

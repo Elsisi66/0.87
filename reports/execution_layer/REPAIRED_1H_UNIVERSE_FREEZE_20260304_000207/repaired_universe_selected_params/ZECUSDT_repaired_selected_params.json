@@ -1,0 +1,99 @@
+{
+  "candidate_id": "R_ZECUSDT_G00_I0002",
+  "param_hash": "737af85cea8d35bbd61eb4514bab595394fa1f47397f106c872861b921b08a3e",
+  "params": {
+    "adx_min": 18.0,
+    "allow_hours": [
+      1,
+      6,
+      8,
+      9,
+      12,
+      15,
+      17,
+      20,
+      21
+    ],
+    "atr_k": 0.3583823286567137,
+    "breakout_atr_mult": 1.5,
+    "breakout_window": 20,
+    "cycle1_adx_boost": 1.335221684318122,
+    "cycle1_ema_sep_atr": 0.5115781641381946,
+    "cycle_fill": 2,
+    "cycle_shift": 1,
+    "ema_align": true,
+    "ema_span": 35,
+    "ema_trend_long": 120,
+    "entry_rsi_buffer": 4.186036283901823,
+    "entry_rsi_max": 94.23030194262515,
+    "entry_rsi_min": 51.616859906440816,
+    "exit_rsi_by_cycle": [
+      56.763084003337845,
+      50.86707173313264,
+      53.75442903992775,
+      50.41217874241315,
+      34.51918978498987
+    ],
+    "max_allocation": 0.9238544357582475,
+    "max_hold_hours": 6,
+    "profit_target_mult": 1.06,
+    "require_ema200_slope": true,
+    "require_plus_di": true,
+    "require_trade_cycles": true,
+    "risk_per_trade": 0.009134776702953361,
+    "sl_mult_by_cycle": [
+      0.9731589745838536,
+      0.998999999701819,
+      0.9852680494812505,
+      0.9767421250438626,
+      0.9472965351271182
+    ],
+    "stop_loss_mult": 0.98,
+    "tp_mult_by_cycle": [
+      1.0316196948792336,
+      1.151358319845241,
+      1.0890420970831316,
+      1.0846717819946758,
+      1.0086474586632255
+    ],
+    "trade_cycles": [
+      1
+    ],
+    "two_candle_confirm": false,
+    "use_sig_baseline": true,
+    "use_sig_breakout": false,
+    "use_sig_pullback": false,
+    "use_vol_filter": false,
+    "vol_tail_percentile": 0.55,
+    "willr_by_cycle": [
+      -57.66154723357951,
+      -33.70246515022086,
+      -85.83370265549843,
+      -1.0,
+      -29.78830344522317
+    ],
+    "willr_floor": -100.0,
+    "willr_max": -30.0
+  },
+  "params_source": "data/metadata/params/ZECUSDT__UNIVERSE_LONG_C1_active_params.json",
+  "repaired_metrics": {
+    "cvar_5": -0.0021995203940427,
+    "expectancy_net": 0.0030330877056854,
+    "max_dd_pct": 12.445361435218771,
+    "pass": 1,
+    "profit_factor": 2.601363149268033,
+    "rank": 8,
+    "score": 18.85867619612262,
+    "trades": 1605,
+    "valid_for_ranking": 1
+  },
+  "selection_rule": {
+    "primary": "repaired_score desc",
+    "secondary": "repaired_expectancy_net desc",
+    "tertiary": "repaired_max_dd_pct asc",
+    "tie_break_1": "candidate_id asc",
+    "tie_break_2": "param_hash asc"
+  },
+  "side": "long",
+  "symbol": "ZECUSDT"
+}

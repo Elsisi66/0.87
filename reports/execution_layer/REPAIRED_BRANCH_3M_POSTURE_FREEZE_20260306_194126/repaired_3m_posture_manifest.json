@@ -1,0 +1,38 @@
+{
+  "created_utc": "2026-03-06T19:41:26.749738+00:00",
+  "objective": "Freeze repaired-branch 3m posture after LTC hygiene review",
+  "source_artifacts": {
+    "frozen_repaired_universe_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207",
+    "strict_confirm_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_EXEC_SUBSET1_CONFIRM_20260304_010143",
+    "opcheck_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_ACTIVESET_OPCHECK_20260304_012119",
+    "ltc_hygiene_dir": "/root/analysis/0.87/reports/execution_layer/LTC_3M_DATAPATH_HYGIENE_REVIEW_20260304_013849"
+  },
+  "posture": {
+    "active": [
+      "SOLUSDT"
+    ],
+    "shadow": [
+      "NEARUSDT"
+    ],
+    "blocked": [
+      "LTCUSDT"
+    ]
+  },
+  "winner_config_ids": {
+    "SOLUSDT": "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+    "NEARUSDT": "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+    "LTCUSDT": "M2_ENTRY_ONLY_MORE_PASSIVE"
+  },
+  "blocked_reasons": {
+    "LTCUSDT": {
+      "final_posture": "LTC_REMAINS_BLOCKED",
+      "true_partial_slices": 12,
+      "active_subset_implication": "FREEZE_SOL_ONLY_AND_KEEP_LTC_BLOCKED"
+    }
+  },
+  "decision": "FREEZE_SOL_ONLY_ACTIVE_POSTURE",
+  "notes": [
+    "No broader repaired-branch 3m expansion is approved.",
+    "LTCUSDT requires data repair or explicit policy acceptance before promotion."
+  ]
+}

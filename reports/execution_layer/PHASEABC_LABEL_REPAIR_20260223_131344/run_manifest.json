@@ -1,0 +1,21 @@
+{
+  "duration_sec": 140.61818766593933,
+  "generated_utc": "2026-02-23T13:13:44.366866+00:00",
+  "mainline_status": "STOP_NO_GO",
+  "phases": {
+    "A": {
+      "classification": "PASS",
+      "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASEABC_LABEL_REPAIR_20260223_131344/phaseA_20260223_131344"
+    },
+    "B": {
+      "classification": "PASS",
+      "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASEABC_LABEL_REPAIR_20260223_131344/phaseB_20260223_131344"
+    },
+    "C": {
+      "classification": "NO_GO",
+      "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASEABC_LABEL_REPAIR_20260223_131344/phaseC_20260223_131446"
+    }
+  },
+  "run_root": "/root/analysis/0.87/reports/execution_layer/PHASEABC_LABEL_REPAIR_20260223_131344",
+  "seed": 20260223
+}

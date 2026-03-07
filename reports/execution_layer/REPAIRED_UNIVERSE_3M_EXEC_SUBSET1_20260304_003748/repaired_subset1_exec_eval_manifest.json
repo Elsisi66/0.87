@@ -1,0 +1,239 @@
+{
+  "artifacts": {
+    "repaired_subset1_exec_eval_by_symbol": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_EXEC_SUBSET1_20260304_003748/repaired_subset1_exec_eval_by_symbol.csv",
+    "repaired_subset1_exec_eval_report": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_EXEC_SUBSET1_20260304_003748/repaired_subset1_exec_eval_report.md",
+    "repaired_subset1_exec_eval_summary": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_EXEC_SUBSET1_20260304_003748/repaired_subset1_exec_eval_summary.csv"
+  },
+  "contract_validation": {
+    "allowed_variant_keys": [
+      "candidate_id",
+      "entry_mode",
+      "fallback_delay_min",
+      "fallback_to_market",
+      "label",
+      "limit_offset_bps",
+      "max_fill_delay_min"
+    ],
+    "forbidden_exit_knobs_blocked": [
+      "tp_mult",
+      "sl_mult",
+      "time_stop_min",
+      "break_even_enabled",
+      "break_even_trigger_r",
+      "break_even_offset_bps",
+      "trailing_enabled",
+      "trail_start_r",
+      "trail_step_bps",
+      "partial_take_enabled",
+      "partial_take_r",
+      "partial_take_pct"
+    ],
+    "freeze_lock": {
+      "allow_freeze_hash_mismatch": 0,
+      "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+      "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+      "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "copied_verbatim_fee": 1,
+      "copied_verbatim_metrics": 1,
+      "expected_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "expected_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "fee_hash_match_expected": 1,
+      "fee_value_diffs": {},
+      "fee_value_match_args": 1,
+      "freeze_lock_pass": 1,
+      "generated_utc": "2026-03-04T00:37:50.440113+00:00",
+      "metrics_hash_match_expected": 1,
+      "run_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "run_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+    },
+    "generated_utc": "2026-03-04T00:37:50.440541+00:00",
+    "hybrid_exit_mutation_enabled": 0,
+    "observed_variant_keys": [
+      "candidate_id",
+      "entry_mode",
+      "fallback_delay_min",
+      "fallback_to_market",
+      "label",
+      "limit_offset_bps",
+      "max_fill_delay_min"
+    ],
+    "variant_family_size": 4,
+    "variant_ids": [
+      "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+      "M2_ENTRY_ONLY_MORE_PASSIVE",
+      "M3_ENTRY_ONLY_FASTER",
+      "M4_ENTRY_ONLY_MARKET_CONTROL"
+    ],
+    "wrapper_uses_1h_exit_owner": 1,
+    "wrapper_uses_1h_signal_owner": 1,
+    "wrapper_uses_3m_entry_only": 1
+  },
+  "foundation_dir": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929",
+  "freeze_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207",
+  "generated_utc": "2026-03-04T00:42:24.343202+00:00",
+  "pathology_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_PREEXEC_PATHOLOGY_AUDIT_20260304_001818",
+  "recommendation": "KEEP_3M_TO_SELECTIVE_SUBSET_ONLY",
+  "reused_code_paths": [
+    "scripts/phase_v_multicoin_model_a_audit.py",
+    "scripts/phase_a_model_a_audit.py",
+    "scripts/repaired_frontier_contamination_audit.py",
+    "scripts/repaired_universe_3m_exec_subset1.py"
+  ],
+  "selective_keep_list": [
+    "NEARUSDT",
+    "SOLUSDT",
+    "LTCUSDT"
+  ],
+  "subset_symbols": [
+    "NEARUSDT",
+    "OGUSDT",
+    "DOGEUSDT",
+    "SOLUSDT",
+    "LTCUSDT",
+    "AXSUSDT",
+    "ZECUSDT"
+  ],
+  "symbol_meta": {
+    "AXSUSDT": {
+      "build_meta": {
+        "signals_missing_3m_data": 38,
+        "signals_partial_3m_data": 781,
+        "signals_total": 819,
+        "signals_with_3m_data": 781,
+        "window_count": 1,
+        "window_source_counts": {
+          "foundation_merged_3m": 819
+        }
+      },
+      "foundation_window_mode": "foundation_cached_windows",
+      "foundation_window_rows_used": 1,
+      "params_source": "data/metadata/params/AXSUSDT__UNIVERSE_LONG_C3_active_params.json",
+      "route_meta": {
+        "route_count": 0,
+        "route_family_blocker": "routes_omitted_in_bounded_subset_pass",
+        "route_family_supported": 0
+      }
+    },
+    "DOGEUSDT": {
+      "build_meta": {
+        "signals_missing_3m_data": 6,
+        "signals_partial_3m_data": 1588,
+        "signals_total": 1594,
+        "signals_with_3m_data": 1588,
+        "window_count": 1,
+        "window_source_counts": {
+          "foundation_merged_3m": 1594
+        }
+      },
+      "foundation_window_mode": "foundation_cached_windows",
+      "foundation_window_rows_used": 1,
+      "params_source": "data/metadata/params/DOGEUSDT__UNIVERSE_LONG_C1_active_params.json",
+      "route_meta": {
+        "route_count": 0,
+        "route_family_blocker": "routes_omitted_in_bounded_subset_pass",
+        "route_family_supported": 0
+      }
+    },
+    "LTCUSDT": {
+      "build_meta": {
+        "signals_missing_3m_data": 0,
+        "signals_partial_3m_data": 940,
+        "signals_total": 940,
+        "signals_with_3m_data": 940,
+        "window_count": 1,
+        "window_source_counts": {
+          "foundation_merged_3m": 940
+        }
+      },
+      "foundation_window_mode": "foundation_cached_windows",
+      "foundation_window_rows_used": 1,
+      "params_source": "data/metadata/params/LTCUSDT__UNIVERSE_LONG_C3_active_params.json",
+      "route_meta": {
+        "route_count": 0,
+        "route_family_blocker": "routes_omitted_in_bounded_subset_pass",
+        "route_family_supported": 0
+      }
+    },
+    "NEARUSDT": {
+      "build_meta": {
+        "signals_missing_3m_data": 0,
+        "signals_partial_3m_data": 0,
+        "signals_total": 1839,
+        "signals_with_3m_data": 1839,
+        "window_count": 1,
+        "window_source_counts": {
+          "local_full_3m": 1839
+        }
+      },
+      "foundation_window_mode": "local_full_3m",
+      "foundation_window_rows_used": 1,
+      "params_source": "data/metadata/params/NEARUSDT_C13_active_params_long.json",
+      "route_meta": {
+        "route_count": 0,
+        "route_family_blocker": "routes_omitted_in_bounded_subset_pass",
+        "route_family_supported": 0
+      }
+    },
+    "OGUSDT": {
+      "build_meta": {
+        "signals_missing_3m_data": 0,
+        "signals_partial_3m_data": 0,
+        "signals_total": 976,
+        "signals_with_3m_data": 976,
+        "window_count": 1,
+        "window_source_counts": {
+          "foundation_merged_3m": 976
+        }
+      },
+      "foundation_window_mode": "foundation_cached_windows",
+      "foundation_window_rows_used": 1,
+      "params_source": "data/metadata/params/OGUSDT__UNIVERSE_LONG_C3_active_params.json",
+      "route_meta": {
+        "route_count": 0,
+        "route_family_blocker": "routes_omitted_in_bounded_subset_pass",
+        "route_family_supported": 0
+      }
+    },
+    "SOLUSDT": {
+      "build_meta": {
+        "signals_missing_3m_data": 0,
+        "signals_partial_3m_data": 0,
+        "signals_total": 4773,
+        "signals_with_3m_data": 4773,
+        "window_count": 1,
+        "window_source_counts": {
+          "local_full_3m": 4773
+        }
+      },
+      "foundation_window_mode": "local_full_3m",
+      "foundation_window_rows_used": 1,
+      "params_source": "data/metadata/params/SOLUSDT_C13_active_params_long.json",
+      "route_meta": {
+        "route_count": 0,
+        "route_family_blocker": "routes_omitted_in_bounded_subset_pass",
+        "route_family_supported": 0
+      }
+    },
+    "ZECUSDT": {
+      "build_meta": {
+        "signals_missing_3m_data": 91,
+        "signals_partial_3m_data": 1514,
+        "signals_total": 1605,
+        "signals_with_3m_data": 1514,
+        "window_count": 1,
+        "window_source_counts": {
+          "foundation_merged_3m": 1605
+        }
+      },
+      "foundation_window_mode": "foundation_cached_windows",
+      "foundation_window_rows_used": 1,
+      "params_source": "data/metadata/params/ZECUSDT__UNIVERSE_LONG_C1_active_params.json",
+      "route_meta": {
+        "route_count": 0,
+        "route_family_blocker": "routes_omitted_in_bounded_subset_pass",
+        "route_family_supported": 0
+      }
+    }
+  }
+}

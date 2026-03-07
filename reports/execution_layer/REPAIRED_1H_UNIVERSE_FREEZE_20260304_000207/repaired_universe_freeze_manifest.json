@@ -1,0 +1,123 @@
+{
+  "artifacts": {
+    "repaired_best_by_symbol": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_best_by_symbol.csv",
+    "repaired_universe_freeze_report": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_universe_freeze_report.md",
+    "repaired_universe_membership_diff_vs_legacy": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_universe_membership_diff_vs_legacy.csv",
+    "repaired_universe_selected_params_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_universe_selected_params"
+  },
+  "frozen_param_files": [
+    {
+      "path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_universe_selected_params/SOLUSDT_repaired_selected_params.json",
+      "symbol": "SOLUSDT"
+    },
+    {
+      "path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_universe_selected_params/OGUSDT_repaired_selected_params.json",
+      "symbol": "OGUSDT"
+    },
+    {
+      "path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_universe_selected_params/DOGEUSDT_repaired_selected_params.json",
+      "symbol": "DOGEUSDT"
+    },
+    {
+      "path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_universe_selected_params/NEARUSDT_repaired_selected_params.json",
+      "symbol": "NEARUSDT"
+    },
+    {
+      "path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_universe_selected_params/AXSUSDT_repaired_selected_params.json",
+      "symbol": "AXSUSDT"
+    },
+    {
+      "path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_universe_selected_params/AVAXUSDT_repaired_selected_params.json",
+      "symbol": "AVAXUSDT"
+    },
+    {
+      "path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_universe_selected_params/CRVUSDT_repaired_selected_params.json",
+      "symbol": "CRVUSDT"
+    },
+    {
+      "path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_universe_selected_params/ZECUSDT_repaired_selected_params.json",
+      "symbol": "ZECUSDT"
+    },
+    {
+      "path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_universe_selected_params/BCHUSDT_repaired_selected_params.json",
+      "symbol": "BCHUSDT"
+    },
+    {
+      "path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_universe_selected_params/ADAUSDT_repaired_selected_params.json",
+      "symbol": "ADAUSDT"
+    },
+    {
+      "path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_universe_selected_params/LINKUSDT_repaired_selected_params.json",
+      "symbol": "LINKUSDT"
+    },
+    {
+      "path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_universe_selected_params/TRXUSDT_repaired_selected_params.json",
+      "symbol": "TRXUSDT"
+    },
+    {
+      "path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_universe_selected_params/XRPUSDT_repaired_selected_params.json",
+      "symbol": "XRPUSDT"
+    },
+    {
+      "path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_universe_selected_params/BTCUSDT_repaired_selected_params.json",
+      "symbol": "BTCUSDT"
+    },
+    {
+      "path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_universe_selected_params/LTCUSDT_repaired_selected_params.json",
+      "symbol": "LTCUSDT"
+    }
+  ],
+  "generated_utc": "2026-03-04T00:02:07.799253+00:00",
+  "rerun_recommendation": "PROCEED_TO_REPAIRED_UNIVERSE_REBUILD",
+  "selection_rule": {
+    "eligibility": [
+      "side == long",
+      "valid_for_ranking == 1",
+      "repaired_pass == 1"
+    ],
+    "grouping": "exactly one canonical best candidate per symbol",
+    "sort_order": [
+      "repaired_score desc",
+      "repaired_expectancy_net desc",
+      "repaired_max_dd_pct asc",
+      "candidate_id asc",
+      "param_hash asc"
+    ],
+    "verification_against_repaired_1h_universe_candidates_csv": "exact match"
+  },
+  "source_files": {
+    "legacy_best_by_symbol_reference": "/root/analysis/0.87/reports/params_scan/20260220_044949/best_by_symbol.csv",
+    "repaired_1h_frontier": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_GA_RERUN_20260303_234708/repaired_1h_frontier.csv",
+    "repaired_1h_ga_results": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_GA_RERUN_20260303_234708/repaired_1h_ga_results.csv",
+    "repaired_1h_shortlist": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_GA_RERUN_20260303_234708/repaired_1h_shortlist.csv",
+    "repaired_1h_universe_candidates": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_GA_RERUN_20260303_234708/repaired_1h_universe_candidates.csv",
+    "rerun_manifest": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_GA_RERUN_20260303_234708/rerun_manifest.json",
+    "rerun_report": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_GA_RERUN_20260303_234708/repaired_1h_ga_rerun_report.md"
+  },
+  "source_of_truth": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_GA_RERUN_20260303_234708",
+  "summary": {
+    "downstream_branch_note": "This frozen rebuilt universe replaces the old best_by_symbol-driven long set for the repaired branch.",
+    "dropped_symbols": [],
+    "new_symbols": [
+      "BTCUSDT",
+      "OGUSDT"
+    ],
+    "ready_for_downstream_use": true,
+    "retained_symbols": [
+      "ADAUSDT",
+      "AVAXUSDT",
+      "AXSUSDT",
+      "BCHUSDT",
+      "CRVUSDT",
+      "DOGEUSDT",
+      "LINKUSDT",
+      "LTCUSDT",
+      "NEARUSDT",
+      "SOLUSDT",
+      "TRXUSDT",
+      "XRPUSDT",
+      "ZECUSDT"
+    ],
+    "selected_symbol_count": 15
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "generated_utc": "2026-03-07T00:05:28.881357+00:00",
+  "sweep_run_dir": "/root/analysis/0.87/reports/execution_layer/SOL_ENTRY_MECHANICS_SWEEP_20260306_235931",
+  "strict_reference_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_EXEC_SUBSET1_CONFIRM_20260304_010143",
+  "verdict": "HARNESS_FIXED"
+}

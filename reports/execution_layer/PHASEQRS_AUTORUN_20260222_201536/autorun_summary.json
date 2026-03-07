@@ -1,0 +1,31 @@
+{
+  "command_log": [
+    {
+      "cwd": "/root/analysis/0.87",
+      "step": "autorun_start",
+      "utc": "2026-02-22T20:15:42.144741+00:00"
+    },
+    {
+      "source_run": "/root/analysis/0.87/reports/execution_layer/GA_EXEC_OPT_20260222_193057",
+      "step": "selected_source_run",
+      "utc": "2026-02-22T20:15:42.293806+00:00"
+    }
+  ],
+  "freeze_global": {
+    "canonical_fee_model": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+    "canonical_fee_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "canonical_metrics_definition": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+    "canonical_metrics_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "expected_fee_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "expected_metrics_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "fee_hash_match": 1,
+    "metrics_hash_match": 1,
+    "representative_subset_csv": "/root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv"
+  },
+  "generated_utc": "2026-02-22T20:22:21.161156+00:00",
+  "parent_dir": "/root/analysis/0.87/reports/execution_layer/PHASEQRS_AUTORUN_20260222_201536",
+  "phaseQ_result": "Q_PASS_WEAK",
+  "phaseR_result": "R_PASS",
+  "phaseS_result": "S_PROMOTE_PAPER_CAUTION",
+  "source_run_dir": "/root/analysis/0.87/reports/execution_layer/GA_EXEC_OPT_20260222_193057"
+}

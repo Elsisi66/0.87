@@ -1,0 +1,112 @@
+{
+  "freeze_lock": {
+    "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "freeze_lock_pass": 1
+  },
+  "invalid_hist_top": [
+    [
+      "SOLUSDT:entry_rate",
+      162
+    ],
+    [
+      "SOLUSDT:trades<50",
+      43
+    ],
+    [
+      "overall:entry_rate",
+      43
+    ],
+    [
+      "overall:trades<200",
+      43
+    ],
+    [
+      "SOLUSDT:median_fill_delay",
+      34
+    ],
+    [
+      "SOLUSDT:nan_or_inf",
+      34
+    ],
+    [
+      "SOLUSDT:p95_fill_delay",
+      34
+    ],
+    [
+      "SOLUSDT:taker_share",
+      34
+    ],
+    [
+      "overall:median_fill_delay",
+      34
+    ],
+    [
+      "overall:nan_or_inf",
+      34
+    ]
+  ],
+  "phaseL": {
+    "duplicate_rate": 0.5208333333333334,
+    "effective_trials_proxy": 24.0,
+    "entry_rate_slack_max": -0.01722222222222236,
+    "entry_rate_slack_p50": -0.97,
+    "entry_rate_slack_p90": -0.08111111111111113,
+    "metric_signature_duplicate_rows": 25,
+    "metric_signature_unique_count": 24,
+    "near_feasible_count": 1,
+    "near_feasible_rate": 0.020833333333333332,
+    "participation_pair_pass_count": 0,
+    "participation_pass_count": 0,
+    "phase_label": "PhaseL_smoke_before",
+    "pre_eval_duplicates_removed_total": 0,
+    "rows": 48,
+    "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASEL_SAMPLER_REPAIR_20260222_184421/smoke_ga_runs/GA_EXEC_OPT_20260222_184614",
+    "trades_slack_max": 143.0,
+    "trades_slack_p50": -200.0,
+    "trades_slack_p90": 120.0,
+    "valid_for_ranking_count": 0
+  },
+  "phaseM": {
+    "duplicate_rate": 0.5166666666666667,
+    "effective_trials_proxy": 30.0,
+    "entry_rate_slack_max": -0.033888888888888746,
+    "entry_rate_slack_p50": -0.97,
+    "entry_rate_slack_p90": -0.06666666666666664,
+    "metric_signature_duplicate_rows": 31,
+    "metric_signature_unique_count": 30,
+    "near_feasible_count": 3,
+    "near_feasible_rate": 0.05,
+    "participation_pair_pass_count": 0,
+    "participation_pass_count": 0,
+    "phase_label": "PhaseM_pilot_before",
+    "pre_eval_duplicates_removed_total": 0,
+    "rows": 60,
+    "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASEM_PILOT_VALIDATION_20260222_185113/pilot_ga_runs/GA_EXEC_OPT_20260222_185122",
+    "trades_slack_max": 137.0,
+    "trades_slack_p50": -200.0,
+    "trades_slack_p90": 125.2,
+    "valid_for_ranking_count": 0
+  },
+  "phaseO": {
+    "duplicate_rate": 0.18888888888888888,
+    "effective_trials_proxy": 147.0,
+    "entry_rate_slack_max": 0.010555555555555651,
+    "entry_rate_slack_p50": -0.036666666666666736,
+    "entry_rate_slack_p90": -0.00027777777777777035,
+    "metric_signature_duplicate_rows": 34,
+    "metric_signature_unique_count": 147,
+    "near_feasible_count": 94,
+    "near_feasible_rate": 0.5222222222222223,
+    "participation_pair_pass_count": 18,
+    "participation_pass_count": 18,
+    "phase_label": "PhaseO_smoke_after",
+    "pre_eval_duplicates_removed_total": 0,
+    "rows": 180,
+    "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASEO_SAMPLER_REPAIR_V2_20260222_191119/smoke_ga_runs/GA_EXEC_OPT_20260222_191119",
+    "trades_slack_max": 153.0,
+    "trades_slack_p50": 136.0,
+    "trades_slack_p90": 149.1,
+    "valid_for_ranking_count": 18
+  }
+}

@@ -1,0 +1,317 @@
+{
+  "data_sources": {
+    "legacy_exec_cache_root": "/root/analysis/0.87/data/processed/_exec_klines_cache",
+    "param_scan_csv": "/root/analysis/0.87/reports/params_scan/20260220_044949/best_by_symbol.csv",
+    "universal_parquet_cache_root": "/root/analysis/0.87/data/processed/_universal_exec_3m_window_cache/parquet",
+    "universal_raw_cache_root": "/root/analysis/0.87/data/processed/_universal_exec_3m_window_cache/raw_csv"
+  },
+  "frozen_references": {
+    "fee_model": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+    "metrics_definition": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+    "sol_signal_snapshot": "/root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/config_snapshot/SOLUSDT_signals_1h.csv"
+  },
+  "generated_utc": "2026-02-28T15:17:34.525335+00:00",
+  "last_refill_utc": "2026-02-28T18:02:31.479018+00:00",
+  "outputs": {
+    "universe_3m_data_quality_csv": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_3m_data_quality.csv",
+    "universe_3m_download_manifest_csv": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_3m_download_manifest.csv",
+    "universe_3m_window_plan_csv": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_3m_window_plan.csv",
+    "universe_data_foundation_report_md": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_data_foundation_report.md",
+    "universe_signal_timeline_csv": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_signal_timeline.csv",
+    "universe_signal_timeline_parquet": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_signal_timeline.parquet",
+    "universe_symbol_readiness_csv": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_symbol_readiness.csv"
+  },
+  "refill_summary": {
+    "errors": [],
+    "remote_fetch_attempts": 4576,
+    "requested_symbols": [
+      "ADAUSDT",
+      "AXSUSDT",
+      "BCHUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "CRVUSDT",
+      "DOGEUSDT",
+      "LINKUSDT",
+      "LTCUSDT",
+      "OGUSDT",
+      "PAXGUSDT",
+      "SOLUSDT",
+      "TRXUSDT",
+      "AVAXUSDT",
+      "XRPUSDT",
+      "ZECUSDT"
+    ],
+    "run_dir": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929",
+    "target_statuses": [
+      "BLOCKED",
+      "PARTIAL"
+    ],
+    "target_windows": 4576,
+    "windows_promoted_to_ready": 4526,
+    "windows_still_blocked_or_empty": 0
+  },
+  "result_summary": {
+    "blocked_symbols": [],
+    "partial_symbols": [
+      "SOLUSDT",
+      "AVAXUSDT",
+      "BCHUSDT",
+      "CRVUSDT",
+      "NEARUSDT",
+      "ADAUSDT",
+      "AXSUSDT",
+      "BNBUSDT",
+      "BTCUSDT",
+      "DOGEUSDT",
+      "LINKUSDT",
+      "LTCUSDT",
+      "OGUSDT",
+      "PAXGUSDT",
+      "TRXUSDT",
+      "XRPUSDT",
+      "ZECUSDT"
+    ],
+    "ready_symbols": []
+  },
+  "resume_note": "completed after report-write repair using existing cached artifacts",
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929",
+  "source_scripts": {
+    "builder": "scripts/phase_u_universal_data_foundation.py",
+    "canonical_1h_engine": "src/bot087/optim/ga.py",
+    "combined_harness": "scripts/phase_u_combined_1h3m_pilot.py",
+    "execution_3m_slicer": "scripts/execution_layer_3m_ict.py",
+    "sol_audit_reference": "scripts/phase_a_model_a_audit.py"
+  },
+  "symbol_context": {
+    "ADAUSDT": {
+      "best_scan_score": 6.161226872187362,
+      "bucket_1h": "failed_1h_long",
+      "max_hold_hours": 115.0,
+      "params_file": "/root/analysis/0.87/data/metadata/params/ADAUSDT_C13_active_params_long.json",
+      "source_notes": [
+        "params_from_best_by_symbol"
+      ]
+    },
+    "AVAXUSDT": {
+      "best_scan_score": 18.660893575402504,
+      "bucket_1h": "passed_1h_long",
+      "max_hold_hours": 96.0,
+      "params_file": "/root/analysis/0.87/data/metadata/params/AVAXUSDT__UNIVERSE_LONG_active_params.json",
+      "source_notes": [
+        "params_from_best_by_symbol"
+      ]
+    },
+    "AXSUSDT": {
+      "best_scan_score": 5.354813940671444,
+      "bucket_1h": "failed_1h_long",
+      "max_hold_hours": 11.0,
+      "params_file": "/root/analysis/0.87/data/metadata/params/AXSUSDT__UNIVERSE_LONG_C3_active_params.json",
+      "source_notes": [
+        "params_from_best_by_symbol"
+      ]
+    },
+    "BCHUSDT": {
+      "best_scan_score": 3.9037811345526503,
+      "bucket_1h": "passed_1h_long",
+      "max_hold_hours": 6.0,
+      "params_file": "/root/analysis/0.87/data/metadata/params/BCHUSDT__UNIVERSE_LONG_C3_active_params.json",
+      "source_notes": [
+        "params_from_best_by_symbol"
+      ]
+    },
+    "BNBUSDT": {
+      "best_scan_score": 0.6410526884229344,
+      "bucket_1h": "failed_1h_long",
+      "max_hold_hours": 63.0,
+      "params_file": "/root/analysis/0.87/data/metadata/params/BNBUSDT__UNIVERSE_LONG_C3_active_params.json",
+      "source_notes": [
+        "params_from_best_by_symbol"
+      ]
+    },
+    "BTCUSDT": {
+      "best_scan_score": 1.0576207638167512,
+      "bucket_1h": "failed_1h_long",
+      "max_hold_hours": 25.0,
+      "params_file": "/root/analysis/0.87/data/metadata/params/BTCUSDT__UNIVERSE_LONG_active_params.json",
+      "source_notes": [
+        "params_from_best_by_symbol"
+      ]
+    },
+    "CRVUSDT": {
+      "best_scan_score": 14.622678992815366,
+      "bucket_1h": "passed_1h_long",
+      "max_hold_hours": 9.0,
+      "params_file": "/root/analysis/0.87/data/metadata/params/CRVUSDT__UNIVERSE_LONG_C1_active_params.json",
+      "source_notes": [
+        "params_from_best_by_symbol"
+      ]
+    },
+    "DOGEUSDT": {
+      "best_scan_score": 10.955927681850572,
+      "bucket_1h": "failed_1h_long",
+      "max_hold_hours": 10.0,
+      "params_file": "/root/analysis/0.87/data/metadata/params/DOGEUSDT__UNIVERSE_LONG_C1_active_params.json",
+      "source_notes": [
+        "params_from_best_by_symbol"
+      ]
+    },
+    "LINKUSDT": {
+      "best_scan_score": 5.689143170514127,
+      "bucket_1h": "failed_1h_long",
+      "max_hold_hours": 6.0,
+      "params_file": "/root/analysis/0.87/data/metadata/params/LINKUSDT__UNIVERSE_LONG_C1_active_params.json",
+      "source_notes": [
+        "params_from_best_by_symbol"
+      ]
+    },
+    "LTCUSDT": {
+      "best_scan_score": 2.2481075018515706,
+      "bucket_1h": "failed_1h_long",
+      "max_hold_hours": 6.0,
+      "params_file": "/root/analysis/0.87/data/metadata/params/LTCUSDT__UNIVERSE_LONG_C3_active_params.json",
+      "source_notes": [
+        "params_from_best_by_symbol"
+      ]
+    },
+    "NEARUSDT": {
+      "best_scan_score": 15.312473071430208,
+      "bucket_1h": "passed_1h_long",
+      "max_hold_hours": 6.0,
+      "params_file": "/root/analysis/0.87/data/metadata/params/NEARUSDT_C13_active_params_long.json",
+      "source_notes": [
+        "params_from_best_by_symbol"
+      ]
+    },
+    "OGUSDT": {
+      "best_scan_score": 7.178837325721005,
+      "bucket_1h": "failed_1h_long",
+      "max_hold_hours": 6.0,
+      "params_file": "/root/analysis/0.87/data/metadata/params/OGUSDT__UNIVERSE_LONG_C3_active_params.json",
+      "source_notes": [
+        "params_from_best_by_symbol"
+      ]
+    },
+    "PAXGUSDT": {
+      "best_scan_score": -0.0406473992258199,
+      "bucket_1h": "failed_1h_long",
+      "max_hold_hours": 7.0,
+      "params_file": "/root/analysis/0.87/data/metadata/params/PAXGUSDT__UNIVERSE_LONG_C1_active_params.json",
+      "source_notes": [
+        "params_from_best_by_symbol"
+      ]
+    },
+    "SOLUSDT": {
+      "best_scan_score": 25.380137482106026,
+      "bucket_1h": "passed_1h_long",
+      "max_hold_hours": 6.0,
+      "params_file": "/root/analysis/0.87/data/metadata/params/SOLUSDT_C13_active_params_long.json",
+      "source_notes": [
+        "params_from_best_by_symbol"
+      ]
+    },
+    "TRXUSDT": {
+      "best_scan_score": 1.4895969811094956,
+      "bucket_1h": "failed_1h_long",
+      "max_hold_hours": 6.0,
+      "params_file": "/root/analysis/0.87/data/metadata/params/TRXUSDT__UNIVERSE_LONG_C1_active_params.json",
+      "source_notes": [
+        "params_from_best_by_symbol"
+      ]
+    },
+    "XRPUSDT": {
+      "best_scan_score": 2.390344798637371,
+      "bucket_1h": "failed_1h_long",
+      "max_hold_hours": 20.0,
+      "params_file": "/root/analysis/0.87/data/metadata/params/XRPUSDT__UNIVERSE_LONG_C3_active_params.json",
+      "source_notes": [
+        "params_from_best_by_symbol"
+      ]
+    },
+    "ZECUSDT": {
+      "best_scan_score": 8.191007607388686,
+      "bucket_1h": "failed_1h_long",
+      "max_hold_hours": 6.0,
+      "params_file": "/root/analysis/0.87/data/metadata/params/ZECUSDT__UNIVERSE_LONG_C1_active_params.json",
+      "source_notes": [
+        "params_from_best_by_symbol"
+      ]
+    }
+  },
+  "symbol_universe": [
+    {
+      "bucket_1h": "passed_1h_long",
+      "symbol": "SOLUSDT"
+    },
+    {
+      "bucket_1h": "passed_1h_long",
+      "symbol": "AVAXUSDT"
+    },
+    {
+      "bucket_1h": "passed_1h_long",
+      "symbol": "BCHUSDT"
+    },
+    {
+      "bucket_1h": "passed_1h_long",
+      "symbol": "CRVUSDT"
+    },
+    {
+      "bucket_1h": "passed_1h_long",
+      "symbol": "NEARUSDT"
+    },
+    {
+      "bucket_1h": "failed_1h_long",
+      "symbol": "ADAUSDT"
+    },
+    {
+      "bucket_1h": "failed_1h_long",
+      "symbol": "AXSUSDT"
+    },
+    {
+      "bucket_1h": "failed_1h_long",
+      "symbol": "BNBUSDT"
+    },
+    {
+      "bucket_1h": "failed_1h_long",
+      "symbol": "BTCUSDT"
+    },
+    {
+      "bucket_1h": "failed_1h_long",
+      "symbol": "DOGEUSDT"
+    },
+    {
+      "bucket_1h": "failed_1h_long",
+      "symbol": "LINKUSDT"
+    },
+    {
+      "bucket_1h": "failed_1h_long",
+      "symbol": "LTCUSDT"
+    },
+    {
+      "bucket_1h": "failed_1h_long",
+      "symbol": "OGUSDT"
+    },
+    {
+      "bucket_1h": "failed_1h_long",
+      "symbol": "PAXGUSDT"
+    },
+    {
+      "bucket_1h": "failed_1h_long",
+      "symbol": "TRXUSDT"
+    },
+    {
+      "bucket_1h": "failed_1h_long",
+      "symbol": "XRPUSDT"
+    },
+    {
+      "bucket_1h": "failed_1h_long",
+      "symbol": "ZECUSDT"
+    }
+  ],
+  "window_template": {
+    "max_merged_window_hours": 72.0,
+    "post_buffer_hours": 12.0,
+    "pre_buffer_hours": 6.0,
+    "timeframe": "3m"
+  }
+}

@@ -1,0 +1,289 @@
+{
+  "analysis_set": [
+    "LINKUSDT",
+    "DOGEUSDT",
+    "NEARUSDT",
+    "LTCUSDT",
+    "SOLUSDT",
+    "AVAXUSDT"
+  ],
+  "approved": [],
+  "best_variant_per_coin": {
+    "AVAXUSDT": "CONTROL_SIGNAL_MULT",
+    "DOGEUSDT": "CONTROL_SIGNAL_MULT",
+    "LINKUSDT": "CONTROL_SIGNAL_MULT",
+    "LTCUSDT": "CONTROL_SIGNAL_MULT",
+    "NEARUSDT": "CONTROL_SIGNAL_MULT",
+    "SOLUSDT": "SIGDIST_X2_CAP60BPS"
+  },
+  "comparison_fossils": [
+    "SOLUSDT",
+    "AVAXUSDT"
+  ],
+  "contract_validation": {
+    "allowed_variant_keys": [
+      "candidate_id",
+      "entry_mode",
+      "fallback_delay_min",
+      "fallback_to_market",
+      "label",
+      "limit_offset_bps",
+      "max_fill_delay_min"
+    ],
+    "forbidden_exit_knobs_blocked": [
+      "tp_mult",
+      "sl_mult",
+      "time_stop_min",
+      "break_even_enabled",
+      "break_even_trigger_r",
+      "break_even_offset_bps",
+      "trailing_enabled",
+      "trail_start_r",
+      "trail_step_bps",
+      "partial_take_enabled",
+      "partial_take_r",
+      "partial_take_pct"
+    ],
+    "freeze_lock": {
+      "allow_freeze_hash_mismatch": 0,
+      "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+      "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+      "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "copied_verbatim_fee": 1,
+      "copied_verbatim_metrics": 1,
+      "expected_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "expected_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "fee_hash_match_expected": 1,
+      "fee_value_diffs": {},
+      "fee_value_match_args": 1,
+      "freeze_lock_pass": 1,
+      "generated_utc": "2026-03-03T00:57:32.728928+00:00",
+      "metrics_hash_match_expected": 1,
+      "run_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "run_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+    },
+    "generated_utc": "2026-03-03T00:57:32.729570+00:00",
+    "hybrid_exit_mutation_enabled": 0,
+    "observed_variant_keys": [
+      "candidate_id",
+      "entry_mode",
+      "fallback_delay_min",
+      "fallback_to_market",
+      "label",
+      "limit_offset_bps",
+      "max_fill_delay_min"
+    ],
+    "variant_family_size": 4,
+    "variant_ids": [
+      "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+      "M2_ENTRY_ONLY_MORE_PASSIVE",
+      "M3_ENTRY_ONLY_FASTER",
+      "M4_ENTRY_ONLY_MARKET_CONTROL"
+    ],
+    "wrapper_uses_1h_exit_owner": 1,
+    "wrapper_uses_1h_signal_owner": 1,
+    "wrapper_uses_3m_entry_only": 1
+  },
+  "disabled": [
+    "SOLUSDT",
+    "AVAXUSDT"
+  ],
+  "foundation_dir": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929",
+  "frozen_defect_baseline": {
+    "current_first_eligible_trigger_bar": "first full 1h bar strictly after fill_time",
+    "current_stop_anchor_basis": "realized_fill_price",
+    "current_stop_formula": "sl_price = realized_fill_price * signal_sl_mult",
+    "current_stop_source_candle": "3m fill candle price with 1h signal sl_mult",
+    "source_csv": "/root/analysis/0.87/reports/execution_layer/SURVIVOR_COIN_STOP_FORENSICS_20260303_003559/survivor_stop_root_cause_by_coin.csv"
+  },
+  "frozen_repaired_multicoin_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MULTICOIN_MODELA_AUDIT_20260302_234108",
+  "frozen_survivor_forensics_dir": "/root/analysis/0.87/reports/execution_layer/SURVIVOR_COIN_STOP_FORENSICS_20260303_003559",
+  "generated_utc": "2026-03-03T01:03:53.432211+00:00",
+  "outcome": "ENTRY_LAYER_NOW_BECOMES_PRIMARY_PROBLEM",
+  "outputs": {
+    "bounded_stop_repair_paper_parity_check_md": "/root/analysis/0.87/reports/execution_layer/BOUNDED_STOP_REPAIR_20260303_005732/bounded_stop_repair_paper_parity_check.md",
+    "bounded_stop_repair_reference_vs_modelA_csv": "/root/analysis/0.87/reports/execution_layer/BOUNDED_STOP_REPAIR_20260303_005732/bounded_stop_repair_reference_vs_modelA.csv",
+    "bounded_stop_repair_results_csv": "/root/analysis/0.87/reports/execution_layer/BOUNDED_STOP_REPAIR_20260303_005732/bounded_stop_repair_results.csv",
+    "bounded_stop_repair_root_decision_md": "/root/analysis/0.87/reports/execution_layer/BOUNDED_STOP_REPAIR_20260303_005732/bounded_stop_repair_root_decision.md",
+    "bounded_stop_repair_run_manifest_json": "/root/analysis/0.87/reports/execution_layer/BOUNDED_STOP_REPAIR_20260303_005732/bounded_stop_repair_run_manifest.json",
+    "bounded_stop_repair_short_hold_comparison_csv": "/root/analysis/0.87/reports/execution_layer/BOUNDED_STOP_REPAIR_20260303_005732/bounded_stop_repair_short_hold_comparison.csv"
+  },
+  "primary_survivors": [
+    "LINKUSDT",
+    "DOGEUSDT",
+    "NEARUSDT",
+    "LTCUSDT"
+  ],
+  "repaired_timing_guards": {
+    "model_a_exit_after_fill_guard": "scripts/phase_a_model_a_audit.py:423",
+    "paper_runtime_guard": "paper_trading/app/model_a_runtime.py:672-674",
+    "repaired_1h_eval_start": "scripts/backtest_exec_phasec_sol.py:316",
+    "wick_touch_trigger_rule": "scripts/execution_layer_3m_ict.py:780-805"
+  },
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/BOUNDED_STOP_REPAIR_20260303_005732",
+  "shadow_only": [
+    "DOGEUSDT",
+    "LINKUSDT",
+    "LTCUSDT",
+    "NEARUSDT"
+  ],
+  "stop_variants": [
+    {
+      "cap_dist": 0.006,
+      "label": "control current stop",
+      "mode": "control",
+      "variant_id": "CONTROL_SIGNAL_MULT"
+    },
+    {
+      "cap_dist": 0.006,
+      "label": "signal distance x2",
+      "mode": "scale_signal_dist",
+      "scale": 2.0,
+      "variant_id": "SIGDIST_X2_CAP60BPS"
+    },
+    {
+      "cap_dist": 0.006,
+      "label": "signal distance x4",
+      "mode": "scale_signal_dist",
+      "scale": 4.0,
+      "variant_id": "SIGDIST_X4_CAP60BPS"
+    },
+    {
+      "cap_dist": 0.006,
+      "label": "previous 1h low with 5 bps pad",
+      "mode": "prev_low_pad",
+      "pad_bps": 5.0,
+      "variant_id": "PREV_LOW_PAD5_CAP60BPS"
+    },
+    {
+      "atr_mult": 0.25,
+      "cap_dist": 0.006,
+      "label": "ATR floor 25 pct",
+      "mode": "atr_floor",
+      "variant_id": "ATR_FLOOR_25PCT_CAP60BPS"
+    },
+    {
+      "atr_mult": 0.25,
+      "cap_dist": 0.006,
+      "label": "max(structure, atr floor)",
+      "mode": "hybrid_max",
+      "pad_bps": 5.0,
+      "variant_id": "HYBRID_STRUCT_ATR_CAP60BPS"
+    }
+  ],
+  "symbol_meta": {
+    "AVAXUSDT": {
+      "best_candidate_id": "M2_ENTRY_ONLY_MORE_PASSIVE",
+      "bundle_build": {
+        "signals_missing_3m_data": 92,
+        "signals_partial_3m_data": 18,
+        "signals_total": 1732,
+        "signals_with_3m_data": 1640,
+        "window_count": 366,
+        "window_source_counts": {
+          "legacy_exec_cache_cover": 1622,
+          "remote_refill": 18
+        }
+      },
+      "control_modelA_invalid_reason": "AVAXUSDT:missing_slice_rate>0.0200",
+      "control_modelA_valid_for_ranking": 0,
+      "foundation_integrity_status": "PARTIAL",
+      "frozen_forensics_action": "DISABLE_COIN",
+      "frozen_ranking_label": "MODEL_A_NO_GO_REPAIRED"
+    },
+    "DOGEUSDT": {
+      "best_candidate_id": "M2_ENTRY_ONLY_MORE_PASSIVE",
+      "bundle_build": {
+        "signals_missing_3m_data": 12,
+        "signals_partial_3m_data": 22,
+        "signals_total": 1391,
+        "signals_with_3m_data": 1379,
+        "window_count": 309,
+        "window_source_counts": {
+          "remote_refill": 1379
+        }
+      },
+      "control_modelA_invalid_reason": "",
+      "control_modelA_valid_for_ranking": 1,
+      "foundation_integrity_status": "PARTIAL",
+      "frozen_forensics_action": "MOVE_TO_SHADOW_ONLY",
+      "frozen_ranking_label": "MODEL_A_WEAK_GO_REPAIRED"
+    },
+    "LINKUSDT": {
+      "best_candidate_id": "M3_ENTRY_ONLY_FASTER",
+      "bundle_build": {
+        "signals_missing_3m_data": 0,
+        "signals_partial_3m_data": 21,
+        "signals_total": 968,
+        "signals_with_3m_data": 968,
+        "window_count": 332,
+        "window_source_counts": {
+          "remote_refill": 968
+        }
+      },
+      "control_modelA_invalid_reason": "",
+      "control_modelA_valid_for_ranking": 1,
+      "foundation_integrity_status": "PARTIAL",
+      "frozen_forensics_action": "KEEP_AS_IS",
+      "frozen_ranking_label": "MODEL_A_STRONG_GO_REPAIRED"
+    },
+    "LTCUSDT": {
+      "best_candidate_id": "M2_ENTRY_ONLY_MORE_PASSIVE",
+      "bundle_build": {
+        "signals_missing_3m_data": 3,
+        "signals_partial_3m_data": 19,
+        "signals_total": 940,
+        "signals_with_3m_data": 937,
+        "window_count": 348,
+        "window_source_counts": {
+          "remote_refill": 937
+        }
+      },
+      "control_modelA_invalid_reason": "",
+      "control_modelA_valid_for_ranking": 1,
+      "foundation_integrity_status": "PARTIAL",
+      "frozen_forensics_action": "MOVE_TO_SHADOW_ONLY",
+      "frozen_ranking_label": "MODEL_A_WEAK_GO_REPAIRED"
+    },
+    "NEARUSDT": {
+      "best_candidate_id": "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+      "bundle_build": {
+        "signals_missing_3m_data": 32,
+        "signals_partial_3m_data": 13,
+        "signals_total": 1380,
+        "signals_with_3m_data": 1348,
+        "window_count": 288,
+        "window_source_counts": {
+          "legacy_exec_cache_cover": 1348
+        }
+      },
+      "control_modelA_invalid_reason": "",
+      "control_modelA_valid_for_ranking": 1,
+      "foundation_integrity_status": "PARTIAL",
+      "frozen_forensics_action": "MOVE_TO_SHADOW_ONLY",
+      "frozen_ranking_label": "MODEL_A_WEAK_GO_REPAIRED"
+    },
+    "SOLUSDT": {
+      "best_candidate_id": "M3_ENTRY_ONLY_FASTER",
+      "bundle_build": {
+        "signals_missing_3m_data": 424,
+        "signals_partial_3m_data": 56,
+        "signals_total": 5034,
+        "signals_with_3m_data": 4610,
+        "window_count": 397,
+        "window_source_counts": {
+          "legacy_exec_cache_cover": 2239,
+          "local_full_3m": 2315,
+          "remote_refill": 56
+        }
+      },
+      "control_modelA_invalid_reason": "SOLUSDT:missing_slice_rate>0.0200",
+      "control_modelA_valid_for_ranking": 0,
+      "foundation_integrity_status": "PARTIAL",
+      "frozen_forensics_action": "DISABLE_COIN",
+      "frozen_ranking_label": "MODEL_A_NO_GO_REPAIRED"
+    }
+  },
+  "universal_variant": "CONTROL_SIGNAL_MULT"
+}

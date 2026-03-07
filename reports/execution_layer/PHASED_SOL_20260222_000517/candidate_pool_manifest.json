@@ -1,0 +1,8 @@
+{
+  "candidate_max_pool": 80,
+  "candidate_topn": 40,
+  "control_cfg_hash": "a285b86c4c22a26976d4a762",
+  "generated_utc": "2026-02-22T00:06:00.659947+00:00",
+  "pool_size": 65,
+  "source_refine_csv": "/root/analysis/0.87/reports/execution_layer/PHASEC_SOL_20260221_231430/refine/exit_sweep_results_refine.csv"
+}

@@ -1,0 +1,101 @@
+{
+  "candidate_id": "R_OGUSDT_G01_I0009",
+  "param_hash": "cc2715dd9b5c679094fb2ae7eecc1f782a82b93eddf9bae5747c2cc15ce66c28",
+  "params": {
+    "adx_min": 18.0,
+    "allow_hours": [
+      1,
+      6,
+      8,
+      9,
+      12,
+      15,
+      17,
+      20,
+      21
+    ],
+    "atr_k": 0.38621392668785914,
+    "breakout_atr_mult": 1.5,
+    "breakout_window": 20,
+    "cycle1_adx_boost": 8.33238893794132,
+    "cycle1_ema_sep_atr": 0.3992817191992469,
+    "cycle_fill": 2,
+    "cycle_shift": 1,
+    "ema_align": true,
+    "ema_span": 35,
+    "ema_trend_long": 120,
+    "entry_rsi_buffer": 3.827353345886956,
+    "entry_rsi_max": 95.0,
+    "entry_rsi_min": 51.78780092649751,
+    "exit_rsi_by_cycle": [
+      46.850783397144596,
+      49.330403644742496,
+      45.33288673001577,
+      49.96096693203838,
+      27.614241906107758
+    ],
+    "max_allocation": 0.95,
+    "max_hold_hours": 6,
+    "profit_target_mult": 1.06,
+    "require_ema200_slope": true,
+    "require_plus_di": true,
+    "require_trade_cycles": true,
+    "risk_per_trade": 0.014302397361133397,
+    "sl_mult_by_cycle": [
+      0.946490666134542,
+      0.999,
+      0.9789983327905788,
+      0.999,
+      0.9538745931344081
+    ],
+    "stop_loss_mult": 0.98,
+    "tp_mult_by_cycle": [
+      1.0198134689679994,
+      1.163525855902195,
+      1.064585744666922,
+      1.0723245974218079,
+      1.0294188565729698
+    ],
+    "trade_cycles": [
+      1,
+      2,
+      3
+    ],
+    "two_candle_confirm": false,
+    "use_sig_baseline": true,
+    "use_sig_breakout": false,
+    "use_sig_pullback": false,
+    "use_vol_filter": false,
+    "vol_tail_percentile": 0.55,
+    "willr_by_cycle": [
+      -71.08473476219645,
+      -44.95773300524762,
+      -97.79945223624765,
+      -4.048453078529574,
+      -33.02346553031258
+    ],
+    "willr_floor": -100.0,
+    "willr_max": -30.0
+  },
+  "params_source": "data/metadata/params/OGUSDT__UNIVERSE_LONG_C3_active_params.json",
+  "repaired_metrics": {
+    "cvar_5": -0.0021995200959809,
+    "expectancy_net": 0.0053693973223939,
+    "max_dd_pct": 10.89281740112652,
+    "pass": 1,
+    "profit_factor": 3.7672237336074783,
+    "rank": 2,
+    "score": 51.70425490009527,
+    "trades": 976,
+    "valid_for_ranking": 1
+  },
+  "selection_rule": {
+    "primary": "repaired_score desc",
+    "secondary": "repaired_expectancy_net desc",
+    "tertiary": "repaired_max_dd_pct asc",
+    "tie_break_1": "candidate_id asc",
+    "tie_break_2": "param_hash asc"
+  },
+  "side": "long",
+  "symbol": "OGUSDT"
+}

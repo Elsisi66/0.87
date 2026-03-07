@@ -1,0 +1,266 @@
+{
+  "baseline_hash": "ec5c81afaf6409c17342a3ad8b1a8b2415eb92e7eb70ff472a07a8876d1388c5",
+  "baseline_payload": {
+    "candidate_id": "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+    "cfg": {
+      "candidate_id": "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+      "entry_mode": "limit",
+      "fallback_delay_min": 6.0,
+      "fallback_to_market": 1,
+      "label": "Frozen baseline",
+      "limit_offset_bps": 0.75,
+      "max_fill_delay_min": 24.0
+    },
+    "full_metrics": {
+      "chrono": {
+        "entry_on_signal_count": 1255,
+        "exit_before_entry_count": 0,
+        "invalid_stop_geometry_count": 0,
+        "invalid_tp_geometry_count": 0,
+        "lookahead_violation_count": 0,
+        "parity_clean": 0,
+        "same_bar_exit_count": 1
+      },
+      "compare_vs_self": {
+        "baseline_cvar_5": -0.002112074450266844,
+        "baseline_entries_valid": 1432,
+        "baseline_entry_rate": 1.0,
+        "baseline_expectancy_net": 0.0019065092909794005,
+        "baseline_max_drawdown": -0.13013959427886934,
+        "baseline_median_fill_delay_min": 0.0,
+        "baseline_p95_fill_delay_min": 6.0,
+        "baseline_taker_share": 0.0446927374301676,
+        "candidate_cvar_5": -0.002112074450266844,
+        "candidate_entries_valid": 1432,
+        "candidate_entry_rate": 1.0,
+        "candidate_expectancy_net": 0.0019065092909794005,
+        "candidate_max_drawdown": -0.13013959427886934,
+        "candidate_median_fill_delay_min": 0.0,
+        "candidate_p95_fill_delay_min": 6.0,
+        "candidate_taker_share": 0.0446927374301676,
+        "cvar_improve_ratio": 0.0,
+        "delta_cvar_5": 0.0,
+        "delta_expectancy": 0.0,
+        "delta_max_drawdown": 0.0,
+        "maxdd_improve_ratio": 0.0
+      },
+      "loss": {
+        "bottom_decile_pnl_share": 0.11955074849346667,
+        "fast_loser_count": 172,
+        "fast_loser_rate": 0.12011173184357542,
+        "instant_loser_count": 1022,
+        "instant_loser_rate": 0.7136871508379888,
+        "meaningful_winner_count": 150,
+        "trade_count": 1432,
+        "worst_10_trades_sum": -0.021995200959810102,
+        "worst_25_trades_sum": -0.054988002399523485
+      },
+      "trade_count": 1432
+    },
+    "train_metrics": {
+      "chrono": {
+        "entry_on_signal_count": 740,
+        "exit_before_entry_count": 0,
+        "invalid_stop_geometry_count": 0,
+        "invalid_tp_geometry_count": 0,
+        "lookahead_violation_count": 0,
+        "parity_clean": 1,
+        "same_bar_exit_count": 0
+      },
+      "compare_vs_self": {
+        "baseline_cvar_5": -0.0021100408305990692,
+        "baseline_entries_valid": 859,
+        "baseline_entry_rate": 1.0,
+        "baseline_expectancy_net": 0.0032642340293423987,
+        "baseline_max_drawdown": -0.3486083174577248,
+        "baseline_median_fill_delay_min": 0.0,
+        "baseline_p95_fill_delay_min": 6.0,
+        "baseline_taker_share": 0.04307334109429569,
+        "candidate_cvar_5": -0.0021100408305990692,
+        "candidate_entries_valid": 859,
+        "candidate_entry_rate": 1.0,
+        "candidate_expectancy_net": 0.0032642340293423987,
+        "candidate_max_drawdown": -0.3486083174577248,
+        "candidate_median_fill_delay_min": 0.0,
+        "candidate_p95_fill_delay_min": 6.0,
+        "candidate_taker_share": 0.04307334109429569,
+        "cvar_improve_ratio": 0.0,
+        "delta_cvar_5": 0.0,
+        "delta_expectancy": 0.0,
+        "delta_max_drawdown": 0.0,
+        "maxdd_improve_ratio": 0.0
+      },
+      "loss": {
+        "bottom_decile_pnl_share": 0.11666056334989164,
+        "fast_loser_count": 115,
+        "fast_loser_rate": 0.13387660069848661,
+        "instant_loser_count": 623,
+        "instant_loser_rate": 0.7252619324796274,
+        "meaningful_winner_count": 76,
+        "trade_count": 859,
+        "worst_10_trades_sum": -0.021995200959809547,
+        "worst_25_trades_sum": -0.054988002399522486
+      },
+      "trade_count": 859
+    }
+  },
+  "baseline_strategy_id": "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+  "build_meta": {
+    "signals_missing_3m_data": 0,
+    "signals_partial_3m_data": 0,
+    "signals_total": 4773,
+    "signals_with_3m_data": 4773,
+    "window_count": 1,
+    "window_source_counts": {
+      "local_full_3m": 4773
+    }
+  },
+  "contract_validation": {
+    "allowed_variant_keys": [
+      "candidate_id",
+      "entry_mode",
+      "fallback_delay_min",
+      "fallback_to_market",
+      "label",
+      "limit_offset_bps",
+      "max_fill_delay_min"
+    ],
+    "forbidden_exit_knobs_blocked": [
+      "tp_mult",
+      "sl_mult",
+      "time_stop_min",
+      "break_even_enabled",
+      "break_even_trigger_r",
+      "break_even_offset_bps",
+      "trailing_enabled",
+      "trail_start_r",
+      "trail_step_bps",
+      "partial_take_enabled",
+      "partial_take_r",
+      "partial_take_pct"
+    ],
+    "freeze_lock": {
+      "allow_freeze_hash_mismatch": 0,
+      "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+      "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+      "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "copied_verbatim_fee": 1,
+      "copied_verbatim_metrics": 1,
+      "expected_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "expected_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "fee_hash_match_expected": 1,
+      "fee_value_diffs": {},
+      "fee_value_match_args": 1,
+      "freeze_lock_pass": 1,
+      "generated_utc": "2026-03-06T21:32:06.074087+00:00",
+      "metrics_hash_match_expected": 1,
+      "run_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "run_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+    },
+    "generated_utc": "2026-03-06T21:32:06.074419+00:00",
+    "hybrid_exit_mutation_enabled": 0,
+    "observed_variant_keys": [
+      "candidate_id",
+      "entry_mode",
+      "fallback_delay_min",
+      "fallback_to_market",
+      "label",
+      "limit_offset_bps",
+      "max_fill_delay_min"
+    ],
+    "variant_family_size": 4,
+    "variant_ids": [
+      "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+      "M2_ENTRY_ONLY_MORE_PASSIVE",
+      "M3_ENTRY_ONLY_FASTER",
+      "M4_ENTRY_ONLY_MARKET_CONTROL"
+    ],
+    "wrapper_uses_1h_exit_owner": 1,
+    "wrapper_uses_1h_signal_owner": 1,
+    "wrapper_uses_3m_entry_only": 1
+  },
+  "decision": "NO_REPAIR_APPROVED",
+  "ga_params": {
+    "elite_k": 6,
+    "generations": 6,
+    "mutation_rate": 0.35,
+    "pop_size": 18,
+    "top_confirm": 12
+  },
+  "gates": {
+    "g0_chronology_clean": "parity_clean==1 and same_bar_exit_count==0 and exit_before_entry_count==0",
+    "g1_participation": "retention>=0.9000 and trade_count>=max(1000, 0.8000*baseline_trade_count)",
+    "g2_winner_preservation": "winner_retention>=0.9800",
+    "g3_risk_sanity": "maxdd_improve_ratio>=0",
+    "g4_robustness": "split_valid_for_ranking==1 and best_min_subperiod_delta>0 and route_pass_rate==1.0 and holdout_delta_expectancy>0 and holdout_delta_cvar>=0",
+    "loss_target": "instant_loser_rel_reduction>=0.0500 OR bottom_decile_rel_reduction>=0.1500"
+  },
+  "generated_utc": "2026-03-06T21:38:37.105303+00:00",
+  "input_paths": {
+    "foundation_dir": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929",
+    "freeze_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207",
+    "posture_active_subset_csv": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126/repaired_active_3m_subset.csv",
+    "posture_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126",
+    "posture_table_csv": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126/repaired_3m_posture_table.csv",
+    "repaired_best_by_symbol_csv": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_best_by_symbol.csv",
+    "selected_params_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_universe_selected_params",
+    "strict_confirm_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_EXEC_SUBSET1_CONFIRM_20260304_010143"
+  },
+  "outputs": {
+    "confirm_csv": "/root/analysis/0.87/reports/execution_layer/SOL_3M_LOSSCONC_GA_20260306_213204/sol_3m_ga_candidates_confirm.csv",
+    "manifest_json": "/root/analysis/0.87/reports/execution_layer/SOL_3M_LOSSCONC_GA_20260306_213204/ga_manifest.json",
+    "report_md": "/root/analysis/0.87/reports/execution_layer/SOL_3M_LOSSCONC_GA_20260306_213204/sol_3m_ga_report.md",
+    "screen_csv": "/root/analysis/0.87/reports/execution_layer/SOL_3M_LOSSCONC_GA_20260306_213204/sol_3m_ga_candidates_screen.csv"
+  },
+  "route_meta": {
+    "route_examples_count": 3,
+    "route_feasibility_count": 3,
+    "route_ids": [
+      "route_back_60pct",
+      "route_center_60pct",
+      "route_front_60pct"
+    ],
+    "route_meta": {
+      "coverage_frac": 0.6,
+      "min_contexts_for_overall_gate": 665,
+      "min_test_signals_for_overall_gate": 200,
+      "route_count": 3,
+      "window_n": 2864
+    }
+  },
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/SOL_3M_LOSSCONC_GA_20260306_213204",
+  "search_space": {
+    "entry_mode": [
+      "limit",
+      "market"
+    ],
+    "fallback_delay_min": [
+      0.0,
+      60.0
+    ],
+    "fallback_to_market": [
+      0,
+      1
+    ],
+    "feature_skip_mask_enabled": 0,
+    "limit_offset_bps": [
+      0.0,
+      3.0
+    ],
+    "max_fill_delay_min": [
+      0.0,
+      60.0
+    ]
+  },
+  "seed": 20260306,
+  "symbol": "SOLUSDT",
+  "windows": {
+    "holdout_count": 955,
+    "holdout_ratio": 0.2,
+    "holdout_start_idx": 3818,
+    "n_total_signals": 4773,
+    "train_end_idx": 2863,
+    "train_ratio": 0.6
+  }
+}

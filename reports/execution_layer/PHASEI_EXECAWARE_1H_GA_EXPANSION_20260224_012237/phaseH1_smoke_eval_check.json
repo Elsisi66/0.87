@@ -1,0 +1,30 @@
+{
+  "generated_utc": "2026-02-24T01:23:14.911161+00:00",
+  "rows": [
+    {
+      "exec_choice_id": "E1",
+      "invalid_reason": "",
+      "overall_entries_valid": 355,
+      "overall_entry_rate": 0.9861111111111112,
+      "overall_exec_cvar_5": -0.001779745906195359,
+      "overall_exec_expectancy_net": 5.6491907107753134e-05,
+      "overall_exec_max_drawdown": -0.18691673781323032,
+      "overall_exec_p95_fill_delay_min": 15.900000000000034,
+      "overall_exec_taker_share": 0.08169014084507042,
+      "valid_for_ranking": 1
+    },
+    {
+      "exec_choice_id": "E2",
+      "invalid_reason": "",
+      "overall_entries_valid": 355,
+      "overall_entry_rate": 0.9861111111111112,
+      "overall_exec_cvar_5": -0.001799181607896847,
+      "overall_exec_expectancy_net": 5.552012202267841e-05,
+      "overall_exec_max_drawdown": -0.18726658044385722,
+      "overall_exec_p95_fill_delay_min": 15.0,
+      "overall_exec_taker_share": 0.08450704225352113,
+      "valid_for_ranking": 1
+    }
+  ],
+  "smoke_ok": 1
+}

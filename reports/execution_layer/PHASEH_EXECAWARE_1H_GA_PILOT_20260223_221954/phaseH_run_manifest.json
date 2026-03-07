@@ -1,0 +1,8 @@
+{
+  "classification": "STOP_INFRA",
+  "duration_sec": 0.8757472038269043,
+  "generated_utc": "2026-02-23T22:19:55.363242+00:00",
+  "mainline_status": "STOP_INFRA",
+  "reason": "H1 runtime failure: module 'scripts.phase_g_execaware_objective_redesign' has no attribute 'load_signal_feature_frame'",
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASEH_EXECAWARE_1H_GA_PILOT_20260223_221954"
+}

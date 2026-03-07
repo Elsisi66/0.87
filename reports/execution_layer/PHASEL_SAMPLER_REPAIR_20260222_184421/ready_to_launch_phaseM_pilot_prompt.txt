@@ -1,0 +1,25 @@
+Phase M pilot GA (SOLUSDT, contract-locked after Phase L sampler repair):
+
+Use frozen setup only:
+- representative_subset_sha256=fdc34c3dcab18e8f8577857d7f879f92af822fc24bf3e0ec90a346a2a4cc372d
+- fee_model_sha256=b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a
+- metrics_definition_sha256=d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99
+- selected_model_set_sha256=4a8cb243e7f7e6425db6726302d6326bf727fe026baca77980af0532543c2fc4
+
+Run a constrained pilot only (not marathon):
+- command module: src.execution.ga_exec_3m_opt
+- symbol: SOLUSDT
+- signals csv: /root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv
+- mode: tight
+- pop: 64
+- gens: 4
+- workers: 4
+- seed: 20260224
+- keep hard gates unchanged
+- keep canonical hash lock flags enabled and mismatch override disabled
+
+Required checks/reporting:
+1) Confirm freeze_lock_validation.json pass on every run.
+2) Report per-generation pre_eval_dedupe counters and sampler_repair_histogram.
+3) Export duplicate stats and effective_trials_proxy from run_manifest.json.
+4) Stop if valid_for_ranking_count remains 0 after 4 generations and output NO-GO memo with top blocking gate slacks.

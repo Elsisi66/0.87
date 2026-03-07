@@ -1,0 +1,237 @@
+{
+  "acceptance_rules": {
+    "cvar_tolerance": 0.0001,
+    "expectancy_tolerance": 5e-05,
+    "instant_loser_reduction_abs": 5,
+    "instant_loser_reduction_frac": 0.05,
+    "maxdd_tolerance": 0.01,
+    "min_trade_count_retention": 0.85
+  },
+  "coin_order": [
+    "LINKUSDT",
+    "NEARUSDT",
+    "DOGEUSDT",
+    "LTCUSDT"
+  ],
+  "continuation_allowed_after_priority": 0,
+  "current_action_map": {
+    "DOGEUSDT": "FILTER+ROOM",
+    "LINKUSDT": "FILTER+ROOM",
+    "LTCUSDT": "FILTER+ROOM",
+    "NEARUSDT": "ROOM"
+  },
+  "current_status": {
+    "DOGEUSDT": "shadow",
+    "LINKUSDT": "approved",
+    "LTCUSDT": "shadow",
+    "NEARUSDT": "shadow"
+  },
+  "deployment_posture": {
+    "approved_paper": [
+      "LINKUSDT"
+    ],
+    "disabled": [],
+    "shadow_only": [
+      "NEARUSDT",
+      "DOGEUSDT",
+      "LTCUSDT"
+    ]
+  },
+  "foundation_dir": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929",
+  "frozen_diagnosis_dir": "/root/analysis/0.87/reports/execution_layer/INSTANT_LOSER_VS_WINNER_ENTRY_FORENSICS_20260303_012335",
+  "generated_utc": "2026-03-03T01:35:45.013162+00:00",
+  "outputs": {
+    "decision_csv": "/root/analysis/0.87/reports/execution_layer/LIVE_COIN_BOUNDED_ENTRY_REPAIR_PILOT_20260303_013409/live_coin_bounded_entry_repair_decision.csv",
+    "manifest_json": "/root/analysis/0.87/reports/execution_layer/LIVE_COIN_BOUNDED_ENTRY_REPAIR_PILOT_20260303_013409/live_coin_bounded_entry_repair_manifest.json",
+    "report_md": "/root/analysis/0.87/reports/execution_layer/LIVE_COIN_BOUNDED_ENTRY_REPAIR_PILOT_20260303_013409/live_coin_bounded_entry_repair_report.md",
+    "results_csv": "/root/analysis/0.87/reports/execution_layer/LIVE_COIN_BOUNDED_ENTRY_REPAIR_PILOT_20260303_013409/live_coin_bounded_entry_repair_results.csv",
+    "vs_control_csv": "/root/analysis/0.87/reports/execution_layer/LIVE_COIN_BOUNDED_ENTRY_REPAIR_PILOT_20260303_013409/live_coin_bounded_entry_repair_vs_control.csv"
+  },
+  "parity_guards": {
+    "one_h_exit_owner": 1,
+    "one_h_signal_owner": 1,
+    "same_parent_bar_exit_disabled": 1,
+    "three_m_entry_only": 1
+  },
+  "per_coin_meta": {
+    "LINKUSDT": {
+      "build_meta": {
+        "signals_missing_3m_data": 0,
+        "signals_partial_3m_data": 21,
+        "signals_total": 968,
+        "signals_with_3m_data": 968,
+        "window_count": 332,
+        "window_source_counts": {
+          "remote_refill": 968
+        }
+      },
+      "control_candidate_id": "M3_ENTRY_ONLY_FASTER",
+      "control_trade_source_csv": "/root/analysis/0.87/reports/execution_layer/LIVE_COIN_BOUNDED_ENTRY_REPAIR_PILOT_20260303_013409/_trade_sources/LINKUSDT_M3_ENTRY_ONLY_FASTER_control.csv",
+      "diagnosis_recommendation_row": [
+        {
+          "best_candidate_id": "M3_ENTRY_ONLY_FASTER",
+          "bounded_follow_up_repair_set": "test 1-2 entry filters first, then a single conditional wider-initial-risk rule for filtered passes",
+          "classification": "MODEL_A_STRONG_GO_REPAIRED",
+          "decision": "FILTER_AND_GIVE_ROOM",
+          "live_status": "approved",
+          "repair_scope": "filter+room",
+          "symbol": "LINKUSDT",
+          "top_feature_1": "first2_close_ret_pct",
+          "top_feature_2": "first2_mae_pct",
+          "top_feature_3": "first1_close_ret_pct"
+        }
+      ],
+      "diagnosis_trade_bucket_row": [
+        {
+          "best_candidate_id": "M3_ENTRY_ONLY_FASTER",
+          "classification": "MODEL_A_STRONG_GO_REPAIRED",
+          "fast_loser_pct": 15.862068965517242,
+          "fast_losers": 46,
+          "instant_loser_pct": 66.89655172413794,
+          "instant_losers": 194,
+          "live_status": "approved",
+          "meaningful_winner_pct": 8.275862068965518,
+          "meaningful_winner_threshold_pct": 0.002,
+          "meaningful_winners": 24,
+          "neutral_small_win": 26,
+          "symbol": "LINKUSDT",
+          "total_trades": 290
+        }
+      ],
+      "reconstruct_meta": {
+        "build_meta": {
+          "signals_missing_3m_data": 0,
+          "signals_partial_3m_data": 21,
+          "signals_total": 968,
+          "signals_with_3m_data": 968,
+          "window_count": 332,
+          "window_source_counts": {
+            "remote_refill": 968
+          }
+        },
+        "metrics": {
+          "baseline_exec_expectancy_net": 0.0018587417834470695,
+          "invalid_reason": "",
+          "min_split_delta": 0.00022836634632675962,
+          "missing_slice_rate": 0.0,
+          "overall_cvar_improve_ratio": 0.02120356972390255,
+          "overall_delta_expectancy_exec_minus_baseline": 0.000297849351885576,
+          "overall_entries_valid": 290,
+          "overall_entry_rate": 1.0,
+          "overall_exec_expectancy_net": 0.0021565911353326455,
+          "overall_exec_median_fill_delay_min": 0.0,
+          "overall_exec_p95_fill_delay_min": 3.0,
+          "overall_exec_taker_share": 0.05862068965517241,
+          "overall_maxdd_improve_ratio": 0.15740405075625646,
+          "overall_min_trades_required": 200,
+          "overall_signals_total": 290,
+          "valid_for_ranking": 1
+        }
+      },
+      "thresholds": {
+        "action_gap_cap": 0.0,
+        "breakout_cap": -0.024347113437584972,
+        "room_floor_bps_large": 20.0,
+        "room_floor_bps_small": 15.0,
+        "upper_wick_cap": 0.20886431784107867
+      },
+      "variant_ids_tested": [
+        "CONTROL",
+        "GAP_CAP_FILTER",
+        "UPPER_WICK_FILTER",
+        "GAP_CAP_PLUS_ROOM15"
+      ]
+    },
+    "NEARUSDT": {
+      "build_meta": {
+        "signals_missing_3m_data": 32,
+        "signals_partial_3m_data": 13,
+        "signals_total": 1380,
+        "signals_with_3m_data": 1348,
+        "window_count": 288,
+        "window_source_counts": {
+          "legacy_exec_cache_cover": 1348
+        }
+      },
+      "control_candidate_id": "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+      "control_trade_source_csv": "/root/analysis/0.87/reports/execution_layer/LIVE_COIN_BOUNDED_ENTRY_REPAIR_PILOT_20260303_013409/_trade_sources/NEARUSDT_M1_ENTRY_ONLY_PASSIVE_BASELINE_control.csv",
+      "diagnosis_recommendation_row": [
+        {
+          "best_candidate_id": "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+          "bounded_follow_up_repair_set": "test one conditional wider-initial-risk rule on high-quality entries only",
+          "classification": "MODEL_A_WEAK_GO_REPAIRED",
+          "decision": "GIVE_MORE_INITIAL_ROOM",
+          "live_status": "shadow",
+          "repair_scope": "room",
+          "symbol": "NEARUSDT",
+          "top_feature_1": "first2_mae_pct",
+          "top_feature_2": "first1_mae_pct",
+          "top_feature_3": "first1_close_ret_pct"
+        }
+      ],
+      "diagnosis_trade_bucket_row": [
+        {
+          "best_candidate_id": "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+          "classification": "MODEL_A_WEAK_GO_REPAIRED",
+          "fast_loser_pct": 11.707317073170731,
+          "fast_losers": 48,
+          "instant_loser_pct": 72.4390243902439,
+          "instant_losers": 297,
+          "live_status": "shadow",
+          "meaningful_winner_pct": 10.48780487804878,
+          "meaningful_winner_threshold_pct": 0.002,
+          "meaningful_winners": 43,
+          "neutral_small_win": 22,
+          "symbol": "NEARUSDT",
+          "total_trades": 410
+        }
+      ],
+      "reconstruct_meta": {
+        "build_meta": {
+          "signals_missing_3m_data": 32,
+          "signals_partial_3m_data": 13,
+          "signals_total": 1380,
+          "signals_with_3m_data": 1348,
+          "window_count": 288,
+          "window_source_counts": {
+            "legacy_exec_cache_cover": 1348
+          }
+        },
+        "metrics": {
+          "baseline_exec_expectancy_net": 0.0024168910562033536,
+          "invalid_reason": "",
+          "min_split_delta": 6.084504542904715e-05,
+          "missing_slice_rate": 0.00966183574879227,
+          "overall_cvar_improve_ratio": 0.04543622083689238,
+          "overall_delta_expectancy_exec_minus_baseline": 0.00036155052864222806,
+          "overall_entries_valid": 410,
+          "overall_entry_rate": 0.9903381642512077,
+          "overall_exec_expectancy_net": 0.0027784415848455817,
+          "overall_exec_median_fill_delay_min": 0.0,
+          "overall_exec_p95_fill_delay_min": 6.0,
+          "overall_exec_taker_share": 0.04390243902439024,
+          "overall_maxdd_improve_ratio": 0.1553284758841474,
+          "overall_min_trades_required": 200,
+          "overall_signals_total": 414,
+          "valid_for_ranking": 1
+        }
+      },
+      "thresholds": {
+        "action_gap_cap": 0.0,
+        "breakout_cap": -0.023353893678197,
+        "room_floor_bps_large": 20.0,
+        "room_floor_bps_small": 15.0,
+        "upper_wick_cap": 0.24239350912778554
+      },
+      "variant_ids_tested": [
+        "CONTROL",
+        "ROOM15_ON_NONCHASE",
+        "ROOM20_ON_NONCHASE_BREAKOUTSAFE"
+      ]
+    }
+  },
+  "priority_gate_message": "No repair on LINKUSDT/NEARUSDT survived the acceptance rules, so DOGEUSDT and LTCUSDT were not fully evaluated.",
+  "repaired_multicoin_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MULTICOIN_MODELA_AUDIT_20260302_234108",
+  "repaired_multicoin_manifest_json": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MULTICOIN_MODELA_AUDIT_20260302_234108/repaired_multicoin_modelA_run_manifest.json",
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/LIVE_COIN_BOUNDED_ENTRY_REPAIR_PILOT_20260303_013409"
+}

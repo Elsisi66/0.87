@@ -1,0 +1,252 @@
+{
+  "control_metrics": {
+    "cvar_5": -0.0021528824182665603,
+    "entry_rate": 1.0,
+    "expectancy_net": 0.0021565911353326646,
+    "fast_loser_count": 46,
+    "instant_loser_count": 194,
+    "invalid_reason": "",
+    "max_drawdown": -0.18162405886904887,
+    "meaningful_winner_count": 24,
+    "median_entry_improvement_bps": 0.3499999999999311,
+    "median_fill_delay_min": 0.0,
+    "median_hold_minutes": 60.0,
+    "min_split_delta": 0.00022836634632673056,
+    "p95_fill_delay_min": 3.0,
+    "parity_clean": 1,
+    "pct_exit_within_3h": 79.3103448275862,
+    "pct_exit_within_4h": 82.75862068965517,
+    "signals_total": 290,
+    "split_count": 5,
+    "taker_share": 0.05862068965517241,
+    "total_trades": 290,
+    "valid_for_ranking": 1,
+    "win_rate": 0.08275862068965517
+  },
+  "decision": "PROMISING_NEW_LINK_LEVER_FOUND",
+  "discovered": {
+    "baseline_dir": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650",
+    "cliff_dir": "/root/analysis/0.87/reports/execution_layer/LINK_RETENTION_CLIFF_FORENSICS_20260303_014856",
+    "confirm_dir": "/root/analysis/0.87/reports/execution_layer/LINK_SOFT_REPAIR_CONFIRMATION_20260303_020324",
+    "control_trade_csv": "/root/analysis/0.87/reports/execution_layer/LIVE_COIN_BOUNDED_ENTRY_REPAIR_PILOT_20260303_013409/_trade_sources/LINKUSDT_M3_ENTRY_ONLY_FASTER_control.csv",
+    "diag_dir": "/root/analysis/0.87/reports/execution_layer/INSTANT_LOSER_VS_WINNER_ENTRY_FORENSICS_20260303_012335",
+    "multicoin_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MULTICOIN_MODELA_AUDIT_20260302_234108",
+    "pilot_dir": "/root/analysis/0.87/reports/execution_layer/LIVE_COIN_BOUNDED_ENTRY_REPAIR_PILOT_20260303_013409"
+  },
+  "feature_families_tested": [
+    {
+      "causal_cleanliness_score": 5,
+      "direction": "high_bad",
+      "family_id": "UPPER_WICK_TAIL_CAP",
+      "family_label": "Soft upper-wick tail cap",
+      "features": [
+        "upper_wick_ratio"
+      ],
+      "interpretability_score": 5,
+      "lever_type": "single_feature_tail_cap",
+      "variants": [
+        {
+          "label": "Reject upper-wick top 10%",
+          "quantile": 0.9,
+          "threshold_kind": "quantile",
+          "variant_id": "UPPER_WICK_Q90"
+        },
+        {
+          "label": "Reject upper-wick top 15%",
+          "quantile": 0.85,
+          "threshold_kind": "quantile",
+          "variant_id": "UPPER_WICK_Q85"
+        }
+      ]
+    },
+    {
+      "causal_cleanliness_score": 5,
+      "direction": "high_bad",
+      "family_id": "ATR_REGIME_CAP",
+      "family_label": "Extreme ATR percentile regime gate",
+      "features": [
+        "atr_percentile_1h"
+      ],
+      "interpretability_score": 5,
+      "lever_type": "single_feature_regime_gate",
+      "variants": [
+        {
+          "label": "Reject ATR percentile >= 95",
+          "threshold": 95.0,
+          "threshold_kind": "absolute",
+          "variant_id": "ATR_P95"
+        },
+        {
+          "label": "Reject ATR percentile >= 90",
+          "threshold": 90.0,
+          "threshold_kind": "absolute",
+          "variant_id": "ATR_P90"
+        }
+      ]
+    },
+    {
+      "causal_cleanliness_score": 5,
+      "direction": "high_bad",
+      "family_id": "SMA_STRETCH_CAP",
+      "family_label": "Positive 20h-mean stretch cap",
+      "features": [
+        "dist_to_sma20_pct"
+      ],
+      "interpretability_score": 5,
+      "lever_type": "single_feature_positive_tail_cap",
+      "variants": [
+        {
+          "label": "Reject top 10% of positive SMA stretch",
+          "quantile": 0.9,
+          "threshold_kind": "positive_quantile",
+          "variant_id": "SMA_STRETCH_POSQ90"
+        },
+        {
+          "label": "Reject top 25% of positive SMA stretch",
+          "quantile": 0.75,
+          "threshold_kind": "positive_quantile",
+          "variant_id": "SMA_STRETCH_POSQ75"
+        }
+      ]
+    },
+    {
+      "causal_cleanliness_score": 5,
+      "direction": "high_bad",
+      "family_id": "WICK_ATR_SCORE",
+      "family_label": "Compact wick+ATR exhaustion score",
+      "features": [
+        "upper_wick_ratio",
+        "atr_percentile_1h"
+      ],
+      "interpretability_score": 4,
+      "lever_type": "two_feature_score_cap",
+      "variants": [
+        {
+          "label": "Reject top 10% wick+ATR score",
+          "quantile": 0.9,
+          "threshold_kind": "score_quantile",
+          "variant_id": "WICK_ATR_SCORE_Q90"
+        },
+        {
+          "label": "Reject top 15% wick+ATR score",
+          "quantile": 0.85,
+          "threshold_kind": "score_quantile",
+          "variant_id": "WICK_ATR_SCORE_Q85"
+        }
+      ]
+    },
+    {
+      "causal_cleanliness_score": 5,
+      "direction": "high_bad",
+      "family_id": "WICK_RANGE_SCORE",
+      "family_label": "Compact wick+range exhaustion score",
+      "features": [
+        "upper_wick_ratio",
+        "signal_range_pct"
+      ],
+      "interpretability_score": 4,
+      "lever_type": "two_feature_score_cap",
+      "variants": [
+        {
+          "label": "Reject top 10% wick+range score",
+          "quantile": 0.9,
+          "threshold_kind": "score_quantile",
+          "variant_id": "WICK_RANGE_SCORE_Q90"
+        },
+        {
+          "label": "Reject top 15% wick+range score",
+          "quantile": 0.85,
+          "threshold_kind": "score_quantile",
+          "variant_id": "WICK_RANGE_SCORE_Q85"
+        }
+      ]
+    }
+  ],
+  "foundation_dir": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929",
+  "generated_utc": "2026-03-03T02:22:08.434833+00:00",
+  "positive_gap_exclusion_basis_dir": "/root/analysis/0.87/reports/execution_layer/LINK_SOFT_REPAIR_CONFIRMATION_20260303_020324",
+  "positive_gap_family_excluded": 1,
+  "symbol": "LINKUSDT",
+  "top_winners": [
+    {
+      "accepted": 1,
+      "candidate_trade_csv": "/root/analysis/0.87/reports/execution_layer/LINK_NEW_ENTRY_LEVER_SCREEN_20260303_022124/_candidate_rows/WICK_RANGE_SCORE_Q90.csv",
+      "cvar_5": -0.0021062447405524134,
+      "cvar_delta_vs_control": 4.6637677714146935e-05,
+      "expectancy_delta_vs_control": 7.817263483245879e-05,
+      "expectancy_net": 0.0022347637701651234,
+      "family_id": "WICK_RANGE_SCORE",
+      "family_label": "Compact wick+range exhaustion score",
+      "fast_loser_count": 39,
+      "fast_loser_delta_vs_control": -7,
+      "features": "upper_wick_ratio|signal_range_pct",
+      "instant_loser_count": 177,
+      "instant_loser_delta_vs_control": -17,
+      "invalid_reason": "",
+      "lever_type": "two_feature_score_cap",
+      "max_drawdown": -0.16092716364182394,
+      "maxdd_delta_vs_control": 0.020696895227224926,
+      "meaningful_winner_count": 23,
+      "meaningful_winner_delta_vs_control": -1,
+      "parity_clean": 1,
+      "promising_flag": 1,
+      "removed_fast_losers": 7,
+      "removed_instant_losers": 17,
+      "removed_meaningful_winners": 1,
+      "removed_total": 29,
+      "route_confirm_count": 1,
+      "route_family_total": 3,
+      "route_total": 2,
+      "route_unsupported_count": 1,
+      "screen_status": "PROMISING_FOR_STRICT_CONFIRMATION",
+      "split_confirm_count": 4,
+      "split_total": 5,
+      "symbol": "LINKUSDT",
+      "threshold_value": 0.7518965517241379,
+      "trade_count_retention_vs_control": 0.9,
+      "valid_for_ranking": 1,
+      "variant_id": "WICK_RANGE_SCORE_Q90",
+      "variant_label": "Reject top 10% wick+range score"
+    },
+    {
+      "accepted": 1,
+      "candidate_trade_csv": "/root/analysis/0.87/reports/execution_layer/LINK_NEW_ENTRY_LEVER_SCREEN_20260303_022124/_candidate_rows/WICK_ATR_SCORE_Q90.csv",
+      "cvar_5": -0.002059607062838273,
+      "cvar_delta_vs_control": 9.327535542828736e-05,
+      "expectancy_delta_vs_control": 1.5303240257794927e-05,
+      "expectancy_net": 0.0021718943755904595,
+      "family_id": "WICK_ATR_SCORE",
+      "family_label": "Compact wick+ATR exhaustion score",
+      "fast_loser_count": 41,
+      "fast_loser_delta_vs_control": -5,
+      "features": "upper_wick_ratio|atr_percentile_1h",
+      "instant_loser_count": 174,
+      "instant_loser_delta_vs_control": -20,
+      "invalid_reason": "",
+      "lever_type": "two_feature_score_cap",
+      "max_drawdown": -0.17017585120744547,
+      "maxdd_delta_vs_control": 0.011448207661603399,
+      "meaningful_winner_count": 23,
+      "meaningful_winner_delta_vs_control": -1,
+      "parity_clean": 1,
+      "promising_flag": 1,
+      "removed_fast_losers": 5,
+      "removed_instant_losers": 20,
+      "removed_meaningful_winners": 1,
+      "removed_total": 29,
+      "route_confirm_count": 1,
+      "route_family_total": 3,
+      "route_total": 2,
+      "route_unsupported_count": 1,
+      "screen_status": "PROMISING_FOR_STRICT_CONFIRMATION",
+      "split_confirm_count": 4,
+      "split_total": 5,
+      "symbol": "LINKUSDT",
+      "threshold_value": 0.7362068965517243,
+      "trade_count_retention_vs_control": 0.9,
+      "valid_for_ranking": 1,
+      "variant_id": "WICK_ATR_SCORE_Q90",
+      "variant_label": "Reject top 10% wick+ATR score"
+    }
+  ]
+}

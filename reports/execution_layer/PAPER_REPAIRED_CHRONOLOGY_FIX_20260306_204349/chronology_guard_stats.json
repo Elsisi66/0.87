@@ -1,0 +1,58 @@
+{
+  "window_start_utc": "2026-03-04 00:00:00+00:00",
+  "window_end_utc": "2026-03-06 00:00:00+00:00",
+  "normalization_fix": {
+    "bug_location": "/root/analysis/0.87/scripts/regenerate_paper_chronology_alignment.py",
+    "bug_lines": "126-134 and 149-151",
+    "before_behavior": "raw event bar_ts string compared to ISO keys caused false entry_on_signal misses",
+    "after_behavior": "event bar_ts normalized via pd.to_datetime(...).isoformat() before lookup"
+  },
+  "baseline_no_guard_summary": {
+    "signals": 31,
+    "opens": 31,
+    "closes": 31,
+    "pos_closes": 0,
+    "neg_closes": 31,
+    "same_bar_closes": 31,
+    "same_bar_close_rate": 1.0,
+    "entry_on_signal_violations": 0,
+    "entry_before_exit_violations": 31,
+    "close_win_rate": 0.0,
+    "all_negative_close_pathology": true,
+    "guard_stats": {
+      "same_bar_exit_attempts": 0,
+      "exits_deferred_to_next_bar": 0,
+      "exits_blocked_pre_entry": 0
+    }
+  },
+  "guarded_summary": {
+    "signals": 31,
+    "opens": 11,
+    "closes": 11,
+    "pos_closes": 1,
+    "neg_closes": 10,
+    "same_bar_closes": 0,
+    "same_bar_close_rate": 0.0,
+    "entry_on_signal_violations": 0,
+    "entry_before_exit_violations": 0,
+    "close_win_rate": 0.09090909090909091,
+    "all_negative_close_pathology": false,
+    "guard_stats": {
+      "same_bar_exit_attempts": 11,
+      "exits_deferred_to_next_bar": 11,
+      "exits_blocked_pre_entry": 0
+    }
+  },
+  "summary_table": {
+    "total_trades_guarded": 11,
+    "same_bar_exit_count_guarded": 0,
+    "entry_on_signal_flag_count_guarded": 0,
+    "exit_before_entry_count_guarded": 0
+  },
+  "prior_report_comparison": {
+    "prior_report_dir": "/root/analysis/0.87/reports/execution_layer/PAPER_REPAIRED_CHRONOLOGY_FIX_20260306_202422",
+    "prior_entry_on_signal_flags": 11,
+    "current_entry_on_signal_flags": 0,
+    "flags_removed": 11
+  }
+}

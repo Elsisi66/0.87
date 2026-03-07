@@ -1,0 +1,92 @@
+{
+  "failure_branch": "NO_GO",
+  "furthest_classification": "NO_GO",
+  "furthest_phase": "E3",
+  "generated_utc": "2026-02-23T18:51:40.254390+00:00",
+  "mainline_status": "STOP_NO_GO",
+  "phases": {
+    "A": {
+      "classification": "PASS",
+      "info": {
+        "decision": "PASS",
+        "duration_sec": 0.025008440017700195,
+        "fee_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+        "freeze_lock_validation": {
+          "allow_freeze_hash_mismatch": 0,
+          "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+          "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+          "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+          "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+          "copied_verbatim_fee": 1,
+          "copied_verbatim_metrics": 1,
+          "expected_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+          "expected_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+          "fee_hash_match_expected": 1,
+          "fee_value_diffs": {},
+          "fee_value_match_args": 1,
+          "freeze_lock_pass": 1,
+          "generated_utc": "2026-02-23T18:51:40.303636+00:00",
+          "metrics_hash_match_expected": 1,
+          "run_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+          "run_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+        },
+        "generated_utc": "2026-02-23T18:51:40.304053+00:00",
+        "metrics_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+        "phase": "A",
+        "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASEE_PAPER_CONFIRM_20260223_185139/phaseA",
+        "required_cols": [
+          "signal_id",
+          "signal_time",
+          "tp_mult",
+          "sl_mult",
+          "atr_percentile_1h",
+          "trend_up_1h"
+        ],
+        "subset_rows_raw": 1200,
+        "subset_rows_schema_normalized": 1200
+      }
+    },
+    "E1": {
+      "classification": "PASS",
+      "info": {
+        "decision": "PASS",
+        "duration_sec": 0.1382589340209961,
+        "generated_utc": "2026-02-23T18:52:15.461861+00:00",
+        "phase": "E1",
+        "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASEE_PAPER_CONFIRM_20260223_185139/phaseE1",
+        "reason": "top candidate reproduced strict pass"
+      }
+    },
+    "E2": {
+      "classification": "PASS",
+      "info": {
+        "decision": "PASS",
+        "duration_sec": 0.8856267929077148,
+        "generated_utc": "2026-02-23T18:52:16.348489+00:00",
+        "phase": "E2",
+        "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASEE_PAPER_CONFIRM_20260223_185139/phaseE2",
+        "reason": "base strict pass + bootstrap >=70% + no route-level CVaR drift below epsilon",
+        "top_candidate_bootstrap_pass_rate": 0.97,
+        "top_candidate_id": "skip_streak5_cool60m",
+        "top_candidate_min_route_cvar_improve": 0.0
+      }
+    },
+    "E3": {
+      "classification": "NO_GO",
+      "info": {
+        "decision": "NO_GO",
+        "duration_sec": 5.617019176483154,
+        "generated_utc": "2026-02-23T18:52:21.968034+00:00",
+        "pass_threshold": 0.6,
+        "passing_candidates": [],
+        "phase": "E3",
+        "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASEE_PAPER_CONFIRM_20260223_185139/phaseE3",
+        "reason": "no candidate met stress coverage rule"
+      }
+    }
+  },
+  "plain_english": "No candidate retained strict-pass robustness under stress coverage.",
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASEE_PAPER_CONFIRM_20260223_185139",
+  "start_utc": "2026-02-23T18:51:40.254400+00:00",
+  "time_budget_minutes": 175
+}

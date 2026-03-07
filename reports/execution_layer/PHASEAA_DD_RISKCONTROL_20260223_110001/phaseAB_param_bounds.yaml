@@ -1,0 +1,33 @@
+phase: AB
+symbol: SOLUSDT
+control_family:
+  - control_id: C1_cooldown_decluster
+    description: "Increase deterministic cooldown to reduce bursty consecutive entries."
+    bounds:
+      cooldown_min: [20, 120]
+    default_for_ac:
+      cooldown_min: 45
+  - control_id: C2_break_even_early
+    description: "Arm break-even earlier to cut SL-heavy reversals without session veto."
+    bounds:
+      break_even_trigger_r: [0.35, 0.9]
+      break_even_offset_bps: [0.0, 2.0]
+    default_for_ac:
+      break_even_enabled: 1
+      break_even_trigger_r: 0.55
+      break_even_offset_bps: 0
+  - control_id: C3_trailing_tail_guard
+    description: "Enable earlier trailing protection to cap adverse reversals after favorable excursion."
+    bounds:
+      trail_start_r: [0.8, 1.4]
+      trail_step_bps: [6.0, 20.0]
+    default_for_ac:
+      trailing_enabled: 1
+      trail_start_r: 1
+      trail_step_bps: 12
+  - control_id: C4_time_stop_tighten
+    description: "Tighten long horizon time-stop to reduce slow-bleed losses and long exposure tails."
+    bounds:
+      time_stop_min: [360, 1800]
+    default_for_ac:
+      time_stop_min: 1026

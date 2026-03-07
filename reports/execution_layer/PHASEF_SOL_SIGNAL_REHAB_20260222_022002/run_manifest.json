@@ -1,0 +1,65 @@
+{
+  "contract_id": "SOL_PHASEE2_CANONICAL_V1",
+  "decision_class": "NO_DEPLOY_PAUSE_SOL_SIGNAL_LAYER",
+  "e2_dir": "/root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052",
+  "exec_horizon_hours": 12.0,
+  "fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+  "fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+  "gates": {
+    "absolute_deployable": 0,
+    "best_ablation_improves_v2": 0,
+    "contract_locked": 1,
+    "downstream_execution_frozen": 1,
+    "likely_root_cause": "signal_definition_itself",
+    "phasec_best_vs_control_nondegrade": 1,
+    "representative_subset_reused": 1
+  },
+  "generated_utc": "2026-02-22T02:20:16.478937+00:00",
+  "initial_equity": 1.0,
+  "likely_root_cause": "signal_definition_itself",
+  "metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+  "metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+  "phase_c_dir": "/root/analysis/0.87/reports/execution_layer/PHASEC_SOL_20260221_231430",
+  "phasec_cfg_hash": "a285b86c4c22a26976d4a762",
+  "representative_subset_path": "/root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv",
+  "representative_subset_sha256": "fdc34c3dcab18e8f8577857d7f879f92af822fc24bf3e0ec90a346a2a4cc372d",
+  "risk_per_trade": 0.01,
+  "split_definition": [
+    {
+      "split_id": 0,
+      "test_end": 240,
+      "test_start": 0,
+      "train_end": 0,
+      "train_start": 0
+    },
+    {
+      "split_id": 1,
+      "test_end": 480,
+      "test_start": 240,
+      "train_end": 240,
+      "train_start": 0
+    },
+    {
+      "split_id": 2,
+      "test_end": 720,
+      "test_start": 480,
+      "train_end": 480,
+      "train_start": 0
+    },
+    {
+      "split_id": 3,
+      "test_end": 960,
+      "test_start": 720,
+      "train_end": 720,
+      "train_start": 0
+    },
+    {
+      "split_id": 4,
+      "test_end": 1200,
+      "test_start": 960,
+      "train_end": 960,
+      "train_start": 0
+    }
+  ],
+  "symbol": "SOLUSDT"
+}

@@ -1,0 +1,11 @@
+{
+  "previous_report_source": "/root/analysis/0.87/reports/execution_layer/PAPER_REPAIRED_POSTURE_SWITCH_20260306_195539/paper_alignment_check.csv",
+  "patched_replay_source": "/root/analysis/0.87/reports/execution_layer/PAPER_REPAIRED_CHRONOLOGY_FIX_20260306_202422/updated_paper_alignment_check.csv",
+  "before_non_sol_rows": 32,
+  "before_same_bar_close_rate": 1.0,
+  "before_same_bar_close_count": 67,
+  "before_close_count": 67,
+  "after_same_bar_close_rate": 0.0,
+  "after_same_bar_close_count": 0,
+  "after_close_count": 11
+}

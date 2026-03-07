@@ -1,0 +1,18 @@
+Phase Q OOS confirmation (SOLUSDT, execution-layer, contract-locked):
+
+Use the full-run shortlist from `/root/analysis/0.87/reports/execution_layer/PHASEP_FULL_RUN_VALIDATION_20260222_200427/phaseP_top_valid_candidates.csv` and keep frozen setup unchanged:
+- representative subset CSV: /root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv
+- canonical fee model: /root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json
+- canonical metrics definition: /root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md
+- expected fee sha256: b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a
+- expected metrics sha256: d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99
+- allow_freeze_hash_mismatch=0
+
+Tasks:
+1) Select top 3 non-duplicate valid candidates from Phase P.
+2) Run strict OOS confirmation on held-out forward slices / unseen windows only.
+3) Recompute feasibility, path metrics, and realism metrics exactly as in full run.
+4) Keep hard gates unchanged; no parameter retuning during OOS.
+5) Report pass/fail per candidate and decide NO_DEPLOY / PAPER_ONLY.
+
+If OOS degradation is material or unstable across slices, return NO_DEPLOY and revert to ITERATE_OBJECTIVE_OR_SAMPLER.

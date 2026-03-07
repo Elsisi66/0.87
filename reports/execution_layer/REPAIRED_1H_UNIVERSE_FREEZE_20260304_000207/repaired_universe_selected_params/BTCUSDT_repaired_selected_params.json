@@ -1,0 +1,100 @@
+{
+  "candidate_id": "R_BTCUSDT_G00_I0000",
+  "param_hash": "de950ec6b0481ebb77b6799514d7a59ea87af18a5de64431fd314b4f02efc6ae",
+  "params": {
+    "adx_min": 18.0,
+    "allow_hours": [
+      1,
+      6,
+      8,
+      9,
+      12,
+      15,
+      17,
+      20,
+      21
+    ],
+    "atr_k": 0.6259876837297527,
+    "breakout_atr_mult": 1.5,
+    "breakout_window": 20,
+    "cycle1_adx_boost": 2.070779126745999,
+    "cycle1_ema_sep_atr": 0.47488349450809825,
+    "cycle_fill": 2,
+    "cycle_shift": 1,
+    "ema_align": true,
+    "ema_span": 35,
+    "ema_trend_long": 120,
+    "entry_rsi_buffer": 5.307969589272857,
+    "entry_rsi_max": 94.00534023379313,
+    "entry_rsi_min": 43.99853217102745,
+    "exit_rsi_by_cycle": [
+      52.204522696068054,
+      42.93141650703668,
+      44.44474442866215,
+      56.55120641058155,
+      31.188734502524564
+    ],
+    "max_allocation": 0.9380684131727725,
+    "max_hold_hours": 25,
+    "profit_target_mult": 1.06,
+    "require_ema200_slope": true,
+    "require_plus_di": true,
+    "require_trade_cycles": true,
+    "risk_per_trade": 0.018584739480392198,
+    "sl_mult_by_cycle": [
+      0.968021832808155,
+      0.9988179210795616,
+      0.9840502909386524,
+      0.9837287040905908,
+      0.9633063988613776
+    ],
+    "stop_loss_mult": 0.98,
+    "tp_mult_by_cycle": [
+      1.0368236351077094,
+      1.098878659672258,
+      1.0662009211904742,
+      1.0690226608999995,
+      1.0231551562314747
+    ],
+    "trade_cycles": [
+      1,
+      2
+    ],
+    "two_candle_confirm": false,
+    "use_sig_baseline": true,
+    "use_sig_breakout": false,
+    "use_sig_pullback": false,
+    "use_vol_filter": false,
+    "vol_tail_percentile": 0.55,
+    "willr_by_cycle": [
+      -77.64272579494369,
+      -44.547665501829044,
+      -86.75185005829472,
+      -16.151003587360705,
+      -46.003077287146404
+    ],
+    "willr_floor": -100.0,
+    "willr_max": -30.0
+  },
+  "params_source": "data/metadata/params/BTCUSDT__UNIVERSE_LONG_active_params.json",
+  "repaired_metrics": {
+    "cvar_5": -0.0023815261994145,
+    "expectancy_net": 0.0016740722795402,
+    "max_dd_pct": 13.588607090166583,
+    "pass": 1,
+    "profit_factor": 1.7720407234588016,
+    "rank": 14,
+    "score": 2.218052398037425,
+    "trades": 905,
+    "valid_for_ranking": 1
+  },
+  "selection_rule": {
+    "primary": "repaired_score desc",
+    "secondary": "repaired_expectancy_net desc",
+    "tertiary": "repaired_max_dd_pct asc",
+    "tie_break_1": "candidate_id asc",
+    "tie_break_2": "param_hash asc"
+  },
+  "side": "long",
+  "symbol": "BTCUSDT"
+}

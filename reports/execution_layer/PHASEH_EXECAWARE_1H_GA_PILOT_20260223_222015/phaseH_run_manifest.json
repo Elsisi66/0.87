@@ -1,0 +1,8 @@
+{
+  "classification": "STOP_INFRA",
+  "duration_sec": 4.409225702285767,
+  "generated_utc": "2026-02-23T22:20:19.960593+00:00",
+  "mainline_status": "STOP_INFRA",
+  "reason": "H1 runtime failure: _validate_and_lock_frozen_artifacts() missing 1 required positional argument: 'run_dir'",
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASEH_EXECAWARE_1H_GA_PILOT_20260223_222015"
+}

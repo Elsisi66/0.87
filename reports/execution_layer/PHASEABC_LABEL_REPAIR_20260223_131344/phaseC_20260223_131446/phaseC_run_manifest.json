@@ -1,0 +1,10 @@
+{
+  "decision": "NO_GO",
+  "duration_sec": 78.57855534553528,
+  "generated_utc": "2026-02-23T13:16:04.976410+00:00",
+  "phase": "C",
+  "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASEABC_LABEL_REPAIR_20260223_131344/phaseC_20260223_131446",
+  "policy_count": 72,
+  "reason": "0 strict passers on required routes",
+  "strict_passers": 0
+}

@@ -1,0 +1,149 @@
+{
+  "active_params": {
+    "meta": {
+      "best_csv": "/root/analysis/0.87/reports/params_scan/20260220_044949/best_by_symbol.csv",
+      "row": {
+        "cagr_pct": "235.29459450705903",
+        "final_equity": "6793048.248078086",
+        "initial_equity": "10000.0",
+        "max_dd": "0.1566075514905423",
+        "max_dd_pct": "15.660755149054232",
+        "net_profit": "6783048.248078086",
+        "params_file": "data/metadata/params/SOLUSDT_C13_active_params_long.json",
+        "pass": "True",
+        "period_end": "2025-12-31 23:00:00+00:00",
+        "period_start": "2020-08-11 06:00:00+00:00",
+        "profit_factor": "1.797118446875397",
+        "return_pct": "67830.48248078086",
+        "score": "25.380137482106026",
+        "side": "long",
+        "symbol": "SOLUSDT",
+        "trades": "2551.0",
+        "trades_per_year": "473.2812546297276",
+        "win_rate_pct": "12.191297530380243",
+        "years": "5.390029660050194"
+      },
+      "score": 25.380137482106026,
+      "source": "best_by_symbol"
+    },
+    "path": "/root/analysis/0.87/data/metadata/params/SOLUSDT_C13_active_params_long.json",
+    "path_sha256": "be8cf2eaef951e8e578cd184f62ddd7f5b997f1b74e42da8771825c6e74d798c"
+  },
+  "candidate_budget": {
+    "combined_evaluations": 125,
+    "execution_choices": 5,
+    "nonduplicate_joint": 55,
+    "signal_candidates": 25
+  },
+  "classification": "B",
+  "classification_reason": "execution_routing_drives_gain_signal_variation_small",
+  "code_modified": "YES (new script phase_u_combined_1h3m_pilot.py)",
+  "commands": [
+    {
+      "cmd": "python -m scripts.phase_u_combined_1h3m_pilot",
+      "utc": "2026-02-22T20:50:31.894968+00:00"
+    }
+  ],
+  "completed_utc": "2026-02-22T20:53:51.083543+00:00",
+  "duration_sec": 199.18923783302307,
+  "entrypoints": {
+    "execution_3m": "src/execution/ga_exec_3m_opt.py::_evaluate_genome",
+    "signal_1h": "src/bot087/optim/ga.py::build_entry_signal"
+  },
+  "exec_choices": [
+    {
+      "description": "baseline_execution_reference",
+      "exec_choice_id": "E0",
+      "genome_hash": "BASELINE_E0",
+      "source": "computed_from_baseline_fields"
+    },
+    {
+      "description": "phaseS_primary",
+      "exec_choice_id": "E1",
+      "genome_hash": "862c940746de0da984862d95",
+      "source": "/root/analysis/0.87/reports/execution_layer/GA_EXEC_OPT_20260222_193057"
+    },
+    {
+      "description": "phaseS_backup",
+      "exec_choice_id": "E2",
+      "genome_hash": "992bd371689ba3936f3b4d09",
+      "source": "/root/analysis/0.87/reports/execution_layer/GA_EXEC_OPT_20260222_193057"
+    },
+    {
+      "description": "safe_simple_control",
+      "exec_choice_id": "E3",
+      "genome_hash": "10ba86f2f92b42bd2e0f00fdcecae2542b6c31e04a4deacd44c3bf03c518bfb2",
+      "source": "derived_from_E1"
+    },
+    {
+      "description": "high_participation_realistic_control",
+      "exec_choice_id": "E4",
+      "genome_hash": "3bfd8a6da99c536be927cb97",
+      "source": "/root/analysis/0.87/reports/execution_layer/GA_EXEC_OPT_20260222_193057"
+    }
+  ],
+  "files": {
+    "decision_next_step": "/root/analysis/0.87/reports/execution_layer/PHASEU_COMBINED_1H3M_PILOT_20260222_205031/decision_next_step.md",
+    "phaseU_combined_pilot_results": "/root/analysis/0.87/reports/execution_layer/PHASEU_COMBINED_1H3M_PILOT_20260222_205031/phaseU_combined_pilot_results.csv",
+    "phaseU_duplicate_variant_map": "/root/analysis/0.87/reports/execution_layer/PHASEU_COMBINED_1H3M_PILOT_20260222_205031/phaseU_duplicate_variant_map.csv",
+    "phaseU_effective_trials_summary": "/root/analysis/0.87/reports/execution_layer/PHASEU_COMBINED_1H3M_PILOT_20260222_205031/phaseU_effective_trials_summary.md",
+    "phaseU_harness_validation": "/root/analysis/0.87/reports/execution_layer/PHASEU_COMBINED_1H3M_PILOT_20260222_205031/phaseU_harness_validation.md",
+    "phaseU_improvement_decomposition": "/root/analysis/0.87/reports/execution_layer/PHASEU_COMBINED_1H3M_PILOT_20260222_205031/phaseU_improvement_decomposition.md",
+    "phaseU_invalid_reason_histogram": "/root/analysis/0.87/reports/execution_layer/PHASEU_COMBINED_1H3M_PILOT_20260222_205031/phaseU_invalid_reason_histogram.json",
+    "phaseU_root_cause_report": "/root/analysis/0.87/reports/execution_layer/PHASEU_COMBINED_1H3M_PILOT_20260222_205031/phaseU_root_cause_report.md",
+    "phaseU_route_comparison": "/root/analysis/0.87/reports/execution_layer/PHASEU_COMBINED_1H3M_PILOT_20260222_205031/phaseU_route_comparison.csv",
+    "phaseU_shortlist_significance": "/root/analysis/0.87/reports/execution_layer/PHASEU_COMBINED_1H3M_PILOT_20260222_205031/phaseU_shortlist_significance.csv",
+    "phaseU_smoke_results": "/root/analysis/0.87/reports/execution_layer/PHASEU_COMBINED_1H3M_PILOT_20260222_205031/phaseU_smoke_results.csv",
+    "ready_to_launch_failure_branch_prompt": "/root/analysis/0.87/reports/execution_layer/PHASEU_COMBINED_1H3M_PILOT_20260222_205031/ready_to_launch_failure_branch_prompt.txt",
+    "ready_to_launch_next_prompt": "/root/analysis/0.87/reports/execution_layer/PHASEU_COMBINED_1H3M_PILOT_20260222_205031/ready_to_launch_next_prompt.txt"
+  },
+  "freeze_global": {
+    "canonical_fee_model": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+    "canonical_fee_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "canonical_metrics_definition": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+    "canonical_metrics_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "expected_fee_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "expected_metrics_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "freeze_hash_match": 1,
+    "freeze_lock_local": {
+      "allow_freeze_hash_mismatch": 0,
+      "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+      "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+      "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "copied_verbatim_fee": 1,
+      "copied_verbatim_metrics": 1,
+      "expected_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "expected_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "fee_hash_match_expected": 1,
+      "fee_value_diffs": {},
+      "fee_value_match_args": 1,
+      "freeze_lock_pass": 1,
+      "generated_utc": "2026-02-22T20:50:32.608716+00:00",
+      "metrics_hash_match_expected": 1,
+      "run_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "run_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+    },
+    "representative_subset_csv": "/root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv"
+  },
+  "generated_utc": "2026-02-22T20:50:31.894933+00:00",
+  "phase": "U",
+  "project_root": "/root/analysis/0.87",
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASEU_COMBINED_1H3M_PILOT_20260222_205031",
+  "source_phase_s": {
+    "backup_hash": "992bd371689ba3936f3b4d09",
+    "high_participation_hash": "3bfd8a6da99c536be927cb97",
+    "phase_s_dir": "/root/analysis/0.87/reports/execution_layer/PHASEQRS_AUTORUN_20260222_201536/phaseS",
+    "phase_s_parent": "/root/analysis/0.87/reports/execution_layer/PHASEQRS_AUTORUN_20260222_201536",
+    "primary_hash": "862c940746de0da984862d95",
+    "source_run_dir": "/root/analysis/0.87/reports/execution_layer/GA_EXEC_OPT_20260222_193057"
+  },
+  "stats": {
+    "avg_abs_corr": 0.5725822550805656,
+    "effective_trials_corr_adjusted": 1.7230877779384057,
+    "effective_trials_uncorrelated": 55.0,
+    "ranking_hold_status": "yes",
+    "ranking_spearman_corr_e0_vs_e1": 0.7696969696969697,
+    "valid_for_ranking_non_e0": 69
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "compounded_passers": 0,
+  "contract_id": "SOL_PHASEE2_CANONICAL_V1",
+  "effective_trials_estimate": 1.0,
+  "fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+  "final_decision": "NO_DEPLOY",
+  "fixed_size_passers": 0,
+  "generated_utc": "2026-02-22T15:33:23.217989+00:00",
+  "metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+  "phaseg_source_dir": "/root/analysis/0.87/reports/execution_layer/PHASEG_SOL_PATHOLOGY_REHAB_20260222_143826",
+  "phaseh_source_dir": "/root/analysis/0.87/reports/execution_layer/PHASEH_SOL_FREEZE_FORK_20260222_145017",
+  "raw_trials": 2,
+  "representative_subset_sha256": "fdc34c3dcab18e8f8577857d7f879f92af822fc24bf3e0ec90a346a2a4cc372d",
+  "root_cause_classification": [
+    "regime concentration / path-quality issue",
+    "signal quality issue"
+  ],
+  "selected_model_set_sha256": "4a8cb243e7f7e6425db6726302d6326bf727fe026baca77980af0532543c2fc4",
+  "setup_checks": {
+    "contract_id_match": 1,
+    "fee_hash_match": 1,
+    "metrics_hash_match": 1,
+    "selected_model_set_hash_match": 1,
+    "split_integrity": 1,
+    "subset_hash_match": 1,
+    "symbol_match": 1
+  },
+  "symbol": "SOLUSDT"
+}

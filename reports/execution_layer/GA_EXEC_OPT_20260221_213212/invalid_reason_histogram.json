@@ -1,0 +1,8 @@
+{
+  "SOLUSDT:entry_rate": 80,
+  "SOLUSDT:median_fill_delay": 1,
+  "SOLUSDT:taker_share": 27,
+  "SOLUSDT:trades<50": 88,
+  "overall:entry_rate": 85,
+  "overall:trades<200": 92
+}

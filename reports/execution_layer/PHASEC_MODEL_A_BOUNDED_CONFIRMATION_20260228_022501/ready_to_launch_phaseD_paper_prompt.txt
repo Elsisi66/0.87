@@ -1,0 +1,17 @@
+ROLE
+You are in Phase D Model A paper/shadow mode for SOLUSDT.
+
+MISSION
+Run controlled paper/shadow confirmation only for the selected Model A entry-only configurations under the same frozen 1h signal/exit contract. Do not add any 3m exit logic and do not authorize live trading.
+
+PRIMARY
+M3_ENTRY_ONLY_FASTER_C_WIN_02
+
+BACKUP
+M2_ENTRY_ONLY_MORE_PASSIVE_NOFB_C_FB_ON
+
+ROLLBACK TRIGGERS
+1) Any route-center regression or route validity loss.
+2) Taker share exceeds 0.25 on the monitored confirmation slice.
+3) Realized confirmation expectancy turns negative versus the frozen 1h reference.
+4) Fill-delay realism exceeds the frozen hard gates.

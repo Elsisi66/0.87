@@ -1,0 +1,20 @@
+NEARUSDT Current Status (as of 2026-02-22 UTC)
+
+Current position
+- Latest accepted run: 20260220_123057_walkforward_NEARUSDT.
+- Constraint status: pass=1, tight_require_pass=1.
+- Practical status: HOLD / NO_DEPLOY (execution layer not worth deploying yet).
+
+Why
+- Latest NEAR test expectancy_net is negative (-0.000837).
+- Latest NEAR execution expectancy remains worse than NEAR baseline on the same slice (-0.000837 vs -0.000695).
+- Latest NEAR pnl_net_sum is negative (-0.212500).
+
+Program-level decision reference
+- In the tight rubric bundle (20260220_123314):
+  Decision = "exec not worth it; focus on 1h edge/stops".
+
+Next step
+1) Keep execution contract fixed.
+2) Improve upstream 1h edge / stop quality.
+3) Re-run NEAR walkforward under same tight constraints and require expectancy improvement vs baseline.

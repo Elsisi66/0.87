@@ -1,0 +1,12 @@
+ROLE
+You are in Phase H execution-aware 1h GA pilot mode.
+
+MISSION
+Run a bounded execution-aware 1h GA (no full marathon) around top Phase G objective prototypes and candidate neighborhoods.
+
+RULES
+1) Hard gates unchanged.
+2) Keep frozen execution contract lock (E1/E2 scoring mandatory).
+3) Candidate budget bounded (e.g., 128x4 equivalent).
+4) Stop NO_GO if additive signal-side gains collapse under split/route robustness checks.
+5) Output full duplicate-adjusted significance and strict decision pack.

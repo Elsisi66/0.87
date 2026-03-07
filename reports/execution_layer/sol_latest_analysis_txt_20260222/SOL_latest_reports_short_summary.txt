@@ -1,0 +1,104 @@
+SOL Latest Reports - Short Summary
+Generated: 2026-02-22 (UTC)
+Scope: latest SOL analysis batch under analysis/0.87/reports/execution_layer
+
+1) PHASEC_SOL_20260221_231407
+- What was done: initial Phase C artifact run was created (setup/config snapshot stage).
+- Outcome: incomplete report bundle (no decision or phase_result file).
+- Notes: superseded by PHASEC_SOL_20260221_231430.
+
+2) PHASEC_SOL_20260221_231430
+- What was done: SOL-only decision-grade Phase C exit optimization (coarse + refine + diagnostics).
+- Outcome: PASS. Best cfg_hash a285b86c4c22a26976d4a762; delta expectancy +0.000084 vs baseline exit.
+- Notes: this became the Phase C baseline for later backtests/reconciliation.
+
+3) PHASED_SOL_20260222_000517
+- What was done: tested regime-aware exits against Phase C global exit.
+- Outcome: FAIL. Deltas were negative (expectancy -0.000107, maxDD -0.065575, CVaR5 -0.000250).
+- Notes: Phase D exit approach was rejected.
+
+4) BACKTEST_SOL_PHASEC_20260222_002711
+- What was done: early backtest folder created.
+- Outcome: partial/incomplete package (no decision.md or phase_result.md).
+- Notes: superseded by 002729 and 002750 reruns.
+
+5) BACKTEST_SOL_PHASEC_20260222_002729
+- What was done: decision-grade backtest for Phase C best vs 3m control and 1h reference.
+- Outcome: COMPLETED with recommendation PROCEED_TO_PAPER_SOL.
+- Notes: immediate follow-up rerun changed final recommendation.
+
+6) BACKTEST_SOL_PHASEC_20260222_002750
+- What was done: same decision-grade backtest rerun on frozen contract/signals.
+- Outcome: COMPLETED with final decision HOLD.
+- Notes: improvement vs controls existed, but practical absolute gate failed (positive_practical=0).
+
+7) SOL_RECON_20260222_005410
+- What was done: initial reconciliation artifact run.
+- Outcome: partial/incomplete package (no decision.md or phase_result.md).
+- Notes: superseded by 005433/005606/005656.
+
+8) SOL_RECON_20260222_005433
+- What was done: reconciliation truth backtest to explain fullscan vs frozen contradiction.
+- Outcome: COMPLETED, HOLD. Flags: BUG=NO, UNIVERSE_MISMATCH=YES, SIZING_COMPOUNDING_MISMATCH=YES.
+- Notes: conclusion was mismatch in contract/universe, not a single arithmetic bug.
+
+9) SOL_RECON_20260222_005606
+- What was done: reconciliation rerun.
+- Outcome: same as 005433 (COMPLETED, HOLD; mismatch explanation unchanged).
+- Notes: confirms stability of reconciliation conclusion.
+
+10) SOL_RECON_20260222_005656
+- What was done: latest reconciliation rerun.
+- Outcome: same conclusion again (COMPLETED, HOLD; mismatch-driven gap).
+- Notes: this is the latest reconciliation decision in the batch.
+
+11) PHASEE_SOL_20260222_010343
+- What was done: initial Phase E pre-gate artifact run.
+- Outcome: partial/incomplete package (no decision or phase_result).
+- Notes: superseded by 010358.
+
+12) PHASEE_SOL_20260222_010358
+- What was done: SOL entry pre-gate optimization on frozen contract.
+- Outcome: PASS. Best pre-gate config improved expectancy (+0.000049) and reduced entries (600 -> 353).
+- Notes: recommended proceeding to limited entry-layer optimization.
+
+13) PHASEE_SOL_CONSISTENCY_20260222_011302
+- What was done: consistency/representativeness gate to resolve contradiction sources.
+- Outcome: PASS. Reproduction checks passed; mixed causes quantified (measurement + universe + subset representativeness + genuine degradation).
+- Notes: greenlit Phase E2 remediation path.
+
+14) PHASEE_SOL_CONSISTENCY_20260222_011643
+- What was done: consistency rerun.
+- Outcome: PASS with same classification and recommendation.
+- Notes: latest consistency pass in this batch.
+
+15) PHASEE2_SOL_REPRESENTATIVE_20260222_013306
+- What was done: initial E2 representative harness artifact run.
+- Outcome: partial/incomplete package (no decision or phase_result).
+- Notes: superseded by 013330, 013527, 021052.
+
+16) PHASEE2_SOL_REPRESENTATIVE_20260222_013330
+- What was done: contract-locked representative harness evaluation (V2R/V3R/V4R).
+- Outcome: FAIL_HARNESS_NOT_TRUSTWORTHY.
+- Notes: requested rerun after fixing contract/split/subset integrity gates.
+
+17) PHASEE2_SOL_REPRESENTATIVE_20260222_013527
+- What was done: corrected representative harness rerun.
+- Outcome: PASS_TRUSTWORTHY_HARNESS_PAUSE_SOL_SIGNAL_LAYER.
+- Notes: harness trusted, but signal quality still not viable.
+
+18) PHASEE2_SOL_REPRESENTATIVE_20260222_021052
+- What was done: latest representative harness rerun with practical gate.
+- Outcome: PASS_TRUSTWORTHY_HARNESS_PAUSE_SOL_SIGNAL_LAYER + practical NO_DEPLOY.
+- Notes: confirms root issue is signal-layer quality, not execution-layer mechanics.
+
+19) PHASEF_SOL_SIGNAL_REHAB_20260222_022002
+- What was done: signal-layer remediation diagnostics/ablation under contract lock.
+- Outcome: practical decision NO_DEPLOY_PAUSE_SOL_SIGNAL_LAYER.
+- Notes: root cause classified as signal_definition_itself; upstream signal fixes required before any deploy/optimization expansion.
+
+Overall flow summary
+- Phase C exit tuning passed.
+- Phase D regime-exit idea failed.
+- Backtest/reconciliation runs converged to HOLD (relative gains exist but absolute profile remains non-deployable).
+- E/E2/PhaseF isolated the current bottleneck to upstream signal definition quality.

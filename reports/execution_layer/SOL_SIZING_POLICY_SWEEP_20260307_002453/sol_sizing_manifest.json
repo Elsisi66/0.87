@@ -1,0 +1,172 @@
+{
+  "baseline_strategy_id": "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+  "build_meta": {
+    "signals_missing_3m_data": 0,
+    "signals_partial_3m_data": 0,
+    "signals_total": 4773,
+    "signals_with_3m_data": 4773,
+    "window_count": 1,
+    "window_source_counts": {
+      "local_full_3m": 4773
+    }
+  },
+  "contract_validation": {
+    "allowed_variant_keys": [
+      "candidate_id",
+      "entry_mode",
+      "fallback_delay_min",
+      "fallback_to_market",
+      "label",
+      "limit_offset_bps",
+      "max_fill_delay_min"
+    ],
+    "forbidden_exit_knobs_blocked": [
+      "tp_mult",
+      "sl_mult",
+      "time_stop_min",
+      "break_even_enabled",
+      "break_even_trigger_r",
+      "break_even_offset_bps",
+      "trailing_enabled",
+      "trail_start_r",
+      "trail_step_bps",
+      "partial_take_enabled",
+      "partial_take_r",
+      "partial_take_pct"
+    ],
+    "freeze_lock": {
+      "allow_freeze_hash_mismatch": 0,
+      "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+      "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+      "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "copied_verbatim_fee": 1,
+      "copied_verbatim_metrics": 1,
+      "expected_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "expected_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "fee_hash_match_expected": 1,
+      "fee_value_diffs": {},
+      "fee_value_match_args": 1,
+      "freeze_lock_pass": 1,
+      "generated_utc": "2026-03-07T00:24:54.853025+00:00",
+      "metrics_hash_match_expected": 1,
+      "run_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "run_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+    },
+    "generated_utc": "2026-03-07T00:24:54.853384+00:00",
+    "hybrid_exit_mutation_enabled": 0,
+    "observed_variant_keys": [
+      "candidate_id",
+      "entry_mode",
+      "fallback_delay_min",
+      "fallback_to_market",
+      "label",
+      "limit_offset_bps",
+      "max_fill_delay_min"
+    ],
+    "variant_family_size": 4,
+    "variant_ids": [
+      "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+      "M2_ENTRY_ONLY_MORE_PASSIVE",
+      "M3_ENTRY_ONLY_FASTER",
+      "M4_ENTRY_ONLY_MARKET_CONTROL"
+    ],
+    "wrapper_uses_1h_exit_owner": 1,
+    "wrapper_uses_1h_signal_owner": 1,
+    "wrapper_uses_3m_entry_only": 1
+  },
+  "decision": "NO_CHANGE_RECOMMENDED",
+  "features_used": [
+    "feature_skip_signal_range_pct",
+    "feature_skip_upper_wick_ratio"
+  ],
+  "gates": {
+    "g0_chronology": "parity_clean==1 and same_bar_exit_count==0 and exit_before_entry_count==0 and entry_on_signal_count==0",
+    "g1_participation": "retention>=0.9900",
+    "g2_robustness": "split_support_pass==1 and route_pass_rate==1.0",
+    "g3_holdout": "holdout_delta_expectancy_vs_baseline>=0 and holdout_delta_cvar_vs_baseline>=0",
+    "g4_tail_objective": "delta_cvar_vs_baseline>=0.00010560 OR maxdd_improve_ratio>=0.0500 OR bottom_decile_rel_reduction>=0.1000"
+  },
+  "generated_utc": "2026-03-07T00:27:58.588532+00:00",
+  "input_paths": {
+    "foundation_dir": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929",
+    "freeze_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207",
+    "posture_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126",
+    "strict_confirm_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_EXEC_SUBSET1_CONFIRM_20260304_010143"
+  },
+  "outputs": {
+    "by_variant_csv": "/root/analysis/0.87/reports/execution_layer/SOL_SIZING_POLICY_SWEEP_20260307_002453/sol_sizing_by_variant.csv",
+    "report_md": "/root/analysis/0.87/reports/execution_layer/SOL_SIZING_POLICY_SWEEP_20260307_002453/sol_sizing_report.md",
+    "route_split_detail_csv": "/root/analysis/0.87/reports/execution_layer/SOL_SIZING_POLICY_SWEEP_20260307_002453/sol_sizing_route_split_detail.csv"
+  },
+  "policies_tested": [
+    {
+      "const_mult": 1.0,
+      "label": "Constant 1.00 size",
+      "policy_family": "constant",
+      "variant_id": "V0_BASELINE"
+    },
+    {
+      "k": 0.9,
+      "label": "Vol cap k=0.90, clamp[0.50,1.00] on signal_range_pct",
+      "max_mult": 1.0,
+      "min_mult": 0.5,
+      "policy_family": "vol_cap",
+      "variant_id": "V1_VOL_CAP_K0P90"
+    },
+    {
+      "k": 0.75,
+      "label": "Vol cap k=0.75, clamp[0.50,1.00] on signal_range_pct",
+      "max_mult": 1.0,
+      "min_mult": 0.5,
+      "policy_family": "vol_cap",
+      "variant_id": "V1_VOL_CAP_K0P75"
+    },
+    {
+      "base_mult": 1.0,
+      "label": "Wick stress cap 0.60 -> size 0.75",
+      "policy_family": "wick_cap",
+      "stress_mult": 0.75,
+      "variant_id": "V2_WICK_CAP0P60_M0P75",
+      "wick_cap": 0.6
+    },
+    {
+      "base_mult": 1.0,
+      "label": "Wick stress cap 0.55 -> size 0.50",
+      "policy_family": "wick_cap",
+      "stress_mult": 0.5,
+      "variant_id": "V2_WICK_CAP0P55_M0P50",
+      "wick_cap": 0.55
+    },
+    {
+      "a": 25.0,
+      "b": 1.0,
+      "high_mult": 0.5,
+      "label": "2-feature score bucket (range+wick): {1.00,0.75,0.50}",
+      "mid_mult": 0.75,
+      "policy_family": "score_bucket",
+      "t1": 0.6,
+      "t2": 0.9,
+      "variant_id": "V3_SCORE_BUCKET"
+    }
+  ],
+  "route_meta": {
+    "route_examples_count": 3,
+    "route_feasibility_count": 3,
+    "route_ids": [
+      "route_back_60pct",
+      "route_center_60pct",
+      "route_front_60pct"
+    ],
+    "route_meta": {
+      "coverage_frac": 0.6,
+      "min_contexts_for_overall_gate": 665,
+      "min_test_signals_for_overall_gate": 200,
+      "route_count": 3,
+      "window_n": 2864
+    }
+  },
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/SOL_SIZING_POLICY_SWEEP_20260307_002453",
+  "strict_baseline_route_pass_rate": 1.0,
+  "symbol": "SOLUSDT"
+}

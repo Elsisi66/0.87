@@ -1,0 +1,43 @@
+{
+  "window_start_utc": "2026-03-04 00:00:00+00:00",
+  "window_end_utc": "2026-03-06 00:00:00+00:00",
+  "defer_exit_to_next_bar": true,
+  "guarded_summary": {
+    "signals": 31,
+    "opens": 11,
+    "closes": 11,
+    "pos_closes": 1,
+    "neg_closes": 10,
+    "same_bar_closes": 0,
+    "same_bar_close_rate": 0.0,
+    "entry_before_exit_violations": 0,
+    "entry_on_signal_violations": 11,
+    "close_win_rate": 0.09090909090909091,
+    "all_negative_pathology": false,
+    "realized_pnl_eur": 1.4619397699407273,
+    "guard_stats": {
+      "same_bar_exit_attempts": 11,
+      "exits_deferred_to_next_bar": 11,
+      "exits_blocked_pre_entry": 0
+    }
+  },
+  "baseline_no_guard_summary": {
+    "signals": 31,
+    "opens": 31,
+    "closes": 31,
+    "pos_closes": 0,
+    "neg_closes": 31,
+    "same_bar_closes": 31,
+    "same_bar_close_rate": 1.0,
+    "entry_before_exit_violations": 31,
+    "entry_on_signal_violations": 31,
+    "close_win_rate": 0.0,
+    "all_negative_pathology": true,
+    "realized_pnl_eur": -21.734496425821646,
+    "guard_stats": {
+      "same_bar_exit_attempts": 0,
+      "exits_deferred_to_next_bar": 0,
+      "exits_blocked_pre_entry": 0
+    }
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "PASSIVE_LADDER_ADAPTIVE": {
+    "base_limit_offset_bps": [
+      0.1,
+      3.0
+    ],
+    "fallback_delay_min": [
+      1,
+      8
+    ],
+    "fallback_policy": [
+      "always",
+      "conditional",
+      "never"
+    ],
+    "fallback_toxicity_max": [
+      0.3,
+      0.95
+    ],
+    "ladder_step_bps": [
+      0.1,
+      2.5
+    ],
+    "ladder_steps": [
+      2,
+      3
+    ],
+    "max_fill_delay_min": [
+      12,
+      45
+    ],
+    "max_taker_share": [
+      0.1,
+      0.25
+    ],
+    "micro_vol_z_max": [
+      2.5,
+      6.0
+    ],
+    "skip_if_micro_vol": [
+      0,
+      1
+    ],
+    "spread_adapt_strength": [
+      0.0,
+      0.8
+    ],
+    "step_delay_min": [
+      3,
+      12
+    ],
+    "vol_adapt_strength": [
+      0.0,
+      0.8
+    ]
+  },
+  "REGIME_ROUTED_EXEC": {
+    "calm_fallback_delay_min": [
+      1,
+      6
+    ],
+    "calm_limit_offset_bps": [
+      0.1,
+      2.0
+    ],
+    "calm_max_fill_delay_min": [
+      18,
+      45
+    ],
+    "calm_mode": [
+      "limit",
+      "hybrid"
+    ],
+    "extreme_spread_bps": [
+      70.0,
+      140.0
+    ],
+    "extreme_vol_z": [
+      3.5,
+      6.0
+    ],
+    "max_taker_share": [
+      0.1,
+      0.25
+    ],
+    "neutral_fallback_delay_min": [
+      1,
+      6
+    ],
+    "neutral_limit_offset_bps": [
+      0.2,
+      4.0
+    ],
+    "neutral_max_fill_delay_min": [
+      12,
+      30
+    ],
+    "neutral_mode": [
+      "hybrid",
+      "limit"
+    ],
+    "spread_high_bps": [
+      45.0,
+      90.0
+    ],
+    "spread_low_bps": [
+      20.0,
+      45.0
+    ],
+    "toxic_fallback_delay_min": [
+      0,
+      4
+    ],
+    "toxic_limit_offset_bps": [
+      0.0,
+      2.5
+    ],
+    "toxic_max_fill_delay_min": [
+      3,
+      18
+    ],
+    "toxic_mode": [
+      "market",
+      "hybrid",
+      "limit"
+    ],
+    "toxic_skip_extreme": [
+      0,
+      1
+    ],
+    "vol_z_high": [
+      1.5,
+      3.5
+    ],
+    "vol_z_low": [
+      0.2,
+      1.2
+    ]
+  },
+  "STAGED_ENTRY_RISKSHAPE": {
+    "fallback_delay_min": [
+      1,
+      8
+    ],
+    "fallback_policy": [
+      "always",
+      "conditional",
+      "never"
+    ],
+    "fallback_toxicity_max": [
+      0.3,
+      0.95
+    ],
+    "max_taker_share": [
+      0.1,
+      0.25
+    ],
+    "micro_vol_z_max": [
+      2.5,
+      6.0
+    ],
+    "skip_if_micro_vol": [
+      0,
+      1
+    ],
+    "soft_risk_floor_frac": [
+      0.15,
+      0.95
+    ],
+    "soft_risk_scale": [
+      0.0,
+      1.0
+    ],
+    "stage1_frac": [
+      0.35,
+      0.8
+    ],
+    "stage1_limit_offset_bps": [
+      0.0,
+      2.5
+    ],
+    "stage1_max_fill_delay_min": [
+      3,
+      18
+    ],
+    "stage1_mode": [
+      "limit",
+      "hybrid",
+      "market"
+    ],
+    "stage2_delay_min": [
+      3,
+      18
+    ],
+    "stage2_limit_offset_bps": [
+      0.0,
+      4.0
+    ],
+    "stage2_max_fill_delay_min": [
+      6,
+      36
+    ],
+    "stage2_mode": [
+      "limit",
+      "hybrid",
+      "market"
+    ]
+  }
+}

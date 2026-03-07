@@ -1,0 +1,145 @@
+{
+  "flag_rules": {
+    "BALANCED_HOLD_PROFILE": "40 <= pct_exit_within_4h <= 70 and 4h stop-loss share < 70",
+    "INCONCLUSIVE": "all other cases",
+    "SHORT_HOLD_HEAVY": "pct_exit_within_4h >= 80 or pct_exit_within_3h >= 70",
+    "TOO_MANY_EARLY_STOPS": "pct_exit_within_4h >= 60 and 4h stop-loss share >= 70"
+  },
+  "generated_utc": "2026-03-03T00:07:04.922762+00:00",
+  "outputs": {
+    "repaired_hold_duration_by_coin_csv": "/root/analysis/0.87/reports/execution_layer/REPAIRED_HOLD_DURATION_DIAGNOSTICS_20260303_000433/repaired_hold_duration_by_coin.csv",
+    "repaired_hold_duration_exit_reason_breakdown_csv": "/root/analysis/0.87/reports/execution_layer/REPAIRED_HOLD_DURATION_DIAGNOSTICS_20260303_000433/repaired_hold_duration_exit_reason_breakdown.csv",
+    "repaired_hold_duration_manifest_json": "/root/analysis/0.87/reports/execution_layer/REPAIRED_HOLD_DURATION_DIAGNOSTICS_20260303_000433/repaired_hold_duration_manifest.json",
+    "repaired_hold_duration_reference_vs_modelA_csv": "/root/analysis/0.87/reports/execution_layer/REPAIRED_HOLD_DURATION_DIAGNOSTICS_20260303_000433/repaired_hold_duration_reference_vs_modelA.csv",
+    "repaired_hold_duration_report_md": "/root/analysis/0.87/reports/execution_layer/REPAIRED_HOLD_DURATION_DIAGNOSTICS_20260303_000433/repaired_hold_duration_report.md"
+  },
+  "ranking_status": {
+    "AVAXUSDT": "WATCH",
+    "AXSUSDT": "KEEP",
+    "CRVUSDT": "KEEP",
+    "DOGEUSDT": "KEEP",
+    "NEARUSDT": "WATCH",
+    "OGUSDT": "KEEP",
+    "SOLUSDT": "WATCH",
+    "ZECUSDT": "WATCH"
+  },
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_HOLD_DURATION_DIAGNOSTICS_20260303_000433",
+  "selected_symbols": [
+    "AXSUSDT",
+    "CRVUSDT",
+    "DOGEUSDT",
+    "OGUSDT",
+    "AVAXUSDT",
+    "NEARUSDT",
+    "SOLUSDT",
+    "ZECUSDT"
+  ],
+  "source_paths": {
+    "canonical_repaired_1h_trades_csv": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv",
+    "foundation_download_manifest_csv": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_3m_download_manifest.csv",
+    "foundation_signal_timeline_csv": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_signal_timeline.csv",
+    "priority_repaired_modelA_manifest_json": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MODELA_REBASE_PRIORITY_20260302_233206/repaired_modelA_run_manifest.json",
+    "priority_repaired_modelA_reference_vs_best_csv": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MODELA_REBASE_PRIORITY_20260302_233206/repaired_modelA_reference_vs_best_priority.csv",
+    "trade_quality_csv": "/root/analysis/0.87/reports/execution_layer/REPAIRED_TRADE_LEDGER_DIAGNOSTICS_20260302_235325/repaired_trade_judgment_by_coin.csv"
+  },
+  "trade_source_catalog": [
+    {
+      "notes": "filtered from canonical repaired_1h_trades.csv",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_HOLD_DURATION_DIAGNOSTICS_20260303_000433/_trade_sources/AXSUSDT_repaired_1h_reference.csv",
+      "strategy_version": "repaired_1h_reference",
+      "symbol": "AXSUSDT",
+      "upstream_path": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv"
+    },
+    {
+      "notes": "filtered from canonical repaired_1h_trades.csv",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_HOLD_DURATION_DIAGNOSTICS_20260303_000433/_trade_sources/CRVUSDT_repaired_1h_reference.csv",
+      "strategy_version": "repaired_1h_reference",
+      "symbol": "CRVUSDT",
+      "upstream_path": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv"
+    },
+    {
+      "notes": "filtered from canonical repaired_1h_trades.csv",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_HOLD_DURATION_DIAGNOSTICS_20260303_000433/_trade_sources/DOGEUSDT_repaired_1h_reference.csv",
+      "strategy_version": "repaired_1h_reference",
+      "symbol": "DOGEUSDT",
+      "upstream_path": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv"
+    },
+    {
+      "notes": "runtime reconstruction using repaired 1h contract",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_HOLD_DURATION_DIAGNOSTICS_20260303_000433/_trade_sources/OGUSDT_repaired_1h_reference.csv",
+      "strategy_version": "repaired_1h_reference",
+      "symbol": "OGUSDT",
+      "upstream_path": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_signal_timeline.csv"
+    },
+    {
+      "notes": "filtered from canonical repaired_1h_trades.csv",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_HOLD_DURATION_DIAGNOSTICS_20260303_000433/_trade_sources/AVAXUSDT_repaired_1h_reference.csv",
+      "strategy_version": "repaired_1h_reference",
+      "symbol": "AVAXUSDT",
+      "upstream_path": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv"
+    },
+    {
+      "notes": "filtered from canonical repaired_1h_trades.csv",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_HOLD_DURATION_DIAGNOSTICS_20260303_000433/_trade_sources/NEARUSDT_repaired_1h_reference.csv",
+      "strategy_version": "repaired_1h_reference",
+      "symbol": "NEARUSDT",
+      "upstream_path": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv"
+    },
+    {
+      "notes": "filtered from canonical repaired_1h_trades.csv",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_HOLD_DURATION_DIAGNOSTICS_20260303_000433/_trade_sources/SOLUSDT_repaired_1h_reference.csv",
+      "strategy_version": "repaired_1h_reference",
+      "symbol": "SOLUSDT",
+      "upstream_path": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv"
+    },
+    {
+      "notes": "filtered from canonical repaired_1h_trades.csv",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_HOLD_DURATION_DIAGNOSTICS_20260303_000433/_trade_sources/ZECUSDT_repaired_1h_reference.csv",
+      "strategy_version": "repaired_1h_reference",
+      "symbol": "ZECUSDT",
+      "upstream_path": "/root/analysis/0.87/reports/execution_layer/1H_CONTRACT_REPAIR_REBASELINE_20260301_140650/repaired_1h_trades.csv"
+    },
+    {
+      "notes": "walk-forward matched repaired 1h sample used for Model A comparison",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_HOLD_DURATION_DIAGNOSTICS_20260303_000433/_trade_sources/AVAXUSDT_matched_repaired_1h_reference_for_M2_ENTRY_ONLY_MORE_PASSIVE.csv",
+      "strategy_version": "repaired_1h_reference_matched_modelA_sample",
+      "symbol": "AVAXUSDT",
+      "upstream_path": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_signal_timeline.csv"
+    },
+    {
+      "notes": "trade-level reconstruction using repaired priority-selected candidate",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_HOLD_DURATION_DIAGNOSTICS_20260303_000433/_trade_sources/AVAXUSDT_M2_ENTRY_ONLY_MORE_PASSIVE_repaired_modelA_trade_level.csv",
+      "strategy_version": "repaired_modelA_best_M2_ENTRY_ONLY_MORE_PASSIVE",
+      "symbol": "AVAXUSDT",
+      "upstream_path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MODELA_REBASE_PRIORITY_20260302_233206/repaired_modelA_reference_vs_best_priority.csv"
+    },
+    {
+      "notes": "walk-forward matched repaired 1h sample used for Model A comparison",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_HOLD_DURATION_DIAGNOSTICS_20260303_000433/_trade_sources/NEARUSDT_matched_repaired_1h_reference_for_M1_ENTRY_ONLY_PASSIVE_BASELINE.csv",
+      "strategy_version": "repaired_1h_reference_matched_modelA_sample",
+      "symbol": "NEARUSDT",
+      "upstream_path": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_signal_timeline.csv"
+    },
+    {
+      "notes": "trade-level reconstruction using repaired priority-selected candidate",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_HOLD_DURATION_DIAGNOSTICS_20260303_000433/_trade_sources/NEARUSDT_M1_ENTRY_ONLY_PASSIVE_BASELINE_repaired_modelA_trade_level.csv",
+      "strategy_version": "repaired_modelA_best_M1_ENTRY_ONLY_PASSIVE_BASELINE",
+      "symbol": "NEARUSDT",
+      "upstream_path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MODELA_REBASE_PRIORITY_20260302_233206/repaired_modelA_reference_vs_best_priority.csv"
+    },
+    {
+      "notes": "walk-forward matched repaired 1h sample used for Model A comparison",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_HOLD_DURATION_DIAGNOSTICS_20260303_000433/_trade_sources/SOLUSDT_matched_repaired_1h_reference_for_M3_ENTRY_ONLY_FASTER.csv",
+      "strategy_version": "repaired_1h_reference_matched_modelA_sample",
+      "symbol": "SOLUSDT",
+      "upstream_path": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929/universe_signal_timeline.csv"
+    },
+    {
+      "notes": "trade-level reconstruction using repaired priority-selected candidate",
+      "source_path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_HOLD_DURATION_DIAGNOSTICS_20260303_000433/_trade_sources/SOLUSDT_M3_ENTRY_ONLY_FASTER_repaired_modelA_trade_level.csv",
+      "strategy_version": "repaired_modelA_best_M3_ENTRY_ONLY_FASTER",
+      "symbol": "SOLUSDT",
+      "upstream_path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_MODELA_REBASE_PRIORITY_20260302_233206/repaired_modelA_reference_vs_best_priority.csv"
+    }
+  ]
+}

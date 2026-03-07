@@ -1,0 +1,79 @@
+{
+  "acceptance_rule": {
+    "overall_spearman_positive": true,
+    "score_nan_rate_max": 0.0,
+    "stable_sign_frac_min": 0.6
+  },
+  "combined_overall_spearman_tail": -0.026726028616350303,
+  "combined_split_eligible": 7,
+  "combined_split_positive": 3,
+  "combined_stable_sign_frac": 0.42857142857142855,
+  "combined_support": 478,
+  "label_tail_fraction": 0.1,
+  "per_route": [
+    {
+      "overall_spearman_tail": 0.0015650813031946004,
+      "route_id": "route1_holdout",
+      "score_nan_rate": 0.0,
+      "split_eligible": 0,
+      "split_positive": 0,
+      "stable_sign_frac": 0.0,
+      "support": 70,
+      "tail_rate": 0.2857142857142857
+    },
+    {
+      "overall_spearman_tail": -0.032290590539415305,
+      "route_id": "route2_reslice",
+      "score_nan_rate": 0.0,
+      "split_eligible": 7,
+      "split_positive": 3,
+      "stable_sign_frac": 0.42857142857142855,
+      "support": 408,
+      "tail_rate": 0.31862745098039214
+    }
+  ],
+  "split_rows": [
+    {
+      "route_id": "route2_reslice",
+      "spearman_tail": 0.0737934986667555,
+      "split_id": 0,
+      "support": 53
+    },
+    {
+      "route_id": "route2_reslice",
+      "spearman_tail": -0.18690839517910846,
+      "split_id": 1,
+      "support": 60
+    },
+    {
+      "route_id": "route2_reslice",
+      "spearman_tail": -0.14084250795663206,
+      "split_id": 2,
+      "support": 58
+    },
+    {
+      "route_id": "route2_reslice",
+      "spearman_tail": -0.03266440027446331,
+      "split_id": 3,
+      "support": 60
+    },
+    {
+      "route_id": "route2_reslice",
+      "spearman_tail": 0.09889273976666307,
+      "split_id": 4,
+      "support": 59
+    },
+    {
+      "route_id": "route2_reslice",
+      "spearman_tail": 0.008400377311420605,
+      "split_id": 5,
+      "support": 60
+    },
+    {
+      "route_id": "route2_reslice",
+      "spearman_tail": -0.03733315939420271,
+      "split_id": 6,
+      "support": 58
+    }
+  ]
+}

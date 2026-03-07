@@ -1,0 +1,9 @@
+{
+  "absolute_deployable": 0,
+  "best_ablation_improves_v2": 0,
+  "contract_locked": 1,
+  "downstream_execution_frozen": 1,
+  "likely_root_cause": "signal_definition_itself",
+  "phasec_best_vs_control_nondegrade": 1,
+  "representative_subset_reused": 1
+}

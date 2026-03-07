@@ -1,0 +1,20 @@
+AVAXUSDT Current Status (as of 2026-02-22 UTC)
+
+Current position
+- Latest accepted run: 20260220_122941_walkforward_AVAXUSDT.
+- Constraint status: pass=1, tight_require_pass=1.
+- Practical status: HOLD / NO_DEPLOY (execution layer not worth deploying yet).
+
+Why
+- Latest AVAX test expectancy_net is negative (-0.000660).
+- Latest AVAX execution expectancy remains worse than AVAX baseline on the same slice (-0.000660 vs -0.000381).
+- Latest AVAX pnl_net_sum is negative (-0.284663).
+
+Program-level decision reference
+- In the tight rubric bundle (20260220_123314):
+  Decision = "exec not worth it; focus on 1h edge/stops".
+
+Next step
+1) Keep execution contract fixed.
+2) Improve upstream 1h edge / stop quality.
+3) Re-run AVAX walkforward under same tight constraints and require expectancy improvement vs baseline.

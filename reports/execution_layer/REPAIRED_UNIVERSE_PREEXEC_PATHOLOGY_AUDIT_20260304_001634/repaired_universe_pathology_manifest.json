@@ -1,0 +1,42 @@
+{
+  "artifacts": {
+    "repaired_universe_pathology_by_symbol": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_PREEXEC_PATHOLOGY_AUDIT_20260304_001634/repaired_universe_pathology_by_symbol.csv",
+    "repaired_universe_pathology_report": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_PREEXEC_PATHOLOGY_AUDIT_20260304_001634/repaired_universe_pathology_report.md",
+    "repaired_universe_pathology_summary": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_PREEXEC_PATHOLOGY_AUDIT_20260304_001634/repaired_universe_pathology_summary.csv"
+  },
+  "bucket_thresholds": {
+    "fast_loser_hold_minutes_max": 240.0,
+    "instant_loser_hold_minutes_max": 60.0,
+    "meaningful_winner_pnl_threshold": 0.002
+  },
+  "freeze_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207",
+  "generated_utc": "2026-03-04T00:17:32.051554+00:00",
+  "inputs": {
+    "fee_model_source": "/root/analysis/0.87/reports/execution_layer/MULTICOIN_MODELA_AUDIT_20260228_180250/fee_model.json",
+    "repaired_best_by_symbol": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_best_by_symbol.csv",
+    "repaired_universe_selected_params_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207/repaired_universe_selected_params"
+  },
+  "priority_symbols": [
+    "NEARUSDT",
+    "OGUSDT",
+    "DOGEUSDT",
+    "SOLUSDT",
+    "LTCUSDT",
+    "AXSUSDT",
+    "ZECUSDT",
+    "LINKUSDT",
+    "CRVUSDT",
+    "BCHUSDT",
+    "XRPUSDT",
+    "AVAXUSDT",
+    "TRXUSDT",
+    "ADAUSDT",
+    "BTCUSDT"
+  ],
+  "recommendation": "RUN_3M_ON_FULL_REPAIRED_UNIVERSE",
+  "reused_code_paths": [
+    "scripts/backtest_exec_phasec_sol.py",
+    "scripts/repaired_frontier_contamination_audit.py",
+    "scripts/instant_loser_vs_winner_entry_forensics.py"
+  ]
+}

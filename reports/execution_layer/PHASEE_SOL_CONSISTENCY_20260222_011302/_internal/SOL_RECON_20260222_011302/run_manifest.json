@@ -1,0 +1,29 @@
+{
+  "bug_found": 0,
+  "deploy_status": "HOLD",
+  "fullscan_fee_bps": 7.0,
+  "fullscan_initial_equity": 10000.0,
+  "fullscan_slip_bps": 2.0,
+  "generated_utc": "2026-02-22T01:13:09.123557+00:00",
+  "params_file": "/root/analysis/0.87/data/metadata/params/SOLUSDT_C13_active_params_long.json",
+  "phase_a_dir": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310",
+  "phase_a_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+  "phase_a_metrics_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+  "phase_c_cfg_hash": "a285b86c4c22a26976d4a762",
+  "phase_c_dir": "/root/analysis/0.87/reports/execution_layer/PHASEC_SOL_20260221_231430",
+  "phase_d_dir": "/root/analysis/0.87/reports/execution_layer/PHASED_SOL_20260222_000517",
+  "phase_initial_equity": 1.0,
+  "phase_risk_per_trade": 0.01,
+  "signal_subset_hash": "5e719faf676dffba8d7da926314997182d429361495884b8a870c3393c079bbf",
+  "sizing_mismatch": 1,
+  "symbol": "SOLUSDT",
+  "test_signals_total": 600,
+  "universe_mismatch": 1,
+  "variants": [
+    "V1_1H_FULLSCAN_REFERENCE",
+    "V2_1H_FROZEN_PHASEC_UNIVERSE_REFERENCE",
+    "V3_EXEC_3M_PHASEC_CONTROL_FROZEN",
+    "V4_EXEC_3M_PHASEC_BEST_FROZEN"
+  ],
+  "wf_split_hash": "388ba743b9c16c291385a9ecab6435eabf65eb16f1e1083eee76627193c42c01"
+}

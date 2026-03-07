@@ -1,0 +1,47 @@
+{
+  "generated_utc": "2026-03-01T14:07:46.294512+00:00",
+  "classification": "1H_BASELINE_SURVIVES_REPAIR",
+  "signal_layer_still_stands": true,
+  "rationale": "target trio remains profitable after chronology repair",
+  "signal_source_root": "/root/analysis/0.87/reports/execution_layer/MULTICOIN_MODELA_AUDIT_20260228_180250",
+  "symbols_processed": [
+    "SOLUSDT",
+    "NEARUSDT",
+    "AVAXUSDT",
+    "ADAUSDT",
+    "AXSUSDT",
+    "BCHUSDT",
+    "CRVUSDT",
+    "DOGEUSDT",
+    "LINKUSDT",
+    "LTCUSDT",
+    "TRXUSDT",
+    "XRPUSDT",
+    "ZECUSDT"
+  ],
+  "priority_symbols": [
+    "SOLUSDT",
+    "NEARUSDT",
+    "AVAXUSDT"
+  ],
+  "target_metrics": {
+    "SOLUSDT": {
+      "after_expectancy_net": 0.003197515303862436,
+      "after_cvar_5": -0.00224774753111363,
+      "after_maxdd": -0.4008428557209671,
+      "after_trade_count": 5034
+    },
+    "NEARUSDT": {
+      "after_expectancy_net": 0.0035115448692972116,
+      "after_cvar_5": -0.002199520095980917,
+      "after_maxdd": -0.17706259022454862,
+      "after_trade_count": 1380
+    },
+    "AVAXUSDT": {
+      "after_expectancy_net": 0.003345894872502777,
+      "after_cvar_5": -0.002199520095980906,
+      "after_maxdd": -0.1698643845366895,
+      "after_trade_count": 1732
+    }
+  }
+}

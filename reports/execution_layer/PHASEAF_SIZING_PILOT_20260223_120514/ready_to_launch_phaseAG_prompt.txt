@@ -1,0 +1,1 @@
+Phase AG sizing OOS/stress confirmation (SOLUSDT, contract-locked): evaluate top 1-3 AF sizing policies vs flat-size baseline on route1 holdout and route2 reslice, then run fee/slippage and sizing-perturbation stress matrix. Keep entries/execution mechanics unchanged, enforce budget normalization/invariance checks, and classify AG_PASS_ROBUST / AG_PASS_WEAK / AG_FAIL.

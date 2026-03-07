@@ -1,0 +1,62 @@
+{
+  "classification": "J0_NO_GO_ABLATION_ONLY",
+  "duration_sec": 78.05016756057739,
+  "generated_utc": "2026-02-24T02:52:00.312500+00:00",
+  "lock_validation": {
+    "fee_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "freeze_lock_validation": {
+      "allow_freeze_hash_mismatch": 0,
+      "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+      "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+      "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "copied_verbatim_fee": 1,
+      "copied_verbatim_metrics": 1,
+      "expected_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "expected_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "fee_hash_match_expected": 1,
+      "fee_value_diffs": {},
+      "fee_value_match_args": 1,
+      "freeze_lock_pass": 1,
+      "generated_utc": "2026-02-24T02:52:00.342589+00:00",
+      "metrics_hash_match_expected": 1,
+      "run_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "run_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+    },
+    "generated_utc": "2026-02-24T02:52:00.342945+00:00",
+    "metrics_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "subset_rows": 1200
+  },
+  "mainline_status": "STOP_NO_GO",
+  "phases": {
+    "J0.1": {
+      "classification": "PASS",
+      "failure_rows": 20,
+      "signature_rows": 9
+    },
+    "J0.2": {
+      "classification": "PASS",
+      "trade_feature_rows": 984
+    },
+    "J0.3": {
+      "classification": "PASS"
+    },
+    "J0.4": {
+      "classification": "PASS",
+      "invalid_reason_histogram": {
+        "min_cvar_improve<0": 17,
+        "min_delta_expectancy<=0": 9,
+        "min_maxdd_improve<=0": 4
+      },
+      "valid_for_ranking": 0,
+      "variants_tested": 18
+    },
+    "J0.5": {
+      "classification": "J0_NO_GO_ABLATION_ONLY"
+    }
+  },
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASEJ0_POST_PHASEI_RECOVERY_20260224_025200",
+  "source_phase_ae": "/root/analysis/0.87/reports/execution_layer/PHASEAE_SIGNAL_LABELING_20260223_111116",
+  "source_phase_af": "/root/analysis/0.87/reports/execution_layer/PHASEAF_SIZING_PILOT_20260223_120514",
+  "source_phase_i": "/root/analysis/0.87/reports/execution_layer/PHASEI_EXECAWARE_1H_GA_EXPANSION_20260224_012237"
+}

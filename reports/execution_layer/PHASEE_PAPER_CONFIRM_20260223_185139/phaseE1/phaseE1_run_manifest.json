@@ -1,0 +1,8 @@
+{
+  "decision": "PASS",
+  "duration_sec": 0.1382589340209961,
+  "generated_utc": "2026-02-23T18:52:15.461861+00:00",
+  "phase": "E1",
+  "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASEE_PAPER_CONFIRM_20260223_185139/phaseE1",
+  "reason": "top candidate reproduced strict pass"
+}

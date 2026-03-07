@@ -1,0 +1,60 @@
+{
+  "budget_target": 384,
+  "duplicate_param_reuse": 45,
+  "duplicate_signal_signature": 166,
+  "generated_utc": "2026-02-23T22:49:28.518466+00:00",
+  "generation_stats": [
+    {
+      "best_OJ2": 0.12436343245793195,
+      "best_candidate_id": "H0031",
+      "generation": 0,
+      "population_size": 96,
+      "valid_for_ranking_count": 77
+    },
+    {
+      "best_OJ2": 0.13749446767767326,
+      "best_candidate_id": "H0098",
+      "generation": 1,
+      "population_size": 96,
+      "valid_for_ranking_count": 90
+    },
+    {
+      "best_OJ2": 0.13857432599413352,
+      "best_candidate_id": "H0244",
+      "generation": 2,
+      "population_size": 96,
+      "valid_for_ranking_count": 79
+    },
+    {
+      "best_OJ2": 0.14254211878214781,
+      "best_candidate_id": "H0313",
+      "generation": 3,
+      "population_size": 96,
+      "valid_for_ranking_count": 77
+    }
+  ],
+  "gens": 4,
+  "objective_primary": "OJ2",
+  "objective_secondary": "OJ4",
+  "origin_counts": {
+    "crossover": 103,
+    "elite": 36,
+    "explore": 120,
+    "mut_seed_phaseg_seed_P00": 6,
+    "mut_seed_phaseg_seed_P08": 3,
+    "mut_seed_phaseg_seed_P15": 2,
+    "mut_seed_phaseg_seed_P16": 4,
+    "mut_seed_phaseg_seed_P17": 6,
+    "mutation": 102,
+    "phaseg_seed_P00": 1,
+    "phaseg_seed_P16": 1
+  },
+  "pop": 96,
+  "seed_candidates": [
+    "P00",
+    "P08",
+    "P15",
+    "P16",
+    "P17"
+  ]
+}

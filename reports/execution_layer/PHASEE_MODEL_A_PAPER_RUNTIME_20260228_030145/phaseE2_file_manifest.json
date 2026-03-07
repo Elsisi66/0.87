@@ -1,0 +1,15 @@
+{
+  "created_files": [
+    "/root/analysis/0.87/paper_trading/app/model_a_runtime.py",
+    "/root/analysis/0.87/paper_trading/scripts/run_model_a_runtime.py",
+    "/root/analysis/0.87/scripts/phase_e_model_a_paper_runtime.py"
+  ],
+  "generated_utc": "2026-02-28T03:01:45.496913+00:00",
+  "generic_daemon_reused_as_is": 0,
+  "reused_components": [
+    "/root/analysis/0.87/paper_trading/app/signal_runner.py",
+    "/root/analysis/0.87/paper_trading/app/state_store.py",
+    "/root/analysis/0.87/paper_trading/app/notifier.py"
+  ],
+  "state_root": "/root/analysis/0.87/paper_trading/state/model_a_runtime"
+}

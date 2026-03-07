@@ -1,0 +1,34 @@
+{
+  "branch": "A",
+  "branch_reason": "Implementation patches/tests are present, but fixed-size survivors remain zero; signal fork still non-deployable.",
+  "fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+  "generated_utc": "2026-02-22T18:15:15.927338+00:00",
+  "metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+  "phaseg_source_dir": "/root/analysis/0.87/reports/execution_layer/PHASEG_SOL_PATHOLOGY_REHAB_20260222_143826",
+  "phaseh_source_dir": "/root/analysis/0.87/reports/execution_layer/PHASEH_SOL_FREEZE_FORK_20260222_145017",
+  "phasei_forensic_source_dir": "/root/analysis/0.87/reports/execution_layer/PHASEI_FORENSIC_DEBUG_20260222_153532",
+  "phasei_postfix_source_dir": "/root/analysis/0.87/reports/execution_layer/PHASEI_SOL_POSTFIX_VALIDATION_20260222_180531",
+  "pilot_ga_run_dir": "/root/analysis/0.87/reports/execution_layer/PHASEJ_EXEC_PIVOT_20260222_181447/pilot_ga_runs/GA_EXEC_OPT_20260222_181448",
+  "pilot_summary": {
+    "best_nondup_cvar_improve": 1.0,
+    "best_nondup_expectancy": 3.739327105681014e-06,
+    "best_nondup_maxdd_improve": 1.0,
+    "branch": "A",
+    "duplicate_candidates": 36,
+    "effective_trials_proxy": 1.5928685424152482,
+    "nonduplicate_candidates": 12,
+    "sane_candidates": 0,
+    "total_candidates": 48,
+    "valid_for_ranking_candidates": 0
+  },
+  "representative_subset_sha256": "fdc34c3dcab18e8f8577857d7f879f92af822fc24bf3e0ec90a346a2a4cc372d",
+  "selected_model_set_sha256": "4a8cb243e7f7e6425db6726302d6326bf727fe026baca77980af0532543c2fc4",
+  "setup_checks_vs_expected": {
+    "fee_hash_match_expected": 1,
+    "metrics_hash_match_expected": 1,
+    "model_set_hash_match_expected": 1,
+    "rep_hash_calc_match_manifest": 1,
+    "rep_hash_file_match_manifest": 1,
+    "rep_hash_match_expected": 1
+  }
+}

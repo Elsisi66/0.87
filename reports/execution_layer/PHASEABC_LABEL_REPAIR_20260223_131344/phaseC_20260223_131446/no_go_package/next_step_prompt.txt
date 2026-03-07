@@ -1,0 +1,1 @@
+Phase C NO_GO fallback: stop sizing expansion. Revisit upstream execution-aware labels/objective for tail-risk and split-stability, then rerun a bounded pilot only after measurable label-quality gain.

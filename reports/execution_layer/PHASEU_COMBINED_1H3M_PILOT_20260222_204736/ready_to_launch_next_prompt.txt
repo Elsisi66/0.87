@@ -1,0 +1,1 @@
+NO_GO_INFRA re-entry: fix canonical lock or harness integration issue exactly as reported in phaseU_harness_validation.md, rerun U1 smoke only, and stop if freeze lock still fails.

@@ -1,0 +1,14 @@
+{
+  "generated_utc": "2026-02-21T21:36:00.308215+00:00",
+  "source_run_dir": "/root/analysis/0.87/reports/execution_layer/GA_EXEC_OPT_20260221_213342",
+  "best_hash": "f0c7df09af14536a559ed913",
+  "best_valid_for_ranking": 1,
+  "best_overall_entries_valid": 549,
+  "best_overall_entry_rate": 0.915,
+  "best_has_no_trade": 0,
+  "finite_required_metrics_pass": 1,
+  "overall_entry_rate_gate_pass": 1,
+  "per_symbol_entry_rate_gate_pass": 1,
+  "assert_no_trade_cannot_be_best": 1,
+  "assertions_pass": 1
+}

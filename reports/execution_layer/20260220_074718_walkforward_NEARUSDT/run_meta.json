@@ -1,0 +1,21 @@
+{
+  "generated_utc": "2026-02-20T07:47:18.867531+00:00",
+  "symbol": "NEARUSDT",
+  "rank": 1,
+  "scan_dir": "/root/analysis/0.87/reports/params_scan/20260220_044949",
+  "best_csv": "/root/analysis/0.87/reports/params_scan/20260220_044949/best_by_symbol.csv",
+  "params_file": "/root/analysis/0.87/data/metadata/params/NEARUSDT_C13_active_params_long.json",
+  "signals_total": 1380,
+  "train_signals": 966,
+  "test_signals": 414,
+  "selected_config": {
+    "k": 0.2,
+    "timeout_bars": 10,
+    "fallback": "market",
+    "use_vol_gate": 0
+  },
+  "report_md": "/root/analysis/0.87/reports/execution_layer/20260220_074718_walkforward_NEARUSDT/NEARUSDT_walkforward_report.md",
+  "train_csv": "/root/analysis/0.87/reports/execution_layer/20260220_074718_walkforward_NEARUSDT/NEARUSDT_walkforward_train_tuning.csv",
+  "test_signals_csv": "/root/analysis/0.87/reports/execution_layer/20260220_074718_walkforward_NEARUSDT/NEARUSDT_walkforward_test_signals.csv",
+  "test_summary_csv": "/root/analysis/0.87/reports/execution_layer/20260220_074718_walkforward_NEARUSDT/NEARUSDT_walkforward_test_summary.csv"
+}

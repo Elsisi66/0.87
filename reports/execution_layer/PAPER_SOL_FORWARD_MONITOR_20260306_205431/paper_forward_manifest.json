@@ -1,0 +1,22 @@
+{
+  "active_params_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126/repaired_active_3m_params",
+  "active_subset_csv": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126/repaired_active_3m_subset.csv",
+  "allowlist": [
+    "SOLUSDT"
+  ],
+  "binance_mode": "marketdata_only",
+  "generated_utc": "2026-03-07T00:03:02.150632+00:00",
+  "hashes": {
+    "active_subset_csv_sha256": "4a0043c2ff56049d20910c3c096ae429543f1a8910a0854aaec3c37146ee1cec",
+    "env_sha256": "57785fc8b40965e040c636455013c15da2a57ac1dc2348053e15bfc67f8498f0",
+    "posture_table_sha256": "7c95fe608f827303f2cf8480f5aee2fe2a715a2cf8b472f6062fed8e41caa89c",
+    "settings_yaml_sha256": "c58ad334b0cf418e3bf161c851e15fa2abd4e3cf3ed25e5585b716f7677df34f",
+    "sol_params_sha256": "2ebc1caabad9e0c057bb32c2ff2562e8420b456fd97eb4ea00f1829215ea5958"
+  },
+  "paper_mode": true,
+  "posture_freeze_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126",
+  "repaired_contract_defer_exit_to_next_bar": true,
+  "required_active_strategy_id": "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+  "sol_params_path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126/repaired_active_3m_params/SOLUSDT_repaired_selected_params.json",
+  "sol_winner_config_id": "M1_ENTRY_ONLY_PASSIVE_BASELINE"
+}

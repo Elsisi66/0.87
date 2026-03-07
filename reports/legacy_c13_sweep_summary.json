@@ -1,0 +1,22 @@
+{
+  "generated_utc": "2026-02-14T00:39:23.682034+00:00",
+  "params_template": "/root/analysis/0.87/data/metadata/params/BTCUSDT_C13_active_params.json",
+  "out_csv": "/root/analysis/0.87/reports/legacy_c13_sweep.csv",
+  "summary_csv_rows": 4,
+  "symbols": [
+    "BTCUSDT",
+    "ADAUSDT",
+    "SOLUSDT",
+    "AVAXUSDT"
+  ],
+  "start": "2017-01-01",
+  "end": "2025-12-31",
+  "universe_source": "fallback:artifacts/universe/universe_20.json",
+  "counts_by_status": {
+    "OK": 4,
+    "NO_DATA": 0,
+    "ERROR": 0,
+    "INVALID_PARAMS": 0,
+    "ZERO_TRADES": 0
+  }
+}

@@ -1,0 +1,20 @@
+ROLE
+
+You are in Model B paper-runtime promotion mode for SOLUSDT.
+
+MISSION
+
+Update the dedicated Model A paper/shadow runtime so the promoted candidate keeps the same frozen pure contract and applies only the approved Model B sizing overlay on top of the frozen Model A primary.
+
+PROMOTED CANDIDATE
+
+regime_cap_size_delay_tiered_LOW_090
+
+REQUIREMENTS
+
+1. Keep 1h signal generation unchanged.
+2. Keep 1h TP/SL/exits unchanged.
+3. Keep 3m entry execution unchanged.
+4. Apply sizing overlay only; no exit mutation.
+5. Preserve the repaired route harness and frozen contract checks.
+6. Keep the old Model A primary as a shadow comparator until parity is confirmed.

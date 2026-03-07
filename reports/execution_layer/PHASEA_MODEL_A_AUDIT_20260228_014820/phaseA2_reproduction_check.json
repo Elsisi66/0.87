@@ -1,0 +1,23 @@
+{
+  "forbidden_exit_knobs_blocked": [
+    "tp_mult",
+    "sl_mult",
+    "time_stop_min",
+    "break_even_enabled",
+    "break_even_trigger_r",
+    "break_even_offset_bps",
+    "trailing_enabled",
+    "trail_start_r",
+    "trail_step_bps",
+    "partial_take_enabled",
+    "partial_take_r",
+    "partial_take_pct"
+  ],
+  "freeze_lock_pass": 1,
+  "generated_utc": "2026-02-28T01:48:55.974295+00:00",
+  "hybrid_exit_override_detected": 1,
+  "route_reproduction_match_phaseR": 1,
+  "route_reproduction_mismatches": [],
+  "wrapper_uses_1h_exit_only": 1,
+  "wrapper_uses_3m_entry_only": 1
+}

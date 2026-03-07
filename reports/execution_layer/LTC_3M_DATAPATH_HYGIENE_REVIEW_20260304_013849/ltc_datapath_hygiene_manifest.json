@@ -1,0 +1,127 @@
+{
+  "active_subset_implication": "FREEZE_SOL_ONLY_AND_KEEP_LTC_BLOCKED",
+  "artifacts": {
+    "coverage_label_trace_csv": "/root/analysis/0.87/reports/execution_layer/LTC_3M_DATAPATH_HYGIENE_REVIEW_20260304_013849/ltc_coverage_label_trace.csv",
+    "findings_csv": "/root/analysis/0.87/reports/execution_layer/LTC_3M_DATAPATH_HYGIENE_REVIEW_20260304_013849/ltc_datapath_hygiene_findings.csv",
+    "manifest_json": "/root/analysis/0.87/reports/execution_layer/LTC_3M_DATAPATH_HYGIENE_REVIEW_20260304_013849/ltc_datapath_hygiene_manifest.json",
+    "report_md": "/root/analysis/0.87/reports/execution_layer/LTC_3M_DATAPATH_HYGIENE_REVIEW_20260304_013849/ltc_datapath_hygiene_report.md",
+    "winner_comparison_csv": "/root/analysis/0.87/reports/execution_layer/LTC_3M_DATAPATH_HYGIENE_REVIEW_20260304_013849/ltc_winner_reconstruction_comparison.csv"
+  },
+  "blocker_truth": "mixed_metadata_artifact_plus_real_partial_coverage",
+  "confirm_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_EXEC_SUBSET1_CONFIRM_20260304_010143",
+  "contract_validation": {
+    "allowed_variant_keys": [
+      "candidate_id",
+      "entry_mode",
+      "fallback_delay_min",
+      "fallback_to_market",
+      "label",
+      "limit_offset_bps",
+      "max_fill_delay_min"
+    ],
+    "forbidden_exit_knobs_blocked": [
+      "tp_mult",
+      "sl_mult",
+      "time_stop_min",
+      "break_even_enabled",
+      "break_even_trigger_r",
+      "break_even_offset_bps",
+      "trailing_enabled",
+      "trail_start_r",
+      "trail_step_bps",
+      "partial_take_enabled",
+      "partial_take_r",
+      "partial_take_pct"
+    ],
+    "freeze_lock": {
+      "allow_freeze_hash_mismatch": 0,
+      "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+      "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+      "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "copied_verbatim_fee": 1,
+      "copied_verbatim_metrics": 1,
+      "expected_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "expected_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+      "fee_hash_match_expected": 1,
+      "fee_value_diffs": {},
+      "fee_value_match_args": 1,
+      "freeze_lock_pass": 1,
+      "generated_utc": "2026-03-04T01:38:50.286945+00:00",
+      "metrics_hash_match_expected": 1,
+      "run_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+      "run_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+    },
+    "generated_utc": "2026-03-04T01:38:50.287243+00:00",
+    "hybrid_exit_mutation_enabled": 0,
+    "observed_variant_keys": [
+      "candidate_id",
+      "entry_mode",
+      "fallback_delay_min",
+      "fallback_to_market",
+      "label",
+      "limit_offset_bps",
+      "max_fill_delay_min"
+    ],
+    "variant_family_size": 4,
+    "variant_ids": [
+      "M1_ENTRY_ONLY_PASSIVE_BASELINE",
+      "M2_ENTRY_ONLY_MORE_PASSIVE",
+      "M3_ENTRY_ONLY_FASTER",
+      "M4_ENTRY_ONLY_MARKET_CONTROL"
+    ],
+    "wrapper_uses_1h_exit_owner": 1,
+    "wrapper_uses_1h_signal_owner": 1,
+    "wrapper_uses_3m_entry_only": 1
+  },
+  "expected_winner": "M2_ENTRY_ONLY_MORE_PASSIVE",
+  "final_posture": "LTC_REMAINS_BLOCKED",
+  "foundation_dir": "/root/analysis/0.87/reports/execution_layer/UNIVERSAL_DATA_FOUNDATION_20260228_150929",
+  "freeze_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_1H_UNIVERSE_FREEZE_20260304_000207",
+  "fresh_build_meta": {
+    "signals_missing_3m_data": 0,
+    "signals_partial_3m_data": 940,
+    "signals_total": 940,
+    "signals_with_3m_data": 940,
+    "window_count": 1,
+    "window_source_counts": {
+      "foundation_merged_3m": 940
+    }
+  },
+  "fresh_window_row": {
+    "coverage_ratio": 0.9985042921106139,
+    "download_source": "foundation_merged_3m",
+    "parquet_path": "/root/analysis/0.87/reports/execution_layer/LTC_3M_DATAPATH_HYGIENE_REVIEW_20260304_013849/_window_cache/LTCUSDT_subset1_merged_3m.parquet",
+    "symbol": "LTCUSDT",
+    "window_end_utc": "2025-12-30 17:00:00+00:00",
+    "window_id": "LTCUSDT_MERGED_FOUNDATION_3M",
+    "window_start_utc": "2017-12-15 15:00:00+00:00"
+  },
+  "generated_utc": "2026-03-04T01:39:39.802641+00:00",
+  "headline_match_across_paths": true,
+  "opcheck_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_ACTIVESET_OPCHECK_20260304_012119",
+  "parquets_identical": true,
+  "prior_build_meta": {
+    "signals_missing_3m_data": 0,
+    "signals_partial_3m_data": 0,
+    "signals_total": 940,
+    "signals_with_3m_data": 940,
+    "window_count": 1,
+    "window_source_counts": {
+      "prior_subset1_merged_3m": 940
+    }
+  },
+  "prior_window_row": {
+    "coverage_ratio": 1.0,
+    "download_source": "prior_subset1_merged_3m",
+    "parquet_path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_EXEC_SUBSET1_20260304_003748/_window_cache/LTCUSDT_subset1_merged_3m.parquet",
+    "symbol": "LTCUSDT",
+    "window_end_utc": "2025-12-30 17:00:00+00:00",
+    "window_id": "LTCUSDT_REUSED_SUBSET1_CACHE",
+    "window_start_utc": "2017-12-15 15:00:00+00:00"
+  },
+  "subset_eval_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_UNIVERSE_3M_EXEC_SUBSET1_20260304_003748",
+  "symbol": "LTCUSDT",
+  "true_full_slices": 928,
+  "true_partial_slices": 12
+}

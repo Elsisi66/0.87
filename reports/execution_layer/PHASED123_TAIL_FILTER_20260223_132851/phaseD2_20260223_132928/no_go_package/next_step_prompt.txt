@@ -1,0 +1,1 @@
+Phase D2 NO_GO fallback: improve tail-label stability (split consistency and support quality), then rerun small filter pilot under unchanged hard gates.

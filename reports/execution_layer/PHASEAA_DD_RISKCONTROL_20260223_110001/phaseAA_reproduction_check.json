@@ -1,0 +1,71 @@
+{
+  "baseline_metrics": {
+    "entries_valid": 355,
+    "entry_rate": 0.9861111111111112,
+    "exec_cvar_5": -0.001779745906195359,
+    "exec_expectancy_net": 5.6491907107753134e-05,
+    "exec_max_drawdown": -0.18691673781323032,
+    "max_consecutive_losses": 33,
+    "sl_loss_share": 0.8846180258290264,
+    "streak_ge10_count": 12,
+    "streak_ge5_count": 20,
+    "valid_for_ranking": 1
+  },
+  "baseline_selection": {
+    "phaseS_top_row": {
+      "baseline_cvar_improve": 0.1908480811576058,
+      "baseline_delta_expectancy": 0.0008943475888233,
+      "baseline_exec_expectancy": 5.6491907107753134e-05,
+      "baseline_maxdd_improve": 0.5802892196534639,
+      "baseline_p95_delay": 15.900000000000034,
+      "baseline_taker_share": 0.0816901408450704,
+      "brittle_any": 1,
+      "dsr_proxy": 0.9999999999994688,
+      "fee_degradation_slope": 0.0003332039788477,
+      "genome_hash": "862c940746de0da984862d95",
+      "participation_retention_ratio": 0.8888888888888888,
+      "psr_proxy": 1.0,
+      "risk_retention_ratio": 1.0,
+      "robust_pass": 1,
+      "role": "primary",
+      "sign_retention_delta": 1.0
+    },
+    "selected_exec_id": "E1",
+    "selected_hash": "862c940746de0da984862d95",
+    "source_phaseS_dir": "/root/analysis/0.87/reports/execution_layer/PHASEQRS_AUTORUN_20260222_201536",
+    "source_phaseV_dir": "/root/analysis/0.87/reports/execution_layer/PHASEV_BRANCHB_PORTABILITY_DD_20260222_235009"
+  },
+  "frozen_contract": {
+    "canonical_fee_model": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+    "canonical_metrics_definition": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+    "fee_hash_match": 1,
+    "fee_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "metrics_hash_match": 1,
+    "metrics_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "representative_subset_csv": "/root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv"
+  },
+  "ga_exec_freeze_lock_validation": {
+    "allow_freeze_hash_mismatch": 0,
+    "canonical_fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+    "canonical_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "canonical_metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+    "canonical_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "copied_verbatim_fee": 1,
+    "copied_verbatim_metrics": 1,
+    "expected_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "expected_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "fee_hash_match_expected": 1,
+    "fee_value_diffs": {},
+    "fee_value_match_args": 1,
+    "freeze_lock_pass": 1,
+    "generated_utc": "2026-02-23T11:00:01.493997+00:00",
+    "metrics_hash_match_expected": 1,
+    "run_fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "run_metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+  },
+  "generated_utc": "2026-02-23T11:00:32.675922+00:00",
+  "phase": "AA",
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASEAA_DD_RISKCONTROL_20260223_110001",
+  "symbol": "SOLUSDT",
+  "trade_table_path": "/root/analysis/0.87/reports/execution_layer/PHASEAA_DD_RISKCONTROL_20260223_110001/phaseAA_trade_table.parquet"
+}

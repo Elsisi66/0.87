@@ -1,0 +1,38 @@
+AVAXUSDT Latest Reports - Short Summary
+Generated: 2026-02-22 (UTC)
+Scope: execution-layer AVAX walkforward runs in analysis/0.87/reports/execution_layer
+
+1) 20260220_074353_walkforward_AVAXUSDT
+- What was done: initial AVAX walkforward exec-limit test.
+- Outcome: constraints pass=1; entry_rate=0.383984; expectancy_net=-0.000808 vs baseline_expectancy_net=-0.000957; pnl_net_sum=-0.151186.
+- Notes: later rerun at 111807 and 111919 reproduced same result.
+
+2) 20260220_112352_walkforward_AVAXUSDT
+- What was done: retune to higher participation profile.
+- Outcome: pass=1; entry_rate=0.963039; expectancy_net=-0.000691 vs baseline=-0.000516; pnl_net_sum=-0.323921.
+- Notes: 112651 repeated this result.
+
+3) 20260220_114055_walkforward_AVAXUSDT
+- What was done: added vol-regime gating configuration.
+- Outcome: pass=1; entry_rate=0.969048; expectancy_net=-0.000604 vs baseline=-0.000316; pnl_net_sum=-0.245939.
+- Notes: 114208 repeated this result.
+
+4) 20260220_122049_walkforward_AVAXUSDT
+- What was done: tight-mode constraints sweep.
+- Outcome: selected_passes_constraints=1 but tight_require_pass=0.
+- Notes: not accepted as final tight pass.
+
+5) 20260220_122247_walkforward_AVAXUSDT
+- What was done: tight-mode rerun candidate.
+- Outcome: pass=0; tight_require_pass=0.
+- Notes: candidate rejected by constraints.
+
+6) 20260220_122941_walkforward_AVAXUSDT (latest/final AVAX walkforward)
+- What was done: final tight-mode AVAX run (copied into v2_final).
+- Outcome: pass=1 and tight_require_pass=1.
+- Key test metrics: entry_rate=0.968539, taker_share=0.155452, expectancy_net=-0.000660, baseline_expectancy_net=-0.000381, pnl_net_sum=-0.284663.
+
+Cross-symbol rubric context (tight bundle)
+- Source: v2_final/20260220_123314/AGG_exec_testonly_summary_tight.md
+- Decision: exec not worth it; focus on 1h edge/stops.
+- AVAX detail in tight summary matches run 20260220_122941.

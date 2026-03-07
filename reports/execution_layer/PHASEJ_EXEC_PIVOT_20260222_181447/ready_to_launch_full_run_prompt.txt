@@ -1,0 +1,26 @@
+Execution-layer GA full run (SOLUSDT, contract-locked pivot after Phase I):
+
+Use frozen setup only:
+- representative_subset_sha256=fdc34c3dcab18e8f8577857d7f879f92af822fc24bf3e0ec90a346a2a4cc372d
+- fee_model_sha256=b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a
+- metrics_definition_sha256=d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99
+- selected_model_set_sha256=4a8cb243e7f7e6425db6726302d6326bf727fe026baca77980af0532543c2fc4
+- representative subset CSV: /root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv
+
+Run a constrained execution/exit optimization on SOLUSDT only (no signal-definition edits):
+1) Entry knobs: delay/fallback/entry mode/limit offset/micro-vol filter/killzone/displacement/entry-improvement/cooldown.
+2) Exit knobs: tp/sl, time stop, trailing, break-even, partial take.
+3) Keep hard constraints active: min trades, entry-rate floors, taker-share cap, fill-delay caps, NaN/pathology rejection.
+4) Add duplicate collapse and effective-trial reporting post-run; include PSR/DSR proxy and reality-check TODO note.
+5) Rank with objective hierarchy:
+   - Primary: fixed-size geometric equity-step return (or explicit proxy if still not exported)
+   - Secondary: maxDD/CVaR improvement + split stability/support
+   - Tertiary: expectancy/fill quality with penalties for overtrading and taker share.
+
+Suggested command baseline:
+`.venv/bin/python -m src.execution.ga_exec_3m_opt --symbol SOLUSDT --signals-csv /root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv --max-signals 1200 --walkforward --wf-splits 5 --train-ratio 0.70 --mode tight --pop 192 --gens 24 --workers 4 --seed 20260223 --fee-bps-maker 2.0 --fee-bps-taker 4.0 --slippage-bps-limit 0.5 --slippage-bps-market 2.0 --execution-config configs/execution_configs.yaml --outdir reports/execution_layer`
+
+Reference pilot:
+- Phase J run dir: /root/analysis/0.87/reports/execution_layer/PHASEJ_EXEC_PIVOT_20260222_181447
+- Pilot GA run dir: /root/analysis/0.87/reports/execution_layer/PHASEJ_EXEC_PIVOT_20260222_181447/pilot_ga_runs/GA_EXEC_OPT_20260222_181448
+- Pilot sane candidates: 0 / 48

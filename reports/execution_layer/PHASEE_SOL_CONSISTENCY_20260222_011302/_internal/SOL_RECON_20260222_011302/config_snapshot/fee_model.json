@@ -1,0 +1,20 @@
+{
+  "generated_utc": "2026-02-21T21:43:10.565707+00:00",
+  "baseline_definition": "market at next 3m open after 1h signal (UTC)",
+  "tight_pipeline_fee_model": {
+    "fee_bps_maker": 2.0,
+    "fee_bps_taker": 4.0,
+    "slippage_bps_limit": 0.5,
+    "slippage_bps_market": 2.0,
+    "source": "walkforward_exec_limit parser defaults (assumed; run metadata missing explicit fee snapshot)"
+  },
+  "ga_pipeline_fee_model": {
+    "fee_bps_maker": 2.0,
+    "fee_bps_taker": 4.0,
+    "slippage_bps_limit": 0.5,
+    "slippage_bps_market": 2.0,
+    "source": "/root/analysis/0.87/reports/execution_layer/GA_EXEC_OPT_20260220_152402/ga_config.yaml"
+  },
+  "fee_model_exact_match": true,
+  "note": "tight pipeline values are parser defaults unless run metadata explicitly snapshots fees in future runs."
+}

@@ -1,0 +1,44 @@
+{
+  "backup_reference_cfg": {
+    "candidate_id": "M2_ENTRY_ONLY_MORE_PASSIVE_NOFB_C_FB_ON",
+    "entry_mode": "limit",
+    "fallback_delay_min": 1.0,
+    "fallback_to_market": 1,
+    "label": "M2_ENTRY_ONLY_MORE_PASSIVE_NOFB_C_FB_ON",
+    "limit_offset_bps": 1.5,
+    "max_fill_delay_min": 45.0
+  },
+  "freeze_lock_pass": 1,
+  "generated_utc": "2026-02-28T14:14:11.966189+00:00",
+  "parity_diffs": {
+    "min_split_delta": 7.37257477290143e-17,
+    "overall_cvar_improve_ratio": 1.3877787807814457e-17,
+    "overall_delta_expectancy_exec_minus_baseline": 8.847089727481716e-17,
+    "overall_entries_valid": 0.0,
+    "overall_entry_rate": 0.0,
+    "overall_exec_expectancy_net": 2.710505431213761e-17,
+    "overall_exec_p95_fill_delay_min": 0.0,
+    "overall_exec_taker_share": 4.5102810375396984e-17,
+    "overall_maxdd_improve_ratio": 0.0
+  },
+  "parity_ok": 1,
+  "phase_c_backup_candidate_id": "M2_ENTRY_ONLY_MORE_PASSIVE_NOFB_C_FB_ON",
+  "phase_c_primary_candidate_id": "M3_ENTRY_ONLY_FASTER_C_WIN_02",
+  "primary_cfg": {
+    "candidate_id": "M3_ENTRY_ONLY_FASTER_C_WIN_02",
+    "entry_mode": "limit",
+    "fallback_delay_min": 3.0,
+    "fallback_to_market": 1,
+    "label": "M3_ENTRY_ONLY_FASTER_C_WIN_02",
+    "limit_offset_bps": 0.35,
+    "max_fill_delay_min": 13.0
+  },
+  "route_harness_meta": {
+    "coverage_frac": 0.6,
+    "min_contexts_for_overall_gate": 665,
+    "min_test_signals_for_overall_gate": 200,
+    "route_count": 3,
+    "window_n": 720
+  },
+  "route_trade_gates_reachable": 1
+}

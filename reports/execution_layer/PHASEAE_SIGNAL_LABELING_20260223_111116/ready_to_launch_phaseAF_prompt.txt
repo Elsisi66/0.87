@@ -1,0 +1,9 @@
+Phase AF (SOLUSDT, contract-locked) controlled optimization:
+Use frozen representative subset, canonical fee/metrics hashes, and unchanged hard gates.
+Start from Phase AE prototype shortlist and optimize only local thresholds/weights for the GO-qualified prototype family (no full unconstrained GA).
+Required:
+1) keep no-leakage pre-entry features only,
+2) optimize with bounded search budget (<=120 candidates),
+3) compare against baseline E1 hash 862c940746de0da984862d95,
+4) report clustering/tail risk deltas + expectancy + split stability + participation realism,
+5) stop with NO_GO if gains are not stable across splits.

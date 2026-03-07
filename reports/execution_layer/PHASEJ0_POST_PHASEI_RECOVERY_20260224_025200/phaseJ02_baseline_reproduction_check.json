@@ -1,0 +1,77 @@
+{
+  "backup_exec_hash": "992bd371689ba3936f3b4d09",
+  "baseline_metrics_by_route_choice": [
+    {
+      "entries_valid": 70,
+      "entry_rate": 0.9722222222222222,
+      "exec_choice_id": "E1",
+      "exec_cvar_5": -0.0015367996349265494,
+      "exec_expectancy_net": 6.468296017380045e-06,
+      "exec_max_drawdown": -0.04999112747168491,
+      "max_consecutive_losses": 28,
+      "min_split_expectancy_net": -0.0013680193952172722,
+      "p95_fill_delay_min": 15.299999999999983,
+      "route_id": "route1_holdout",
+      "streak_ge10_count": 2,
+      "streak_ge3_count": 5,
+      "streak_ge5_count": 5,
+      "taker_share": 0.04285714285714286
+    },
+    {
+      "entries_valid": 408,
+      "entry_rate": 0.9714285714285714,
+      "exec_choice_id": "E1",
+      "exec_cvar_5": -0.0017991816078968624,
+      "exec_expectancy_net": 0.0002712899522005446,
+      "exec_max_drawdown": -0.18691673781322923,
+      "max_consecutive_losses": 33,
+      "min_split_expectancy_net": -0.0010923310715644705,
+      "p95_fill_delay_min": 18.0,
+      "route_id": "route2_reslice",
+      "streak_ge10_count": 14,
+      "streak_ge3_count": 29,
+      "streak_ge5_count": 22,
+      "taker_share": 0.08823529411764706
+    },
+    {
+      "entries_valid": 70,
+      "entry_rate": 0.9722222222222222,
+      "exec_choice_id": "E2",
+      "exec_cvar_5": -0.0015367996349265494,
+      "exec_expectancy_net": 6.468296017380045e-06,
+      "exec_max_drawdown": -0.04999112747168491,
+      "max_consecutive_losses": 28,
+      "min_split_expectancy_net": -0.0013680193952172722,
+      "p95_fill_delay_min": 15.299999999999983,
+      "route_id": "route1_holdout",
+      "streak_ge10_count": 2,
+      "streak_ge3_count": 5,
+      "streak_ge5_count": 5,
+      "taker_share": 0.04285714285714286
+    },
+    {
+      "entries_valid": 408,
+      "entry_rate": 0.9714285714285714,
+      "exec_choice_id": "E2",
+      "exec_cvar_5": -0.0017991816078968624,
+      "exec_expectancy_net": 0.00027045699355619486,
+      "exec_max_drawdown": -0.18726658044385613,
+      "max_consecutive_losses": 33,
+      "min_split_expectancy_net": -0.0010923310715644705,
+      "p95_fill_delay_min": 18.0,
+      "route_id": "route2_reslice",
+      "streak_ge10_count": 14,
+      "streak_ge3_count": 29,
+      "streak_ge5_count": 22,
+      "taker_share": 0.09068627450980392
+    }
+  ],
+  "baseline_rows": 4,
+  "generated_utc": "2026-02-24T02:53:13.885197+00:00",
+  "primary_exec_hash": "862c940746de0da984862d95",
+  "routes": [
+    "route1_holdout",
+    "route2_reslice"
+  ],
+  "trade_feature_rows": 984
+}

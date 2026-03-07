@@ -1,0 +1,35 @@
+family_bounds:
+  risk_linear:
+    a0: [1.04, 1.12]
+    a1: [0.18, 0.45]
+    floor: [0.65, 0.80]
+    cap: [1.15, 1.25]
+  risk_step:
+    t1: [0.45, 0.60]
+    t2: [0.68, 0.80]
+    s_low: [1.03, 1.10]
+    s_mid: [0.86, 0.94]
+    s_high: [0.70, 0.85]
+  state_streak_cap:
+    streak_k: [2, 4]
+    streak_cap: [0.78, 0.86]
+    base_a0: [1.05, 1.12]
+    base_a1: [0.22, 0.35]
+  state_tail_cap:
+    tail_k: [7, 10]
+    tail_cap: [0.76, 0.84]
+    base_a0: [1.05, 1.12]
+    base_a1: [0.24, 0.36]
+  hybrid_stateaware:
+    a0: [1.07, 1.12]
+    a1: [0.28, 0.42]
+    streak_k: [2, 4]
+    tail_k: [7, 10]
+    state_cap: [0.76, 0.85]
+    recovery_bonus: [0.02, 0.06]
+global_constraints:
+  mean_size_normalization: true
+  size_floor_hard: 0.60
+  size_cap_hard: 1.25
+  no_entry_exit_mechanics_change: true
+  hard_gates_unchanged: true

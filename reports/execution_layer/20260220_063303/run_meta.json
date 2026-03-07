@@ -1,0 +1,40 @@
+{
+  "generated_utc": "2026-02-20T06:33:03.882388+00:00",
+  "symbol": "SOLUSDT",
+  "rank": 1,
+  "scan_dir": "/root/analysis/0.87/reports/params_scan/20260220_044949",
+  "best_csv": "/root/analysis/0.87/reports/params_scan/20260220_044949/best_by_symbol.csv",
+  "params_file": "/root/analysis/0.87/data/metadata/params/SOLUSDT_C13_active_params_long.json",
+  "timeframe": "3m",
+  "signals_count": 5,
+  "signals_csv": "/root/analysis/0.87/reports/execution_layer/20260220_063303/SOLUSDT_signals_1h.csv",
+  "diag_csv": "/root/analysis/0.87/reports/execution_layer/20260220_063303/SOLUSDT_exec_ict_vs_baseline.csv",
+  "summary_md": "/root/analysis/0.87/reports/execution_layer/20260220_063303/SOLUSDT_exec_summary.md",
+  "audit_md": "/root/analysis/0.87/reports/execution_layer/20260220_063303/SOLUSDT_audit_summary.md",
+  "cache_dir": "/root/analysis/0.87/data/processed/_exec_klines_cache",
+  "ablation_csv": "",
+  "debug_csv": "",
+  "exec_mode": "ict_gate",
+  "exec_k": 0.5,
+  "exec_timeout_bars": 20,
+  "exec_fallback": "market",
+  "use_vol_gate": 1,
+  "vol_z_thr": 2.5,
+  "vol_p_thr": 95.0,
+  "audit_stats": {
+    "baseline_entries_valid": 5,
+    "exec_entries_valid": 0,
+    "baseline_sl_hit_rate_valid": 1.0,
+    "exec_sl_hit_rate_valid": NaN,
+    "top_examples_printed": 0
+  },
+  "ict_mode": "rules",
+  "ict_score_threshold": 3.0,
+  "ict_score_weights": {
+    "sweep": 1.0,
+    "displacement": 1.0,
+    "killzone": 1.0,
+    "fvg": 1.0,
+    "ob": 1.0
+  }
+}

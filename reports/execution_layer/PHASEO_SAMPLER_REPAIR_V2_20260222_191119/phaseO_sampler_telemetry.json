@@ -1,0 +1,41 @@
+{
+  "duplicate_controls": {
+    "effective_trials_proxy": 147.0,
+    "metric_signature_duplicate_rows": 34,
+    "metric_signature_unique_count": 147,
+    "pre_eval_duplicates_removed_total": 0,
+    "pre_eval_refill_cache_skip_total": 0,
+    "pre_eval_refill_duplicate_skip_total": 0,
+    "pre_eval_refill_total": 0
+  },
+  "generated_utc": "2026-02-22T19:15:05.950071+00:00",
+  "proposal_counts": {
+    "exploration_count": 38,
+    "feasible_prior_count": 146,
+    "feasible_prior_share": 0.7934782608695652,
+    "total_mode_draws": 184
+  },
+  "repair_reject_counts": {
+    "invalid_construction_reject_rate": 0.021739130434782608,
+    "proposed_post_repair_total": 180,
+    "proposed_pre_repair_total": 184,
+    "rejected_invalid_construction_total": 4,
+    "repair_rate_vs_post": 0.8444444444444444,
+    "repaired_for_participation_risk_total": 152,
+    "risk_bucket_changed_by_repair_total": 24
+  },
+  "risk_bucket_distribution": {
+    "post": {
+      "high": 0,
+      "low": 166,
+      "medium": 14
+    },
+    "post_low_share": 0.9222222222222223,
+    "pre": {
+      "high": 4,
+      "low": 143,
+      "medium": 37
+    }
+  },
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASEO_SAMPLER_REPAIR_V2_20260222_191119/smoke_ga_runs/GA_EXEC_OPT_20260222_191119"
+}

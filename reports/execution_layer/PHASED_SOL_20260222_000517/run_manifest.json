@@ -1,0 +1,33 @@
+{
+  "caps": {
+    "candidate_max_pool": 80,
+    "candidate_topn": 40,
+    "max_regimes": 12,
+    "min_regime_support": 30
+  },
+  "comparison_csv": "/root/analysis/0.87/reports/execution_layer/PHASED_SOL_20260222_000517/comparison_vs_phasec_global_exit.csv",
+  "decision_pass": 0,
+  "final_mapping_path": "/root/analysis/0.87/reports/execution_layer/PHASED_SOL_20260222_000517/final_regime_mapping.json",
+  "frozen_inputs": {
+    "signal_subset_hash": "5e719faf676dffba8d7da926314997182d429361495884b8a870c3393c079bbf",
+    "signal_subset_path": "/root/analysis/0.87/reports/execution_layer/PHASEC_SOL_20260221_231430/signal_subset.csv",
+    "wf_split_definition_path": "/root/analysis/0.87/reports/execution_layer/PHASEC_SOL_20260221_231430/wf_split_definition.json",
+    "wf_split_definition_sha256": "388ba743b9c16c291385a9ecab6435eabf65eb16f1e1083eee76627193c42c01"
+  },
+  "generated_utc": "2026-02-22T00:14:59.125441+00:00",
+  "phase_a_contract": {
+    "fee_model_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+    "fee_model_sha256": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "metrics_definition_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+    "metrics_definition_sha256": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99"
+  },
+  "phase_c_control_cfg_hash": "a285b86c4c22a26976d4a762",
+  "phase_c_dir": "/root/analysis/0.87/reports/execution_layer/PHASEC_SOL_20260221_231430",
+  "phase_c_manifest_path": "/root/analysis/0.87/reports/execution_layer/PHASEC_SOL_20260221_231430/run_manifest.json",
+  "phase_c_manifest_sha256": "cdd201ab349a8e10b32a3f0d795b5a39bed531bc5300d8e1433d572be2b8764f",
+  "seeds": {
+    "candidate_pool_seed": 42,
+    "mapping_seed": 123
+  },
+  "symbol": "SOLUSDT"
+}

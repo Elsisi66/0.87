@@ -1,0 +1,10 @@
+{
+  "classification": "CONTINUE_READY_FOR_PHASEH",
+  "duration_sec": 203.1855869293213,
+  "generated_utc": "2026-02-23T22:04:37.728052+00:00",
+  "mainline_status": "CONTINUE_READY_FOR_PHASEH",
+  "reason": "At least one execution-aware objective produced material additive gain with non-degrading robustness proxies.",
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASEG_EXECAWARE_OBJECTIVE_20260223_220114",
+  "source_phase_ae": "/root/analysis/0.87/reports/execution_layer/PHASEAE_SIGNAL_LABELING_20260223_111116",
+  "source_phase_f": "/root/analysis/0.87/reports/execution_layer/PHASEF_NO_GO_RECOVERY_20260223_193804"
+}

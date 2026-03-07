@@ -1,0 +1,22 @@
+{
+  "args": {
+    "allow_freeze_hash_mismatch": 0,
+    "expected_fee_sha": "b54445675e835778cb25f7256b061d885474255335a3c975613f2c7d52710f4a",
+    "expected_metrics_sha": "d3c55348888498d32832a083765b57b0088a43b2fca0b232cccbcf0a8d187c99",
+    "fee_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/fee_model.json",
+    "frozen_subset_csv": "/root/analysis/0.87/reports/execution_layer/PHASEE2_SOL_REPRESENTATIVE_20260222_021052/representative_subset_signals.csv",
+    "max_filter_policies": 40,
+    "metrics_path": "/root/analysis/0.87/reports/execution_layer/BASELINE_AUDIT_20260221_214310/metrics_definition.md",
+    "prior_dir": "/root/analysis/0.87/reports/execution_layer/PHASEABC_LABEL_REPAIR_20260223_131344",
+    "report_dir": "/root/analysis/0.87/reports/execution_layer/PHASED_TAIL_BRANCH_20260223_134324",
+    "seed": 20260223,
+    "time_budget_minutes": 175
+  },
+  "deadline_utc_estimate": "2026-02-23T17:03:47.379367+00:00",
+  "generated_utc": "2026-02-23T14:08:47.379373+00:00",
+  "phase": "0",
+  "repo_root": "/root/analysis/0.87",
+  "run_dir": "/root/analysis/0.87/reports/execution_layer/PHASED_TAIL_BRANCH_20260223_134324",
+  "script": "/root/analysis/0.87/scripts/phase_d_tail_branch_autorun.py",
+  "time_budget_minutes": 175
+}

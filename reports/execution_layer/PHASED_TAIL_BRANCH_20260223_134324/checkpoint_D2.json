@@ -1,0 +1,9 @@
+{
+  "classification": "PASS",
+  "decision": "PASS",
+  "duration_sec": 0.29679179191589355,
+  "generated_utc": "2026-02-23T13:44:03.151660+00:00",
+  "phase": "D2",
+  "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASED_TAIL_BRANCH_20260223_134324/phaseD2",
+  "reason": "tail label stable and monotonic"
+}

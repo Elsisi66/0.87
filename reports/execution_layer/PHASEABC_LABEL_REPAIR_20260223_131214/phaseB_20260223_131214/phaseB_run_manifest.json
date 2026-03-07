@@ -1,0 +1,7 @@
+{
+  "decision": "INFRA_FAIL",
+  "generated_utc": "2026-02-23T13:13:16.365807+00:00",
+  "phase": "B",
+  "phase_dir": "/root/analysis/0.87/reports/execution_layer/PHASEABC_LABEL_REPAIR_20260223_131214/phaseB_20260223_131214",
+  "reason": "No module named 'scipy'"
+}

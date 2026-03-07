@@ -1,0 +1,41 @@
+{
+  "generated_utc": "2026-02-24T00:02:29.199869+00:00",
+  "phase_h_dir": "/root/analysis/0.87/reports/execution_layer/PHASEH_EXECAWARE_1H_GA_PILOT_20260223_224855",
+  "reproduction_pass": 1,
+  "rows": [
+    {
+      "abs_diff_delta": 5.876375774871434e-17,
+      "abs_diff_exec_expectancy": 7.448468924975415e-17,
+      "candidate_id": "H0313",
+      "delta_tolerance": 0.00015448218072628003,
+      "exec_expectancy_tolerance": 0.00016568338363932,
+      "exists_in_phaseH2": 1,
+      "prior_cvar_improve_ratio": 0.0034747021378248,
+      "prior_delta_expectancy_vs_exec_baseline": 0.0007724109036314,
+      "prior_exec_expectancy_net": 0.0008284169181966,
+      "prior_maxdd_improve_ratio": 0.4681436410983629,
+      "repro_cvar_improve_ratio": 0.0034747021378248076,
+      "repro_delta_expectancy_vs_exec_baseline": 0.0007724109036314588,
+      "repro_exec_expectancy_net": 0.0008284169181966745,
+      "repro_maxdd_improve_ratio": 0.46814364109836293,
+      "repro_pass": 1
+    },
+    {
+      "abs_diff_delta": 6.228741480929223e-17,
+      "abs_diff_exec_expectancy": 7.803545136464418e-17,
+      "candidate_id": "H0020",
+      "delta_tolerance": 5e-05,
+      "exec_expectancy_tolerance": 5e-05,
+      "exists_in_phaseH2": 1,
+      "prior_cvar_improve_ratio": 0.0006825307770748,
+      "prior_delta_expectancy_vs_exec_baseline": 0.0001480967058401,
+      "prior_exec_expectancy_net": 0.0002041027204053,
+      "prior_maxdd_improve_ratio": 0.2124827774352367,
+      "repro_cvar_improve_ratio": 0.0006825307770748087,
+      "repro_delta_expectancy_vs_exec_baseline": 0.0001480967058401623,
+      "repro_exec_expectancy_net": 0.00020410272040537804,
+      "repro_maxdd_improve_ratio": 0.2124827774352367,
+      "repro_pass": 1
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+Phase X pivot to 1h objective redesign (SOL): overlay family proved fragile under OOS/stress. Keep execution candidate fixed, rebuild upstream objective to improve execution-scored stability.

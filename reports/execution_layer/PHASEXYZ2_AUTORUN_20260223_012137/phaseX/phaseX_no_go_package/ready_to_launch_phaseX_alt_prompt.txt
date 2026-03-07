@@ -1,0 +1,1 @@
+Phase X-alt (no new GA): keep execution winners fixed (E1/E2) and run a 1h forensic data-labeling sprint to build execution-aware signal quality labels (split/session/regime loss-cluster diagnostics). Produce a pruned 1h knob set and only then rerun a small execution-aware 1h pilot.
