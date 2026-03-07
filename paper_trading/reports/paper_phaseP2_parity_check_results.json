@@ -1,0 +1,84 @@
+{
+  "execution_parity": {
+    "backtest_net_profit_quote": 0.0,
+    "entry_count_backtest": 0,
+    "entry_count_paper_sim": 0,
+    "entry_timing_match": true,
+    "exit_count_backtest": 0,
+    "exit_count_paper_sim": 0,
+    "exit_timing_reason_match": true,
+    "paper_open_positions_after_replay": 0,
+    "paper_realized_pnl_quote": 0.0,
+    "slippage_bps_fixed": 2,
+    "symbol": "ADAUSDT"
+  },
+  "execution_parity_reference_symbol": "ADAUSDT",
+  "generated_utc": "2026-02-27T11:28:32.317522+00:00",
+  "overall_parity_ok": true,
+  "overall_structural_ok": true,
+  "structural_results": [
+    {
+      "atr_prev_max_abs_diff": 0.0,
+      "bars_checked": 600,
+      "cycle_match": true,
+      "cycle_mismatch_count": 0,
+      "rsi_prev_max_abs_diff": 0.0,
+      "shift_feature_match": true,
+      "signal_match": true,
+      "signal_mismatch_count": 0,
+      "symbol": "ADAUSDT"
+    },
+    {
+      "atr_prev_max_abs_diff": 0.0,
+      "bars_checked": 600,
+      "cycle_match": true,
+      "cycle_mismatch_count": 0,
+      "rsi_prev_max_abs_diff": 0.0,
+      "shift_feature_match": true,
+      "signal_match": true,
+      "signal_mismatch_count": 0,
+      "symbol": "AVAXUSDT"
+    },
+    {
+      "atr_prev_max_abs_diff": 0.0,
+      "bars_checked": 600,
+      "cycle_match": true,
+      "cycle_mismatch_count": 0,
+      "rsi_prev_max_abs_diff": 0.0,
+      "shift_feature_match": true,
+      "signal_match": true,
+      "signal_mismatch_count": 0,
+      "symbol": "AXSUSDT"
+    },
+    {
+      "atr_prev_max_abs_diff": 0.0,
+      "bars_checked": 600,
+      "cycle_match": true,
+      "cycle_mismatch_count": 0,
+      "rsi_prev_max_abs_diff": 0.0,
+      "shift_feature_match": true,
+      "signal_match": true,
+      "signal_mismatch_count": 0,
+      "symbol": "BCHUSDT"
+    },
+    {
+      "atr_prev_max_abs_diff": 0.0,
+      "bars_checked": 600,
+      "cycle_match": true,
+      "cycle_mismatch_count": 0,
+      "rsi_prev_max_abs_diff": 0.0,
+      "shift_feature_match": true,
+      "signal_match": true,
+      "signal_mismatch_count": 0,
+      "symbol": "CRVUSDT"
+    }
+  ],
+  "symbols_checked": [
+    "ADAUSDT",
+    "AVAXUSDT",
+    "AXSUSDT",
+    "BCHUSDT",
+    "CRVUSDT"
+  ],
+  "universe_source_path": "/root/analysis/0.87/reports/params_scan/20260220_044949/best_by_symbol.csv"
+}

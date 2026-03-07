@@ -4,7 +4,7 @@
   "entry_on_signal_violations": 0,
   "exit_before_entry_count": 0,
   "expectancy_eur": 0.0,
-  "generated_utc": "2026-03-07T00:03:06.662074+00:00",
+  "generated_utc": "2026-03-07T01:03:07.228858+00:00",
   "guard_deferrals": {
     "exits_blocked_pre_entry": 0,
     "exits_deferred_to_next_bar": 0,

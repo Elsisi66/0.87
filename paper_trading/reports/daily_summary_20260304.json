@@ -1,0 +1,46 @@
+{
+  "avg_loss_eur": -0.5840856019876947,
+  "avg_win_eur": 0.0,
+  "daily_realized_pnl_eur": -14.602140049692366,
+  "daily_total_pnl_eur": -14.602140049692366,
+  "date_range_utc": "2026-03-04T00:00:00+00:00 -> 2026-03-05T00:00:00+00:00",
+  "date_utc": "2026-03-04",
+  "degraded_mode": true,
+  "degraded_note": "local/degraded path active",
+  "end_equity_eur": 279.71553795049766,
+  "error_recovery_counts": {
+    "api_failures": 0,
+    "api_retries": 0,
+    "execution_errors": 0,
+    "quarantined_symbols": 0,
+    "recovery_events": 0,
+    "signal_errors": 0,
+    "telegram_errors": 0
+  },
+  "generated_utc": "2026-03-04T21:03:28.994444+00:00",
+  "max_intraday_drawdown_pct": 4.961353374663053,
+  "open_positions_count": 0,
+  "per_symbol_contribution_eur": {
+    "AVAXUSDT": -2.378620448004085,
+    "NEARUSDT": -1.824983209119523,
+    "SOLUSDT": -9.125344691262569,
+    "XRPUSDT": -1.2731917013061889
+  },
+  "pnl_pct_vs_initial": -12.58889439046948,
+  "pnl_pct_vs_prior_day": -5.159415992038176,
+  "profit_factor": 0.0,
+  "slippage_distribution_counts": {
+    "10": 0,
+    "12": 6,
+    "2": 6,
+    "5": 34,
+    "7": 4
+  },
+  "slippage_mean_bps": 5.64,
+  "slippage_median_bps": 5.0,
+  "start_equity_eur": 294.932323410214,
+  "strategy_health": "RED",
+  "trades_closed": 25,
+  "trades_opened": 25,
+  "win_rate_pct": 0.0
+}

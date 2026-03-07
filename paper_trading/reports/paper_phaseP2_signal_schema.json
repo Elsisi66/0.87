@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "ADX": {
+      "type": "number"
+    },
+    "ATR": {
+      "type": "number"
+    },
+    "ATR_PREV": {
+      "type": "number"
+    },
+    "BAR_INDEX": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "CYCLE": {
+      "maximum": 4,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "Close": {
+      "type": "number"
+    },
+    "High": {
+      "type": "number"
+    },
+    "Low": {
+      "type": "number"
+    },
+    "MINUS_DI": {
+      "type": "number"
+    },
+    "Open": {
+      "type": "number"
+    },
+    "PLUS_DI": {
+      "type": "number"
+    },
+    "RSI": {
+      "type": "number"
+    },
+    "RSI_PREV": {
+      "type": "number"
+    },
+    "SIGNAL": {
+      "type": "boolean"
+    },
+    "Timestamp": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "Volume": {
+      "type": "number"
+    },
+    "WILLR": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "Timestamp",
+    "Open",
+    "High",
+    "Low",
+    "Close",
+    "RSI",
+    "ATR",
+    "WILLR",
+    "ADX",
+    "PLUS_DI",
+    "MINUS_DI",
+    "SIGNAL",
+    "CYCLE",
+    "ATR_PREV",
+    "RSI_PREV",
+    "BAR_INDEX"
+  ],
+  "title": "PaperSignalFrameRow",
+  "type": "object"
+}

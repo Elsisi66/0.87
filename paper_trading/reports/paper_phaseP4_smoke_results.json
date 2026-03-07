@@ -1,0 +1,16 @@
+{
+  "delta_fill_close_after_restart": 0,
+  "delta_fill_open_after_restart": 0,
+  "forward_only_no_backlog_on_reset": true,
+  "generated_utc": "2026-02-28T01:03:51.830760+00:00",
+  "idempotent_restart_check": true,
+  "last_processed_bar_ts_run1": null,
+  "last_processed_bar_ts_run2": null,
+  "processed_bars_count_run1": 0,
+  "processed_bars_count_run2": 0,
+  "run1_fill_close_count": 0,
+  "run1_fill_open_count": 0,
+  "run2_fill_close_count": 0,
+  "run2_fill_open_count": 0,
+  "start_from_bar_ts_run1": "2025-12-31T23:00:00+00:00"
+}

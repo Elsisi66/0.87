@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PaperTradingStateFiles",
+  "type": "object",
+  "properties": {
+    "portfolio_state.json": {
+      "type": "object",
+      "required": [
+        "cash_eur",
+        "initial_equity_eur",
+        "realized_pnl_eur",
+        "fees_paid_eur",
+        "slippage_paid_eur",
+        "trade_count_opened",
+        "trade_count_closed",
+        "wins",
+        "losses",
+        "degraded_mode"
+      ]
+    },
+    "positions.json": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "symbol",
+          "units",
+          "entry_ts",
+          "entry_bar_index",
+          "entry_cycle",
+          "entry_px_quote",
+          "entry_px_eur",
+          "entry_cost_eur",
+          "tp_mult",
+          "sl_mult",
+          "entry_slippage_bps",
+          "entry_fee_bps"
+        ]
+      }
+    },
+    "orders.json": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "processed_bars.json": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "symbol_quarantine.json": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "until_utc",
+          "reason",
+          "error_count",
+          "updated_utc"
+        ]
+      }
+    },
+    "health_counters.json": {
+      "type": "object",
+      "required": [
+        "api_retries",
+        "api_failures",
+        "signal_errors",
+        "execution_errors",
+        "recovery_events",
+        "telegram_errors",
+        "quarantined_symbols",
+        "degraded_mode",
+        "strategy_health"
+      ]
+    },
+    "startup_reset_marker.json": {
+      "type": "object",
+      "required": [
+        "generated_utc",
+        "reset_mode",
+        "reset_flag",
+        "actions",
+        "symbols",
+        "start_equity_eur"
+      ]
+    },
+    "journal.jsonl": {
+      "type": "string",
+      "description": "JSON lines of signal decisions, fills, equity snapshots, summaries, and reset events"
+    },
+    "dead_letter_queue.jsonl": {
+      "type": "string",
+      "description": "JSON lines for unrecoverable processing events"
+    }
+  }
+}

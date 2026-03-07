@@ -1,0 +1,13 @@
+{
+  "paper_total": 16,
+  "paper_zero": 16,
+  "paper_same": 16,
+  "paper_same_sl": 16,
+  "paper_zero_rate": 1.0,
+  "paper_stop_above_raw_open_sl_count": 15,
+  "back_total": 1200,
+  "back_zero": 1052,
+  "back_same": 1052,
+  "back_same_sl": 1052,
+  "back_zero_rate": 0.8766666666666667
+}
