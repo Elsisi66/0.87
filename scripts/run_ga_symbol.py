@@ -1,12 +1,12 @@
-# scripts/run_ga_btc.py
+# scripts/run_ga_symbol.py
 import os
 import sys
 import json
+import argparse
 from pathlib import Path
 from typing import Dict, Any, List
 
 import pandas as pd
-
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 os.environ["BOT087_PROJECT_ROOT"] = str(PROJECT_ROOT)
@@ -20,13 +20,13 @@ def _load_seed(symbol: str) -> Dict[str, Any]:
     Tries:
       data/metadata/params/<SYMBOL>_active_params.json
       data/metadata/params/<SYMBOL>_seed_params.json
-    Else falls back to a safe baseline (BTC-ish).
+    Else falls back to BTC-ish baseline.
     """
     meta_dir = PROJECT_ROOT / "data" / "metadata" / "params"
     p1 = meta_dir / f"{symbol}_active_params.json"
     p2 = meta_dir / f"{symbol}_seed_params.json"
 
-    for fp in [p1, p2]:
+    for fp in (p1, p2):
         if fp.exists():
             with open(fp, "r") as f:
                 raw = json.load(f)
@@ -77,34 +77,42 @@ def _load_df(symbol: str, tf: str) -> pd.DataFrame:
     proc_dir = PROJECT_ROOT / "data" / "processed"
     files = sorted(proc_dir.glob(f"{symbol}_*_proc.csv"))
     if not files:
-        raise FileNotFoundError(f"No parquet and no yearly processed CSVs found for {symbol} under {proc_dir}")
+        raise FileNotFoundError(
+            f"No parquet and no yearly processed CSVs found for {symbol}. "
+            f"Expected either {parquet_fp} or yearly CSVs under {proc_dir}"
+        )
 
     dfs: List[pd.DataFrame] = [pd.read_csv(fp) for fp in files]
     return pd.concat(dfs, ignore_index=True)
 
 
-def main():
-    symbol = "BTCUSDT"
-    tf = "1h"
+def _prep_df(df: pd.DataFrame) -> pd.DataFrame:
+    # Accept either Timestamp or timestamp
+    if "Timestamp" not in df.columns and "timestamp" in df.columns:
+        df = df.rename(columns={"timestamp": "Timestamp"})
 
-    # Import AFTER sys.path/env are set
-    from src.bot087.optim.ga import GAConfig, run_ga_montecarlo
-    from src.bot087.optim.ga import _norm_params, _ensure_indicators, run_backtest_long_only
-
-    df = _load_df(symbol, tf=tf)
     if "Timestamp" not in df.columns:
-        raise ValueError("Loaded df has no 'Timestamp' column")
+        raise ValueError(f"Loaded df has no 'Timestamp' column. Columns={list(df.columns)[:20]}")
 
     df["Timestamp"] = pd.to_datetime(df["Timestamp"], utc=True, errors="coerce")
     df = df.dropna(subset=["Timestamp"]).sort_values("Timestamp").reset_index(drop=True)
+    return df
 
+
+def run_one_symbol(symbol: str, tf: str, resume: bool, n_procs: int, smoke_rows: int) -> None:
+    from src.bot087.optim.ga import GAConfig, run_ga_montecarlo
+    from src.bot087.optim.ga import _norm_params, _ensure_indicators, run_backtest_long_only
+
+    df = _prep_df(_load_df(symbol, tf=tf))
+
+    print(f"\n========== {symbol} ==========", flush=True)
     print(f"[DATA] rows={len(df)} first={df['Timestamp'].iloc[0]} last={df['Timestamp'].iloc[-1]}", flush=True)
 
     seed = _load_seed(symbol)
 
     # ---- SMOKE TEST ----
     seed_norm = _norm_params(seed)
-    df_smoke = _ensure_indicators(df.iloc[:20000].copy(), seed_norm)
+    df_smoke = _ensure_indicators(df.iloc[:smoke_rows].copy(), seed_norm)
     trades_smoke, m_smoke = run_backtest_long_only(
         df_smoke,
         symbol=symbol,
@@ -113,7 +121,11 @@ def main():
         fee_bps=7.0,
         slippage_bps=2.0,
     )
-    print(f"[SMOKE] trades={len(trades_smoke)} net={m_smoke['net_profit']:.2f}", flush=True)
+    print(f"[SMOKE] rows={len(df_smoke)} trades={len(trades_smoke)} net={m_smoke['net_profit']:.2f}", flush=True)
+
+    if len(trades_smoke) == 0:
+        print("[WARN] Smoke test produced ZERO trades. GA will likely collapse to no-trade solutions.", flush=True)
+        print("       Fix constraints/seed/trade_cycles before running GA.", flush=True)
 
     cfg = GAConfig(
         pop_size=40,
@@ -121,7 +133,7 @@ def main():
         elite_k=6,
         mutation_rate=0.35,
         mutation_strength=1.0,
-        n_procs=3,
+        n_procs=n_procs,
 
         mc_splits=6,
         train_days=540,
@@ -145,14 +157,14 @@ def main():
         trade_penalty=0.8,
         bad_val_penalty=1200.0,
 
-        resume=True,
+        resume=resume,
     )
 
     best_p, report = run_ga_montecarlo(symbol=symbol, df=df, seed_params=seed, cfg=cfg)
 
     print("\n=== DONE ===", flush=True)
     print("Saved to:", flush=True)
-    for k, v in report["saved"].items():
+    for k, v in report.get("saved", {}).items():
         print(f"  {k}: {v}", flush=True)
 
     print("\nBest params (top-level):", flush=True)
@@ -160,6 +172,23 @@ def main():
         print(f"  {k}: {best_p[k]}", flush=True)
 
 
+def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--symbol", required=True, help="e.g. ETHUSDT, SOLUSDT")
+    ap.add_argument("--tf", default="1h", help="timeframe string used in filename, e.g. 1h")
+    ap.add_argument("--no-resume", action="store_true", help="disable GA resume")
+    ap.add_argument("--n-procs", type=int, default=3, help="parallel processes for GA")
+    ap.add_argument("--smoke-rows", type=int, default=20000, help="rows for smoke test")
+    args = ap.parse_args()
+
+    run_one_symbol(
+        symbol=args.symbol.strip().upper(),
+        tf=args.tf,
+        resume=(not args.no_resume),
+        n_procs=args.n_procs,
+        smoke_rows=args.smoke_rows,
+    )
+
+
 if __name__ == "__main__":
     main()
-
