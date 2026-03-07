@@ -1,7 +1,11 @@
 from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from collections import OrderedDict
+import hashlib
 import json
+import os
+import threading
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Tuple
@@ -9,7 +13,14 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 import numpy as np
 import pandas as pd
 
-from src.bot087.optim.ga import _apply_cost
+from src.bot087.optim.ga import (
+    _apply_cost,
+    _position_size,
+    _slice_df_range,
+    _shift_cycles,
+    build_entry_signal,
+    compute_cycles,
+)
 
 from .cache import (
     _to_utc_ts,
@@ -22,6 +33,7 @@ from .cache import (
 )
 from .fetch_1s_klines import fetch_1s_klines
 from .fetch_aggtrades import fetch_precision_1s_from_aggtrades
+from .http_retry import FetchRetryError, classify_retry_reason
 
 
 @dataclass(frozen=True)
@@ -42,6 +54,8 @@ class ExecutionEvalConfig:
     fetch_max_seconds_per_request: int = 1000
     merge_gap_sec: int = 0
     fetch_workers: int = 1
+    cache_1s: bool = True
+    max_cache_mb: float = 256.0
 
     # fees/costs
     fee_bps: float = 7.0
@@ -61,6 +75,14 @@ class ExecutionEvalConfig:
     overlay_pullback_dip_bps: float = 8.0
     overlay_pullback_atr_k: float = 1.0
     overlay_ema_span: int = 5
+    overlay_skip_if_no_trigger: bool = True
+    overlay_fallback_to_open: bool = False
+    overlay_bounce_confirm_n: int = 2
+    overlay_policy: str = "always"  # always | conditional
+    adx_strong: float = 25.0
+    cap_mult: float = 3.0
+    use_sep_bypass: bool = True
+    sep_k: float = 0.35
 
     # optional quick partial TP
     overlay_partial_tp_bps: float = 15.0
@@ -163,6 +185,94 @@ def _cfg_replace(cfg: ExecutionEvalConfig, **overrides: Any) -> ExecutionEvalCon
     d.update(overrides)
     return ExecutionEvalConfig(**d)
 
+
+_SEC_CACHE_LOCK = threading.Lock()
+_SEC_CACHE: "OrderedDict[str, Tuple[int, Dict[str, np.ndarray]]]" = OrderedDict()
+_SEC_CACHE_TOTAL_BYTES = 0
+
+
+def _sec_cache_key(
+    *,
+    symbol: str,
+    cfg: ExecutionEvalConfig,
+    cache_root: Path,
+    windows: List[Tuple[pd.Timestamp, pd.Timestamp]],
+) -> str:
+    packed_windows = [[str(_to_utc_ts(a)), str(_to_utc_ts(b))] for a, b in windows]
+    payload = {
+        "symbol": symbol.upper(),
+        "mode": str(cfg.mode).lower(),
+        "market": str(cfg.market).lower(),
+        "overlay_window_sec": int(cfg.overlay_window_sec),
+        "window_sec": int(cfg.window_sec),
+        "merge_gap_sec": int(cfg.merge_gap_sec),
+        "cache_root": str(cache_root.resolve()),
+        "windows": packed_windows,
+    }
+    raw = json.dumps(payload, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()
+
+
+def _sec_arrays_bytes(sec: Dict[str, np.ndarray]) -> int:
+    return int(sum(int(v.nbytes) for v in sec.values() if isinstance(v, np.ndarray)))
+
+
+def _sec_arrays_compact(sec: Dict[str, np.ndarray]) -> Dict[str, np.ndarray]:
+    return {
+        "ts_ns": np.asarray(sec.get("ts_ns", np.array([], dtype=np.int64)), dtype=np.int64),
+        "open": np.asarray(sec.get("open", np.array([], dtype=np.float32)), dtype=np.float32),
+        "high": np.asarray(sec.get("high", np.array([], dtype=np.float32)), dtype=np.float32),
+        "low": np.asarray(sec.get("low", np.array([], dtype=np.float32)), dtype=np.float32),
+        "close": np.asarray(sec.get("close", np.array([], dtype=np.float32)), dtype=np.float32),
+        "vol": np.asarray(sec.get("vol", np.array([], dtype=np.float32)), dtype=np.float32),
+    }
+
+
+def purge_in_memory_1s_cache() -> int:
+    global _SEC_CACHE_TOTAL_BYTES
+    with _SEC_CACHE_LOCK:
+        entries = len(_SEC_CACHE)
+        _SEC_CACHE.clear()
+        _SEC_CACHE_TOTAL_BYTES = 0
+    return entries
+
+
+def _sec_cache_get(key: str) -> Optional[Dict[str, np.ndarray]]:
+    with _SEC_CACHE_LOCK:
+        hit = _SEC_CACHE.get(key)
+        if hit is None:
+            return None
+        _nbytes, arrays = hit
+        _SEC_CACHE.move_to_end(key)
+    return {
+        "ts_ns": np.asarray(arrays["ts_ns"], dtype=np.int64),
+        "open": np.asarray(arrays["open"], dtype=np.float64),
+        "high": np.asarray(arrays["high"], dtype=np.float64),
+        "low": np.asarray(arrays["low"], dtype=np.float64),
+        "close": np.asarray(arrays["close"], dtype=np.float64),
+        "vol": np.asarray(arrays["vol"], dtype=np.float64),
+    }
+
+
+def _sec_cache_put(key: str, sec: Dict[str, np.ndarray], max_cache_bytes: int) -> None:
+    global _SEC_CACHE_TOTAL_BYTES
+    if max_cache_bytes <= 0:
+        return
+    compact = _sec_arrays_compact(sec)
+    nbytes = _sec_arrays_bytes(compact)
+    if nbytes <= 0:
+        return
+    with _SEC_CACHE_LOCK:
+        if key in _SEC_CACHE:
+            prev_bytes = int(_SEC_CACHE[key][0])
+            _SEC_CACHE_TOTAL_BYTES = max(0, _SEC_CACHE_TOTAL_BYTES - prev_bytes)
+            del _SEC_CACHE[key]
+        _SEC_CACHE[key] = (nbytes, compact)
+        _SEC_CACHE_TOTAL_BYTES += nbytes
+        _SEC_CACHE.move_to_end(key)
+        while _SEC_CACHE and _SEC_CACHE_TOTAL_BYTES > max_cache_bytes:
+            old_key, (old_bytes, _old_val) = _SEC_CACHE.popitem(last=False)
+            _SEC_CACHE_TOTAL_BYTES = max(0, _SEC_CACHE_TOTAL_BYTES - int(old_bytes))
 
 # -----------------------------------------------------------------------------
 # Trades + windows
@@ -375,10 +485,17 @@ def _ensure_cache_for_windows(
     cfg: ExecutionEvalConfig,
     cache_root: Path,
     fetch_log_path: Optional[Path],
-) -> None:
+    failed_windows_path: Optional[Path] = None,
+) -> List[Dict[str, Any]]:
     log = _logger(fetch_log_path)
     mode = str(cfg.mode).lower()
     market = str(cfg.market).lower()
+    failure_report_path = (
+        failed_windows_path.resolve()
+        if failed_windows_path is not None
+        else (Path(__file__).resolve().parents[3] / "artifacts" / "reports" / f"fetch_failed_windows_{symbol.upper()}.jsonl").resolve()
+    )
+    failed_windows: List[Dict[str, Any]] = []
 
     cap = _resolve_cap_gb(cfg)
     ev_pre = evict_lru(cache_root, cap)
@@ -402,13 +519,68 @@ def _ensure_cache_for_windows(
         miss = _window_missing_from_cov(miss, local_cov)
 
     if not miss:
-        return
+        return failed_windows
 
     rows_to_append: List[Dict[str, Any]] = []
 
-    def _fetch_one(ms: pd.Timestamp, me: pd.Timestamp) -> Tuple[pd.Timestamp, pd.Timestamp, pd.DataFrame, str]:
+    def _reason_bucket(ex: BaseException) -> str:
+        raw = str(getattr(ex, "reason", "") or "").strip().lower() if isinstance(ex, FetchRetryError) else ""
+        if isinstance(ex, FetchRetryError):
+            cand = str(ex.reason).strip().lower()
+            if cand in {"dns", "429", "timeout", "other"}:
+                return cand
+        cand = str(classify_retry_reason(ex)).strip().lower()
+        if cand in {"dns", "429", "timeout", "other"}:
+            return cand
+        if "name resolution" in raw:
+            return "dns"
+        if "timeout" in raw or "timed out" in raw:
+            return "timeout"
+        return "other"
+
+    def _record_failed_window(
+        *,
+        ms: pd.Timestamp,
+        me: pd.Timestamp,
+        ex: BaseException,
+        source: str,
+        primary_error: Optional[BaseException] = None,
+    ) -> Dict[str, Any]:
+        now_utc = pd.Timestamp.utcnow()
+        now_utc = now_utc.tz_localize("UTC") if now_utc.tzinfo is None else now_utc.tz_convert("UTC")
+        reason = _reason_bucket(ex)
+        status_code = getattr(ex, "status_code", None)
+        payload: Dict[str, Any] = {
+            "event": "fetch_window_failed",
+            "symbol": symbol.upper(),
+            "mode": mode,
+            "market": market,
+            "source": str(source),
+            "start_ts": str(_to_utc_ts(ms)),
+            "end_ts": str(_to_utc_ts(me)),
+            "start_ms": int(_to_utc_ts(ms).value // 1_000_000),
+            "end_ms": int(_to_utc_ts(me).value // 1_000_000),
+            "reason": reason,
+            "error_type": type(ex).__name__,
+            "error": str(ex),
+            "status_code": int(status_code) if isinstance(status_code, int) else None,
+            "attempts": int(getattr(ex, "attempts", 0)) if isinstance(getattr(ex, "attempts", None), int) else None,
+            "ts_utc": str(now_utc),
+        }
+        if primary_error is not None:
+            payload["primary_error_type"] = type(primary_error).__name__
+            payload["primary_error"] = str(primary_error)
+        _append_jsonl(failure_report_path, payload)
+        log(payload)
+        return payload
+
+    def _fetch_one(
+        ms: pd.Timestamp,
+        me: pd.Timestamp,
+    ) -> Tuple[pd.Timestamp, pd.Timestamp, Optional[pd.DataFrame], str, Optional[Dict[str, Any]]]:
         if me <= ms:
-            return ms, me, pd.DataFrame(), ""
+            return ms, me, pd.DataFrame(), "", None
+        primary_error: Optional[BaseException] = None
         try:
             df = _fetch_interval(
                 symbol=symbol,
@@ -420,7 +592,9 @@ def _ensure_cache_for_windows(
                 log=log,
             )
             src = f"{market}_{mode}"
+            return ms, me, df, src, None
         except Exception as ex:
+            primary_error = ex
             log(
                 {
                     "event": "primary_fetch_failed",
@@ -432,17 +606,35 @@ def _ensure_cache_for_windows(
                     "error": str(ex),
                 }
             )
-            df = fetch_precision_1s_from_aggtrades(
-                symbol=symbol,
-                start_ts=ms,
-                end_ts=me,
-                market=market,
-                max_window_sec=3500,
-                pause_sec=_resolve_pause(cfg),
-                log_cb=log,
+            if mode != "aggtrades":
+                try:
+                    df = fetch_precision_1s_from_aggtrades(
+                        symbol=symbol,
+                        start_ts=ms,
+                        end_ts=me,
+                        market=market,
+                        max_window_sec=3500,
+                        pause_sec=_resolve_pause(cfg),
+                        log_cb=log,
+                    )
+                    src = f"{market}_aggtrades_fallback"
+                    return ms, me, df, src, None
+                except Exception as fallback_ex:
+                    failed = _record_failed_window(
+                        ms=ms,
+                        me=me,
+                        ex=fallback_ex if isinstance(fallback_ex, BaseException) else RuntimeError(str(fallback_ex)),
+                        source="fallback",
+                        primary_error=primary_error,
+                    )
+                    return ms, me, None, "", failed
+            failed = _record_failed_window(
+                ms=ms,
+                me=me,
+                ex=ex if isinstance(ex, BaseException) else RuntimeError(str(ex)),
+                source="primary",
             )
-            src = f"{market}_aggtrades_fallback"
-        return ms, me, df, src
+            return ms, me, None, "", failed
 
     def _write_chunk(ms: pd.Timestamp, me: pd.Timestamp, df: pd.DataFrame, src: str) -> None:
         if me <= ms:
@@ -486,13 +678,48 @@ def _ensure_cache_for_windows(
     workers = max(1, int(cfg.fetch_workers))
     if workers > 1 and len(miss) > 1:
         with ThreadPoolExecutor(max_workers=workers) as pool:
-            futs = [pool.submit(_fetch_one, ms, me) for ms, me in miss]
+            futs = {pool.submit(_fetch_one, ms, me): (ms, me) for ms, me in miss}
             for fut in as_completed(futs):
-                ms, me, df, src = fut.result()
+                default_ms, default_me = futs[fut]
+                try:
+                    ms, me, df, src, failed = fut.result()
+                except Exception as ex:
+                    failed = _record_failed_window(
+                        ms=default_ms,
+                        me=default_me,
+                        ex=ex if isinstance(ex, BaseException) else RuntimeError(str(ex)),
+                        source="thread_future",
+                    )
+                    failed_windows.append(failed)
+                    continue
+                if failed is not None:
+                    failed_windows.append(failed)
+                    continue
+                if df is None:
+                    failed = _record_failed_window(
+                        ms=ms,
+                        me=me,
+                        ex=RuntimeError("empty fetch sentinel without explicit failure reason"),
+                        source="sentinel",
+                    )
+                    failed_windows.append(failed)
+                    continue
                 _write_chunk(ms, me, df, src)
     else:
         for ms, me in miss:
-            ms, me, df, src = _fetch_one(ms, me)
+            ms, me, df, src, failed = _fetch_one(ms, me)
+            if failed is not None:
+                failed_windows.append(failed)
+                continue
+            if df is None:
+                failed = _record_failed_window(
+                    ms=ms,
+                    me=me,
+                    ex=RuntimeError("empty fetch sentinel without explicit failure reason"),
+                    source="sentinel",
+                )
+                failed_windows.append(failed)
+                continue
             _write_chunk(ms, me, df, src)
 
     if rows_to_append:
@@ -500,6 +727,25 @@ def _ensure_cache_for_windows(
         ev_post = evict_lru(cache_root, cap)
         if ev_post:
             log({"event": "cache_evict_post_batch", "count": len(ev_post), "files": ev_post[:50]})
+    if failed_windows:
+        reason_hist: Dict[str, int] = {}
+        for row in failed_windows:
+            key = str(row.get("reason", "other")).strip().lower()
+            if key not in {"dns", "429", "timeout", "other"}:
+                key = "other"
+            reason_hist[key] = int(reason_hist.get(key, 0) + 1)
+        log(
+            {
+                "event": "fetch_window_fail_summary",
+                "symbol": symbol.upper(),
+                "mode": mode,
+                "market": market,
+                "failed_count": int(len(failed_windows)),
+                "reasons": {k: int(v) for k, v in sorted(reason_hist.items(), key=lambda kv: kv[0])},
+                "report_path": str(failure_report_path),
+            }
+        )
+    return failed_windows
 
 
 def _load_1s_data(
@@ -728,11 +974,14 @@ def _overlay_breakout_trigger(
         micro_high = float(np.nanmax(high_np[j - m : j]))
         level = micro_high * (1.0 + bump)
         if float(high_np[j]) >= level:
-            fill_raw = max(float(open_np[j]), float(level))
+            jn = j + 1
+            if jn >= i1:
+                return {"triggered": False, "reason": "OVERLAY_NO_NEXT_OPEN"}
+            fill_raw = max(float(open_np[jn]), float(level))
             return {
                 "triggered": True,
                 "reason": "OVERLAY_BREAKOUT",
-                "entry_ts": pd.to_datetime(int(ts_ns[j]), utc=True),
+                "entry_ts": pd.to_datetime(int(ts_ns[jn]), utc=True),
                 "fill_raw": float(fill_raw),
             }
 
@@ -767,6 +1016,7 @@ def _overlay_pullback_trigger(
     ema = pd.Series(cl).ewm(span=max(2, int(cfg.overlay_ema_span)), adjust=False).mean().to_numpy(dtype=float)
 
     dip_seen = False
+    n_rise = max(1, int(cfg.overlay_bounce_confirm_n))
     for j in range(1, len(cl)):
         dip_cond = (float(lo[j]) <= dip_level) or (float(lo[j]) <= first_open - float(cfg.overlay_pullback_atr_k) * float(atr[j]))
         if dip_cond:
@@ -774,13 +1024,27 @@ def _overlay_pullback_trigger(
         if not dip_seen:
             continue
 
-        crossed_up = float(cl[j - 1]) <= float(ema[j - 1]) and float(cl[j]) > float(ema[j])
+        crossed_up = float(cl[j]) > float(ema[j])
+        if j - n_rise + 1 < 0:
+            continue
+        rising = True
+        for k in range(j - n_rise + 1, j + 1):
+            if k <= 0:
+                continue
+            if not (float(cl[k]) > float(cl[k - 1])):
+                rising = False
+                break
+        if not rising:
+            continue
         if crossed_up:
-            fill_raw = max(float(op[j]), float(cl[j]))
+            jn = j + 1
+            if jn >= len(op):
+                return {"triggered": False, "reason": "OVERLAY_NO_NEXT_OPEN"}
+            fill_raw = float(op[jn])
             return {
                 "triggered": True,
                 "reason": "OVERLAY_PULLBACK",
-                "entry_ts": pd.to_datetime(int(ts_ns[j]), utc=True),
+                "entry_ts": pd.to_datetime(int(ts_ns[jn]), utc=True),
                 "fill_raw": float(fill_raw),
             }
 
@@ -1283,6 +1547,488 @@ def _build_summary(
         "overlay_ok": bool(overlay_ok),
         "fail_reasons": fail_reasons,
     }
+
+
+def _metrics_from_pnl(initial_equity: float, pnl: np.ndarray) -> Dict[str, float]:
+    eq = np.concatenate([[float(initial_equity)], float(initial_equity) + np.cumsum(pnl, dtype=float)]) if pnl.size else np.array([float(initial_equity)], dtype=float)
+    net = float(pnl.sum()) if pnl.size else 0.0
+    gp = float(pnl[pnl > 0.0].sum()) if (pnl > 0.0).any() else 0.0
+    gl = float(pnl[pnl < 0.0].sum()) if (pnl < 0.0).any() else 0.0
+    pf = float(gp / abs(gl)) if gl < -1e-12 else (10.0 if gp > 0 else 0.0)
+    wins = int((pnl > 0.0).sum()) if pnl.size else 0
+    losses = int((pnl < 0.0).sum()) if pnl.size else 0
+    trades = int(pnl.size)
+    return {
+        "initial_equity": float(initial_equity),
+        "final_equity": float(eq[-1]),
+        "net_profit": float(net),
+        "profit_factor": float(pf),
+        "max_dd": float(_max_dd(eq)),
+        "trades": float(trades),
+        "wins": float(wins),
+        "losses": float(losses),
+        "win_rate_pct": float((wins / max(1, wins + losses)) * 100.0) if (wins + losses) else 0.0,
+        "gross_profit": float(gp),
+        "gross_loss": float(gl),
+    }
+
+
+def run_entry_overlay_backtest_from_df(
+    *,
+    symbol: str,
+    df: pd.DataFrame,
+    p: Dict[str, Any],
+    cfg: ExecutionEvalConfig,
+    initial_equity: float,
+    fee_bps: float,
+    slippage_bps: float,
+    baseline_trades: Optional[pd.DataFrame] = None,
+    fetch_log_path: Optional[str] = None,
+    start_idx: Optional[int] = None,
+    end_idx: Optional[int] = None,
+    assume_prepared: bool = False,
+) -> Dict[str, Any]:
+    # 1s is used only for entry timing/price overlay. Exits remain 1h-driven.
+    # Opportunities are frozen from baseline trades to avoid inventing entries.
+    log = _logger(Path(fetch_log_path).resolve() if fetch_log_path else None)
+
+    d = _slice_df_range(df, start_idx=start_idx, end_idx=end_idx)
+    if assume_prepared:
+        ts_tmp = pd.to_datetime(d["Timestamp"], utc=True, errors="coerce")
+        good = ts_tmp.notna().to_numpy()
+        if not bool(np.all(good)):
+            d = d.loc[good]
+            ts_tmp = ts_tmp.loc[good]
+        if len(d) > 1 and not bool(ts_tmp.is_monotonic_increasing):
+            order = np.argsort(ts_tmp.to_numpy(dtype="datetime64[ns]"))
+            d = d.iloc[order]
+    else:
+        d = d.copy()
+        d["Timestamp"] = pd.to_datetime(d["Timestamp"], utc=True, errors="coerce")
+        d = d.dropna(subset=["Timestamp"]).sort_values("Timestamp").reset_index(drop=True)
+    if d.empty:
+        raise ValueError("Empty df for entry overlay backtest")
+
+    sig = np.asarray(build_entry_signal(d, p, assume_prepared=True), dtype=bool)
+    if sig.ndim != 1 or len(sig) != len(d):
+        raise RuntimeError("Signal length mismatch in entry overlay replay")
+
+    ts = pd.to_datetime(d["Timestamp"], utc=True)
+    ts_ns_1h = ts.astype("int64").to_numpy()
+    o = d["Open"].astype(float).to_numpy()
+    h = d["High"].astype(float).to_numpy()
+    l = d["Low"].astype(float).to_numpy()
+    c = d["Close"].astype(float).to_numpy()
+    atr_prev = d["ATR"].astype(float).shift(1).fillna(0.0).to_numpy()
+    rsi_prev = d["RSI"].astype(float).shift(1).fillna(50.0).to_numpy()
+    close_prev = d["Close"].astype(float).shift(1).bfill().fillna(0.0).to_numpy()
+    slope_prev = d.get("EMA_200_SLOPE", pd.Series(0.0, index=d.index)).astype(float).shift(1).fillna(0.0).to_numpy()
+    adx_prev = d.get("ADX", pd.Series(0.0, index=d.index)).astype(float).shift(1).fillna(0.0).to_numpy()
+    ema_long_col = f"EMA_{int(p.get('ema_trend_long', 120))}"
+    ema_long_prev = (
+        d[ema_long_col].astype(float).shift(1).ffill().to_numpy()
+        if ema_long_col in d.columns
+        else d["EMA_200"].astype(float).shift(1).ffill().to_numpy()
+    )
+    ema_span_col = f"EMA_{int(p.get('ema_span', 35))}"
+    if ema_span_col in d.columns:
+        ema_span_prev = d[ema_span_col].astype(float).shift(1).ffill().to_numpy()
+    else:
+        ema_span_prev = d["EMA_200"].astype(float).shift(1).ffill().to_numpy()
+    ema_sep_prev = np.abs(ema_span_prev - ema_long_prev)
+
+    cycles_raw = compute_cycles(d, p)
+    cycles = _shift_cycles(cycles_raw, shift=int(p.get("cycle_shift", 1)), fill=int(p.get("cycle_fill", 2)))
+
+    if baseline_trades is None:
+        raise ValueError("baseline_trades is required to freeze 1h opportunities")
+    opp = baseline_trades.copy()
+    if opp.empty:
+        return {"trades": pd.DataFrame(), "metrics": _metrics_from_pnl(float(initial_equity), np.array([], dtype=float)), "debug": {"trade_count": 0}}
+    opp["entry_ts"] = pd.to_datetime(opp["entry_ts"], utc=True, errors="coerce")
+    opp["exit_ts"] = pd.to_datetime(opp["exit_ts"], utc=True, errors="coerce")
+    opp = opp.dropna(subset=["entry_ts"]).sort_values(["entry_ts", "exit_ts"]).reset_index(drop=True)
+    opp["opp_id"] = np.arange(len(opp), dtype=int)
+
+    # Prefetch 1s around frozen entry opportunities only.
+    sec = {"ts_ns": np.array([], dtype=np.int64), "open": np.array([], dtype=float), "high": np.array([], dtype=float), "low": np.array([], dtype=float), "close": np.array([], dtype=float), "vol": np.array([], dtype=float)}
+    if _needs_1s_data(cfg):
+        entry_times = [
+            (
+                _to_utc_ts(t),
+                _to_utc_ts(t) + pd.Timedelta(seconds=max(1, int(cfg.overlay_window_sec))),
+            )
+            for t in opp["entry_ts"].tolist()
+        ]
+        entry_windows = _merge_intervals(entry_times, gap_sec=int(cfg.merge_gap_sec))
+        if entry_windows:
+            cache_root = Path(cfg.cache_root).resolve()
+            key = _sec_cache_key(symbol=symbol, cfg=cfg, cache_root=cache_root, windows=entry_windows)
+            max_cache_bytes = int(max(0.0, float(getattr(cfg, "max_cache_mb", 0.0))) * 1024 * 1024)
+            sec_cached = _sec_cache_get(key) if bool(getattr(cfg, "cache_1s", True)) and max_cache_bytes > 0 else None
+            if sec_cached is not None:
+                sec = sec_cached
+                log({"event": "cache_mem_hit", "symbol": symbol.upper(), "key": key, "rows": int(sec["ts_ns"].size)})
+            else:
+                _ensure_cache_for_windows(
+                    symbol=symbol,
+                    windows=entry_windows,
+                    cfg=cfg,
+                    cache_root=cache_root,
+                    fetch_log_path=Path(fetch_log_path).resolve() if fetch_log_path else None,
+                )
+                sec_df = _load_1s_data(
+                    symbol=symbol,
+                    windows=entry_windows,
+                    cfg=cfg,
+                    cache_root=cache_root,
+                    fetch_log_path=Path(fetch_log_path).resolve() if fetch_log_path else None,
+                )
+                sec = _sec_arrays(sec_df)
+                if bool(getattr(cfg, "cache_1s", True)) and max_cache_bytes > 0 and sec["ts_ns"].size > 0:
+                    _sec_cache_put(key, sec, max_cache_bytes=max_cache_bytes)
+                    log({"event": "cache_mem_put", "symbol": symbol.upper(), "key": key, "rows": int(sec["ts_ns"].size)})
+
+    cash = float(initial_equity)
+
+    max_hold = int(p.get("max_hold_hours", 48))
+    risk_per_trade = float(p.get("risk_per_trade", 0.02))
+    max_alloc = float(p.get("max_allocation", 0.7))
+    atr_k = float(p.get("atr_k", 1.0))
+    sizing_equity_cap = float(p.get("equity_sizing_cap", 0.0))
+    cap_equity_limit = float(initial_equity) * float(max(1.0, cfg.cap_mult))
+
+    trade_rows: List[Dict[str, Any]] = []
+    pnls: List[float] = []
+
+    fallback_count = 0
+    align_fail_count = 0
+    skip_count = 0
+    trig_count = 0
+    signal_count = 0
+    samples: List[Dict[str, Any]] = []
+    worst_entry_mismatch = 0.0
+    worst_exit_mismatch = 0.0
+
+    last_exit_ts = pd.Timestamp.min.tz_localize("UTC")
+    for r in opp.itertuples(index=False):
+        opp_id = int(r.opp_id)
+        t0 = _to_utc_ts(r.entry_ts)
+        signal_count += 1
+        if t0 < last_exit_ts:
+            skip_count += 1
+            trade_rows.append(
+                {
+                    "opp_id": opp_id,
+                    "symbol": symbol.upper(),
+                    "entry_ts": str(t0),
+                    "exit_ts": str(t0),
+                    "entry_open_1h": float(r.entry_open_raw) if pd.notna(getattr(r, "entry_open_raw", np.nan)) else np.nan,
+                    "first_open_1s": np.nan,
+                    "mismatch_pct": np.nan,
+                    "used_1s": False,
+                    "triggered": False,
+                    "trigger_type": "none",
+                    "entry_px_final": np.nan,
+                    "exit_px_final": np.nan,
+                    "units": 0.0,
+                    "pnl": 0.0,
+                    "fallback_reason": "SKIP_IN_POSITION",
+                }
+            )
+            continue
+
+        t0_ns = int(t0.value)
+        i = int(np.searchsorted(ts_ns_1h, t0_ns, side="left"))
+        if i >= len(d) or int(ts_ns_1h[i]) != t0_ns:
+            fallback_count += 1
+            skip_count += 1
+            trade_rows.append(
+                {
+                    "opp_id": opp_id,
+                    "symbol": symbol.upper(),
+                    "entry_ts": str(t0),
+                    "exit_ts": str(t0),
+                    "entry_open_1h": np.nan,
+                    "first_open_1s": np.nan,
+                    "mismatch_pct": np.nan,
+                    "used_1s": False,
+                    "triggered": False,
+                    "trigger_type": "none",
+                    "entry_px_final": np.nan,
+                    "exit_px_final": np.nan,
+                    "units": 0.0,
+                    "pnl": 0.0,
+                    "fallback_reason": "MISSING_ENTRY_BAR",
+                }
+            )
+            continue
+
+        entry_open_1h = float(o[i])
+        fee = float(fee_bps)
+        slip = float(slippage_bps)
+        used_1s = False
+        overlay_triggered = False
+        trigger_type = "none"
+        reason = "FALLBACK_1H_OPEN"
+        first_open_1s = np.nan
+        mismatch_pct = np.nan
+        entry_raw = float(entry_open_1h)
+
+        if _needs_1s_data(cfg):
+            ent_al = _alignment_check(
+                sec,
+                t0,
+                entry_open_1h,
+                window_sec=max(1, int(cfg.overlay_window_sec)),
+                max_gap_sec=float(cfg.alignment_max_gap_sec),
+                tol_pct=float(cfg.alignment_open_tol_pct),
+            )
+            first_open_1s = float(ent_al.first_open) if np.isfinite(ent_al.first_open) else np.nan
+            mismatch_pct = float(ent_al.mismatch_pct) if np.isfinite(ent_al.mismatch_pct) else np.nan
+            if np.isfinite(mismatch_pct):
+                worst_entry_mismatch = max(worst_entry_mismatch, float(mismatch_pct))
+
+            if not ent_al.ok:
+                fallback_count += 1
+                align_fail_count += 1
+                reason = f"BAD_1S_ALIGNMENT:{ent_al.reason}"
+                if len(samples) < int(cfg.debug_sample_size):
+                    samples.append(
+                        {
+                            "leg": "entry",
+                            "opp_id": opp_id,
+                            "ts": str(t0),
+                            "open_1h": float(entry_open_1h),
+                            "open_1s": float(first_open_1s) if np.isfinite(first_open_1s) else None,
+                            "mismatch_pct": float(mismatch_pct) if np.isfinite(mismatch_pct) else None,
+                            "reason": ent_al.reason,
+                        }
+                    )
+            else:
+                bypass_overlay = False
+                if str(cfg.overlay_policy).lower() == "conditional":
+                    sep_ok = True
+                    if bool(cfg.use_sep_bypass):
+                        sep_ok = bool(ema_sep_prev[i] >= float(cfg.sep_k) * max(float(atr_prev[i]), 1e-12))
+                    bypass_overlay = bool(
+                        float(adx_prev[i]) >= float(cfg.adx_strong)
+                        and float(slope_prev[i]) > 0.0
+                        and float(close_prev[i]) > float(ema_long_prev[i])
+                        and bool(sep_ok)
+                    )
+                if bypass_overlay:
+                    reason = "POLICY_BYPASS_STRONG_TREND"
+                else:
+                    mode = str(cfg.overlay_mode).lower()
+                    if mode in {"breakout", "pullback"}:
+                        trig = _overlay_trigger(sec, t0, cfg)
+                        if bool(trig.get("triggered", False)):
+                            overlay_triggered = True
+                            trig_count += 1
+                            used_1s = True
+                            trigger_type = mode
+                            entry_raw = float(trig["fill_raw"])
+                            reason = str(trig.get("reason", "OVERLAY_TRIGGER"))
+                        else:
+                            reason = str(trig.get("reason", "OVERLAY_NO_TRIGGER"))
+                            if bool(cfg.overlay_fallback_to_open):
+                                reason = "FALLBACK_TO_1H_OPEN"
+                            elif bool(cfg.overlay_skip_if_no_trigger):
+                                skip_count += 1
+                                trade_rows.append(
+                                    {
+                                        "opp_id": opp_id,
+                                        "symbol": symbol.upper(),
+                                        "entry_ts": str(t0),
+                                        "exit_ts": str(t0),
+                                        "entry_open_1h": float(entry_open_1h),
+                                        "first_open_1s": float(first_open_1s) if np.isfinite(first_open_1s) else np.nan,
+                                        "mismatch_pct": float(mismatch_pct) if np.isfinite(mismatch_pct) else np.nan,
+                                        "used_1s": False,
+                                        "triggered": False,
+                                        "trigger_type": mode,
+                                        "entry_px_final": np.nan,
+                                        "exit_px_final": np.nan,
+                                        "units": 0.0,
+                                        "pnl": 0.0,
+                                        "fallback_reason": "SKIP_NO_TRIGGER",
+                                    }
+                                )
+                                continue
+                    else:
+                        reason = "OVERLAY_OFF"
+
+        buy_px = float(_apply_cost(float(entry_raw), fee, slip, "buy"))
+        if not np.isfinite(buy_px) or buy_px <= 0:
+            fallback_count += 1
+            reason = "BAD_FILL_SANITY_ENTRY"
+            buy_px = float(_apply_cost(entry_open_1h, fee, slip, "buy"))
+            used_1s = False
+            overlay_triggered = False
+            trigger_type = "none"
+
+        equity = float(cash)
+        equity_for_size = float(min(equity, sizing_equity_cap)) if sizing_equity_cap > 0.0 else float(equity)
+        size = _position_size(equity_for_size, buy_px, float(atr_prev[i]), risk_per_trade, max_alloc, atr_k)
+        if size <= 0:
+            skip_count += 1
+            trade_rows.append(
+                {
+                    "opp_id": opp_id,
+                    "symbol": symbol.upper(),
+                    "entry_ts": str(t0),
+                    "exit_ts": str(t0),
+                    "entry_open_1h": float(entry_open_1h),
+                    "first_open_1s": float(first_open_1s) if np.isfinite(first_open_1s) else np.nan,
+                    "mismatch_pct": float(mismatch_pct) if np.isfinite(mismatch_pct) else np.nan,
+                    "used_1s": False,
+                    "triggered": False,
+                    "trigger_type": trigger_type,
+                    "entry_px_final": np.nan,
+                    "exit_px_final": np.nan,
+                    "units": 0.0,
+                    "pnl": 0.0,
+                    "fallback_reason": "SKIP_ZERO_SIZE",
+                }
+            )
+            continue
+        cost = float(size * buy_px)
+        if cost > cash:
+            size = float(cash / max(buy_px, 1e-12))
+            cost = float(size * buy_px)
+        if size <= 0:
+            skip_count += 1
+            continue
+        cash -= float(cost)
+
+        entry_cycle = int(getattr(r, "cycle", cycles[i]))
+        tp_mult = float(p["tp_mult_by_cycle"][entry_cycle])
+        sl_mult = float(p["sl_mult_by_cycle"][entry_cycle])
+        entry_px = float(buy_px)
+        exit_i = len(d) - 1
+        exit_reason = "eod"
+        exit_exec_px = float(c[-1])
+        for j in range(i + 1, len(d)):
+            hold = j - i
+            tp_px = entry_px * tp_mult
+            sl_px = entry_px * sl_mult
+            hit_sl = l[j] <= sl_px
+            hit_tp = h[j] >= tp_px
+            if hit_sl and hit_tp:
+                exit_reason = "sl"
+                exit_exec_px = sl_px
+                exit_i = j
+                break
+            if hit_sl:
+                exit_reason = "sl"
+                exit_exec_px = sl_px
+                exit_i = j
+                break
+            if hit_tp:
+                exit_reason = "tp"
+                exit_exec_px = tp_px
+                exit_i = j
+                break
+            if hold >= max_hold:
+                exit_reason = "maxhold"
+                exit_exec_px = o[j]
+                exit_i = j
+                break
+            ex = float(p["exit_rsi_by_cycle"][int(entry_cycle)]) if entry_cycle is not None else 50.0
+            pnl_ratio = c[j] / entry_px if entry_px > 0 else 1.0
+            if (rsi_prev[j] < ex) and (pnl_ratio > 1.0):
+                exit_reason = "rsi_exit"
+                exit_exec_px = o[j]
+                exit_i = j
+                break
+
+        sell_px = float(_apply_cost(float(exit_exec_px), float(fee_bps), float(slippage_bps), "sell"))
+        proceeds = float(size * sell_px)
+        cash += float(proceeds)
+        if cash > cap_equity_limit + 1e-6:
+            raise RuntimeError(
+                f"BUG: equity cap breach for {symbol} in overlay replay: cash={cash} limit={cap_equity_limit}"
+            )
+        pnl = float((sell_px - entry_px) * size)
+        pnls.append(float(pnl))
+        last_exit_ts = _to_utc_ts(ts.iloc[exit_i])
+
+        exit_first_open = np.nan
+        exit_mismatch = np.nan
+        if _needs_1s_data(cfg):
+            ex_al = _alignment_check(
+                sec,
+                _to_utc_ts(ts.iloc[exit_i]),
+                float(o[exit_i]),
+                window_sec=1,
+                max_gap_sec=float(cfg.alignment_max_gap_sec),
+                tol_pct=float(cfg.alignment_open_tol_pct),
+            )
+            exit_first_open = float(ex_al.first_open) if np.isfinite(ex_al.first_open) else np.nan
+            exit_mismatch = float(ex_al.mismatch_pct) if np.isfinite(ex_al.mismatch_pct) else np.nan
+            if np.isfinite(exit_mismatch):
+                worst_exit_mismatch = max(worst_exit_mismatch, float(exit_mismatch))
+
+        trade_rows.append(
+            {
+                "opp_id": opp_id,
+                "symbol": symbol.upper(),
+                "cycle": int(entry_cycle),
+                "entry_ts": str(t0),
+                "exit_ts": str(_to_utc_ts(ts.iloc[exit_i])),
+                "entry_open_1h": float(entry_open_1h),
+                "first_open_1s": float(first_open_1s) if np.isfinite(first_open_1s) else np.nan,
+                "mismatch_pct": float(mismatch_pct) if np.isfinite(mismatch_pct) else np.nan,
+                "used_1s": bool(used_1s),
+                "triggered": bool(overlay_triggered),
+                "trigger_type": str(trigger_type),
+                "entry_px_final": float(entry_px),
+                "exit_px_final": float(sell_px),
+                "units": float(size),
+                "pnl": float(pnl),
+                "fallback_reason": str(reason),
+                "exit_reason": str(exit_reason),
+                "exit_open_1h": float(o[exit_i]),
+                "exit_first_open_1s": float(exit_first_open) if np.isfinite(exit_first_open) else np.nan,
+                "exit_mismatch_pct": float(exit_mismatch) if np.isfinite(exit_mismatch) else np.nan,
+                "entry_improvement_bps": float(((entry_open_1h - entry_raw) / max(entry_open_1h, 1e-12)) * 1e4),
+            }
+        )
+
+    if cash < -1e-6:
+        raise RuntimeError(f"BUG: overlay replay produced negative cash for {symbol}: {cash}")
+
+    tr = pd.DataFrame(trade_rows)
+    executed = tr[(tr.get("entry_px_final").notna()) & (tr.get("exit_px_final").notna())] if not tr.empty else tr
+    pnl_np = executed["pnl"].astype(float).to_numpy() if not executed.empty else np.array([], dtype=float)
+    metrics = _metrics_from_pnl(float(initial_equity), pnl_np)
+
+    if float(metrics["max_dd"]) > 1.000001:
+        raise RuntimeError(f"BUG: overlay replay DD out of range for long-only {symbol}: {metrics['max_dd']}")
+
+    overlay_trades_count = int(executed.shape[0]) if not executed.empty else 0
+    if overlay_trades_count > int(len(opp)):
+        raise RuntimeError(f"BUG: overlay created extra trades for {symbol}: {overlay_trades_count}>{len(opp)}")
+
+    summary = {
+        "trade_count": int(overlay_trades_count),
+        "opportunities_count": int(len(opp)),
+        "baseline_trades_count": int(len(opp)),
+        "overlay_trades_count": int(overlay_trades_count),
+        "skipped_count": int(skip_count),
+        "skip_rate": float(skip_count / max(1, len(opp))),
+        "alignment_fail_rate": float(align_fail_count / max(1, max(1, signal_count))),
+        "fallback_count": int(fallback_count),
+        "overlay_triggered": int(trig_count),
+        "signals": int(len(opp)),
+        "worst_entry_mismatch_pct": float(worst_entry_mismatch),
+        "worst_exit_mismatch_pct": float(worst_exit_mismatch),
+        "avg_entry_improvement_bps": float(executed["entry_improvement_bps"].mean()) if ("entry_improvement_bps" in executed.columns and not executed.empty) else 0.0,
+        "samples": samples,
+    }
+
+    return {"trades": tr, "metrics": metrics, "debug": summary}
 
 
 # -----------------------------------------------------------------------------

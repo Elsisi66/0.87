@@ -1,1 +1,2 @@
-"""CLI entrypoint package."""
+"""Compatibility CLI package for module execution."""
+

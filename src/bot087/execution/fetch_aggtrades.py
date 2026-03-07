@@ -1,16 +1,14 @@
 from __future__ import annotations
 
 import argparse
-import json
 import time
-import urllib.parse
-import urllib.request
 from pathlib import Path
 from typing import Callable, Dict, List, Optional
 
 import pandas as pd
 
 from .cache import _to_utc_ts
+from .http_retry import FetchRetryError, http_get_json_with_retry
 
 SPOT_BASE = "https://api.binance.com"
 FUTURES_BASE = "https://fapi.binance.com"
@@ -18,13 +16,29 @@ AGG_PATH_SPOT = "/api/v3/aggTrades"
 AGG_PATH_FUTURES = "/fapi/v1/aggTrades"
 
 
-def _http_get_json(base: str, path: str, params: Dict[str, str], timeout: int = 30) -> object:
-    qs = urllib.parse.urlencode(params)
-    url = f"{base}{path}?{qs}"
-    req = urllib.request.Request(url, headers={"User-Agent": "bot087-exec-gate/1.0"})
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        raw = resp.read().decode("utf-8")
-    return json.loads(raw)
+def _http_get_json(
+    base: str,
+    path: str,
+    params: Dict[str, str],
+    *,
+    timeout: int = 30,
+    retries: int = 8,
+    retry_base_sleep_sec: float = 0.5,
+    retry_max_sleep_sec: float = 30.0,
+    log_cb: Optional[Callable[[Dict], None]] = None,
+    log_context: Optional[Dict[str, object]] = None,
+) -> object:
+    return http_get_json_with_retry(
+        base=base,
+        path=path,
+        params=params,
+        timeout=timeout,
+        max_retries=int(retries),
+        retry_base_sleep_sec=float(retry_base_sleep_sec),
+        retry_max_sleep_sec=float(retry_max_sleep_sec),
+        log_cb=log_cb,
+        log_context=log_context,
+    )
 
 
 def fetch_aggtrades(
@@ -36,7 +50,9 @@ def fetch_aggtrades(
     limit: int = 1000,
     max_window_sec: int = 3500,
     pause_sec: float = 0.02,
-    retries: int = 4,
+    retries: int = 8,
+    retry_base_sleep_sec: float = 0.5,
+    retry_max_sleep_sec: float = 30.0,
     log_cb: Optional[Callable[[Dict], None]] = None,
 ) -> pd.DataFrame:
     """Fetch aggTrades in [start_ts, end_ts), chunked and paginated."""
@@ -72,51 +88,46 @@ def fetch_aggtrades(
                 "limit": str(int(limit)),
             }
 
-            ok = False
-            last_err = None
-            batch: List[dict] = []
-            for attempt in range(retries + 1):
-                try:
-                    payload = _http_get_json(base, path, params=params, timeout=30)
-                    if not isinstance(payload, list):
-                        raise RuntimeError(f"Unexpected payload type: {type(payload)}")
-                    batch = payload
-                    req_n += 1
-                    ok = True
-                    if log_cb is not None:
-                        log_cb(
-                            {
-                                "event": "fetch_agg_chunk",
-                                "symbol": symbol.upper(),
-                                "market": market,
-                                "start_ms": page_cursor_ms,
-                                "end_ms": chunk_end_ms,
-                                "rows": len(batch),
-                                "attempt": attempt,
-                            }
-                        )
-                    break
-                except Exception as ex:
-                    last_err = ex
-                    sleep_s = min(10.0, 0.5 * (2 ** attempt))
-                    if log_cb is not None:
-                        log_cb(
-                            {
-                                "event": "fetch_agg_retry",
-                                "symbol": symbol.upper(),
-                                "market": market,
-                                "start_ms": page_cursor_ms,
-                                "end_ms": chunk_end_ms,
-                                "attempt": attempt,
-                                "error": str(ex),
-                                "sleep_sec": sleep_s,
-                            }
-                        )
-                    time.sleep(sleep_s)
-
-            if not ok:
-                raise RuntimeError(
-                    f"fetch_aggtrades failed for {symbol} {page_cursor_ms}-{chunk_end_ms}: {last_err}"
+            try:
+                payload = _http_get_json(
+                    base,
+                    path,
+                    params=params,
+                    timeout=30,
+                    retries=int(retries),
+                    retry_base_sleep_sec=float(retry_base_sleep_sec),
+                    retry_max_sleep_sec=float(retry_max_sleep_sec),
+                    log_cb=log_cb,
+                    log_context={
+                        "fetch_type": "aggtrades",
+                        "symbol": symbol.upper(),
+                        "market": market,
+                        "start_ms": page_cursor_ms,
+                        "end_ms": chunk_end_ms,
+                    },
+                )
+            except FetchRetryError as ex:
+                raise FetchRetryError(
+                    f"fetch_aggtrades failed for {symbol} {page_cursor_ms}-{chunk_end_ms}: {ex}",
+                    reason=str(getattr(ex, "reason", "other")),
+                    attempts=max(1, int(getattr(ex, "attempts", 1))),
+                    status_code=getattr(ex, "status_code", None),
+                    last_error=getattr(ex, "last_error", ex),
+                ) from ex
+            if not isinstance(payload, list):
+                raise RuntimeError(f"Unexpected payload type: {type(payload)}")
+            batch: List[dict] = payload
+            req_n += 1
+            if log_cb is not None:
+                log_cb(
+                    {
+                        "event": "fetch_agg_chunk",
+                        "symbol": symbol.upper(),
+                        "market": market,
+                        "start_ms": page_cursor_ms,
+                        "end_ms": chunk_end_ms,
+                        "rows": len(batch),
+                    }
                 )
 
             if not batch:
@@ -201,7 +212,9 @@ def fetch_precision_1s_from_aggtrades(
     limit: int = 1000,
     max_window_sec: int = 3500,
     pause_sec: float = 0.02,
-    retries: int = 4,
+    retries: int = 8,
+    retry_base_sleep_sec: float = 0.5,
+    retry_max_sleep_sec: float = 30.0,
     log_cb: Optional[Callable[[Dict], None]] = None,
 ) -> pd.DataFrame:
     agg = fetch_aggtrades(
@@ -213,6 +226,8 @@ def fetch_precision_1s_from_aggtrades(
         max_window_sec=max_window_sec,
         pause_sec=pause_sec,
         retries=retries,
+        retry_base_sleep_sec=retry_base_sleep_sec,
+        retry_max_sleep_sec=retry_max_sleep_sec,
         log_cb=log_cb,
     )
     return aggtrades_to_1s_ohlcv(agg)
