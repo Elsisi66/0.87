@@ -1,0 +1,15 @@
+{
+  "cash_eur": 187.24189721473252,
+  "degraded_mode": true,
+  "fees_paid_eur": 86.29456379111366,
+  "initial_equity_eur": 320.0,
+  "last_summary_date": "20260227",
+  "last_updated_utc": "2026-02-28T00:03:16.059479+00:00",
+  "losses": 259,
+  "mode_note": "degraded",
+  "realized_pnl_eur": -132.75810278526757,
+  "slippage_paid_eur": 88.36423184230013,
+  "trade_count_closed": 260,
+  "trade_count_opened": 260,
+  "wins": 1
+}

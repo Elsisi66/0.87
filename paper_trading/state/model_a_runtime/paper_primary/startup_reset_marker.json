@@ -1,0 +1,8 @@
+{
+  "archive_dir": "/root/analysis/0.87/paper_trading/state/model_a_runtime/paper_primary/archive/model_a_reset_20260228_030146",
+  "candidate_id": "M3_ENTRY_ONLY_FASTER_C_WIN_02",
+  "event": "startup_reset",
+  "generated_utc": "2026-02-28T03:01:46.664841+00:00",
+  "role": "paper_primary",
+  "start_from_bar_ts": "2025-11-10T16:00:00+00:00"
+}

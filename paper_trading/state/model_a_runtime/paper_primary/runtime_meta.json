@@ -1,0 +1,9 @@
+{
+  "book_role": "paper_primary",
+  "candidate_id": "M3_ENTRY_ONLY_FASTER_C_WIN_02",
+  "forward_only_mode": true,
+  "last_cycle_completed_utc": "2026-02-28T03:01:48.417082+00:00",
+  "last_processed_1h_bar_ts": "2025-11-14T16:00:00+00:00",
+  "model_a_purity": true,
+  "start_from_bar_ts": "2025-11-10T16:00:00+00:00"
+}

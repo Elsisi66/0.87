@@ -1,0 +1,10 @@
+{
+  "anchor_failures": [],
+  "anchor_reason": "hard_reset_now",
+  "backlog_replay_disabled": true,
+  "forward_only_mode": true,
+  "last_global_processed_bar_ts": null,
+  "last_reset_utc": "2026-02-28T01:03:14.486443+00:00",
+  "start_from_bar_ts": "2025-12-31T23:00:00+00:00",
+  "state_archive_dir": "/root/analysis/0.87/paper_trading/state/archive/hard_reset_20260228_010245"
+}

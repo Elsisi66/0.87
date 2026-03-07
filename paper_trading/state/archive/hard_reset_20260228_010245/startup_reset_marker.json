@@ -1,0 +1,26 @@
+{
+  "actions": [
+    "local_positions_reset_to_zero:13_symbols",
+    "processed_bar_markers_initialized:13"
+  ],
+  "generated_utc": "2026-02-27T11:34:06.112560+00:00",
+  "marker_failures": [],
+  "reset_flag": "local_hard_reset_applied",
+  "reset_mode": "local_hard_reset",
+  "start_equity_eur": 320.0,
+  "symbols": [
+    "ADAUSDT",
+    "AVAXUSDT",
+    "AXSUSDT",
+    "BCHUSDT",
+    "CRVUSDT",
+    "DOGEUSDT",
+    "LINKUSDT",
+    "LTCUSDT",
+    "NEARUSDT",
+    "SOLUSDT",
+    "TRXUSDT",
+    "XRPUSDT",
+    "ZECUSDT"
+  ]
+}

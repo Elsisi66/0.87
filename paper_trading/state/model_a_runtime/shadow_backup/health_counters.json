@@ -1,0 +1,11 @@
+{
+  "api_failures": 0,
+  "api_retries": 0,
+  "degraded_mode": false,
+  "execution_errors": 0,
+  "quarantined_symbols": 0,
+  "recovery_events": 0,
+  "signal_errors": 0,
+  "strategy_health": "GREEN",
+  "telegram_errors": 0
+}

@@ -1,0 +1,15 @@
+{
+  "cash_eur": 317.756759666446,
+  "degraded_mode": false,
+  "fees_paid_eur": 0.7271555528580849,
+  "initial_equity_eur": 320.0,
+  "last_summary_date": null,
+  "last_updated_utc": "2026-02-28T03:01:48.478688+00:00",
+  "losses": 4,
+  "mode_note": "startup",
+  "realized_pnl_eur": -2.2432403335540068,
+  "slippage_paid_eur": 0.3029410558771674,
+  "trade_count_closed": 4,
+  "trade_count_opened": 4,
+  "wins": 0
+}

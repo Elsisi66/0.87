@@ -1,0 +1,2 @@
+# Used only if no canonical passed artifact can be resolved.
+SOLUSDT

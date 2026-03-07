@@ -1,0 +1,39 @@
+{
+  "candidates": [
+    {
+      "candidate_id": "M3_ENTRY_ONLY_FASTER_C_WIN_02",
+      "cluster_id": 6,
+      "entry_mode": "limit",
+      "expected_delta_vs_1h_reference": 0.0021298751745981,
+      "expected_exec_expectancy_net": 0.0012119494819776,
+      "expected_p95_fill_delay_min": 3.0,
+      "expected_taker_share": 0.0194444444444444,
+      "fallback_delay_min": 3.0,
+      "fallback_to_market": 1,
+      "limit_offset_bps": 0.35,
+      "max_fill_delay_min": 13.0,
+      "role": "paper_primary",
+      "seed_cluster_id": 1,
+      "seed_origin": "M3_ENTRY_ONLY_FASTER"
+    },
+    {
+      "candidate_id": "M2_ENTRY_ONLY_MORE_PASSIVE_NOFB_C_FB_ON",
+      "cluster_id": 4,
+      "entry_mode": "limit",
+      "expected_delta_vs_1h_reference": 0.0020949016201163,
+      "expected_exec_expectancy_net": 0.0011769759274958,
+      "expected_p95_fill_delay_min": 3.0,
+      "expected_taker_share": 0.0305555555555555,
+      "fallback_delay_min": 1.0,
+      "fallback_to_market": 1,
+      "limit_offset_bps": 1.5,
+      "max_fill_delay_min": 45.0,
+      "role": "shadow_backup",
+      "seed_cluster_id": 4,
+      "seed_origin": "M2_ENTRY_ONLY_MORE_PASSIVE_NOFB"
+    }
+  ],
+  "generated_utc": "2026-02-28T03:01:45.486542+00:00",
+  "params_path": "/root/analysis/0.87/data/metadata/params/SOLUSDT_C13_active_params_long.json",
+  "symbol": "SOLUSDT"
+}
