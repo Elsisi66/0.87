@@ -1,0 +1,19 @@
+{
+  "generated_utc": "2026-03-07T00:03:02.138744+00:00",
+  "posture_freeze_dir": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126",
+  "quote_assets": {
+    "SOLUSDT": "USDT"
+  },
+  "source_path": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126/repaired_active_3m_subset.csv",
+  "source_priority": "repaired_posture_active_subset",
+  "symbol_params": {
+    "SOLUSDT": "/root/analysis/0.87/reports/execution_layer/REPAIRED_BRANCH_3M_POSTURE_FREEZE_20260306_194126/repaired_active_3m_params/SOLUSDT_repaired_selected_params.json"
+  },
+  "symbols": [
+    "SOLUSDT"
+  ],
+  "unresolved_symbols": [],
+  "winner_config_ids": {
+    "SOLUSDT": "M1_ENTRY_ONLY_PASSIVE_BASELINE"
+  }
+}
