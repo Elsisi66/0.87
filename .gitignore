@@ -20,3 +20,9 @@ Thumbs.db
 
 # Data / outputs (don’t upload)
 
+# Secrets / local runtime credentials
+.env
+.env.*
+paper_trading/config/.env
+paper_trading/config/.env.*
+!paper_trading/config/.env.example

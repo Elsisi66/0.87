@@ -3,12 +3,20 @@ from __future__ import annotations
 from typing import Iterable
 
 
-def redact_secret(value: str | None, keep_prefix: int = 4, keep_suffix: int = 2) -> str:
+def redact_secret(value: str | None, keep_prefix: int = 0, keep_suffix: int = 0) -> str:
     if not value:
         return ""
-    if len(value) <= keep_prefix + keep_suffix:
-        return "*" * len(value)
-    return f"{value[:keep_prefix]}***{value[-keep_suffix:]}"
+
+    text = str(value)
+    prefix = max(0, int(keep_prefix))
+    suffix = max(0, int(keep_suffix))
+
+    # Default behavior fully redacts secret material to prevent partial leakage.
+    if prefix == 0 and suffix == 0:
+        return "[REDACTED]"
+    if len(text) <= prefix + suffix:
+        return "[REDACTED]"
+    return f"{text[:prefix]}***{text[-suffix:]}"
 
 
 def redact_text(text: str, secrets: Iterable[str | None]) -> str:
