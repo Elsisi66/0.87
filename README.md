@@ -76,41 +76,6 @@ Key launch scripts:
 - `data/`: processed market datasets and caches
 - `tests/`: unit tests (currently minimal)
 
-## How To Run
-
-This repo currently has no pinned dependency manifest (`requirements.txt`, `pyproject.toml`, etc.), so the expected environment is the existing local venv.
-
-### Common Commands
-
-```bash
-cd /root/analysis/0.87
-export PYTHONPATH=/root/analysis/0.87
-```
-
-Run one paper cycle (no startup reset):
-
-```bash
-/root/analysis/0.87/.venv/bin/python -m paper_trading.app.main --once --max-cycles 1 --no-startup-reset
-```
-
-Run smoke test:
-
-```bash
-BINANCE_MODE=local_only PYTHONPATH=/root/analysis/0.87 /root/analysis/0.87/.venv/bin/python /root/analysis/0.87/paper_trading/scripts/smoke_test.py
-```
-
-Start daemon mode:
-
-```bash
-bash /root/analysis/0.87/paper_trading/scripts/run_paper_daemon.sh
-```
-
-Execution gate check (example):
-
-```bash
-/root/analysis/0.87/.venv/bin/python -m src.bot087.cli.exec_gate --symbol SOLUSDT --trades-csv <path_to_trades_csv>
-```
-
 ## Tests And Validation History
 
 This section summarizes executed tests/checks captured in prior run reports.
@@ -120,26 +85,6 @@ This section summarizes executed tests/checks captured in prior run reports.
 - Attempted: `/root/analysis/0.87/.venv/bin/python -m pytest -q`
 - Result: not runnable in current environment (`No module named pytest`)
 
-### Paper Runtime Validation (P/T phases)
-
-1. `P2` parity check (2026-02-27): `overall_parity_ok=true`, structural mismatches zero on sampled symbols.
-   - `paper_trading/reports/paper_phaseP2_parity_check_report.md`
-2. `P3` recovery controls verified (retry/backoff, circuit breaker, quarantine, dead-letter).
-   - `paper_trading/reports/paper_phaseP3_recovery_report.md`
-3. `P4` smoke/idempotency: no backlog replay; restart idempotent.
-   - `paper_trading/reports/paper_phaseP4_smoke_report.md`
-4. `P5` readiness checklist: all items checked, including cron hourly scan install.
-   - `paper_trading/reports/paper_phaseP5_readiness_checklist.md`
-5. `T1` repair: forward-only anchoring + backlog replay disable confirmed.
-   - `paper_trading/reports/paper_phaseT1_repair_report.md`
-6. `T3` parity semantics reconfirmed (signal timing + SL-first tie behavior).
-   - `paper_trading/reports/paper_phaseT3_parity_report.md`
-7. `T4` repaired smoke: zero backlog fills and restart duplication.
-   - `paper_trading/reports/paper_phaseT4_smoke_report.md`
-8. `T5` post-reset status: 320 EUR reset, forward-only mode active.
-   - `paper_trading/reports/paper_phaseT5_post_reset_status.md`
-9. Launch validation: hourly scan script manual run completed.
-   - `paper_trading/reports/paper_phaseP5_launch_report.md`
 
 ### Execution/Research Validation
 
